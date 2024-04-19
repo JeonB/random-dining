@@ -8,6 +8,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
     'plugin:react/recommended',
+    'prettier',
   ],
   overrides: [
     {
@@ -17,6 +18,12 @@ module.exports = {
       files: ['**/*.js'],
       parserOptions: {
         sourceType: 'script',
+      },
+    },
+    {
+      files: ['__test__/**/*'],
+      env: {
+        jest: true,
       },
     },
   ],
@@ -48,4 +55,4 @@ module.exports = {
     '@typescript-eslint/no-unsafe-argument': 'off',
     '@typescript-eslint/no-var-requires': 'off',
   },
-};
+}

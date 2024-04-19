@@ -1,3 +1,3 @@
 export interface RootStackParamList {
-  Detail: { url: string };
+  Detail: { url: string }
 }

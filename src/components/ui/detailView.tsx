@@ -1,13 +1,13 @@
-import React from "react";
-import { StyleSheet, View, Dimensions } from "react-native";
-import WebView from "react-native-webview";
-import { useRoute } from "@react-navigation/native";
+import React from 'react'
+import { StyleSheet, View, Dimensions } from 'react-native'
+import WebView from 'react-native-webview'
+import { useRoute } from '@react-navigation/native'
 
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
+const windowWidth = Dimensions.get('window').width
+const windowHeight = Dimensions.get('window').height
 
 export const DetailView: React.FC = () => {
-  const route = useRoute<any>();
+  const route = useRoute<any>()
 
   return (
     <View style={styles.container}>
@@ -17,14 +17,14 @@ export const DetailView: React.FC = () => {
         javaScriptEnabled={true}
       />
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "space-between",
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 
   webview: {
@@ -32,4 +32,4 @@ const styles = StyleSheet.create({
     width: windowWidth,
     height: windowHeight,
   },
-});
+})
