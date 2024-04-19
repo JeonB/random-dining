@@ -1,0 +1,29 @@
+stages:
+  - build
+  - deploy
+
+default:
+  tags:
+    - develop
+services:
+  - docker:24.0.9-dind
+
+build-job:
+  stage: build
+  script:
+    - echo "Compiling the code..."
+    - echo "build"
+    - docker build -t random-mobile:latest -f $CI_PROJECT_DIR/apps/mobile-app/Dockerfile .
+  only:
+    - master
+
+deploy-job:
+  stage: deploy
+  script:
+    - echo "Start deploy ..."
+    - cd $CI_PROJECT_DIR/apps/mobile-app
+    - docker-compose -f ./app.yml up -d
+  after_script:
+    - docker rmi $(docker images -f "dangling=true" -q) || true
+  only:
+    - master
