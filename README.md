@@ -1,5 +1,5 @@
-
-[![image.png](https://i.postimg.cc/mgjMxBWN/image.png)](https://postimg.cc/qNtgyfRz)
+[![image.png](https://i.postimg.cc/SxgXTdcg/image.png)](https://postimg.cc/cv846Q93)
+[![image.png](https://i.postimg.cc/bNTdrgVq/image.png)](https://postimg.cc/xcX9FvSZ)
 
 1. **요구 사항 분석**: 
     
@@ -59,9 +59,7 @@
     
     > FrontEnd
     - React, ReactNative, Typescript 
-    BackEnd
-    - Fastify, NestJS,  TypeORM, PostgreSQL
-    > 
+
 7. **테스트 및 디버깅**: 
     
     > 테스트 라이브러리 
