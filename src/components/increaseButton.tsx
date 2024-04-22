@@ -8,7 +8,9 @@ const IncreaseButton = () => {
     setCount(count + 1)
   }
 
-  return <Button title={`버튼 숫자 ${count}`} onPress={increase} />
+  return (
+    <Button testID="count" title={`버튼 숫자 ${count}`} onPress={increase} />
+  )
 }
 
 export default IncreaseButton
