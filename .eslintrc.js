@@ -15,13 +15,13 @@ module.exports = {
       env: {
         node: true,
       },
-      files: ['**/*.test.*'],
+      files: ['**/*.js'],
       parserOptions: {
         sourceType: 'script',
       },
     },
     {
-      files: ['__test__/**/*'],
+      files: ['**/*.test.*'],
       env: {
         jest: true,
       },
