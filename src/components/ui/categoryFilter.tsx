@@ -1,43 +1,43 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { FiltersProps, FilterButtonProps } from '@_types/filter';
+import React, { useState, useEffect } from 'react'
+import { View, Text, TouchableOpacity } from 'react-native'
+import { FiltersProps, FilterButtonProps } from '@_types/filter'
 
 const Filters: React.FC<FiltersProps> = ({ data, onValueChange }) => {
-  const [selectedIndices, setSelectedIndices] = useState<number[]>([0]);
+  const [selectedIndices, setSelectedIndices] = useState<number[]>([0])
   useEffect(() => {
-    handleToggleSelection(0);
-  }, []);
+    handleToggleSelection(0)
+  }, [])
 
   const handleToggleSelection = (index: number) => {
-    let newSelectedIndices = [...selectedIndices];
+    let newSelectedIndices = [...selectedIndices]
 
     if (index === 0) {
-      newSelectedIndices = [0];
+      newSelectedIndices = [0]
     } else {
       newSelectedIndices = newSelectedIndices.includes(0)
         ? [index]
         : newSelectedIndices.includes(index)
           ? newSelectedIndices.filter(idx => idx !== index)
-          : [...newSelectedIndices, index];
+          : [...newSelectedIndices, index]
 
       if (newSelectedIndices.length === data.length - 1) {
-        newSelectedIndices = [0];
+        newSelectedIndices = [0]
       }
     }
 
     if (newSelectedIndices.length === 0) {
-      newSelectedIndices = [0];
+      newSelectedIndices = [0]
     }
 
-    setSelectedIndices(newSelectedIndices);
+    setSelectedIndices(newSelectedIndices)
 
     if (onValueChange) {
       const selectedValues = newSelectedIndices.map(
         selectedIndex => data[selectedIndex].value,
-      );
-      onValueChange(selectedValues);
+      )
+      onValueChange(selectedValues)
     }
-  };
+  }
 
   return (
     <View style={{ flexDirection: 'row' }}>
@@ -50,8 +50,8 @@ const Filters: React.FC<FiltersProps> = ({ data, onValueChange }) => {
         />
       ))}
     </View>
-  );
-};
+  )
+}
 
 const FilterButton: React.FC<FilterButtonProps> = ({
   onPress,
@@ -71,7 +71,7 @@ const FilterButton: React.FC<FilterButtonProps> = ({
       }}>
       <Text style={{ color: isSelected ? 'white' : '#003366' }}>{text}</Text>
     </TouchableOpacity>
-  );
-};
+  )
+}
 
-export default Filters;
+export default Filters

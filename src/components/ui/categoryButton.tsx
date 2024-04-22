@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import Filters from '@_components/ui/categoryFilter';
+import React, { useState } from 'react'
+import Filters from '@_components/ui/categoryFilter'
 
 interface CategoryButtonProps {
-  category: string[];
-  setCategory: React.Dispatch<React.SetStateAction<string[]>>;
+  category: string[]
+  setCategory: React.Dispatch<React.SetStateAction<string[]>>
 }
 
 const FILTER_DATA = [
@@ -13,13 +13,13 @@ const FILTER_DATA = [
   { label: '중식', value: '중식' },
   { label: '양식', value: '양식' },
   { label: '분식', value: '분식' },
-];
+]
 
 const CategoryButton = ({ category, setCategory }: CategoryButtonProps) => {
   const handleCategoryChange = (selectedValues: string[]) => {
-    setCategory(selectedValues);
-  };
+    setCategory(selectedValues)
+  }
 
-  return <Filters data={FILTER_DATA} onValueChange={handleCategoryChange} />;
-};
-export default CategoryButton;
+  return <Filters data={FILTER_DATA} onValueChange={handleCategoryChange} />
+}
+export default CategoryButton

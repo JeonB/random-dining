@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Dimensions, StyleSheet } from 'react-native'
 import { WebView } from 'react-native-webview'
-import { Restaurant } from '@_types/Restaurant'
+import { Restaurant } from '@_types/restaurant'
 import Constants from 'expo-constants'
 import { AppConfig } from 'app.config'
 

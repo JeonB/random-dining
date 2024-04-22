@@ -8,6 +8,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "web-storybook": "STORYBOOK_ENABLED='true' expo start --web",
     "test": "jest",
     "test:watch": "jest --watch",
     "storybook-generate": "sb-rn-get-stories",

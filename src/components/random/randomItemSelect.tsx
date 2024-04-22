@@ -2,7 +2,8 @@ import { Text } from '@rneui/themed'
 import React, { useEffect, useRef } from 'react'
 import { Animated, View, StyleSheet } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
-import { Restaurant } from '@_types/Restaurant'
+import { Restaurant } from '@_types/restaurant'
+
 interface Props {
   items: Restaurant[]
   onIndexChange: (index: number) => void

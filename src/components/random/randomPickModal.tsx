@@ -1,13 +1,14 @@
-import { Modal, View, StyleSheet } from 'react-native';
-import { Button } from 'react-native-paper';
-import { RandomItemSelect } from '@_components/random/randomItemSelect';
-import { Restaurant } from '@_types/Restaurant';
+import { Modal, View, StyleSheet } from 'react-native'
+import { Button } from 'react-native-paper'
+import { RandomItemSelect } from '@_components/random/randomItemSelect'
+import { Restaurant } from '@_types/restaurant'
+import React from 'react'
 
 interface RandomPickerModalProps {
-  visible: boolean;
-  info: Restaurant[];
-  onClose: () => void;
-  onIndexChange: (index: number) => void;
+  visible: boolean
+  info: Restaurant[]
+  onClose: () => void
+  onIndexChange: (index: number) => void
 }
 
 export const RandomPickerModal: React.FC<RandomPickerModalProps> = ({
@@ -27,8 +28,8 @@ export const RandomPickerModal: React.FC<RandomPickerModalProps> = ({
         <Button onPress={onClose}>Close</Button>
       </View>
     </Modal>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   modal: {
@@ -36,4 +37,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-});
+})

@@ -1,12 +1,12 @@
-import React from 'react';
-import { Restaurant } from '@_types/Restaurant';
-import { DataTable, Icon } from 'react-native-paper';
-import { StyleSheet } from 'react-native';
+import React from 'react'
+import { Restaurant } from '@_types/restaurant'
+import { DataTable, Icon } from 'react-native-paper'
+import { StyleSheet } from 'react-native'
 
 export default function RestaurantInfo({
   info,
 }: {
-  info: Restaurant | undefined;
+  info: Restaurant | undefined
 }) {
   return (
     <DataTable style={{ padding: 5 }}>
@@ -39,7 +39,7 @@ export default function RestaurantInfo({
         <DataTable.Cell style={styles.table}>{info?.phone}</DataTable.Cell>
       </DataTable.Row>
     </DataTable>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -47,4 +47,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-});
+})

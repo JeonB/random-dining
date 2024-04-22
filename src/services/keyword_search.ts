@@ -1,10 +1,9 @@
 import { QueryParamsType } from '@_types/queryParams'
-import { Restaurant } from '@_types/Restaurant'
+import { Restaurant } from '@_types/restaurant'
 import Constants from 'expo-constants'
-// import { KAKAO_RESTAPI_KEY } from '@env';
-// require('dotenv').config();
-const baseUrl = 'https://dapi.kakao.com/v2/local/search/keyword'
 import { AppConfig } from 'app.config'
+
+const baseUrl = 'https://dapi.kakao.com/v2/local/search/keyword'
 const { KAKAO_RESTAPI_KEY } = Constants.expoConfig?.extra as AppConfig
 const restAPIkey = KAKAO_RESTAPI_KEY
 
@@ -37,7 +36,7 @@ async function fetchData(params: QueryParamsType) {
 }
 
 async function handleData(params: QueryParamsType) {
-  let allData: Restaurant[] = [] // 전체 데이터를 저장할 배열
+  const allData: Restaurant[] = [] // 전체 데이터를 저장할 배열
   let pageCount = 1
   let paramsCopy = { ...params }
   try {

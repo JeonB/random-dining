@@ -4,6 +4,7 @@ import * as Location from 'expo-location'
 import { QueryParamsType } from '@_types/queryParams'
 import Constants from 'expo-constants'
 import { AppConfig } from 'app.config'
+
 const { KAKAO_RESTAPI_KEY } = Constants.expoConfig?.extra as AppConfig
 const baseUrl = 'https://dapi.kakao.com/v2/local/search/keyword'
 const restAPIkey = KAKAO_RESTAPI_KEY

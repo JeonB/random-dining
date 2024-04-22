@@ -1,9 +1,9 @@
-import React from 'react';
-import { View } from 'react-native';
-import { RadioButton } from 'react-native-paper';
+import React from 'react'
+import { View } from 'react-native'
+import { RadioButton } from 'react-native-paper'
 interface GroupRadioButtonProps {
-  category: string;
-  setCategory: React.Dispatch<React.SetStateAction<string>>;
+  category: string
+  setCategory: React.Dispatch<React.SetStateAction<string>>
 }
 const GroupRadioButton = ({ category, setCategory }: GroupRadioButtonProps) => {
   return (
@@ -49,7 +49,7 @@ const GroupRadioButton = ({ category, setCategory }: GroupRadioButtonProps) => {
         status={category === '분식' ? 'checked' : 'unchecked'}
       />
     </View>
-  );
-};
+  )
+}
 
-export default GroupRadioButton;
+export default GroupRadioButton

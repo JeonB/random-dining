@@ -14,7 +14,7 @@ import CategoryButton from '@_components/ui/categoryButton'
 import { RandomPickerModal } from '@_components/random/randomPickModal'
 import { useNavigation, NavigationProp } from '@react-navigation/native'
 import { fetchData } from '@_services/api'
-import { Restaurant } from '@_types/Restaurant'
+import { Restaurant } from '@_types/restaurant'
 import { RootStackParamList } from '@_types/navigation'
 import Map from '@_components/ui/map'
 
