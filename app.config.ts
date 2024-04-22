@@ -1,9 +1,16 @@
-module.exports = {
+import 'dotenv/config'
+export interface AppConfig {
+  KAKAO_RESTAPI_KEY: string
+  KAKAO_JAVASCRIPT_KEY: string
+}
+export default {
   name: 'random-dining',
   slug: 'random-dining',
   version: '1.0.0',
   extra: {
     storybookEnabled: process.env.STORYBOOK_ENABLED,
+    KAKAO_RESTAPI_KEY: process.env.KAKAO_RESTAPI_KEY,
+    KAKAO_JAVASCRIPT_KEY: process.env.KAKAO_JAVASCRIPT_KEY,
   },
   orientation: 'portrait',
   icon: './assets/icon.png',
@@ -26,4 +33,4 @@ module.exports = {
   web: {
     favicon: './assets/favicon.png',
   },
-};
+}
