@@ -1,4 +1,4 @@
-import 'dotenv/config'
+const dotenv = require('dotenv/config')
 export interface AppConfig {
   KAKAO_RESTAPI_KEY: string
   KAKAO_JAVASCRIPT_KEY: string

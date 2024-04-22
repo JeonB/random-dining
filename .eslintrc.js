@@ -15,7 +15,7 @@ module.exports = {
       env: {
         node: true,
       },
-      files: ['**/*.js'],
+      files: ['**/*.test.*'],
       parserOptions: {
         sourceType: 'script',
       },

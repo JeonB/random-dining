@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Dimensions, StyleSheet } from 'react-native'
 import { WebView } from 'react-native-webview'
-// import { KAKAO_JAVASCRIPT_KEY } from '@env'
 import { Restaurant } from '@_types/Restaurant'
 import Constants from 'expo-constants'
 import { AppConfig } from 'app.config'
@@ -9,24 +8,11 @@ import { AppConfig } from 'app.config'
 interface MapProps {
   info: Restaurant
 }
-// async function getKakaoJavascriptKey() {
-//   const manifest = await Constants.getManifest()
-//   const { KAKAO_JAVASCRIPT_KEY } = manifest.extra as AppConfig
-//   return KAKAO_JAVASCRIPT_KEY // KAKAO_JAVASCRIPT_KEY를 사용하는 코드
-// }
 const Map: React.FC<MapProps> = ({ info }) => {
   const [html, setHtml] = useState('')
-  // const [appKey, setAppKey] = useState('')
-  // const appKey = getKakaoJavascriptKey()
   const { KAKAO_JAVASCRIPT_KEY } = Constants.expoConfig?.extra as AppConfig
   const appKey = KAKAO_JAVASCRIPT_KEY
   useEffect(() => {
-    // async function fetchAppKey() {
-    //   const key = await getKakaoJavascriptKey()
-    //   setAppKey(key)
-    // }
-
-    // fetchAppKey()
     const newHtml = `
     <html>
         <head>
