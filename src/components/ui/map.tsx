@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import { Dimensions, StyleSheet } from 'react-native'
-import { WebView } from 'react-native-webview'
-import { KAKAO_JAVASCRIPT_KEY } from '@env'
-import { Restaurant } from '@_types/Restaurant'
+import React, { useEffect, useState } from 'react';
+import { Dimensions, StyleSheet } from 'react-native';
+import { WebView } from 'react-native-webview';
+import { KAKAO_JAVASCRIPT_KEY } from '@env';
+import { Restaurant } from '@_types/Restaurant';
 
 interface MapProps {
-  info: Restaurant
+  info: Restaurant;
 }
 
 const Map: React.FC<MapProps> = ({ info }) => {
-  const [html, setHtml] = useState('')
-  const appKey = KAKAO_JAVASCRIPT_KEY
+  const [html, setHtml] = useState('');
+  const appKey = KAKAO_JAVASCRIPT_KEY;
 
   useEffect(() => {
     const newHtml = `
@@ -70,9 +70,9 @@ const Map: React.FC<MapProps> = ({ info }) => {
             </script>
         </body>
     </html>
-`
-    setHtml(newHtml)
-  }, [info, appKey])
+`;
+    setHtml(newHtml);
+  }, [info, appKey]);
 
   return (
     <WebView
@@ -80,10 +80,10 @@ const Map: React.FC<MapProps> = ({ info }) => {
       source={{ html: html }}
       javaScriptEnabled={true}
     />
-  )
-}
+  );
+};
 
-export default Map
+export default Map;
 
 const styles = StyleSheet.create({
   container: {
@@ -95,4 +95,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-})
+});

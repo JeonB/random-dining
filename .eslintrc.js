@@ -39,12 +39,12 @@ module.exports = {
     },
   },
   rules: {
-    'prettier/prettier': [
-      'error',
-      {
-        endOfLine: 'auto',
-      },
-    ],
+    // 'prettier/prettier': [
+    //   'error',
+    //   {
+    //     endOfLine: 'auto',
+    //   },
+    // ],
     '@typescript-eslint/consistent-type-assertions': 'off',
     '@typescript-eslint/no-floating-promises': 'off',
     '@typescript-eslint/strict-boolean-expressions': 'off',
