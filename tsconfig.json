@@ -1,6 +1,8 @@
 {
   "extends": "@tsconfig/react-native/tsconfig.json",
   "compilerOptions": {
+    "target": "ES5",
+    "module": "CommonJS",
     "baseUrl": ".",
     "paths": {
       "*": ["*"],
@@ -9,6 +11,7 @@
       "@_types/*": ["src/types/*"],
       "@_services/*": ["src/services/*"]
     },
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react"
   }
 }
