@@ -78,6 +78,7 @@ export function Main() {
       return
     }
 
+    console.log(allData)
     setInfo(allData)
     setShowRandomPicker(true)
     setShowRandomPickButton(false)
