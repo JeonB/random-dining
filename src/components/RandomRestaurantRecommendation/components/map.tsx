@@ -5,10 +5,10 @@ import { Restaurant } from '@_types/restaurant'
 import Constants from 'expo-constants'
 import { AppConfig } from 'app.config'
 
-interface MapProps {
+export interface MapProps {
   info: Restaurant
 }
-const Map: React.FC<MapProps> = ({ info }) => {
+export const Map: React.FC<MapProps> = ({ info }) => {
   const [html, setHtml] = useState('')
   const { KAKAO_JAVASCRIPT_KEY } = Constants.expoConfig?.extra as AppConfig
   const appKey = KAKAO_JAVASCRIPT_KEY
@@ -79,11 +79,10 @@ const Map: React.FC<MapProps> = ({ info }) => {
       style={styles.container}
       source={{ html: html }}
       javaScriptEnabled={true}
+      testID="map"
     />
   )
 }
-
-export default Map
 
 const styles = StyleSheet.create({
   container: {

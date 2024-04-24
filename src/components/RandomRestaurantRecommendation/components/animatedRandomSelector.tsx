@@ -1,7 +1,7 @@
 import { Text } from '@rneui/themed'
 import React, { useEffect, useRef } from 'react'
 import { Animated, View, StyleSheet } from 'react-native'
-// import { LinearGradient } from 'expo-linear-gradient'
+import { LinearGradient } from 'expo-linear-gradient'
 import { Restaurant } from '@_types/restaurant'
 
 export interface Props {
@@ -93,15 +93,14 @@ export const AnimatedRandomSelector: React.FC<Props> = props => {
           marginHorizontal: 5,
         }}
       />
-      {/* 그라데이션 */}
-      {/* <LinearGradient
+      <LinearGradient
         colors={[
           'rgba(255, 255, 255, 0.8)',
           'rgba(255, 255, 255, 0)',
           'rgba(255, 255, 255, 0.8)',
         ]}
         style={styles.gradient}
-      /> */}
+      />
     </View>
   )
 }
