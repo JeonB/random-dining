@@ -8,7 +8,7 @@ import { AppConfig } from 'app.config'
 export interface MapProps {
   info: Restaurant
 }
-export const Map: React.FC<MapProps> = ({ info }) => {
+export const Map = ({ info }: MapProps) => {
   const [html, setHtml] = useState('')
   const { KAKAO_JAVASCRIPT_KEY } = Constants.expoConfig?.extra as AppConfig
   const appKey = KAKAO_JAVASCRIPT_KEY
@@ -24,7 +24,7 @@ export const Map: React.FC<MapProps> = ({ info }) => {
                 align-items: center;
                 height: 100%;
                 margin: 0;
-                padding: 0; 
+                padding: 0;
             }
             #map {
                 width: 100%;
@@ -54,7 +54,7 @@ export const Map: React.FC<MapProps> = ({ info }) => {
                     // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
                     const markerPosition  = new kakao.maps.LatLng(${
                       info ? info.y : 37.5676859104888
-                    }, ${info ? info.x : 126.82597944995}); 
+                    }, ${info ? info.x : 126.82597944995});
 
                     // 마커를 생성합니다
                     const marker = new kakao.maps.Marker({

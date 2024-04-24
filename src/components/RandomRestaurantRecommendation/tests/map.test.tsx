@@ -32,18 +32,24 @@ const RestaurantInfo: Restaurant = {
 }
 //
 describe('음식점 지도 렌더링 테스트', () => {
-  it('음식점 지도가 정상적으로 렌더링 되는지 확인', () => {
+  test('음식점 지도가 정상적으로 렌더링 되는지 확인', () => {
     const { getByTestId } = render(<Map info={RestaurantInfo} />)
     // Map 컴포넌트가 정상적으로 렌더링 되었는지 확인
     expect(getByTestId('map')).toBeTruthy()
     const webView = getByTestId('map')
-
-    // api키가 제대로 전달되었는지 확인
+  })
+  // api키가 제대로 전달되었는지 확인
+  test('api키가 제대로 전달되었는지 확인', () => {
+    const { getByTestId } = render(<Map info={RestaurantInfo} />)
+    const webView = getByTestId('map')
     expect(webView.props.children).toContain(
       'https://dapi.kakao.com/v2/maps/sdk.js?appkey=1234',
     )
-
-    // 지도가 정상적으로 생성되었는지 확인
+  })
+  // 지도가 정상적으로 생성되었는지 확인
+  test('지도가 정상적으로 생성되었는지 확인', () => {
+    const { getByTestId } = render(<Map info={RestaurantInfo} />)
+    const webView = getByTestId('map')
     expect(webView.props.children).toContain(
       "const container = document.getElementById('map')",
     )
