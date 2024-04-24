@@ -4,7 +4,7 @@ import { AnimatedRandomSelector } from '../components/animatedRandomSelector'
 import { Restaurant } from 'src/types/restaurant'
 
 describe('AnimatedRandomSelector', () => {
-  it('정상적으로 렌더링되는지 확인', () => {
+  test('정상적으로 렌더링되는지 확인', () => {
     const items = [
       { place_name: '봉이밥' },
       { place_name: '긴자료코' },

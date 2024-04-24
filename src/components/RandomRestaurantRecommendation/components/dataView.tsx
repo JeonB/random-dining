@@ -11,7 +11,6 @@ export default function RestaurantInfo({
   return (
     <DataTable style={{ padding: 5 }}>
       <DataTable.Header>
-        {/* <DataTable.Title>상세 정보</DataTable.Title> */}
         <DataTable.Title style={styles.table}>
           <Icon source="run" size={0} />
           거리
@@ -22,19 +21,6 @@ export default function RestaurantInfo({
       </DataTable.Header>
 
       <DataTable.Row>
-        {/* <DataTable.Cell>
-          <Button
-            icon="food"
-            onPress={() => handleIconClick(info[0])}
-            style={{
-              backgroundColor: "#a18cd1",
-              borderRadius: 5,
-            }}
-          >
-            <Text style={{ color: "white" }}>식당 정보</Text>
-          </Button>
-        </DataTable.Cell> */}
-
         <DataTable.Cell style={styles.table}>{info?.distance}</DataTable.Cell>
         <DataTable.Cell style={styles.table}>{info?.phone}</DataTable.Cell>
       </DataTable.Row>
