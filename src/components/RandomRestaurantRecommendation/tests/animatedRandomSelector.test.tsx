@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, act } from '@testing-library/react-native'
+import { render } from '@testing-library/react-native'
 import { AnimatedRandomSelector } from '../components/animatedRandomSelector'
 import { Restaurant } from 'src/types/restaurant'
 
@@ -13,7 +13,7 @@ describe('AnimatedRandomSelector', () => {
 
     const { getAllByText } = render(
       <AnimatedRandomSelector
-        items={items as Restaurant[]}
+        restaurantItems={items as Restaurant[]}
         onIndexChange={() => {}}
         itemHeight={50}
       />,

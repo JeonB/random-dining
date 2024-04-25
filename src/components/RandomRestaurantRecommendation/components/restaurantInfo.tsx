@@ -3,11 +3,7 @@ import { Restaurant } from '@_types/restaurant'
 import { DataTable, Icon } from 'react-native-paper'
 import { StyleSheet } from 'react-native'
 
-export default function RestaurantInfo({
-  info,
-}: {
-  info: Restaurant | undefined
-}) {
+export default function RestaurantInfo({ info }: { info: Restaurant }) {
   return (
     <DataTable style={{ padding: 5 }}>
       <DataTable.Header>

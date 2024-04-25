@@ -22,7 +22,7 @@ export const RandomItemModal: React.FC<RandomPickerModalProps> = ({
       <View style={styles.modal}>
         <AnimatedRandomSelector
           itemHeight={36}
-          items={info}
+          restaurantItems={info}
           onIndexChange={onIndexChange}
         />
         <Button onPress={onClose}>Close</Button>
