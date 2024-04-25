@@ -5,10 +5,11 @@ import { Restaurant } from '@_types/restaurant'
 import Constants from 'expo-constants'
 import { AppConfig } from 'app.config'
 
-export interface MapProps {
-  info: Restaurant
-}
-export const Map = ({ info }: MapProps) => {
+// export interface MapProps {
+//   info: Restaurant
+// }
+
+export const Map = ({ info }: { info: Restaurant }) => {
   const [html, setHtml] = useState('')
   const { KAKAO_JAVASCRIPT_KEY } = Constants.expoConfig?.extra as AppConfig
   const appKey = KAKAO_JAVASCRIPT_KEY

@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react-native'
+import { render, screen } from '@testing-library/react-native'
 import React from 'react'
 import { Map } from '../components/map'
 import { Restaurant } from 'src/types/restaurant'
@@ -33,8 +33,9 @@ const RestaurantInfo: Restaurant = {
 
 describe('음식점 지도 렌더링 테스트', () => {
   test('Map 컴포넌트가 정상적으로 렌더링 되었는지 확인', () => {
-    const { getByTestId } = render(<Map info={RestaurantInfo} />)
-    expect(getByTestId('map')).toBeTruthy()
+    render(<Map info={RestaurantInfo} />)
+    const map = screen.getByTestId('map')
+    expect(map).toBeTruthy()
   })
   test('api키가 제대로 전달되었는지 확인', () => {
     const { getByTestId } = render(<Map info={RestaurantInfo} />)
