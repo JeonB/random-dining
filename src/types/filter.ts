@@ -4,7 +4,7 @@ export interface FilterData {
 }
 
 export interface FiltersProps {
-  data: FilterData[]
+  categoryItems: FilterData[]
   onValueChange?: (selectedValues: string[]) => void
 }
 

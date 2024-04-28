@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { FiltersProps, FilterButtonProps } from '@_types/filter'
 
-const Filters: React.FC<FiltersProps> = ({
-  categoryItems: data,
+export const CategoryFilterDeprecated = ({
+  categoryItems,
   onValueChange,
-}) => {
+}: FiltersProps) => {
   const [selectedIndices, setSelectedIndices] = useState<number[]>([0])
   useEffect(() => {
     handleToggleSelection(0)
@@ -23,7 +23,7 @@ const Filters: React.FC<FiltersProps> = ({
           ? newSelectedIndices.filter(idx => idx !== index)
           : [...newSelectedIndices, index]
 
-      if (newSelectedIndices.length === data.length - 1) {
+      if (newSelectedIndices.length === categoryItems.length - 1) {
         newSelectedIndices = [0]
       }
     }
@@ -36,7 +36,7 @@ const Filters: React.FC<FiltersProps> = ({
 
     if (onValueChange) {
       const selectedValues = newSelectedIndices.map(
-        selectedIndex => data[selectedIndex].value,
+        selectedIndex => categoryItems[selectedIndex].value,
       )
       onValueChange(selectedValues)
     }
@@ -44,7 +44,7 @@ const Filters: React.FC<FiltersProps> = ({
 
   return (
     <View style={{ flexDirection: 'row' }}>
-      {data.map((x, i) => (
+      {categoryItems.map((x, i) => (
         <FilterButton
           key={i}
           text={x.label}
@@ -56,11 +56,7 @@ const Filters: React.FC<FiltersProps> = ({
   )
 }
 
-const FilterButton: React.FC<FilterButtonProps> = ({
-  onPress,
-  text,
-  isSelected,
-}) => {
+const FilterButton = ({ onPress, text, isSelected }: FilterButtonProps) => {
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -76,5 +72,3 @@ const FilterButton: React.FC<FilterButtonProps> = ({
     </TouchableOpacity>
   )
 }
-
-export default Filters
