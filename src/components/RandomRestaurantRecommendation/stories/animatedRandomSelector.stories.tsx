@@ -1,17 +1,11 @@
 import React from 'react'
 import { View } from 'react-native'
 import { Meta, StoryFn } from '@storybook/react'
-import {
-  AnimatedRandomSelector,
-  Props,
-} from '../components/animatedRandomSelector'
+import { AnimatedRandomSelector, Props } from '../pages/animatedRandomSelector'
 
 export default {
   title: 'Components/RandomItemSelect',
   component: AnimatedRandomSelector,
-  argTypes: {
-    onPress: { action: 'pressed the button' },
-  },
   tags: ['autodocs'],
   decorators: [
     Story => (

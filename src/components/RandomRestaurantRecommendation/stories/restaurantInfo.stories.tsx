@@ -1,7 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
 import { Meta, StoryFn } from '@storybook/react'
-import { RestaurantInfo } from '../components/restaurantInfo'
+import { RestaurantInfo } from '../pages/restaurantInfo'
 import { Restaurant } from '@_types/restaurant'
 export default {
   title: 'Components/RestaurantInfo',
