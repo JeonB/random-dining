@@ -1,41 +1,60 @@
 import React from 'react'
-import { View, FlatList, TouchableOpacity, StyleSheet } from 'react-native'
+import {
+  View,
+  FlatList,
+  TouchableOpacity,
+  StyleSheet,
+  StyleProp,
+  ViewStyle,
+} from 'react-native'
 
-export interface FlatListProps {
-  data: string[]
-  keyExtractor: (item: string, index: number) => string
-  renderItem: (item: string) => JSX.Element
-  onPressItem?: (item: string) => void
+export interface FlatListProps<T> {
+  data: T[]
+  keyExtractor: (item: T, index: number) => string
+  renderItem: (item: T) => JSX.Element
+  onPressItem?: (item: T) => void
 }
 
-const RenderItem: React.FC<{
-  item: string
-  renderItem: (item: string) => JSX.Element
-  onPressItem?: (item: string) => void
-}> = ({ item, renderItem, onPressItem }) => (
+const RenderItem = <T,>({
+  item,
+  renderItem,
+  onPressItem,
+  itemStyle,
+}: {
+  item: T
+  renderItem: (item: T) => JSX.Element
+  onPressItem?: (item: T) => void
+  itemStyle?: StyleProp<ViewStyle>
+}) => (
   <TouchableOpacity
-    style={styles.item}
-    onPress={onPressItem ? () => onPressItem(item) : undefined}>
+    style={[styles.item, itemStyle]}
+    onPress={() => onPressItem?.(item)}>
     {renderItem(item)}
   </TouchableOpacity>
 )
 
-export const DefaultFlatList: React.FC<FlatListProps> = ({
+interface DefaultFlatListProps<T> extends FlatListProps<T> {
+  itemStyle?: StyleProp<ViewStyle>
+}
+
+export const DefaultFlatList = <T,>({
   data,
   keyExtractor,
   renderItem,
   onPressItem,
-}) => {
+  itemStyle,
+}: DefaultFlatListProps<T>) => {
   return (
     <View style={styles.container}>
       <FlatList
         data={data}
         keyExtractor={keyExtractor}
         renderItem={({ item }) => (
-          <RenderItem
+          <RenderItem<T>
             item={item}
             renderItem={renderItem}
             onPressItem={onPressItem}
+            itemStyle={itemStyle}
           />
         )}
       />

@@ -1,33 +1,34 @@
-import React, { useState, useEffect } from 'react'
-import { StyleSheet, View, Text, Alert } from 'react-native'
+import React from 'react'
+import { StyleSheet, View, Text } from 'react-native'
 
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import {
+  useNavigation,
+  NavigationProp,
+  useFocusEffect,
+} from '@react-navigation/native'
 
 import { DefaultFlatList } from '@_components/layout/component/defaultFlatList'
+import { RootStackParamList } from '@_types/navigation'
+import { useListNames } from '@_components/userCustomList/hook/useListNames'
 
 export const SelectEditList: React.FC = () => {
-  const [listNames, setListNames] = useState([])
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>()
 
-  useEffect(() => {
-    const loadListNames = async () => {
-      try {
-        // AsyncStorage에 저장된 listnames
-        const savedListNames = await AsyncStorage.getItem('listnames')
-        if (savedListNames !== null) {
-          setListNames(JSON.parse(savedListNames))
-        }
-      } catch (error) {
-        console.error('Error loading list names:', error)
+  const { listNames, fetchListNames } = useListNames()
+
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchListNames()
+
+      return () => {
+        // 화면이 포커스를 잃을 때 실행할 코드
       }
-    }
-
-    loadListNames()
-  }, [])
+    }, [fetchListNames]),
+  )
 
   const handlePressItem = async (item: string) => {
     try {
-      //test (수정 화면으로 이동 navigation 추가 필요)
-      Alert.alert('수정 화면으로 이동')
+      navigation.navigate('EditUserList', { listName: item })
     } catch (error) {
       console.error('Error :', error)
     }

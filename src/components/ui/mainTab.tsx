@@ -12,7 +12,7 @@ const tabs = [
     iconName: 'star',
   },
   {
-    name: 'List',
+    name: 'UserCustomList',
     component: UserCustomList,
     iconName: 'list',
   },

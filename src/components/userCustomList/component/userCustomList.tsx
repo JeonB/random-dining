@@ -4,26 +4,23 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { DefaultFlatList } from '@_components/layout/component/defaultFlatList'
 import { ListManageIcon } from '@_components/userCustomList/component/listManageIcon'
-
+import { useListNames } from '@_components/userCustomList/hook/useListNames'
+import { useFocusEffect } from '@react-navigation/native'
 export const UserCustomList: React.FC = () => {
-  const [listNames, setListNames] = useState([])
   const [selectedListData, setSelectedListData] = useState([])
   const [showRandomPicker, setShowRandomPicker] = useState(false)
 
-  useEffect(() => {
-    const loadListNames = async () => {
-      try {
-        const savedListNames = await AsyncStorage.getItem('listnames')
-        if (savedListNames !== null) {
-          setListNames(JSON.parse(savedListNames))
-        }
-      } catch (error) {
-        console.error('Error loading list names:', error)
-      }
-    }
+  const { listNames, fetchListNames } = useListNames()
 
-    loadListNames()
-  }, [])
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchListNames()
+
+      return () => {
+        // 화면이 포커스를 잃을 때 실행할 코드를 작성합니다.
+      }
+    }, [fetchListNames]),
+  )
 
   const handlePressItem = async (item: string) => {
     try {
