@@ -23,10 +23,11 @@ export default {
 } as Meta
 
 export const Basic: StoryFn<Restaurant> = () => {
-  const mockNavigation = {
-    navigate: action('navigate'),
-    goBack: action('goBack'),
-  } as NavigationProp<RootStackParamList>
-
-  return <DistanceSlider />
+  interface DistanceSliderProps {
+    onDistanceChange: (value: number) => void
+  }
+  function onDistanceChange(value: number): void {
+    console.log('Distance changed:', value)
+  }
+  return <DistanceSlider onDistanceChange={onDistanceChange} />
 }

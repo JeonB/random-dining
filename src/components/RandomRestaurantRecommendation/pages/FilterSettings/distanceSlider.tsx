@@ -1,14 +1,24 @@
 import { Icon, Slider } from '@rneui/themed'
-import React, { useState } from 'react'
+import React, { createContext, useContext, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
-export const DistanceSlider = () => {
+interface DistanceSliderProps {
+  onDistanceChange: (value: number) => void
+}
+
+export const DistanceSlider = ({ onDistanceChange }: DistanceSliderProps) => {
   const [distanceRange, setDistanceRange] = useState(30)
+
+  const handleValueChange = (value: number) => {
+    setDistanceRange(value)
+    onDistanceChange(value)
+  }
+
   return (
     <View style={[styles.contentView]}>
       <Slider
         value={distanceRange}
-        onValueChange={setDistanceRange}
+        onValueChange={handleValueChange}
         maximumValue={300}
         minimumValue={30}
         step={10}

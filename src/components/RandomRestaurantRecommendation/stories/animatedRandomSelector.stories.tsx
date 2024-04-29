@@ -1,7 +1,10 @@
 import React from 'react'
 import { View } from 'react-native'
 import { Meta, StoryFn } from '@storybook/react'
-import { AnimatedRandomSelector, Props } from '../pages/animatedRandomSelector'
+import {
+  AnimatedRandomSelector,
+  Props,
+} from '../pages/RestaurantView/animatedRandomSelector'
 
 export default {
   title: 'Components/RandomItemSelect',

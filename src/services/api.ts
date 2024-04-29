@@ -1,15 +1,15 @@
-// import { KAKAO_RESTAPI_KEY } from '@env'
 import { Alert, Linking } from 'react-native'
 import * as Location from 'expo-location'
 import { QueryParamsType } from '@_types/queryParams'
 import Constants from 'expo-constants'
 import { AppConfig } from 'app.config'
+import { Restaurant } from '@_types/restaurant'
 
 const { KAKAO_RESTAPI_KEY } = Constants.expoConfig?.extra as AppConfig
 const baseUrl = 'https://dapi.kakao.com/v2/local/search/keyword'
 const restAPIkey = KAKAO_RESTAPI_KEY
 
-async function getLocation() {
+const getLocation = async () => {
   const { status } = await Location.requestForegroundPermissionsAsync()
   if (status !== 'granted') {
     Alert.alert(
@@ -35,6 +35,77 @@ async function getLocation() {
     longitude: location.coords.longitude.toString(),
   }
 }
+export const handleData = async (
+  categories: string[],
+  distanceRange: number,
+) => {
+  const allData: Restaurant[] = []
+  const randomCategory =
+    categories[Math.floor(Math.random() * categories.length)]
+  let page = 1
+  console.log(randomCategory)
+  const fetchDataAndUpdatePage = async () => {
+    const data = await fetchData(randomCategory, page, distanceRange)
+    allData.push(...data.documents)
+    page++
+    return data
+  }
+
+  try {
+    // if (categories[0] === '') {
+    //   categories = ['한식', '중식', '일식', '양식', '분식', '아시안', '제육']
+    // }
+
+    let data = await fetchDataAndUpdatePage()
+
+    // Kakao Local API는 최대 3페이지까지(45개) 데이터 제공
+    while (!data.meta.is_end && page < 4) {
+      data = await fetchDataAndUpdatePage()
+    }
+  } catch (error) {
+    console.error('에러 발생:', error)
+  }
+
+  if (allData.length === 0) {
+    // Alert.alert('주변에 식당이 없습니다. 거리 범위를 조정해주세요.')
+    return
+  }
+
+  return allData
+}
+const fetchData2 = async (
+  query: string,
+  page: number,
+  distanceRange: number,
+  categories: string[],
+) => {
+  const { latitude, longitude } = await getLocation()
+
+  let results = []
+
+  if (!query && latitude && longitude) {
+    for (const category of categories) {
+      const result = await fetchSingleCategoryData(
+        category,
+        page,
+        latitude,
+        longitude,
+        distanceRange,
+      )
+      results.push(result)
+    }
+  } else if (query && latitude && longitude) {
+    results = await fetchSingleCategoryData(
+      query,
+      page,
+      latitude,
+      longitude,
+      distanceRange,
+    )
+  }
+
+  return results
+}
 
 export async function fetchData(
   query: string,
@@ -47,7 +118,7 @@ export async function fetchData(
   let results = []
 
   if (!query && latitude && longitude) {
-    for (let category of defaultCategories) {
+    for (const category of defaultCategories) {
       const result = await fetchSingleCategoryData(
         category,
         page,

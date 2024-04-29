@@ -24,5 +24,9 @@ export default {
 } as Meta
 
 export const Basic: StoryFn<Restaurant> = () => {
-  return <FilterSetting />
+  const mockNavigation = {
+    navigate: action('navigate'),
+    goBack: action('goBack'),
+  } as NavigationProp<RootStackParamList>
+  return <FilterSetting navigation={mockNavigation} />
 }

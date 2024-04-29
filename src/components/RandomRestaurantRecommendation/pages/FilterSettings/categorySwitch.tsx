@@ -1,53 +1,65 @@
 import React, { useEffect, useState } from 'react'
-import ToggleSwitch from './toggleSwitch'
+import ToggleSwitch from '../../../common/toggleSwitch'
 import { StyleSheet, View } from 'react-native'
 import { Text } from '@rneui/themed'
 
-export const CategorySwitch = () => {
+const CATEGORY = [
+  'ALL',
+  '한식',
+  '일식',
+  '중식',
+  '양식',
+  '분식',
+  '아시안',
+  '제육',
+]
+
+export const CategorySwitch = ({
+  onCategoryChange = () => {},
+}: {
+  onCategoryChange?: (categories: string[]) => void
+}) => {
   const [isAll, setIsAll] = useState(true)
-  const CATEGORY = [
-    { label: 'ALL', value: '맛집' },
-    { label: '한식', value: '한식' },
-    { label: '일식', value: '일식' },
-    { label: '중식', value: '중식' },
-    { label: '양식', value: '양식' },
-    { label: '분식', value: '분식' },
-    { label: '아시안', value: '아시안' },
-    { label: '제육', value: '제육' },
-  ]
+  const [activatedCategory, setActivatedCategory] = useState<string[]>(
+    CATEGORY.slice(1),
+  )
+
   const categoriesToShow = isAll ? [CATEGORY[0]] : CATEGORY
+
+  const updateCategories = (category: string, isActive: boolean) => {
+    if (isActive) {
+      setActivatedCategory(prev => [...prev, category])
+    } else {
+      setActivatedCategory(prev => prev.filter(c => c !== category))
+    }
+  }
+
+  const handleToggle = (category: string, isActive: boolean) => {
+    if (category === 'ALL') {
+      setIsAll(isActive)
+      setActivatedCategory(isActive ? CATEGORY.slice(1) : [])
+    } else {
+      updateCategories(category, isActive)
+    }
+  }
+
+  useEffect(() => {
+    onCategoryChange(activatedCategory)
+  }, [activatedCategory, onCategoryChange])
+
   return (
-    // <View style={styles.container}>
     <View>
-      {/* {isAll ? (
-        <View style={styles.container}>
-          <Text h4>{CATEGORY[0].label}</Text>
-          <ToggleSwitch onToggle={(value: boolean) => setIsAll(value)} />
-        </View>
-      ) : (
-        categoriesToShow.map(category => (
-          <View
-            key={category.label}
-            style={{ flexDirection: 'column', marginBottom: 20 }}>
-            <View style={styles.container}>
-              <Text h4>{category.label}</Text>
-              <ToggleSwitch />
-            </View>
-          </View>
-        ))
-      )} */}
       {categoriesToShow.map(category => (
         <View
-          key={category.label}
+          key={category}
           style={{ flexDirection: 'column', marginBottom: 3 }}>
           <View style={styles.container}>
-            <Text h4>{category.label}</Text>
+            <Text h4 h4Style={{ alignSelf: 'center', paddingLeft: 10 }}>
+              {category}
+            </Text>
             <ToggleSwitch
-              onToggle={
-                category.label === 'ALL'
-                  ? (value: boolean) => setIsAll(value)
-                  : undefined
-              }
+              initialState={category === 'ALL'}
+              onToggle={(isActive: boolean) => handleToggle(category, isActive)}
             />
           </View>
         </View>
@@ -55,6 +67,7 @@ export const CategorySwitch = () => {
     </View>
   )
 }
+
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',

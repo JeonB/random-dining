@@ -8,10 +8,11 @@ export interface Props {
   restaurantItems: Restaurant[]
   onIndexChange: (index: number) => void
   itemHeight: number
+  closeModal: () => void
 }
 
 export const AnimatedRandomSelector = (props: Props) => {
-  const { restaurantItems, onIndexChange, itemHeight } = props
+  const { restaurantItems, onIndexChange, itemHeight, closeModal } = props
   const scrollY = useRef(new Animated.Value(0)).current
 
   const requiredItemsCount = 30
@@ -56,6 +57,7 @@ export const AnimatedRandomSelector = (props: Props) => {
         Math.round(-(scrollY as any)._value / itemHeight) %
         restaurantItems.length
       onIndexChange(finalIndex)
+      setTimeout(closeModal, 500)
     })
   }
 

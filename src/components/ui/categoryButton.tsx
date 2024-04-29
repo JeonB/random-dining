@@ -20,6 +20,8 @@ const CategoryButton = ({ category, setCategory }: CategoryButtonProps) => {
     setCategory(selectedValues)
   }
 
-  return <Filters data={FILTER_DATA} onValueChange={handleCategoryChange} />
+  return (
+    <Filters categoryItems={FILTER_DATA} onValueChange={handleCategoryChange} />
+  )
 }
 export default CategoryButton

@@ -1,45 +1,100 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Text } from '@rneui/themed'
 import { DistanceSlider } from './distanceSlider'
 import { CategorySwitch } from './categorySwitch'
-import { Button } from 'react-native-paper'
-import { RandomItemModal } from '../randomItemModal'
+import { RandomItemModal } from '../RestaurantView/randomItemModal'
+import { NavigationProp } from '@react-navigation/native'
+import { RootStackParamList } from 'src/types/navigation'
+import { handleData } from '@_services/api'
+import { useFilterSetting } from './hook/useFilterSetting'
+import RandomPickButton from './randomPickButton'
 
-const FilterSetting = () => {
-  const [modalVisible, setModalVisible] = useState(false)
-  const handleModal = () => {
-    // ;<RandomItemModal
-    //   visible={modalVisible}
-    //   onClose={() => setModalVisible(false)}
-    // />
+const FilterSetting = ({
+  navigation,
+}: {
+  navigation: NavigationProp<RootStackParamList>
+}) => {
+  const {
+    modalVisible,
+    setModalVisible,
+    restaurant,
+    setRestaurant,
+    distance,
+    setDistance,
+    selectedCategories,
+    setSelectedCategories,
+    restaurantItems,
+    setRestaurantItems,
+    isLoading,
+    setIsLoading,
+  } = useFilterSetting()
+  const isMounted = useRef(true)
+
+  useEffect(() => {
+    return () => {
+      isMounted.current = false
+    }
+  }, [])
+
+  const handleRandomPickClick = async () => {
+    setIsLoading(true)
+    try {
+      const data = await handleData(selectedCategories, distance)
+      if (isMounted.current && data) {
+        setRestaurantItems(data)
+        setModalVisible(true)
+      }
+    } catch (error) {
+      if (isMounted.current) {
+        console.error('Error occurred:', error)
+      }
+    }
+    if (isMounted.current) {
+      setIsLoading(false)
+    }
   }
+  const handleCategoryChange = (categories: string[]) => {
+    setSelectedCategories(categories)
+  }
+  const handleDistanceRangeChange = (distance: number) => {
+    setDistance(distance)
+  }
+  const handleRestaurantChange = (index: number) => {
+    const selectedRestaurant = restaurantItems[index]
+    if (selectedRestaurant) {
+      setRestaurant(selectedRestaurant)
+      navigation.navigate('RestaurantInfo', { restaurant: selectedRestaurant })
+    }
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.filterOptions}>
         <Text h3 h3Style={styles.text}>
           거리
         </Text>
-        <DistanceSlider />
+        <DistanceSlider onDistanceChange={handleDistanceRangeChange} />
       </View>
       <View style={styles.filterOptions}>
         <Text h3 h3Style={styles.text}>
           카테고리
         </Text>
-        <CategorySwitch />
+        <CategorySwitch onCategoryChange={handleCategoryChange} />
       </View>
       <View style={{ margin: 20 }}>
-        <Button
-          labelStyle={{ fontSize: 20 }}
-          mode="elevated"
-          textColor="#272729"
-          icon="chat-question-outline"
-          buttonColor="lightskyblue"
-          onPress={() => {}}
-          contentStyle={{ flexDirection: 'row-reverse' }}>
-          뭐 먹지?
-        </Button>
+        <RandomPickButton
+          handleRandomPickClick={handleRandomPickClick}
+          isLoading={isLoading}
+          text="뭐 먹지?"
+        />
       </View>
+      <RandomItemModal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        restaurantItems={restaurantItems}
+        onRestaurantIndexChange={handleRestaurantChange}
+      />
     </View>
   )
 }

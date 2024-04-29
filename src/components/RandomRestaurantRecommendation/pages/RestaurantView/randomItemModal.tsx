@@ -6,24 +6,25 @@ import React from 'react'
 
 interface RandomPickerModalProps {
   visible: boolean
-  info: Restaurant[]
+  restaurantItems: Restaurant[]
   onClose: () => void
-  onIndexChange: (index: number) => void
+  onRestaurantIndexChange: (index: number) => void
 }
 
-export const RandomItemModal: React.FC<RandomPickerModalProps> = ({
+export const RandomItemModal = ({
   visible,
   onClose,
-  onIndexChange,
-  info,
-}) => {
+  onRestaurantIndexChange,
+  restaurantItems,
+}: RandomPickerModalProps) => {
   return (
     <Modal style={styles.modal} visible={visible} onRequestClose={onClose}>
       <View style={styles.modal}>
         <AnimatedRandomSelector
           itemHeight={36}
-          restaurantItems={info}
-          onIndexChange={onIndexChange}
+          restaurantItems={restaurantItems}
+          onIndexChange={onRestaurantIndexChange}
+          closeModal={onClose}
         />
         <Button onPress={onClose}>Close</Button>
       </View>
