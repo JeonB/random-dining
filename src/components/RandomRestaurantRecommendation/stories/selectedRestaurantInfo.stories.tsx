@@ -15,13 +15,13 @@ export default {
     onPress: { action: '필터 화면 혹은 지도로 이동' },
   },
   tags: ['autodocs'],
-  decorators: [
-    Story => (
-      <View style={{ flex: 1, padding: 50, alignItems: 'center' }}>
-        <Story />
-      </View>
-    ),
-  ],
+  //   decorators: [
+  //     Story => (
+  //       <View style={{ flex: 1, padding: 50, alignItems: 'center' }}>
+  //         <Story />
+  //       </View>
+  //     ),
+  //   ],
 } as Meta
 
 export const Basic: StoryFn<Restaurant> = () => {

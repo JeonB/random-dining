@@ -8,7 +8,7 @@ import { DetailView } from '@_components/ui/detailView'
 import { PositionSelector } from 'src/components/RandomRestaurantRecommendation/pages/positionSelector'
 import Constants from 'expo-constants'
 import 'regenerator-runtime/runtime'
-import FilterSetting from 'src/components/RandomRestaurantRecommendation/pages/FilterSettings/filterSetting'
+import FilterSetting from '@_components/RandomRestaurantRecommendation/pages/FilterSettings/filterSetting'
 import { RootStackParamList } from '@_types/navigation'
 import { SelectedRestaurantInfo } from '@_components/RandomRestaurantRecommendation/pages/RestaurantView/selectedRestaurantInfo'
 ;(Text as any).defaultProps = (Text as any).defaultProps || {}
