@@ -150,6 +150,14 @@ export const EditUserList: React.FC = () => {
 
               // 기존 리스트 삭제
               await AsyncStorage.removeItem(listName)
+              Alert.alert('삭제되었습니다.')
+              // 리스트 화면으로 이동
+              navigation.reset({
+                index: 0,
+                routes: [
+                  { name: 'Main', params: { screen: 'UserCustomList' } },
+                ],
+              })
             } catch (error) {
               console.error('Error deleting list:', error)
             }
