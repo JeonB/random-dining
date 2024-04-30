@@ -111,6 +111,7 @@ export const AddUserList: React.FC = () => {
           style={styles.restaurantNameField}
           placeholder="식당 또는 메뉴 이름을 입력하세요."
           onChangeText={setInputRestaurant}
+          value={inputRestaurant}
           testID="restaurantNameField"
         />
         <Icon
