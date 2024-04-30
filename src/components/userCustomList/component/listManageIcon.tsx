@@ -42,6 +42,11 @@ export const ListManageIcon: React.FC = () => {
     setShowSettingsModal(false)
   }
 
+  const handleAddButtonClick = () => {
+    navigation.navigate('AddUserList')
+    setShowSettingsModal(false)
+  }
+
   return (
     <>
       <TouchableOpacity
@@ -64,7 +69,10 @@ export const ListManageIcon: React.FC = () => {
                     title="리스트 수정하기"
                     onPress={handleEditButtonClick}
                   />
-                  <Button title="리스트 추가하기" />
+                  <Button
+                    title="리스트 추가하기"
+                    onPress={handleAddButtonClick}
+                  />
                 </View>
               </TouchableWithoutFeedback>
             </View>
