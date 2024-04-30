@@ -1,10 +1,15 @@
 import React from 'react'
 
-import { render, fireEvent, waitFor } from '@testing-library/react-native'
-import { act } from 'react-test-renderer'
-import { NavigationContainer } from '@react-navigation/native'
+import { render, fireEvent, RenderAPI } from '@testing-library/react-native'
+import { NavigationContainer, NavigationProp } from '@react-navigation/native'
 
 import { SelectEditList } from '@_components/userCustomList/component/selectEditList'
+import { RootStackParamList } from '@_types/navigation'
+
+const navigation = {
+  navigate: jest.fn(),
+  reset: jest.fn(),
+} as unknown as NavigationProp<RootStackParamList>
 
 jest.mock('@react-native-async-storage/async-storage', () => ({
   getItem: jest.fn(key => {
@@ -17,6 +22,7 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
     }
   }),
 }))
+
 jest.mock('@_components/userCustomList/hook/useListNames', () => ({
   useListNames: () => ({
     listNames: ['List 1', 'List 2'],
@@ -24,54 +30,29 @@ jest.mock('@_components/userCustomList/hook/useListNames', () => ({
   }),
 }))
 
-const mockNavigate = jest.fn()
-
-jest.mock('@react-navigation/native', () => {
-  return {
-    ...jest.requireActual('@react-navigation/native'),
-    useNavigation: () => ({
-      navigate: mockNavigate,
-    }),
-  }
-})
-
 describe('<SelectEditList />', () => {
-  test('AsyncStorage 리스트 렌더링', async () => {
-    const { getByText } = render(
+  let utils: RenderAPI
+
+  beforeEach(() => {
+    utils = render(
       <NavigationContainer>
-        <SelectEditList />
+        <SelectEditList navigation={navigation} />
       </NavigationContainer>,
     )
+  })
 
-    await waitFor(() => {
-      expect(getByText('List 1')).toBeDefined()
-      expect(getByText('List 2')).toBeDefined()
-    })
+  test('AsyncStorage 리스트 렌더링', async () => {
+    expect(utils.getByText('List 1')).toBeDefined()
+    expect(utils.getByText('List 2')).toBeDefined()
   })
 
   test('리스트 선택 안내 메세지', async () => {
-    const { getByText } = render(
-      <NavigationContainer>
-        <SelectEditList />
-      </NavigationContainer>,
-    )
-
-    expect(getByText('수정 할 리스트를 선택해주세요')).toBeDefined()
+    expect(utils.getByText('수정 할 리스트를 선택해주세요')).toBeDefined()
   })
 
   test('리스트 클릭시 네비게이션 호출', async () => {
-    const { getByText } = render(
-      <NavigationContainer>
-        <SelectEditList />
-      </NavigationContainer>,
-    )
-
-    await Promise.resolve()
-
-    act(() => {
-      fireEvent.press(getByText('List 1'))
-    })
-    expect(mockNavigate).toHaveBeenCalledWith('EditUserList', {
+    fireEvent.press(utils.getByText('List 1'))
+    expect(navigation.navigate).toHaveBeenCalledWith('EditUserList', {
       listName: 'List 1',
     })
   })

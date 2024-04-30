@@ -17,7 +17,6 @@ import { Button } from 'react-native-paper'
 import { useListNames } from '@_components/userCustomList/hook/useListNames'
 import { RootStackParamList } from '@_types/navigation'
 import { Restaurant } from '@_types/restaurant'
-import { StackScreenProps } from '@react-navigation/stack'
 
 const { width, height } = Dimensions.get('window')
 export const EditUserList = ({

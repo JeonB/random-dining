@@ -1,50 +1,39 @@
 import React from 'react'
-import { render, fireEvent, waitFor } from '@testing-library/react-native'
+
+import { render, fireEvent, RenderAPI } from '@testing-library/react-native'
+import { NavigationProp } from '@react-navigation/native'
 
 import { ListManageIcon } from '@_components/userCustomList/component/listManageIcon'
+import { RootStackParamList } from '@_types/navigation'
 
-const navigateMock = jest.fn()
-
-jest.mock('@react-navigation/native', () => {
-  return {
-    ...jest.requireActual('@react-navigation/native'),
-    useNavigation: () => ({
-      navigate: navigateMock,
-    }),
-  }
-})
+const navigation = {
+  navigate: jest.fn(),
+  reset: jest.fn(),
+} as unknown as NavigationProp<RootStackParamList>
 
 describe('<ListManageIcon />', () => {
+  let utils: RenderAPI
+
+  beforeEach(() => {
+    utils = render(<ListManageIcon navigation={navigation} />)
+  })
+
   test('아이콘 렌더링', async () => {
-    const screen = render(<ListManageIcon />)
-    const icon = screen.getByTestId('listManageIcon')
+    const icon = utils.getByTestId('listManageIcon')
     expect(icon).toBeTruthy()
   })
 
   test('아이콘 클릭시 수정,추가 modal 호출', async () => {
-    const { getByTestId, getByText } = render(<ListManageIcon />)
+    fireEvent.press(utils.getByTestId('listManageIcon'))
 
-    fireEvent.press(getByTestId('listManageIcon'))
-
-    await waitFor(() => {
-      expect(getByText('리스트 수정하기')).toBeTruthy()
-      expect(getByText('리스트 추가하기')).toBeTruthy()
-    })
+    expect(utils.getByText('리스트 수정하기')).toBeTruthy()
+    expect(utils.getByText('리스트 추가하기')).toBeTruthy()
   })
 
   test('수정하기 버튼 클릭시 네비게이션 호출', async () => {
-    const { getByText, getByTestId } = render(<ListManageIcon />)
+    fireEvent.press(utils.getByTestId('listManageIcon'))
+    fireEvent.press(utils.getByText('리스트 수정하기'))
 
-    fireEvent.press(getByTestId('listManageIcon'))
-
-    await waitFor(() => {
-      expect(getByText('리스트 수정하기')).toBeDefined()
-    })
-
-    fireEvent.press(getByText('리스트 수정하기'))
-
-    await waitFor(() => {
-      expect(navigateMock).toHaveBeenCalledWith('SelectEditList')
-    })
+    expect(navigation.navigate).toHaveBeenCalledWith('SelectEditList')
   })
 })
