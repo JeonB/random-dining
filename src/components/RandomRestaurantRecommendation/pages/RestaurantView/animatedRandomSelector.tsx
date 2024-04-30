@@ -1,43 +1,49 @@
 import { Text } from '@rneui/themed'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 import { Animated, View, StyleSheet } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Restaurant } from '@_types/restaurant'
 
 export interface Props {
-  items: Restaurant[]
+  restaurantItems: Restaurant[]
   onIndexChange: (index: number) => void
   itemHeight: number
+  closeModal: () => void
 }
 
-function shuffleArray(array: any[]) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[array[i], array[j]] = [array[j], array[i]]
-  }
-  return array
-}
-
-export const RandomItemSelect: React.FC<Props> = props => {
-  const { items: originalItems, onIndexChange, itemHeight } = props
+export const AnimatedRandomSelector = (props: Props) => {
+  const { restaurantItems, onIndexChange, itemHeight, closeModal } = props
   const scrollY = useRef(new Animated.Value(0)).current
 
-  const randomIndex = 30
+  const requiredItemsCount = 30
 
-  const items = React.useMemo(() => {
-    let tempItems = Array.from({ length: 3 }, () =>
-      shuffleArray(originalItems),
-    ).flat()
-    while (tempItems.length < randomIndex + 2) {
-      tempItems = [...tempItems, ...tempItems]
+  const shuffleRestaurant = (restaurantItems: Restaurant[]) => {
+    for (let i = restaurantItems.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      ;[restaurantItems[i], restaurantItems[j]] = [
+        restaurantItems[j],
+        restaurantItems[i],
+      ]
     }
-    return tempItems
-  }, [originalItems])
+    const shuffedItems = restaurantItems
+    return shuffedItems
+  }
+  // 섞인 레스토랑 리스트가 3배가 되도록 만들어줌. 30개보다 적으면 최대 30개까지 복사해서 붙여넣음
+  const randomizedRestaurants = useMemo(() => {
+    let tempRestaurantItems = Array.from({ length: 3 }, () =>
+      shuffleRestaurant(restaurantItems),
+    ).flat()
+    while (tempRestaurantItems.length < requiredItemsCount + 2) {
+      tempRestaurantItems = [...tempRestaurantItems, ...tempRestaurantItems]
+    }
+    const randomizedRestaurants = tempRestaurantItems
+    return randomizedRestaurants
+  }, [restaurantItems])
 
   const startAnimation = () => {
     Animated.sequence([
       Animated.timing(scrollY, {
-        toValue: -(randomIndex * itemHeight + itemHeight / 2),
+        toValue: -(requiredItemsCount * itemHeight + itemHeight / 2),
         duration: 1000,
         useNativeDriver: true,
       }),
@@ -48,26 +54,27 @@ export const RandomItemSelect: React.FC<Props> = props => {
       }),
     ]).start(() => {
       const finalIndex =
-        Math.round(-scrollY._value / itemHeight) % originalItems.length
+        Math.round(-(scrollY as any)._value / itemHeight) %
+        restaurantItems.length
       onIndexChange(finalIndex)
+      setTimeout(closeModal, 500)
     })
   }
 
-  // Start the animation when the component mounts
   useEffect(() => {
     startAnimation()
-  }, [originalItems, itemHeight])
+  }, [restaurantItems, itemHeight])
 
   return (
     <View style={{ height: itemHeight * 3, overflow: 'hidden', width: '100%' }}>
       <Animated.View
         style={{
           transform: [{ translateY: scrollY }],
-          height: itemHeight * items.length,
+          height: itemHeight * randomizedRestaurants.length,
           justifyContent: 'center',
           paddingTop: itemHeight + itemHeight,
         }}>
-        {items.map((item, index) => (
+        {randomizedRestaurants.map((item, index) => (
           <View
             key={index}
             style={{
@@ -79,7 +86,6 @@ export const RandomItemSelect: React.FC<Props> = props => {
           </View>
         ))}
       </Animated.View>
-      {/* border box */}
       <View
         style={{
           position: 'absolute',
@@ -93,7 +99,8 @@ export const RandomItemSelect: React.FC<Props> = props => {
           marginHorizontal: 5,
         }}
       />
-      {/* 그라데이션 */}
+
+      {/* 배경 그라데이션 효과. 테스트 진행시에는 주석 처리 해야 함 */}
       <LinearGradient
         colors={[
           'rgba(255, 255, 255, 0.8)',

@@ -7,5 +7,5 @@ const projectRoot = __dirname
 const config = getDefaultConfig(projectRoot)
 
 config.resolver.nodeModulesPaths = [path.resolve(projectRoot, 'node_modules')]
-
+config.transformer.unstable_allowRequireContext = true
 module.exports = config

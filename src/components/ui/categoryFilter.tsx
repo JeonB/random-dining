@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { FiltersProps, FilterButtonProps } from '@_types/filter'
 
-const Filters: React.FC<FiltersProps> = ({ data, onValueChange }) => {
+const Filters: React.FC<FiltersProps> = ({
+  categoryItems: data,
+  onValueChange,
+}) => {
   const [selectedIndices, setSelectedIndices] = useState<number[]>([0])
   useEffect(() => {
     handleToggleSelection(0)
