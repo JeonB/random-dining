@@ -10,7 +10,7 @@ import {
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { DefaultFlatList } from '@_components/layout/component/defaultFlatList'
-import { useNavigation, NavigationProp } from '@react-navigation/native'
+import { NavigationProp } from '@react-navigation/native'
 import { Icon } from '@rneui/themed'
 import { Button } from 'react-native-paper'
 
@@ -19,9 +19,11 @@ import { RootStackParamList } from '@_types/navigation'
 import { Restaurant } from '@_types/restaurant'
 
 const { width, height } = Dimensions.get('window')
-export const AddUserList: React.FC = () => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>()
-
+export const AddUserList = ({
+  navigation,
+}: {
+  navigation: NavigationProp<RootStackParamList>
+}) => {
   const [listItems, setListItems] = useState<Restaurant[]>([]) // 리스트 아이템을 관리하는 상태
 
   const [inputRestaurant, setInputRestaurant] = useState('') // 식당 또는 메뉴 이름을 입력하는 상태

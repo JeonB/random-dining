@@ -1,12 +1,15 @@
 import React from 'react'
 import { View } from 'react-native'
 
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryFn } from '@storybook/react'
 import { NavigationContainer } from '@react-navigation/native'
+import { NavigationProp } from '@react-navigation/native'
+import { action } from '@storybook/addon-actions'
 
+import { RootStackParamList } from '@_types/navigation'
 import { ListManageIcon } from '@_components/userCustomList/component/listManageIcon'
 
-const ListManageIconMeta: Meta<typeof ListManageIcon> = {
+export default {
   title: 'Components/UserCustomList/ListManageIcon',
   component: ListManageIcon,
 
@@ -21,7 +24,12 @@ const ListManageIconMeta: Meta<typeof ListManageIcon> = {
       </NavigationContainer>
     ),
   ],
-}
+} as Meta
 
-export default ListManageIconMeta
-export const Basic: StoryObj<typeof ListManageIcon> = {}
+export const Basic: StoryFn<typeof ListManageIcon> = () => {
+  const mockNavigation = {
+    navigate: action('navigate'),
+  } as NavigationProp<RootStackParamList>
+
+  return <ListManageIcon navigation={mockNavigation} />
+}

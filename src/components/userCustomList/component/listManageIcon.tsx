@@ -8,7 +8,7 @@ import {
   StyleSheet,
   Dimensions,
 } from 'react-native'
-import { useNavigation, NavigationProp } from '@react-navigation/native'
+import { NavigationProp } from '@react-navigation/native'
 
 import { Icon } from '@rneui/themed'
 
@@ -17,10 +17,13 @@ import { RootStackParamList } from '@_types/navigation'
 const deviceWidth = Dimensions.get('window').width
 const deviceHeight = Dimensions.get('window').height
 
-export const ListManageIcon: React.FC = () => {
+export const ListManageIcon = ({
+  navigation,
+}: {
+  navigation: NavigationProp<RootStackParamList>
+}) => {
   const [showSettingsModal, setShowSettingsModal] = React.useState(false)
   const [modalStyle, setModalStyle] = useState({})
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>()
 
   // 아이콘 위치에 따라 모달 위치 조정
   const handleIconLayout = (event: {

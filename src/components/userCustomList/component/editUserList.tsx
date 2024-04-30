@@ -10,24 +10,23 @@ import {
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { DefaultFlatList } from '@_components/layout/component/defaultFlatList'
-import {
-  useNavigation,
-  NavigationProp,
-  useRoute,
-  RouteProp,
-} from '@react-navigation/native'
+import { NavigationProp, RouteProp } from '@react-navigation/native'
 import { Icon } from '@rneui/themed'
 import { Button } from 'react-native-paper'
 
 import { useListNames } from '@_components/userCustomList/hook/useListNames'
 import { RootStackParamList } from '@_types/navigation'
 import { Restaurant } from '@_types/restaurant'
+import { StackScreenProps } from '@react-navigation/stack'
 
 const { width, height } = Dimensions.get('window')
-export const EditUserList: React.FC = () => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>()
-  const route = useRoute<RouteProp<RootStackParamList, 'EditUserList'>>()
-
+export const EditUserList = ({
+  navigation,
+  route,
+}: {
+  navigation: NavigationProp<RootStackParamList>
+  route: RouteProp<RootStackParamList, 'EditUserList'>
+}) => {
   const [listItems, setListItems] = useState<Restaurant[]>([]) // 리스트 아이템을 관리하는 상태
 
   const [inputRestaurant, setInputRestaurant] = useState('') // 식당 또는 메뉴 이름을 입력하는 상태
@@ -75,6 +74,11 @@ export const EditUserList: React.FC = () => {
   }
 
   const handlePressSave = async () => {
+    // 이미 같은 이름의 리스트가 있는지 확인
+    if (listNames.includes(newListName)) {
+      Alert.alert('같은 이름의 리스트가 있습니다.')
+      return
+    }
     Alert.alert(
       '저장 확인',
       '변경 사항을 저장하시겠습니까?',

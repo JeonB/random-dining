@@ -18,9 +18,9 @@ const jestConfig: JestConfigWithTsJest = {
   moduleNameMapper: {
     '^@_components/(.*)$': '<rootDir>/src/components/$1',
   },
-  transformIgnorePatterns: [
-    'node_modules/(?!((jest-)?react-native(-.*)?|@react-native(-community)?|@rneui)/)',
-  ],
+  // transformIgnorePatterns: [
+  //   'node_modules/(?!((jest-)?react-native(-.*)?|@react-native(-community)?|@rneui)/)',
+  // ],
   // transformIgnorePatterns: [
   //   'node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|rollbar-react-native|@fortawesome|@react-native|@react-navigation|@rneui)',
   // ],

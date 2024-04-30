@@ -1,12 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, View, Text, Alert } from 'react-native'
+
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { NavigationProp, useFocusEffect } from '@react-navigation/native'
 
 import { DefaultFlatList } from '@_components/layout/component/defaultFlatList'
 import { ListManageIcon } from '@_components/userCustomList/component/listManageIcon'
+import { RootStackParamList } from '@_types/navigation'
 import { useListNames } from '@_components/userCustomList/hook/useListNames'
-import { useFocusEffect } from '@react-navigation/native'
-export const UserCustomList: React.FC = () => {
+
+export const UserCustomList = ({
+  navigation,
+}: {
+  navigation: NavigationProp<RootStackParamList>
+}) => {
   const [selectedListData, setSelectedListData] = useState([])
   const [showRandomPicker, setShowRandomPicker] = useState(false)
 
@@ -48,7 +55,7 @@ export const UserCustomList: React.FC = () => {
         renderItem={item => <Text style={styles.listText}>{item}</Text>}
         onPressItem={handlePressItem}
       />
-      <ListManageIcon />
+      <ListManageIcon navigation={navigation} />
     </View>
   )
 }

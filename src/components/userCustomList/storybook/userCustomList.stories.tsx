@@ -1,15 +1,16 @@
 import React from 'react'
 
-import type { Meta, StoryObj } from '@storybook/react'
-import { NavigationContainer } from '@react-navigation/native'
+import type { Meta, StoryFn } from '@storybook/react'
+import { NavigationContainer, NavigationProp } from '@react-navigation/native'
+import { action } from '@storybook/addon-actions'
 import { createStackNavigator } from '@react-navigation/stack'
 
+import { RootStackParamList } from '@_types/navigation'
 import { UserCustomList } from '@_components/userCustomList/component/userCustomList'
-import { SelectEditList } from '@_components/userCustomList/component/selectEditList'
 
 const Stack = createStackNavigator()
 
-const UserCustomListMeta: Meta<typeof UserCustomList> = {
+export default {
   title: 'Components/UserCustomList/UserCustomList',
   component: UserCustomList,
 
@@ -18,14 +19,16 @@ const UserCustomListMeta: Meta<typeof UserCustomList> = {
   decorators: [
     Story => (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="UserCustomList">
-          <Stack.Screen name="UserCustomList" component={Story} />
-          <Stack.Screen name="SelectEditList" component={SelectEditList} />
-        </Stack.Navigator>
+        <Story />
       </NavigationContainer>
     ),
   ],
-}
+} as Meta
 
-export default UserCustomListMeta
-export const Basic: StoryObj<typeof UserCustomList> = {}
+export const Basic: StoryFn<typeof UserCustomList> = () => {
+  const mockNavigation = {
+    navigate: action('navigate'),
+  } as NavigationProp<RootStackParamList>
+
+  return <UserCustomList navigation={mockNavigation} />
+}
