@@ -15,6 +15,15 @@ const jestConfig: JestConfigWithTsJest = {
   },
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  moduleNameMapper: {
+    '^@_components/(.*)$': '<rootDir>/src/components/$1',
+  },
+  transformIgnorePatterns: [
+    'node_modules/(?!((jest-)?react-native(-.*)?|@react-native(-community)?|@rneui)/)',
+  ],
+  // transformIgnorePatterns: [
+  //   'node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|rollbar-react-native|@fortawesome|@react-native|@react-navigation|@rneui)',
+  // ],
 }
 
 export default jestConfig
