@@ -6,10 +6,8 @@ import { RootStackParamList } from '@_types/navigation'
 import { StackScreenProps } from '@react-navigation/stack'
 import { Restaurant } from '@_types/restaurant'
 import RestaurantActionButtons from './restaurantActionButtons'
-import { useFilterSetting } from '../FilterSettings/hook/useFilterSetting'
-import { handleData } from '@_services/api'
 import { RandomItemModal } from './randomItemModal'
-import { NavigationProp } from '@react-navigation/native'
+import { useRestaurantContext } from '../context/restaurantContext'
 
 export const SelectedRestaurantInfo = ({
   route,
@@ -18,42 +16,11 @@ export const SelectedRestaurantInfo = ({
   const {
     modalVisible,
     setModalVisible,
-    setRestaurant,
-    distance,
-    setDistance,
-    selectedCategories,
-    setSelectedCategories,
     restaurantItems,
-    setRestaurantItems,
     isLoading,
-    setIsLoading,
-  } = useFilterSetting()
-  const isMounted = useRef(true)
-  const handleRandomPickClick = async () => {
-    setIsLoading(true)
-    try {
-      console.log(selectedCategories, distance)
-      const data = await handleData(selectedCategories, distance)
-      if (isMounted.current && data) {
-        setRestaurantItems(data)
-        setModalVisible(true)
-      }
-    } catch (error) {
-      if (isMounted.current) {
-        console.error('Error occurred:', error)
-      }
-    }
-    if (isMounted.current) {
-      setIsLoading(false)
-    }
-  }
-  const handleRestaurantChange = (index: number) => {
-    const selectedRestaurant = restaurantItems[index]
-    if (selectedRestaurant) {
-      setRestaurant(selectedRestaurant)
-      navigation.navigate('RestaurantInfo', { restaurant: selectedRestaurant })
-    }
-  }
+    handleRandomPickClick,
+    handleRestaurantChange,
+  } = useRestaurantContext()
   const restaurant: Restaurant | undefined = route.params?.restaurant
   return (
     <View style={styles.container}>

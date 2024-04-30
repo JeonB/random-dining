@@ -6,9 +6,8 @@ import { CategorySwitch } from './categorySwitch'
 import { RandomItemModal } from '../RestaurantView/randomItemModal'
 import { NavigationProp } from '@react-navigation/native'
 import { RootStackParamList } from 'src/types/navigation'
-import { handleData } from '@_services/api'
-import { useFilterSetting } from './hook/useFilterSetting'
 import RandomPickButton from './randomPickButton'
+import { useRestaurantContext } from '../context/restaurantContext'
 
 const FilterSetting = ({
   navigation,
@@ -16,57 +15,52 @@ const FilterSetting = ({
   navigation: NavigationProp<RootStackParamList>
 }) => {
   const {
+    handleRandomPickClick,
+    handleCategoryChange,
+    handleDistanceRangeChange,
+    handleRestaurantChange,
     modalVisible,
     setModalVisible,
-    restaurant,
-    setRestaurant,
-    distance,
-    setDistance,
-    selectedCategories,
-    setSelectedCategories,
     restaurantItems,
     setRestaurantItems,
     isLoading,
-    setIsLoading,
-  } = useFilterSetting()
-  const isMounted = useRef(true)
+  } = useRestaurantContext()
+  //   useEffect(() => {
+  //     return () => {
+  //       isMounted.current = false
+  //     }
+  //   }, [])
 
-  useEffect(() => {
-    return () => {
-      isMounted.current = false
-    }
-  }, [])
-
-  const handleRandomPickClick = async () => {
-    setIsLoading(true)
-    try {
-      const data = await handleData(selectedCategories, distance)
-      if (isMounted.current && data) {
-        setRestaurantItems(data)
-        setModalVisible(true)
-      }
-    } catch (error) {
-      if (isMounted.current) {
-        console.error('Error occurred:', error)
-      }
-    }
-    if (isMounted.current) {
-      setIsLoading(false)
-    }
-  }
-  const handleCategoryChange = (categories: string[]) => {
-    setSelectedCategories(categories)
-  }
-  const handleDistanceRangeChange = (distance: number) => {
-    setDistance(distance)
-  }
-  const handleRestaurantChange = (index: number) => {
-    const selectedRestaurant = restaurantItems[index]
-    if (selectedRestaurant) {
-      setRestaurant(selectedRestaurant)
-      navigation.navigate('RestaurantInfo', { restaurant: selectedRestaurant })
-    }
-  }
+  //   const handleRandomPickClick = async () => {
+  //     setIsLoading(true)
+  //     try {
+  //       const data = await handleData(selectedCategories, distance)
+  //       if (isMounted.current && data) {
+  //         setRestaurantItems(data)
+  //         setModalVisible(true)
+  //       }
+  //     } catch (error) {
+  //       if (isMounted.current) {
+  //         console.error('Error occurred:', error)
+  //       }
+  //     }
+  //     if (isMounted.current) {
+  //       setIsLoading(false)
+  //     }
+  //   }
+  //   const handleCategoryChange = (categories: string[]) => {
+  //     setSelectedCategories(categories)
+  //   }
+  //   const handleDistanceRangeChange = (distance: number) => {
+  //     setDistance(distance)
+  //   }
+  //   const handleRestaurantChange = (index: number) => {
+  //     const selectedRestaurant = restaurantItems[index]
+  //     if (selectedRestaurant) {
+  //       setRestaurant(selectedRestaurant)
+  //       navigation.navigate('RestaurantInfo', { restaurant: selectedRestaurant })
+  //     }
+  //   }
 
   return (
     <View style={styles.container}>

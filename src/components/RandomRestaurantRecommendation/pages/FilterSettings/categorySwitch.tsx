@@ -10,8 +10,8 @@ const CATEGORY = [
   '중식',
   '양식',
   '분식',
-  '아시안',
-  '제육',
+  '아시아음식',
+  '제육볶음',
 ]
 
 export const CategorySwitch = ({

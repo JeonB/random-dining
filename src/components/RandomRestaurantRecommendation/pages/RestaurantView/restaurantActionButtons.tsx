@@ -23,7 +23,7 @@ const RestaurantActionButtons = ({
   navigation,
 }: RandomPickButtonProps) => {
   const handleDetailViewClick = () => {
-    if (restaurant) {
+    if (restaurant && restaurant.place_url) {
       navigation.navigate('Detail', { url: restaurant.place_url })
     }
   }
