@@ -52,10 +52,6 @@ export const handleData = async (
   }
 
   try {
-    // if (categories[0] === '') {
-    //   categories = ['한식', '중식', '일식', '양식', '분식', '아시안', '제육']
-    // }
-
     let data = await fetchDataAndUpdatePage()
 
     // Kakao Local API는 최대 3페이지까지(45개) 데이터 제공
@@ -67,7 +63,7 @@ export const handleData = async (
   }
 
   if (allData.length === 0) {
-    // Alert.alert('주변에 식당이 없습니다. 거리 범위를 조정해주세요.')
+    Alert.alert('주변에 식당이 없습니다. 거리 범위를 조정해주세요.')
     return
   }
 
@@ -114,21 +110,9 @@ export async function fetchData(
 ) {
   const { latitude, longitude } = await getLocation()
 
-  const defaultCategories = ['한식', '중식', '일식', '양식', '분식']
   let results = []
 
-  if (!query && latitude && longitude) {
-    for (const category of defaultCategories) {
-      const result = await fetchSingleCategoryData(
-        category,
-        page,
-        latitude,
-        longitude,
-        distanceRange,
-      )
-      results.push(result)
-    }
-  } else if (query && latitude && longitude) {
+  if (latitude && longitude) {
     results = await fetchSingleCategoryData(
       query,
       page,

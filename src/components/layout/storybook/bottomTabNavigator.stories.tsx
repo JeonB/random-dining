@@ -8,7 +8,7 @@ import {
   BottomTabNavigatorProps,
 } from '@_components/layout/component/bottomTabNavigator'
 import { UserCustomList } from '@_components/userCustomList/component/userCustomList'
-import { Main } from 'src/main'
+import { PositionSelector } from 'src/components/RandomRestaurantRecommendation/pages/positionSelector'
 
 export default {
   title: 'Components/BottomTabNavigator',
@@ -30,7 +30,7 @@ Basic.args = {
   tabs: [
     {
       name: 'Random',
-      component: Main,
+      component: PositionSelector,
       iconName: 'star',
     },
     {

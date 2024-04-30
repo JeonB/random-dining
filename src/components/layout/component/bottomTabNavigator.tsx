@@ -46,7 +46,7 @@ export const BottomTabNavigator: React.FC<BottomTabNavigatorProps> = ({
   )
 }
 
-interface TabInfo {
+export interface TabInfo {
   name: string
   component: React.ComponentType
   iconName: string
