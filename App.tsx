@@ -8,6 +8,7 @@ import { DetailView } from '@_components/ui/detailView'
 import { UserCustomList } from '@_components/userCustomList/component/userCustomList'
 import { SelectEditList } from '@_components/userCustomList/component/selectEditList'
 import { EditUserList } from '@_components/userCustomList/component/editUserList'
+import { AddUserList } from '@_components/userCustomList/component/addUserList'
 import { MainTab } from '@_components/ui/mainTab'
 import Constants from 'expo-constants'
 import 'regenerator-runtime/runtime'
@@ -28,6 +29,7 @@ const App: React.FC = () => {
         <Stack.Screen name="UserCustomList" component={UserCustomList} />
         <Stack.Screen name="SelectEditList" component={SelectEditList} />
         <Stack.Screen name="EditUserList" component={EditUserList} />
+        <Stack.Screen name="AddUserList" component={AddUserList} />
       </Stack.Navigator>
     </NavigationContainer>
   )
