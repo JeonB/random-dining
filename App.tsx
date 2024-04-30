@@ -30,7 +30,7 @@ const Stack = createStackNavigator<RootStackParamList>()
 const App: React.FC = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="홈">
+      <Stack.Navigator initialRouteName="Main">
         <Stack.Screen
           name="Main"
           component={MainTab}

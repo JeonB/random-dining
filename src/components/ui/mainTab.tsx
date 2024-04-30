@@ -2,13 +2,13 @@ import React from 'react'
 
 import { BottomTabNavigator } from '@_components/layout/component/bottomTabNavigator'
 
-import { Main } from 'src/main'
 import { UserCustomList } from '@_components/userCustomList/component/userCustomList'
+import { PositionSelector } from 'src/components/RandomRestaurantRecommendation/pages/positionSelector'
 
 const tabs = [
   {
     name: 'random',
-    component: Main,
+    component: PositionSelector,
     iconName: 'star',
   },
   {
