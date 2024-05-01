@@ -33,6 +33,7 @@ export const BottomTabNavigator: React.FC<BottomTabNavigatorProps> = ({
           renderTabIcon(color, size, route, tabsByName),
         tabBarActiveTintColor: activeTintColor,
         tabBarInactiveTintColor: inactiveTintColor,
+        // headerShown: false,
       })}>
       {tabs.map(({ name, component, listeners }) => (
         <Tab.Screen

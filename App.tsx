@@ -3,19 +3,13 @@ import { View, StyleSheet, TextInput } from 'react-native'
 import { Text } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { PositionSelector } from 'src/components/RandomRestaurantRecommendation/pages/positionSelector'
 import { UserCustomList } from '@_components/userCustomList/component/userCustomList'
-import { SelectEditList } from '@_components/userCustomList/component/selectEditList'
-import { EditUserList } from '@_components/userCustomList/component/editUserList'
-import { AddUserList } from '@_components/userCustomList/component/addUserList'
-import { DetailView } from 'src/components/RandomRestaurantRecommendation/pages/RestaurantView/detailView'
 import Constants from 'expo-constants'
 import 'regenerator-runtime/runtime'
-import FilterSetting from '@_components/RandomRestaurantRecommendation/pages/FilterSettings/filterSetting'
 import { RootStackParamList } from '@_types/navigation'
-import { SelectedRestaurantInfo } from '@_components/RandomRestaurantRecommendation/pages/RestaurantView/selectedRestaurantInfo'
-import { MainTab } from 'src/components/RandomRestaurantRecommendation/pages/mainTab'
 import { RestaurantProvider } from 'src/components/RandomRestaurantRecommendation/pages/context/restaurantProvider'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import MainStack from '@_components/stackScreen'
 ;(Text as any).defaultProps = (Text as any).defaultProps || {}
 ;(Text as any).defaultProps.allowFontScaling = false
 ;(TextInput as any).defaultProps = (TextInput as any).defaultProps || {}
@@ -27,28 +21,36 @@ console.error = (...args: any) => {
   error(...args)
 }
 const Stack = createStackNavigator<RootStackParamList>()
+const Tab = createBottomTabNavigator()
+
 const App: React.FC = () => {
   return (
     <NavigationContainer>
       <RestaurantProvider>
-        <Stack.Navigator initialRouteName="Main">
-          <Stack.Screen
+        <Tab.Navigator initialRouteName="Main">
+          <Tab.Screen
             name="Main"
+            component={MainStack}
+            options={{ headerShown: false, title: '홈' }}
+          />
+          <Tab.Screen
+            name="UserCustomList"
+            component={UserCustomList}
+            options={{ title: '사용자 리스트' }}
+          />
+          <Tab.Screen
+            name="AD Info"
+            component={UserCustomList}
+            options={{ title: '광고 문의' }}
+          />
+        </Tab.Navigator>
+        {/* <Stack.Navigator initialRouteName="Main">
+          <Stack.Screen
             component={MainTab}
+            name="Main"
             options={{ headerShown: false }}
           />
-          <Stack.Screen name="Detail" component={DetailView} />
-          <Stack.Screen name="홈" component={PositionSelector} />
-          <Stack.Screen name="CurrentPosition" component={FilterSetting} />
-          <Stack.Screen
-            name="RestaurantInfo"
-            component={SelectedRestaurantInfo}
-          />
-          <Stack.Screen name="UserCustomList" component={UserCustomList} />
-          <Stack.Screen name="SelectEditList" component={SelectEditList} />
-          <Stack.Screen name="EditUserList" component={EditUserList} />
-          <Stack.Screen name="AddUserList" component={AddUserList} />
-        </Stack.Navigator>
+        </Stack.Navigator> */}
       </RestaurantProvider>
     </NavigationContainer>
   )
