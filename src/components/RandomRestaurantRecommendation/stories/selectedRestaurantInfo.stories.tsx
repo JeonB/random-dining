@@ -2,7 +2,7 @@ import React from 'react'
 import { View } from 'react-native'
 import { Meta, StoryFn } from '@storybook/react'
 import SelectedRestaurantInfo from '../pages/RestaurantView/selectedRestaurantInfo'
-import { Restaurant } from '@_types/restaurant'
+import { RestaurantTypes } from '@_types/restaurant'
 import { RootStackParamList } from 'src/types/navigation'
 import { RouteProp } from '@react-navigation/native'
 import { action } from '@storybook/addon-actions'
@@ -24,8 +24,8 @@ export default {
   //   ],
 } as Meta
 
-export const Basic: StoryFn<Restaurant> = () => {
-  const mockRestaurant: Restaurant = {
+export const Basic: StoryFn<RestaurantTypes> = () => {
+  const mockRestaurant: RestaurantTypes = {
     place_name: '봉이밥',
     category_name: '한식',
     distance: '150',

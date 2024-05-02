@@ -2,7 +2,7 @@ import React from 'react'
 import { View } from 'react-native'
 import { Meta, StoryFn } from '@storybook/react'
 import { DistanceSlider } from '../pages/FilterSettings/distanceSlider'
-import { Restaurant } from '@_types/restaurant'
+import { RestaurantTypes } from '@_types/restaurant'
 import { action } from '@storybook/addon-actions'
 import { NavigationProp } from '@react-navigation/native'
 import { RootStackParamList } from 'src/types/navigation'
@@ -22,7 +22,7 @@ export default {
   ],
 } as Meta
 
-export const Basic: StoryFn<Restaurant> = () => {
+export const Basic: StoryFn<RestaurantTypes> = () => {
   interface DistanceSliderProps {
     onDistanceChange: (value: number) => void
   }

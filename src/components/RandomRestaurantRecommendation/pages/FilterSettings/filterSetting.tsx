@@ -1,20 +1,18 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
 import { Dimensions, ScrollView, StyleSheet, View } from 'react-native'
-import { Text } from '@rneui/themed'
-import { DistanceSlider } from './distanceSlider'
-import { CategorySwitch } from './categorySwitch'
-import { RandomItemModal } from '../RestaurantView/randomItemModal'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { RootStackParamList } from 'src/types/navigation'
-import RandomPickButton from './randomPickButton'
-import { useRestaurantContext } from '../context/restaurantContext'
+import { Text } from '@rneui/themed'
+import DistanceSlider from '@_3Rpages/FilterSettings/distanceSlider'
+import CategorySwitch from '@_3Rpages/FilterSettings/categorySwitch'
+import RandomPickButton from '@_3Rpages/FilterSettings/randomPickButton'
+import RandomItemModal from '@_3Rpages/RestaurantView/randomItemModal'
+import { useRestaurantContext } from '@_3Rpages/context/restaurantContext'
+import { RootStackParamList } from '@_types/navigation'
 
 const FilterSetting = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>()
   const {
     handleRandomPickClick,
-    // handleCategoryChange,
-    // handleDistanceRangeChange,
     handleRestaurantChange,
     modalVisible,
     setModalVisible,
@@ -22,45 +20,8 @@ const FilterSetting = () => {
     isLoading,
     distance,
     setDistance,
-    selectedCategories,
     setSelectedCategories,
   } = useRestaurantContext()
-  //   useEffect(() => {
-  //     return () => {
-  //       isMounted.current = false
-  //     }
-  //   }, [])
-
-  //   const handleRandomPickClick = async () => {
-  //     setIsLoading(true)
-  //     try {
-  //       const data = await handleData(selectedCategories, distance)
-  //       if (isMounted.current && data) {
-  //         setRestaurantItems(data)
-  //         setModalVisible(true)
-  //       }
-  //     } catch (error) {
-  //       if (isMounted.current) {
-  //         console.error('Error occurred:', error)
-  //       }
-  //     }
-  //     if (isMounted.current) {
-  //       setIsLoading(false)
-  //     }
-  //   }
-  //   const handleCategoryChange = (categories: string[]) => {
-  //     setSelectedCategories(categories)
-  //   }
-  //   const handleDistanceRangeChange = (distance: number) => {
-  //     setDistance(distance)
-  //   }
-  //   const handleRestaurantChange = (index: number) => {
-  //     const selectedRestaurant = restaurantItems[index]
-  //     if (selectedRestaurant) {
-  //       setRestaurant(selectedRestaurant)
-  //       navigation.navigate('SelectedRestaurantInfo', { restaurant: selectedRestaurant })
-  //     }
-  //   }
 
   return (
     <View style={styles.container} testID="test">
@@ -102,7 +63,6 @@ const FilterSetting = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'space-between',
   },
   filterOptions: { marginTop: 20 },
   text: { textAlign: 'left', alignSelf: 'flex-start', margin: 20 },

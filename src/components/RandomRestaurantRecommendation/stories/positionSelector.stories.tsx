@@ -1,8 +1,8 @@
 import React from 'react'
 import { View } from 'react-native'
 import { Meta, StoryFn } from '@storybook/react'
-import { PositionSelector } from '../pages/positionSelector'
-import { Restaurant } from '@_types/restaurant'
+import PositionSelector from '../pages/positionSelector'
+import { RestaurantTypes } from '@_types/restaurant'
 import { action } from '@storybook/addon-actions'
 import { NavigationProp } from '@react-navigation/native'
 import { RootStackParamList } from 'src/types/navigation'
@@ -22,7 +22,7 @@ export default {
   ],
 } as Meta
 
-export const Basic: StoryFn<Restaurant> = () => {
+export const Basic: StoryFn<RestaurantTypes> = () => {
   const mockNavigation = {
     navigate: action('navigate'),
     goBack: action('goBack'),

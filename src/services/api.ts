@@ -3,7 +3,7 @@ import * as Location from 'expo-location'
 import { QueryParamsType } from '@_types/queryParams'
 import Constants from 'expo-constants'
 import { AppConfig } from 'app.config'
-import { Restaurant } from '@_types/restaurant'
+import { RestaurantTypes } from '@_types/restaurant'
 
 const { KAKAO_RESTAPI_KEY } = Constants.expoConfig?.extra as AppConfig
 const baseUrl = 'https://dapi.kakao.com/v2/local/search/keyword'
@@ -39,7 +39,7 @@ export const handleData = async (
   categories: string[],
   distanceRange: number,
 ) => {
-  const allData: Restaurant[] = []
+  const allData: RestaurantTypes[] = []
   const randomCategory =
     categories[Math.floor(Math.random() * categories.length)]
   let page = 1

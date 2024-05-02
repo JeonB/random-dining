@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react-native'
 import { AnimatedRandomSelector } from '../pages/RestaurantView/animatedRandomSelector'
-import { Restaurant } from 'src/types/restaurant'
+import { RestaurantTypes } from 'src/types/restaurant'
 
 describe('AnimatedRandomSelector', () => {
   test('정상적으로 렌더링되는지 확인', () => {
@@ -13,7 +13,7 @@ describe('AnimatedRandomSelector', () => {
 
     const { getAllByText } = render(
       <AnimatedRandomSelector
-        restaurantItems={items as Restaurant[]}
+        restaurantItems={items as RestaurantTypes[]}
         onIndexChange={() => {}}
         itemHeight={50}
         closeModal={() => {}}

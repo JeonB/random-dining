@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react-native'
 import React from 'react'
 import { Map } from '../pages/RestaurantView/map'
-import { Restaurant } from 'src/types/restaurant'
+import { RestaurantTypes } from 'src/types/restaurant'
 jest.mock('react-native-webview', () => {
   const { View } = require('react-native')
   return {
@@ -18,7 +18,7 @@ jest.mock('expo-constants', () => ({
   },
 }))
 // 초기 렌더링 테스트
-const RestaurantInfo: Restaurant = {
+const RestaurantInfo: RestaurantTypes = {
   place_name: '봉이밥',
   distance: '1km',
   phone: '010-1234-5678',

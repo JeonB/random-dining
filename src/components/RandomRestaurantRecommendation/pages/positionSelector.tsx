@@ -4,7 +4,7 @@ import { Dimensions, Image, StyleSheet, View } from 'react-native'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { RootStackParamList } from '@_types/navigation'
 
-export const PositionSelector = () => {
+const PositionSelector = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>()
   return (
     <View style={styles.mediaContainer} testID="mediaContainer">
@@ -50,3 +50,5 @@ const styles = StyleSheet.create({
     color: 'rgb(108, 109, 115)',
   },
 })
+
+export default PositionSelector

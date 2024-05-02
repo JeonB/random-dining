@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { RestaurantContext } from './restaurantContext'
+import { RestaurantContext } from '@_3Rpages/context/restaurantContext'
 import { handleData } from '@_services/api'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { Restaurant } from '@_types/restaurant'
+import { RestaurantTypes } from '@_types/restaurant'
 import { RootStackParamList } from '@_types/navigation'
 
 export const RestaurantProvider = ({
@@ -12,11 +12,11 @@ export const RestaurantProvider = ({
 }) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const [distance, setDistance] = useState<number>(30)
-  const [restaurantItems, setRestaurantItems] = useState<Restaurant[]>([])
+  const [restaurantItems, setRestaurantItems] = useState<RestaurantTypes[]>([])
   const navigation = useNavigation<NavigationProp<RootStackParamList>>()
   const isMounted = useRef(true)
   const [modalVisible, setModalVisible] = useState(false)
-  const [restaurant, setRestaurant] = useState<Restaurant>()
+  const [restaurant, setRestaurant] = useState<RestaurantTypes>()
   const [isLoading, setIsLoading] = useState(false)
   const [isChanging, setIsChanging] = useState(false)
 
@@ -43,14 +43,6 @@ export const RestaurantProvider = ({
     if (isMounted.current) {
       setIsLoading(false)
     }
-  }
-  // 카테고리 변경 함수
-  const handleCategoryChange = (categories: string[]) => {
-    setSelectedCategories(categories)
-  }
-  // 거리 변경 함수
-  const handleDistanceRangeChange = (distance: number) => {
-    setDistance(distance)
   }
   const handleRestaurantChange = (index: number) => {
     if (isChanging) return // 이미 변경 중이면 무시
@@ -82,8 +74,6 @@ export const RestaurantProvider = ({
         restaurantItems,
         setRestaurantItems,
         handleRandomPickClick,
-        // handleCategoryChange,
-        // handleDistanceRangeChange,
         handleRestaurantChange,
       }}>
       {children}

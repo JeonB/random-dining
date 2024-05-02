@@ -9,7 +9,7 @@ import { DefaultFlatList } from '@_components/layout/component/defaultFlatList'
 import { ListManageIcon } from '@_components/userCustomList/pages/listManageIcon'
 import { useListNames } from '@_components/userCustomList/hook/useListNames'
 import { RootStackParamList } from '@_types/navigation'
-import { Restaurant } from '@_types/restaurant'
+import { RestaurantTypes } from '@_types/restaurant'
 
 export const UserCustomList = ({
   navigation,
@@ -17,7 +17,7 @@ export const UserCustomList = ({
   navigation: NavigationProp<RootStackParamList>
 }) => {
   const [modalVisible, setModalVisible] = useState(false)
-  const [restaurantItems, setRestaurantItems] = useState<Restaurant[]>([])
+  const [restaurantItems, setRestaurantItems] = useState<RestaurantTypes[]>([])
   const { listNames, fetchListNames } = useListNames()
 
   const handleRestaurantChange = (index: number) => {

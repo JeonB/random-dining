@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Dimensions, StyleSheet } from 'react-native'
 import { WebView } from 'react-native-webview'
-import { Restaurant } from '@_types/restaurant'
+import { RestaurantTypes } from '@_types/restaurant'
 import Constants from 'expo-constants'
 import { AppConfig } from 'app.config'
 
-export const Map = ({ info }: { info: Restaurant }) => {
+const Map = ({ info }: { info: RestaurantTypes }) => {
   const [html, setHtml] = useState('')
   const { KAKAO_JAVASCRIPT_KEY } = Constants.expoConfig?.extra as AppConfig
   const appKey = KAKAO_JAVASCRIPT_KEY
@@ -105,3 +105,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 })
+
+export default Map
