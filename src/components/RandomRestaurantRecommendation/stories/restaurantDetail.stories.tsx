@@ -1,10 +1,10 @@
 import React from 'react'
 import { Meta, StoryFn } from '@storybook/react'
-import { RestaurantDetail } from '../pages/RestaurantView/restaurantDetail'
+import RestaurantDetail from '../pages/RestaurantView/restaurantDetail'
 import { RestaurantTypes } from 'src/types/restaurant'
 
 export default {
-  title: 'Components/RestaurantDetail',
+  title: 'Components/3R/RestaurantView/RestaurantDetail',
   component: RestaurantDetail,
   tags: ['autodocs'],
 } as Meta

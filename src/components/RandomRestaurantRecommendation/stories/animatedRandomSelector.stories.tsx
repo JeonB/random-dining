@@ -7,7 +7,7 @@ import {
 } from '../pages/RestaurantView/animatedRandomSelector'
 
 export default {
-  title: 'Components/RandomItemSelect',
+  title: 'Components/3R/RestaurantView/RandomItemSelect',
   component: AnimatedRandomSelector,
   tags: ['autodocs'],
   decorators: [

@@ -1,5 +1,4 @@
 import React from 'react'
-import { View } from 'react-native'
 import { Meta, StoryFn } from '@storybook/react'
 import FilterSetting from '../pages/FilterSettings/filterSetting'
 import { RestaurantTypes } from '@_types/restaurant'
@@ -8,7 +7,7 @@ import { NavigationProp } from '@react-navigation/native'
 import { RootStackParamList } from 'src/types/navigation'
 
 export default {
-  title: 'Components/FilterSettings/FilterSetting',
+  title: 'Components/3R/FilterSettings/FilterSetting',
   component: FilterSetting,
   //   argTypes: {
   //     onPress: { action: '슬라이딩에 따른 거리조절' },

@@ -4,7 +4,7 @@ import { Meta, StoryFn } from '@storybook/react'
 import ToggleSwitch from '../../common/toggleSwitch'
 import { RestaurantTypes } from 'src/types/restaurant'
 export default {
-  title: 'Components/CategorySwitch',
+  title: 'Components/3R/FilterSettings/CategorySwitch',
   component: ToggleSwitch,
   argTypes: {
     onPress: { action: '슬라이딩에 따른 거리조절' },

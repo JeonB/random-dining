@@ -7,7 +7,7 @@ import { action } from '@storybook/addon-actions'
 import { NavigationProp } from '@react-navigation/native'
 import { RootStackParamList } from 'src/types/navigation'
 export default {
-  title: 'Components/PositionSelector',
+  title: 'Components/3R/PositionSelector',
   component: PositionSelector,
   argTypes: {
     onPress: { action: '필터 화면 혹은 지도로 이동' },
@@ -28,5 +28,5 @@ export const Basic: StoryFn<RestaurantTypes> = () => {
     goBack: action('goBack'),
   } as NavigationProp<RootStackParamList>
 
-  return <PositionSelector navigation={mockNavigation} />
+  return <PositionSelector />
 }

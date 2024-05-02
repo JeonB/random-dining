@@ -9,19 +9,12 @@ import { action } from '@storybook/addon-actions'
 import { StackNavigationProp } from '@react-navigation/stack'
 
 export default {
-  title: 'Components/SelectedRestaurantInfo',
+  title: 'Components/3R/RestaurantView/SelectedRestaurantInfo',
   component: SelectedRestaurantInfo,
   argTypes: {
     onPress: { action: '필터 화면 혹은 지도로 이동' },
   },
   tags: ['autodocs'],
-  //   decorators: [
-  //     Story => (
-  //       <View style={{ flex: 1, padding: 50, alignItems: 'center' }}>
-  //         <Story />
-  //       </View>
-  //     ),
-  //   ],
 } as Meta
 
 export const Basic: StoryFn<RestaurantTypes> = () => {
@@ -37,18 +30,19 @@ export const Basic: StoryFn<RestaurantTypes> = () => {
     x: '126.82597944995',
     y: '37.5676859104888',
   }
+
   const mockNavigation = {
     navigate: action('navigate'),
     goBack: action('goBack'),
-  } as StackNavigationProp<RootStackParamList, 'RestaurantInfo'>
+  } as StackNavigationProp<RootStackParamList, 'SelectedRestaurantInfo'>
 
   const mockRoute = {
     key: 'mockKey',
-    name: 'RestaurantInfo',
+    name: 'SelectedRestaurantInfo',
     params: {
       restaurant: mockRestaurant,
     },
-  } as RouteProp<RootStackParamList, 'RestaurantInfo'>
+  } as RouteProp<RootStackParamList, 'SelectedRestaurantInfo'>
 
   return (
     <SelectedRestaurantInfo navigation={mockNavigation} route={mockRoute} />

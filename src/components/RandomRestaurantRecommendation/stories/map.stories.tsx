@@ -1,10 +1,10 @@
 import React from 'react'
 import { View } from 'react-native'
 import { Meta, StoryFn } from '@storybook/react'
-import { Map } from '../pages/RestaurantView/map'
+import Map from '../pages/RestaurantView/map'
 import { RestaurantTypes } from 'src/types/restaurant'
 export default {
-  title: 'Components/Map',
+  title: 'Components/3R/RestaurantView/Map',
   component: Map,
   tags: ['autodocs'],
   decorators: [
