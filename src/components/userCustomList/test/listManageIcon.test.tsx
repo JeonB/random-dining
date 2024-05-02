@@ -36,4 +36,11 @@ describe('<ListManageIcon />', () => {
 
     expect(navigation.navigate).toHaveBeenCalledWith('SelectEditList')
   })
+
+  test('추가하기 버튼 클릭시 네비게이션 호출', async () => {
+    fireEvent.press(utils.getByTestId('listManageIcon'))
+    fireEvent.press(utils.getByText('리스트 추가하기'))
+
+    expect(navigation.navigate).toHaveBeenCalledWith('AddUserList')
+  })
 })

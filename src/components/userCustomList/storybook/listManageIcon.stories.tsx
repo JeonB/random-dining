@@ -18,7 +18,12 @@ export default {
   decorators: [
     Story => (
       <NavigationContainer>
-        <View style={{ flex: 1, padding: 50, justifyContent: 'center' }}>
+        <View
+          style={{
+            flex: 1,
+            padding: 50,
+            justifyContent: 'flex-end',
+          }}>
           <Story />
         </View>
       </NavigationContainer>
