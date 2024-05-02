@@ -4,20 +4,28 @@ import { StyleSheet, View, Text, Alert } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationProp, useFocusEffect } from '@react-navigation/native'
 
+import { RandomItemModal } from '@_components/RandomRestaurantRecommendation/pages/RestaurantView/randomItemModal'
 import { DefaultFlatList } from '@_components/layout/component/defaultFlatList'
 import { ListManageIcon } from '@_components/userCustomList/pages/listManageIcon'
-import { RootStackParamList } from '@_types/navigation'
 import { useListNames } from '@_components/userCustomList/hook/useListNames'
+import { RootStackParamList } from '@_types/navigation'
+import { Restaurant } from '@_types/restaurant'
 
 export const UserCustomList = ({
   navigation,
 }: {
   navigation: NavigationProp<RootStackParamList>
 }) => {
-  const [selectedListData, setSelectedListData] = useState([])
-  const [showRandomPicker, setShowRandomPicker] = useState(false)
-
+  const [modalVisible, setModalVisible] = useState(false)
+  const [restaurantItems, setRestaurantItems] = useState<Restaurant[]>([])
   const { listNames, fetchListNames } = useListNames()
+
+  const handleRestaurantChange = (index: number) => {
+    const selectedRestaurant = restaurantItems[index]
+    if (selectedRestaurant) {
+      navigation.navigate('RestaurantInfo', { restaurant: selectedRestaurant })
+    }
+  }
 
   useFocusEffect(
     React.useCallback(() => {
@@ -33,13 +41,13 @@ export const UserCustomList = ({
     try {
       const savedListData = await AsyncStorage.getItem(item)
       // 리스트에 저장된 데이터가 있을 경우 random picker modal 호출
-      if (savedListData !== null) {
-        setSelectedListData(JSON.parse(savedListData))
-        setShowRandomPicker(true)
-        //test (navigation 추가 필요)
-        Alert.alert(`${item} random picker modal opened.`)
+      console.log('savedListData', savedListData)
+      if (savedListData !== null && JSON.parse(savedListData).length > 0) {
+        setRestaurantItems(JSON.parse(savedListData))
+        setModalVisible(true)
       } else {
-        setSelectedListData([])
+        console.log('no data')
+        setRestaurantItems([])
         Alert.alert(`${item}에 저장된 데이터가 없습니다.`)
       }
     } catch (error) {
@@ -56,6 +64,12 @@ export const UserCustomList = ({
         onPressItem={handlePressItem}
       />
       <ListManageIcon navigation={navigation} />
+      <RandomItemModal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        restaurantItems={restaurantItems}
+        onRestaurantIndexChange={handleRestaurantChange}
+      />
     </View>
   )
 }

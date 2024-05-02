@@ -145,13 +145,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: width * 0.1,
-    paddingVertical: height * 0.05,
+    // paddingVertical: height * 0.05,
   },
   listNameField: {
     borderColor: 'black',
     borderWidth: 1,
     borderRadius: 10,
-    marginBottom: 5,
+    marginTop: height * 0.05,
+    marginBottom: height * 0.005,
     padding: 10,
     fontSize: 18,
   },
@@ -159,7 +160,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: height * 0.01,
   },
   restaurantNameField: {
     width: '85%',
@@ -184,6 +185,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
+    marginVertical: height * 0.05,
   },
   renderItem: {
     borderWidth: 0,
