@@ -1,7 +1,7 @@
 import React from 'react'
 import { Restaurant } from '@_types/restaurant'
 import { DataTable, Icon } from 'react-native-paper'
-import { Dimensions, StyleSheet, View } from 'react-native'
+import { Dimensions, Linking, StyleSheet, View } from 'react-native'
 import { Text } from '@rneui/themed'
 
 export const RestaurantDetail = ({ info }: { info: Restaurant }) => {
@@ -10,7 +10,9 @@ export const RestaurantDetail = ({ info }: { info: Restaurant }) => {
       <Text h4 h4Style={{ fontSize: 20, marginBottom: 10 }}>
         {info?.place_name || ''}
       </Text>
-      <Text>{info?.category_name || ''}</Text>
+      <Text>
+        {(info?.category_name || '') !== '' ? info.category_name?.slice(5) : ''}
+      </Text>
 
       <DataTable style={{ padding: 5 }}>
         <DataTable.Header>
@@ -24,8 +26,15 @@ export const RestaurantDetail = ({ info }: { info: Restaurant }) => {
         </DataTable.Header>
 
         <DataTable.Row>
-          <DataTable.Cell style={styles.table}>{info?.distance}</DataTable.Cell>
-          <DataTable.Cell style={styles.table}>{info?.phone}</DataTable.Cell>
+          <DataTable.Cell style={styles.table}>
+            {info?.distance} m
+          </DataTable.Cell>
+          <DataTable.Cell
+            style={styles.table}
+            textStyle={{ color: 'blue' }}
+            onPress={() => Linking.openURL(`tel:${info?.phone}`)}>
+            {info?.phone}
+          </DataTable.Cell>
         </DataTable.Row>
       </DataTable>
     </View>

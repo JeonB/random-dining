@@ -22,13 +22,21 @@ describe('거리 슬라이더 테스트', () => {
         onDistanceChange={function (value: number): void {
           throw new Error('Function not implemented.')
         }}
+        distanceRange={30}
       />,
     )
     expect(getByText(/30m 이내/)).toBeTruthy()
   })
 
   test('슬라이더 값 변경에 따른 Text업데이트 확인 테스트', () => {
-    const { getByTestId } = render(<DistanceSlider />)
+    const { getByTestId } = render(
+      <DistanceSlider
+        distanceRange={30}
+        onDistanceChange={function (value: number): void {
+          throw new Error('Function not implemented.')
+        }}
+      />,
+    )
     const slider = getByTestId('mock-slider')
     fireEvent.press(slider)
     expect(getByTestId('text').props.children).toEqual('100m 이내')

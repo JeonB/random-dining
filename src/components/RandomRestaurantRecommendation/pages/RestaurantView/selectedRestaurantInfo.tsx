@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { memo, useEffect } from 'react'
 import { Dimensions, Image, StyleSheet, View } from 'react-native'
 import { Map } from './map'
 import { RestaurantDetail } from './restaurantDetail'
@@ -9,10 +9,10 @@ import RestaurantActionButtons from './restaurantActionButtons'
 import { RandomItemModal } from './randomItemModal'
 import { useRestaurantContext } from '../context/restaurantContext'
 
-export const SelectedRestaurantInfo = ({
+const SelectedRestaurantInfo = ({
   route,
   navigation,
-}: StackScreenProps<RootStackParamList, 'RestaurantInfo'>) => {
+}: StackScreenProps<RootStackParamList, 'SelectedRestaurantInfo'>) => {
   const {
     modalVisible,
     setModalVisible,
@@ -42,7 +42,6 @@ export const SelectedRestaurantInfo = ({
             selectedRestaurant={restaurant}
             handleRandomPickClick={handleRandomPickClick}
             isLoading={isLoading}
-            text="다시 선택"
             navigation={navigation}
           />
         </View>
@@ -83,3 +82,5 @@ const styles = StyleSheet.create({
     margin: 15,
   },
 })
+
+export default SelectedRestaurantInfo

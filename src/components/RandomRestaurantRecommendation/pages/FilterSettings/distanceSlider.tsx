@@ -3,14 +3,17 @@ import React, { createContext, useContext, useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 interface DistanceSliderProps {
+  distanceRange: number
   onDistanceChange: (value: number) => void
 }
 
-export const DistanceSlider = ({ onDistanceChange }: DistanceSliderProps) => {
-  const [distanceRange, setDistanceRange] = useState(30)
+export const DistanceSlider = ({
+  onDistanceChange,
+  distanceRange,
+}: DistanceSliderProps) => {
+  // const [distanceRange, setDistanceRange] = useState(30)
 
   const handleValueChange = (value: number) => {
-    setDistanceRange(value)
     onDistanceChange(value)
   }
 

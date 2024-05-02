@@ -3,6 +3,7 @@
   "compilerOptions": {
     "target": "ES5",
     "module": "CommonJS",
+    "types": ["@testing-library/jest-native", "jest"],
     "baseUrl": ".",
     "paths": {
       "*": ["*"],

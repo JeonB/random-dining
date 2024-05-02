@@ -43,7 +43,6 @@ export const handleData = async (
   const randomCategory =
     categories[Math.floor(Math.random() * categories.length)]
   let page = 1
-  console.log(randomCategory)
   const fetchDataAndUpdatePage = async () => {
     const data = await fetchData(randomCategory, page, distanceRange)
     allData.push(...data.documents)
@@ -68,39 +67,6 @@ export const handleData = async (
   }
 
   return allData
-}
-const fetchData2 = async (
-  query: string,
-  page: number,
-  distanceRange: number,
-  categories: string[],
-) => {
-  const { latitude, longitude } = await getLocation()
-
-  let results = []
-
-  if (!query && latitude && longitude) {
-    for (const category of categories) {
-      const result = await fetchSingleCategoryData(
-        category,
-        page,
-        latitude,
-        longitude,
-        distanceRange,
-      )
-      results.push(result)
-    }
-  } else if (query && latitude && longitude) {
-    results = await fetchSingleCategoryData(
-      query,
-      page,
-      latitude,
-      longitude,
-      distanceRange,
-    )
-  }
-
-  return results
 }
 
 export async function fetchData(
