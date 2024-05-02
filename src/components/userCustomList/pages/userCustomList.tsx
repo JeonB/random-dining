@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationProp, useFocusEffect } from '@react-navigation/native'
 
 import { DefaultFlatList } from '@_components/layout/component/defaultFlatList'
-import { ListManageIcon } from '@_components/userCustomList/component/listManageIcon'
+import { ListManageIcon } from '@_components/userCustomList/pages/listManageIcon'
 import { RootStackParamList } from '@_types/navigation'
 import { useListNames } from '@_components/userCustomList/hook/useListNames'
 

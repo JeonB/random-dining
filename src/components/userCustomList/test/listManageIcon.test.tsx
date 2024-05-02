@@ -3,7 +3,7 @@ import React from 'react'
 import { render, fireEvent, RenderAPI } from '@testing-library/react-native'
 import { NavigationProp } from '@react-navigation/native'
 
-import { ListManageIcon } from '@_components/userCustomList/component/listManageIcon'
+import { ListManageIcon } from '@_components/userCustomList/pages/listManageIcon'
 import { RootStackParamList } from '@_types/navigation'
 
 const navigation = {

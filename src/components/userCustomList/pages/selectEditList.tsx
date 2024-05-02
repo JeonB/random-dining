@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
   },
   infoArea: {
     alignItems: 'center',
+    marginBottom: 20,
   },
   infoText: {
     fontSize: 20,

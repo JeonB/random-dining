@@ -7,7 +7,7 @@ import {
   BottomTabNavigator,
   BottomTabNavigatorProps,
 } from '@_components/layout/component/bottomTabNavigator'
-import { UserCustomList } from '@_components/userCustomList/component/userCustomList'
+import { UserCustomList } from '@_components/userCustomList/pages/userCustomList'
 import { Main } from 'src/main'
 
 export default {

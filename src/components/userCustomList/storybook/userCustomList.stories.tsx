@@ -6,7 +6,7 @@ import { action } from '@storybook/addon-actions'
 import { createStackNavigator } from '@react-navigation/stack'
 
 import { RootStackParamList } from '@_types/navigation'
-import { UserCustomList } from '@_components/userCustomList/component/userCustomList'
+import { UserCustomList } from '@_components/userCustomList/pages/userCustomList'
 
 const Stack = createStackNavigator()
 

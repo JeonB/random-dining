@@ -17,6 +17,8 @@ import { Button } from 'react-native-paper'
 import { useListNames } from '@_components/userCustomList/hook/useListNames'
 import { RootStackParamList } from '@_types/navigation'
 import { Restaurant } from '@_types/restaurant'
+import { handlePressRestaurantAddButton } from '@_components/userCustomList/utils/listOperations'
+import { handlePressDeleteButton } from '@_components/userCustomList/utils/listOperations'
 
 const { width, height } = Dimensions.get('window')
 export const AddUserList = ({
@@ -25,34 +27,10 @@ export const AddUserList = ({
   navigation: NavigationProp<RootStackParamList>
 }) => {
   const [listItems, setListItems] = useState<Restaurant[]>([]) // 리스트 아이템을 관리하는 상태
-
   const [inputRestaurant, setInputRestaurant] = useState('') // 식당 또는 메뉴 이름을 입력하는 상태
-
   const [newListName, setNewListName] = useState('') // 새로운 리스트 이름을 관리하는 상태
 
-  const { listNames, saveListNames } = useListNames()
-
-  const handlePressDeleteButton = async (item: string) => {
-    setListItems(
-      prevItems => prevItems.filter(listItem => listItem.place_name !== item), // 삭제할 아이템을 제외한 나머지 아이템들로 리스트를 갱신
-    )
-  }
-
-  const handlePressRestaurantAddButton = () => {
-    // 입력 필드가 비어있을 경우 경고창을 띄움
-    if (inputRestaurant.trim() === '') {
-      Alert.alert('식당 또는 메뉴 이름을 입력하세요.')
-      return
-    }
-    // 입력 필드에 입력된 값을 리스트에 추가
-    setListItems(prevItems => [
-      ...prevItems,
-      {
-        place_name: inputRestaurant,
-      },
-    ])
-    setInputRestaurant('') // 입력 필드를 초기화
-  }
+  const { listNames, saveListNames } = useListNames() // AsyncStorage에 저장된 리스트 이름들을 가져오는 커스텀 훅
 
   const handlePressSave = async () => {
     if (newListName.length === 0) {
@@ -119,7 +97,14 @@ export const AddUserList = ({
         <Icon
           name="add"
           size={22}
-          onPress={handlePressRestaurantAddButton}
+          onPress={() =>
+            handlePressRestaurantAddButton(
+              inputRestaurant,
+              listItems,
+              setListItems,
+              setInputRestaurant,
+            )
+          }
           testID="restaurantAddButton"
           style={styles.addIcon}
         />
@@ -135,7 +120,9 @@ export const AddUserList = ({
               size={22}
               color="red"
               testID={`restaurantDeleteButton-${item.place_name}`}
-              onPress={() => handlePressDeleteButton(item.place_name)}
+              onPress={() =>
+                handlePressDeleteButton(setListItems, item.place_name)
+              }
             />
           </View>
         )}

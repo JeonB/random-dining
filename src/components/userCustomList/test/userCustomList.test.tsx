@@ -9,7 +9,7 @@ import {
 } from '@testing-library/react-native'
 import { NavigationContainer, NavigationProp } from '@react-navigation/native'
 
-import { UserCustomList } from '@_components/userCustomList/component/userCustomList'
+import { UserCustomList } from '@_components/userCustomList/pages/userCustomList'
 import { RootStackParamList } from '@_types/navigation'
 
 jest.mock('@_components/userCustomList/hook/useListNames', () => ({

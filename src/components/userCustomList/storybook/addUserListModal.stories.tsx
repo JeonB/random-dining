@@ -2,7 +2,7 @@ import React from 'react'
 
 import type { Meta, StoryFn } from '@storybook/react'
 
-import { AddUserListModal } from '@_components/userCustomList/component/addUserListModal'
+import { AddUserListModal } from '@_components/userCustomList/pages/addUserListModal'
 
 export default {
   title: 'Components/UserCustomList/AddUserListModal',

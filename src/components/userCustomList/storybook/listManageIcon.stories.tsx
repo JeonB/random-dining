@@ -7,7 +7,7 @@ import { NavigationProp } from '@react-navigation/native'
 import { action } from '@storybook/addon-actions'
 
 import { RootStackParamList } from '@_types/navigation'
-import { ListManageIcon } from '@_components/userCustomList/component/listManageIcon'
+import { ListManageIcon } from '@_components/userCustomList/pages/listManageIcon'
 
 export default {
   title: 'Components/UserCustomList/ListManageIcon',

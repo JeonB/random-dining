@@ -3,7 +3,7 @@ import React from 'react'
 import { render, fireEvent, RenderAPI } from '@testing-library/react-native'
 import { NavigationContainer, NavigationProp } from '@react-navigation/native'
 
-import { SelectEditList } from '@_components/userCustomList/component/selectEditList'
+import { SelectEditList } from '@_components/userCustomList/pages/selectEditList'
 import { RootStackParamList } from '@_types/navigation'
 
 const navigation = {

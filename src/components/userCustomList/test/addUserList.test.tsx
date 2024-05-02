@@ -11,7 +11,7 @@ import {
 import { NavigationProp } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import { AddUserList } from '@_components/userCustomList/component/addUserList'
+import { AddUserList } from '@_components/userCustomList/pages/addUserList'
 import { RootStackParamList } from '@_types/navigation'
 
 const navigation = {
