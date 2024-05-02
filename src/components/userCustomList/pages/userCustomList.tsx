@@ -23,7 +23,9 @@ export const UserCustomList = ({
   const handleRestaurantChange = (index: number) => {
     const selectedRestaurant = restaurantItems[index]
     if (selectedRestaurant) {
-      navigation.navigate('RestaurantInfo', { restaurant: selectedRestaurant })
+      navigation.navigate('SelectedRestaurantInfo', {
+        restaurant: selectedRestaurant,
+      })
     }
   }
 
