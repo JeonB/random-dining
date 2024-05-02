@@ -16,6 +16,7 @@ describe('AnimatedRandomSelector', () => {
         restaurantItems={items as Restaurant[]}
         onIndexChange={() => {}}
         itemHeight={50}
+        closeModal={() => {}}
       />,
     )
 

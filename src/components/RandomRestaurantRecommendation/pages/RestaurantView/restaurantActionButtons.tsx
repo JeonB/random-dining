@@ -1,17 +1,17 @@
-import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import React, { useState } from 'react'
+import { Dimensions, StyleSheet, View } from 'react-native'
 import { Button } from 'react-native-paper'
 import { Text } from '@rneui/themed'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { RootStackParamList } from '@_types/navigation'
 import { Restaurant } from '@_types/restaurant'
 import RandomPickButton from '../FilterSettings/randomPickButton'
+import { AddUserListModal } from 'src/components/userCustomList/component/addUserListModal'
 
-interface RandomPickButtonProps {
+interface Props {
   selectedRestaurant: Restaurant
   handleRandomPickClick: () => void
   isLoading: boolean
-  text: string
   navigation: NavigationProp<RootStackParamList>
 }
 
@@ -19,28 +19,38 @@ const RestaurantActionButtons = ({
   selectedRestaurant: restaurant,
   handleRandomPickClick,
   isLoading,
-  text,
   navigation,
-}: RandomPickButtonProps) => {
+}: Props) => {
   const handleDetailViewClick = () => {
-    if (restaurant) {
+    if (restaurant && restaurant.place_url) {
       navigation.navigate('Detail', { url: restaurant.place_url })
     }
   }
+  const [modalVisible, setModalVisible] = useState(false)
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        alignSelf: 'center',
-      }}>
-      <Button onPress={handleDetailViewClick} style={styles.detailButton}>
-        <Text style={{ color: 'white' }}>식당 상세 정보</Text>
-      </Button>
+    <View style={styles.container}>
+      <View style={styles.buttonContainer}>
+        <Button onPress={handleDetailViewClick} style={styles.detailButton}>
+          <Text style={styles.detailButtonText}>식당 상세 정보</Text>
+        </Button>
+        <Button
+          onPress={() => setModalVisible(true)}
+          style={styles.detailButton}>
+          <Text style={styles.detailButtonText}>리스트 추가</Text>
+        </Button>
+      </View>
+      <AddUserListModal
+        selectedInfo={restaurant}
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+      />
+
       <RandomPickButton
         handleRandomPickClick={handleRandomPickClick}
         isLoading={isLoading}
-        text={text}
+        icon="autorenew"
+        text="다시 선택"
+        style={{ width: Dimensions.get('window').width * 0.5, marginTop: 10 }}
       />
     </View>
   )
@@ -48,15 +58,32 @@ const RestaurantActionButtons = ({
 export default RestaurantActionButtons
 
 const styles = StyleSheet.create({
-  reselectButton: {
-    borderColor: '#003366',
-    margin: 15,
-    borderRadius: 5,
+  container: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '85%',
   },
   detailButton: {
-    backgroundColor: '#2E6FCF',
+    backgroundColor: '#81b0ff',
     borderRadius: 5,
-    width: 200,
-    marginRight: 10,
+    width: Dimensions.get('window').width * 0.4,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  detailButtonText: {
+    color: '#FFFDD0',
+    fontSize: 18,
   },
 })

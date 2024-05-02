@@ -1,17 +1,11 @@
 import { Button } from 'react-native-paper'
 import React from 'react'
 import { Dimensions, Image, StyleSheet, View } from 'react-native'
-import { NavigationProp } from '@react-navigation/native'
+import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { RootStackParamList } from '@_types/navigation'
 
-export const PositionSelector = ({
-  navigation,
-}: {
-  navigation: NavigationProp<RootStackParamList>
-}) => {
-  // const handlePositionSelect = () => {
-  //   navigation.navigate('Main')
-  // }
+export const PositionSelector = () => {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>()
   return (
     <View style={styles.mediaContainer} testID="mediaContainer">
       <Image

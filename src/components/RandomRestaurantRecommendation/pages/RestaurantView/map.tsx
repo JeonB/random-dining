@@ -54,12 +54,25 @@ export const Map = ({ info }: { info: Restaurant }) => {
                     }, ${info ? info.x : 126.82597944995});
 
                     // 마커를 생성합니다
-                    const marker = new kakao.maps.Marker({
+                    var marker = new kakao.maps.Marker({
+                        map: map,
                         position: markerPosition
                     });
 
                     // 마커가 지도 위에 표시되도록 설정합니다
-                    marker.setMap(map);
+                    // marker.setMap(map);
+
+                    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+                    var lat = 37.5676859104888, // 위도
+                        lon = 126.82597944995; // 경도
+
+                    var locPosition = new kakao.maps.LatLng(lat, lon); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+                    // 마커를 생성합니다
+                    var marker = new kakao.maps.Marker({
+                        map: map,
+                        position: locPosition
+                    });
+
 
                     // 주소-좌표 변환 객체를 생성합니다
                     const geocoder = new kakao.maps.services.Geocoder();

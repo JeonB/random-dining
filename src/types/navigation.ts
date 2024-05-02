@@ -1,11 +1,11 @@
 import { Restaurant } from './restaurant'
 
 export interface RootStackParamList {
-  Detail: { url: string }
+  Detail: { url: string } | undefined
   Main: { main: string } | undefined
   MapSearch: { mapSearch: string } | undefined
   CurrentPosition: { restaurantInfo: string[] } | undefined
-  RestaurantInfo: { restaurant: Restaurant } | undefined
+  SelectedRestaurantInfo: { restaurant: Restaurant } | undefined
   SelectEditList: undefined
   AddUserList: undefined
   EditUserList: { listName: string }

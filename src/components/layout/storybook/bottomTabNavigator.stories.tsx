@@ -30,7 +30,7 @@ Basic.args = {
   tabs: [
     {
       name: 'Random',
-      component: Main,
+      component: PositionSelector,
       iconName: 'star',
     },
     {
