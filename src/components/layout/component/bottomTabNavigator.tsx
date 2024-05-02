@@ -48,7 +48,7 @@ export const BottomTabNavigator: React.FC<BottomTabNavigatorProps> = ({
 
 interface TabInfo {
   name: string
-  component: React.ComponentType
+  component: React.ComponentType<any>
   iconName: string
   listeners?: React.ComponentProps<typeof Tab.Screen>['listeners']
 }

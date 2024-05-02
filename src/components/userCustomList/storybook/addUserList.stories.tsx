@@ -5,11 +5,11 @@ import { NavigationContainer, NavigationProp } from '@react-navigation/native'
 import { action } from '@storybook/addon-actions'
 
 import { RootStackParamList } from '@_types/navigation'
-import { SelectEditList } from '@_components/userCustomList/pages/selectEditList'
+import { AddUserList } from '@_components/userCustomList/pages/addUserList'
 
 export default {
-  title: 'Components/UserCustomList/SelectEditList',
-  component: SelectEditList,
+  title: 'Components/UserCustomList/AddUserList',
+  component: AddUserList,
 
   tags: ['autodocs'],
 
@@ -22,10 +22,10 @@ export default {
   ],
 } as Meta
 
-export const Basic: StoryFn<typeof SelectEditList> = () => {
+export const Basic: StoryFn<typeof AddUserList> = () => {
   const mockNavigation = {
     navigate: action('navigate'),
   } as NavigationProp<RootStackParamList>
 
-  return <SelectEditList navigation={mockNavigation} />
+  return <AddUserList navigation={mockNavigation} />
 }

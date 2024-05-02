@@ -1,19 +1,17 @@
 import React from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 
-import {
-  useNavigation,
-  NavigationProp,
-  useFocusEffect,
-} from '@react-navigation/native'
+import { NavigationProp, useFocusEffect } from '@react-navigation/native'
 
 import { DefaultFlatList } from '@_components/layout/component/defaultFlatList'
 import { RootStackParamList } from '@_types/navigation'
 import { useListNames } from '@_components/userCustomList/hook/useListNames'
 
-export const SelectEditList: React.FC = () => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>()
-
+export const SelectEditList = ({
+  navigation,
+}: {
+  navigation: NavigationProp<RootStackParamList>
+}) => {
   const { listNames, fetchListNames } = useListNames()
 
   useFocusEffect(
@@ -60,6 +58,7 @@ const styles = StyleSheet.create({
   },
   infoArea: {
     alignItems: 'center',
+    marginBottom: 20,
   },
   infoText: {
     fontSize: 20,

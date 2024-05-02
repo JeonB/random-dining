@@ -10,32 +10,31 @@ import {
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { DefaultFlatList } from '@_components/layout/component/defaultFlatList'
-import {
-  useNavigation,
-  NavigationProp,
-  useRoute,
-  RouteProp,
-} from '@react-navigation/native'
+import { NavigationProp, RouteProp } from '@react-navigation/native'
 import { Icon } from '@rneui/themed'
 import { Button } from 'react-native-paper'
 
 import { useListNames } from '@_components/userCustomList/hook/useListNames'
 import { RootStackParamList } from '@_types/navigation'
 import { Restaurant } from '@_types/restaurant'
+import { handlePressRestaurantAddButton } from '@_components/userCustomList/utils/listOperations'
+import { handlePressDeleteButton } from '@_components/userCustomList/utils/listOperations'
 
 const { width, height } = Dimensions.get('window')
-export const EditUserList: React.FC = () => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>()
-  const route = useRoute<RouteProp<RootStackParamList, 'EditUserList'>>()
 
+export const EditUserList = ({
+  navigation,
+  route,
+}: {
+  navigation: NavigationProp<RootStackParamList>
+  route: RouteProp<RootStackParamList, 'EditUserList'>
+}) => {
   const [listItems, setListItems] = useState<Restaurant[]>([]) // 리스트 아이템을 관리하는 상태
-
   const [inputRestaurant, setInputRestaurant] = useState('') // 식당 또는 메뉴 이름을 입력하는 상태
-
   const [listName, setListName] = useState<string>(route.params.listName) // 리스트 이름을 관리하는 상태
   const [newListName, setNewListName] = useState(listName) // 새로운 리스트 이름을 관리하는 상태
 
-  const { listNames, saveListNames } = useListNames()
+  const { listNames, saveListNames } = useListNames() // AsyncStorage에 저장된 리스트 이름들을 가져오는 커스텀 훅
 
   useEffect(() => {
     const loadListNames = async () => {
@@ -52,29 +51,12 @@ export const EditUserList: React.FC = () => {
     loadListNames()
   }, [])
 
-  const handlePressDeleteButton = async (item: string) => {
-    setListItems(
-      prevItems => prevItems.filter(listItem => listItem.place_name !== item), // 삭제할 아이템을 제외한 나머지 아이템들로 리스트를 갱신
-    )
-  }
-
-  const handlePressRestaurantAddButton = () => {
-    // 입력 필드가 비어있을 경우 경고창을 띄움
-    if (inputRestaurant.trim() === '') {
-      Alert.alert('식당 또는 메뉴 이름을 입력하세요.')
+  const handlePressSave = async () => {
+    // 이미 같은 이름의 리스트가 있는지 확인
+    if (listName !== newListName && listNames.includes(newListName)) {
+      Alert.alert('같은 이름의 리스트가 있습니다.')
       return
     }
-    // 입력 필드에 입력된 값을 리스트에 추가
-    setListItems(prevItems => [
-      ...prevItems,
-      {
-        place_name: inputRestaurant,
-      },
-    ])
-    setInputRestaurant('') // 입력 필드를 초기화
-  }
-
-  const handlePressSave = async () => {
     Alert.alert(
       '저장 확인',
       '변경 사항을 저장하시겠습니까?',
@@ -173,7 +155,8 @@ export const EditUserList: React.FC = () => {
       <View style={styles.deleteListButton}>
         <Button
           onPress={() => handlePressDeleteListButton(listName)}
-          testID="deleteListButton">
+          testID="deleteListButton"
+          textColor="red">
           리스트 삭제
         </Button>
       </View>
@@ -189,12 +172,20 @@ export const EditUserList: React.FC = () => {
           style={styles.restaurantNameField}
           placeholder="식당 또는 메뉴 이름을 입력하세요."
           onChangeText={setInputRestaurant}
+          value={inputRestaurant}
           testID="restaurantNameField"
         />
         <Icon
           name="add"
           size={22}
-          onPress={handlePressRestaurantAddButton}
+          onPress={() =>
+            handlePressRestaurantAddButton(
+              inputRestaurant,
+              listItems,
+              setListItems,
+              setInputRestaurant,
+            )
+          }
           testID="restaurantAddButton"
           style={styles.addIcon}
         />
@@ -210,7 +201,9 @@ export const EditUserList: React.FC = () => {
               size={22}
               color="red"
               testID={`restaurantDeleteButton-${item.place_name}`}
-              onPress={() => handlePressDeleteButton(item.place_name)}
+              onPress={() =>
+                handlePressDeleteButton(setListItems, item.place_name)
+              }
             />
           </View>
         )}
@@ -233,17 +226,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: width * 0.1,
-    paddingVertical: height * 0.05,
   },
   deleteListButton: {
     justifyContent: 'flex-start',
     alignItems: 'flex-end',
+    marginVertical: height * 0.01,
   },
   listNameField: {
     borderColor: 'black',
     borderWidth: 1,
     borderRadius: 10,
-    marginBottom: 5,
+    marginBottom: height * 0.005,
     padding: 10,
     fontSize: 18,
   },
@@ -251,7 +244,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: height * 0.01,
   },
   restaurantNameField: {
     width: '85%',
@@ -276,6 +269,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
+    marginVertical: height * 0.05,
   },
   renderItem: {
     borderWidth: 0,

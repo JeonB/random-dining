@@ -1,42 +1,41 @@
 import React from 'react'
 import { Alert } from 'react-native'
 
-import { render, fireEvent, waitFor, act } from '@testing-library/react-native'
-import { NavigationContainer } from '@react-navigation/native'
+import {
+  render,
+  fireEvent,
+  waitFor,
+  act,
+  RenderAPI,
+} from '@testing-library/react-native'
+import { NavigationProp } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import { AddUserList } from '@_components/userCustomList/component/addUserList'
+import { AddUserList } from '@_components/userCustomList/pages/addUserList'
+import { RootStackParamList } from '@_types/navigation'
 
-//Navigation 테스트를 위한 mock
-const navigateMock = jest.fn()
-jest.mock('@react-navigation/native', () => {
-  return {
-    ...jest.requireActual('@react-navigation/native'),
-    useNavigation: () => ({
-      reset: navigateMock,
+const navigation = {
+  navigate: jest.fn(),
+  reset: jest.fn(),
+} as unknown as NavigationProp<RootStackParamList>
+
+jest.mock('@react-native-async-storage/async-storage', () => {
+  const mockAsyncStorage = {
+    getItem: jest.fn(key => {
+      if (key === 'listnames') {
+        return Promise.resolve(JSON.stringify(['List 1']))
+      } else if (key === 'List 1') {
+        return Promise.resolve(
+          JSON.stringify([{ place_name: 'Item 1' }, { place_name: 'Item 2' }]),
+        )
+      }
     }),
-    useRoute: () => ({
-      params: {
-        listName: 'List 1',
-      },
-    }),
+    setItem: jest.fn(() => Promise.resolve(null)),
+    removeItem: jest.fn(() => Promise.resolve(null)),
   }
-})
 
-//AsyncStorage 테스트를 위한 mock
-jest.mock('@react-native-async-storage/async-storage', () => ({
-  getItem: jest.fn(key => {
-    if (key === 'listnames') {
-      return Promise.resolve(JSON.stringify(['List 1']))
-    } else if (key === 'List 1') {
-      return Promise.resolve(
-        JSON.stringify([{ place_name: 'Item 1' }, { place_name: 'Item 2' }]),
-      )
-    }
-  }),
-  setItem: jest.fn(),
-  removeItem: jest.fn(),
-}))
+  return mockAsyncStorage
+})
 
 const mockSaveListNames = jest.fn()
 jest.mock('@_components/userCustomList/hook/useListNames', () => ({
@@ -48,74 +47,59 @@ jest.mock('@_components/userCustomList/hook/useListNames', () => ({
 
 describe('<AddUserList />', () => {
   let alertSpy: jest.SpyInstance
+  let utils: RenderAPI
 
   beforeEach(() => {
     alertSpy = jest.spyOn(Alert, 'alert')
     jest.clearAllMocks()
+    utils = render(<AddUserList navigation={navigation} />)
   })
 
   afterEach(() => {
     alertSpy.mockRestore()
   })
+
   test('리스트 이름, 식당/메뉴 입력 필드  렌더링', async () => {
-    const { getByTestId } = render(
-      <NavigationContainer>
-        <AddUserList />
-      </NavigationContainer>,
-    )
-    expect(getByTestId('ListNameField')).toBeTruthy()
-    expect(getByTestId('restaurantNameField')).toBeTruthy()
+    expect(utils.getByTestId('ListNameField')).toBeTruthy()
+    expect(utils.getByTestId('restaurantNameField')).toBeTruthy()
   })
 
   test('식당/메뉴 이름 입력 후 추가 버튼 클릭시 추가', async () => {
-    const { getByText, getByPlaceholderText, getByTestId } = render(
-      <NavigationContainer>
-        <AddUserList />
-      </NavigationContainer>,
+    const input = utils.getByPlaceholderText(
+      '식당 또는 메뉴 이름을 입력하세요.',
     )
-
-    const input = getByPlaceholderText('식당 또는 메뉴 이름을 입력하세요.')
     fireEvent.changeText(input, '새로운 식당')
-    fireEvent.press(getByTestId('restaurantAddButton'))
+    fireEvent.press(utils.getByTestId('restaurantAddButton'))
 
-    expect(getByText('새로운 식당')).toBeTruthy()
+    expect(utils.getByText('새로운 식당')).toBeTruthy()
   })
 
   test('식당 이름을 작성하지 않고 추가 버튼 클릭시 예외 문구', async () => {
     const message = '식당 또는 메뉴 이름을 입력하세요.'
 
-    const { getByPlaceholderText, getByTestId } = render(
-      <NavigationContainer>
-        <AddUserList />
-      </NavigationContainer>,
+    const input = utils.getByPlaceholderText(
+      '식당 또는 메뉴 이름을 입력하세요.',
     )
-    const input = getByPlaceholderText('식당 또는 메뉴 이름을 입력하세요.')
     fireEvent.changeText(input, '')
-    fireEvent.press(getByTestId('restaurantAddButton'))
+    fireEvent.press(utils.getByTestId('restaurantAddButton'))
 
     expect(alertSpy).toHaveBeenCalledWith(message)
   })
 
   test('저장 버튼 클릭시 리스트 저장', async () => {
-    const { getByPlaceholderText, getByTestId } = render(
-      <NavigationContainer>
-        <AddUserList />
-      </NavigationContainer>,
-    )
-
     // 리스트 이름 수정
-    const inputListName = getByPlaceholderText('List Name')
+    const inputListName = utils.getByPlaceholderText('List Name')
     fireEvent.changeText(inputListName, '새로운 리스트 이름')
 
     // 식당 추가
-    const inputRestaurant = getByPlaceholderText(
+    const inputRestaurant = utils.getByPlaceholderText(
       '식당 또는 메뉴 이름을 입력하세요.',
     )
     fireEvent.changeText(inputRestaurant, '새로운 식당')
-    fireEvent.press(getByTestId('restaurantAddButton'))
+    fireEvent.press(utils.getByTestId('restaurantAddButton'))
 
     await act(async () => {
-      fireEvent.press(getByTestId('saveListButton'))
+      fireEvent.press(utils.getByTestId('saveListButton'))
       await new Promise(resolve => setTimeout(resolve, 0))
     })
 
@@ -150,7 +134,7 @@ describe('<AddUserList />', () => {
     })
 
     // navigation.reset 호출 확인
-    expect(navigateMock).toHaveBeenCalledWith({
+    expect(navigation.reset).toHaveBeenCalledWith({
       index: 0,
       routes: [{ name: 'Main', params: { screen: 'UserCustomList' } }],
     })
