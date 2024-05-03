@@ -4,12 +4,12 @@ import { StyleSheet, View, Text, Alert } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationProp, useFocusEffect } from '@react-navigation/native'
 
-import { RandomItemModal } from '@_components/RandomRestaurantRecommendation/pages/RestaurantView/randomItemModal'
+import RandomItemModal from '@_components/RandomRestaurantRecommendation/pages/RestaurantView/randomItemModal'
 import { DefaultFlatList } from '@_components/layout/component/defaultFlatList'
 import { ListManageIcon } from '@_components/userCustomList/pages/listManageIcon'
 import { useListNames } from '@_components/userCustomList/hook/useListNames'
 import { RootStackParamList } from '@_types/navigation'
-import { Restaurant } from '@_types/restaurant'
+import { RestaurantTypes } from '@_types/restaurant'
 
 export const UserCustomList = ({
   navigation,

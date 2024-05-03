@@ -1,13 +1,13 @@
 import React from 'react'
 import { View } from 'react-native'
 import { Meta, StoryFn } from '@storybook/react'
-import { PositionSelector } from '../pages/positionSelector'
-import { Restaurant } from '@_types/restaurant'
+import PositionSelector from '../pages/positionSelector'
+import { RestaurantTypes } from '@_types/restaurant'
 import { action } from '@storybook/addon-actions'
 import { NavigationProp } from '@react-navigation/native'
 import { RootStackParamList } from 'src/types/navigation'
 export default {
-  title: 'Components/PositionSelector',
+  title: 'Components/3R/PositionSelector',
   component: PositionSelector,
   argTypes: {
     onPress: { action: '필터 화면 혹은 지도로 이동' },
@@ -22,11 +22,11 @@ export default {
   ],
 } as Meta
 
-export const Basic: StoryFn<Restaurant> = () => {
+export const Basic: StoryFn<RestaurantTypes> = () => {
   const mockNavigation = {
     navigate: action('navigate'),
     goBack: action('goBack'),
   } as NavigationProp<RootStackParamList>
 
-  return <PositionSelector navigation={mockNavigation} />
+  return <PositionSelector />
 }

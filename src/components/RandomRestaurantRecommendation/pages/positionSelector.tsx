@@ -4,13 +4,14 @@ import { Dimensions, Image, StyleSheet, View } from 'react-native'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { RootStackParamList } from '@_types/navigation'
 
-export const PositionSelector = () => {
+const PositionSelector = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>()
   return (
     <View style={styles.mediaContainer} testID="mediaContainer">
       <Image
-        source={{ uri: 'https://i.postimg.cc/rpJGytmg/image.png' }}
+        source={require('../../../../assets/images/main.png')}
         style={{ width: '100%', height: '100%', marginBottom: 10 }}
+        onError={({ nativeEvent: { error } }) => console.warn(error)}
       />
       <Button
         icon="map-marker"
@@ -50,3 +51,5 @@ const styles = StyleSheet.create({
     color: 'rgb(108, 109, 115)',
   },
 })
+
+export default PositionSelector

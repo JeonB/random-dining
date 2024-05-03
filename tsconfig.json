@@ -10,7 +10,8 @@
       "@_tests/*": ["src/tests/*"],
       "@_components/*": ["src/components/*"],
       "@_types/*": ["src/types/*"],
-      "@_services/*": ["src/services/*"]
+      "@_services/*": ["src/services/*"],
+      "@_3Rpages/*": ["src/components/RandomRestaurantRecommendation/pages/*"]
     },
     "allowSyntheticDefaultImports": true,
     "jsx": "react"

@@ -1,17 +1,17 @@
 import { Modal, View, StyleSheet } from 'react-native'
 import { Button } from 'react-native-paper'
-import { AnimatedRandomSelector } from './animatedRandomSelector'
-import { Restaurant } from '@_types/restaurant'
+import { AnimatedRandomSelector } from '@_3Rpages/RestaurantView/animatedRandomSelector'
+import { RestaurantTypes } from '@_types/restaurant'
 import React from 'react'
 
 interface RandomPickerModalProps {
   visible: boolean
-  restaurantItems: Restaurant[]
+  restaurantItems: RestaurantTypes[]
   onClose: () => void
   onRestaurantIndexChange: (index: number) => void
 }
 
-export const RandomItemModal = ({
+const RandomItemModal = ({
   visible,
   onClose,
   onRestaurantIndexChange,
@@ -39,3 +39,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 })
+
+export default RandomItemModal

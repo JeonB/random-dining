@@ -1,10 +1,10 @@
 import React from 'react'
-import { Restaurant } from '@_types/restaurant'
+import { RestaurantTypes } from '@_types/restaurant'
 import { DataTable, Icon } from 'react-native-paper'
 import { Dimensions, Linking, StyleSheet, View } from 'react-native'
 import { Text } from '@rneui/themed'
 
-export const RestaurantDetail = ({ info }: { info: Restaurant }) => {
+const RestaurantDetail = ({ info }: { info: RestaurantTypes }) => {
   return (
     <View style={styles.infoView}>
       <Text h4 h4Style={{ fontSize: 20, marginBottom: 10 }}>
@@ -52,3 +52,5 @@ const styles = StyleSheet.create({
     margin: 5,
   },
 })
+
+export default RestaurantDetail

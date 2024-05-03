@@ -1,13 +1,11 @@
 import React from 'react'
 import { View } from 'react-native'
 import { Meta, StoryFn } from '@storybook/react'
-import { DistanceSlider } from '../pages/FilterSettings/distanceSlider'
-import { Restaurant } from '@_types/restaurant'
-import { action } from '@storybook/addon-actions'
-import { NavigationProp } from '@react-navigation/native'
-import { RootStackParamList } from 'src/types/navigation'
+import DistanceSlider from '../pages/FilterSettings/distanceSlider'
+import { RestaurantTypes } from '@_types/restaurant'
+
 export default {
-  title: 'Components/FilterSettings/DistanceSlider',
+  title: 'Components/3R/FilterSettings/DistanceSlider',
   component: DistanceSlider,
   argTypes: {
     onPress: { action: '슬라이딩에 따른 거리조절' },
@@ -22,12 +20,14 @@ export default {
   ],
 } as Meta
 
-export const Basic: StoryFn<Restaurant> = () => {
+export const Basic: StoryFn<RestaurantTypes> = () => {
   interface DistanceSliderProps {
     onDistanceChange: (value: number) => void
   }
   function onDistanceChange(value: number): void {
     console.log('Distance changed:', value)
   }
-  return <DistanceSlider onDistanceChange={onDistanceChange} />
+  return (
+    <DistanceSlider onDistanceChange={onDistanceChange} distanceRange={100} />
+  )
 }

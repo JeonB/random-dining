@@ -6,7 +6,7 @@ import { useRoute } from '@react-navigation/native'
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
-export const DetailView = () => {
+const DetailView = () => {
   const route = useRoute<any>()
 
   return (
@@ -33,3 +33,5 @@ const styles = StyleSheet.create({
     height: windowHeight,
   },
 })
+
+export default DetailView
