@@ -6,6 +6,7 @@ export interface RootStackParamList {
   MapSearch: { mapSearch: string } | undefined
   CurrentPosition: { restaurantInfo: string[] } | undefined
   SelectedRestaurantInfo: { restaurant: Restaurant } | undefined
+  UserSelectedRestaurantInfo: { restaurant: Restaurant; listname: string }
   SelectEditList: undefined
   AddUserList: undefined
   EditUserList: { listName: string }

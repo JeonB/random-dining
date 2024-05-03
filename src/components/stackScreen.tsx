@@ -2,7 +2,9 @@ import React from 'react'
 import FilterSetting from './RandomRestaurantRecommendation/pages/FilterSettings/filterSetting'
 import { DetailView } from './RandomRestaurantRecommendation/pages/RestaurantView/detailView'
 import SelectedRestaurantInfo from './RandomRestaurantRecommendation/pages/RestaurantView/selectedRestaurantInfo'
+import { SelectedRestaurantInfo as UserSelectedRestaurantInfo } from './userCustomList/pages/selectedRestaurantInfo'
 import { PositionSelector } from './RandomRestaurantRecommendation/pages/positionSelector'
+import { RandomItemModal } from './RandomRestaurantRecommendation/pages/RestaurantView/randomItemModal'
 import { AddUserList } from './userCustomList/pages/addUserList'
 import { EditUserList } from './userCustomList/pages/editUserList'
 import { SelectEditList } from './userCustomList/pages/selectEditList'
@@ -10,7 +12,8 @@ import { UserCustomList } from './userCustomList/pages/userCustomList'
 import { createStackNavigator } from '@react-navigation/stack'
 import { RootStackParamList } from 'src/types/navigation'
 import { Ionicons, AntDesign } from '@expo/vector-icons'
-const MainStack = () => {
+
+export const MainStack = () => {
   const Stack = createStackNavigator<RootStackParamList>()
   return (
     <Stack.Navigator initialRouteName="Home">
@@ -67,11 +70,94 @@ const MainStack = () => {
           ),
         }}
       />
-      <Stack.Screen name="UserCustomList" component={UserCustomList} />
-      <Stack.Screen name="SelectEditList" component={SelectEditList} />
-      <Stack.Screen name="EditUserList" component={EditUserList} />
-      <Stack.Screen name="AddUserList" component={AddUserList} />
     </Stack.Navigator>
   )
 }
-export default MainStack
+
+export const UserCustomListStack = () => {
+  const Stack = createStackNavigator<RootStackParamList>()
+  return (
+    <Stack.Navigator initialRouteName="UserCustomList">
+      <Stack.Screen
+        name="UserCustomList"
+        component={UserCustomList}
+        options={{
+          title: '사용자 리스트',
+          headerBackTitleVisible: false,
+          headerBackImage: () => (
+            <AntDesign
+              name="back"
+              size={30}
+              color="midnightblue"
+              style={{ marginLeft: 10 }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="SelectEditList"
+        component={SelectEditList}
+        options={{
+          title: '',
+          headerBackTitleVisible: false,
+          headerBackImage: () => (
+            <AntDesign
+              name="back"
+              size={30}
+              color="midnightblue"
+              style={{ marginLeft: 10 }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="EditUserList"
+        component={EditUserList}
+        options={{
+          title: '리스트 수정',
+          headerBackTitleVisible: false,
+          headerBackImage: () => (
+            <AntDesign
+              name="back"
+              size={30}
+              color="midnightblue"
+              style={{ marginLeft: 10 }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="AddUserList"
+        component={AddUserList}
+        options={{
+          title: '리스트 추가',
+          headerBackTitleVisible: false,
+          headerBackImage: () => (
+            <AntDesign
+              name="back"
+              size={30}
+              color="midnightblue"
+              style={{ marginLeft: 10 }}
+            />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="UserSelectedRestaurantInfo"
+        component={UserSelectedRestaurantInfo}
+        options={({ route }) => ({
+          title: `리스트: ${route.params.listname}`,
+          headerBackTitleVisible: false,
+          headerBackImage: () => (
+            <AntDesign
+              name="back"
+              size={30}
+              color="midnightblue"
+              style={{ marginLeft: 10 }}
+            />
+          ),
+        })}
+      />
+    </Stack.Navigator>
+  )
+}

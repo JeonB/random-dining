@@ -9,7 +9,7 @@ import 'regenerator-runtime/runtime'
 import { RootStackParamList } from '@_types/navigation'
 import { RestaurantProvider } from 'src/components/RandomRestaurantRecommendation/pages/context/restaurantProvider'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import MainStack from '@_components/stackScreen'
+import { MainStack, UserCustomListStack } from '@_components/stackScreen'
 ;(Text as any).defaultProps = (Text as any).defaultProps || {}
 ;(Text as any).defaultProps.allowFontScaling = false
 ;(TextInput as any).defaultProps = (TextInput as any).defaultProps || {}
@@ -34,9 +34,9 @@ const App: React.FC = () => {
             options={{ headerShown: false, title: '홈' }}
           />
           <Tab.Screen
-            name="UserCustomList"
-            component={UserCustomList}
-            options={{ title: '사용자 리스트' }}
+            name="UserCustomListTab"
+            component={UserCustomListStack}
+            options={{ headerShown: false, title: '사용자 리스트' }}
           />
           <Tab.Screen
             name="AD Info"
@@ -44,13 +44,6 @@ const App: React.FC = () => {
             options={{ title: '광고 문의' }}
           />
         </Tab.Navigator>
-        {/* <Stack.Navigator initialRouteName="Main">
-          <Stack.Screen
-            component={MainTab}
-            name="Main"
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator> */}
       </RestaurantProvider>
     </NavigationContainer>
   )
