@@ -1,11 +1,11 @@
 import { Text } from '@rneui/themed'
 import React, { useEffect, useMemo, useRef } from 'react'
 import { Animated, View, StyleSheet } from 'react-native'
-// import { LinearGradient } from 'expo-linear-gradient'
-import { Restaurant } from '@_types/restaurant'
+import { LinearGradient } from 'expo-linear-gradient'
+import { RestaurantTypes } from '@_types/restaurant'
 
 export interface Props {
-  restaurantItems: Restaurant[]
+  restaurantItems: RestaurantTypes[]
   onIndexChange: (index: number) => void
   itemHeight: number
   closeModal: () => void
@@ -17,7 +17,7 @@ export const AnimatedRandomSelector = (props: Props) => {
 
   const requiredItemsCount = 30
 
-  const shuffleRestaurant = (restaurantItems: Restaurant[]) => {
+  const shuffleRestaurant = (restaurantItems: RestaurantTypes[]) => {
     for (let i = restaurantItems.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1))
       ;[restaurantItems[i], restaurantItems[j]] = [
@@ -101,14 +101,14 @@ export const AnimatedRandomSelector = (props: Props) => {
       />
 
       {/* 배경 그라데이션 효과. 테스트 진행시에는 주석 처리 해야 함 */}
-      {/* <LinearGradient
+      <LinearGradient
         colors={[
           'rgba(255, 255, 255, 0.8)',
           'rgba(255, 255, 255, 0)',
           'rgba(255, 255, 255, 0.8)',
         ]}
         style={styles.gradient}
-      /> */}
+      />
     </View>
   )
 }

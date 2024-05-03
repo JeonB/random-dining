@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import { Dimensions, StyleSheet, View } from 'react-native'
 import { Button } from 'react-native-paper'
 import { Text } from '@rneui/themed'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { NavigationProp } from '@react-navigation/native'
 import { RootStackParamList } from '@_types/navigation'
-import { Restaurant } from '@_types/restaurant'
-import RandomPickButton from '../FilterSettings/randomPickButton'
-import { AddUserListModal } from 'src/components/userCustomList/pages/addUserListModal'
+import { RestaurantTypes } from '@_types/restaurant'
+import RandomPickButton from '@_3Rpages/FilterSettings/randomPickButton'
+import { AddUserListModal } from '@_components/userCustomList/pages/addUserListModal'
 
 interface Props {
-  selectedRestaurant: Restaurant
+  selectedRestaurant: RestaurantTypes
   handleRandomPickClick: () => void
   isLoading: boolean
   navigation: NavigationProp<RootStackParamList>

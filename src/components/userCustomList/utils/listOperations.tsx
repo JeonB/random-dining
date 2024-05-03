@@ -1,12 +1,12 @@
 import { Alert } from 'react-native'
 
-import { Restaurant } from '@_types/restaurant'
+import { RestaurantTypes } from '@_types/restaurant'
 
 // 식당 추가 버튼을 눌렀을 경우
 export const handlePressRestaurantAddButton = (
   inputRestaurant: string,
-  listItems: Restaurant[],
-  setListItems: React.Dispatch<React.SetStateAction<Restaurant[]>>,
+  listItems: RestaurantTypes[],
+  setListItems: React.Dispatch<React.SetStateAction<RestaurantTypes[]>>,
   setInputRestaurant: React.Dispatch<React.SetStateAction<string>>,
 ) => {
   // 입력 필드가 비어있을 경우 경고창을 띄움
@@ -31,12 +31,12 @@ export const handlePressRestaurantAddButton = (
   setInputRestaurant('') // 입력 필드를 초기화
 }
 
-export const filterItems = (items: Restaurant[], itemToRemove: string) => {
+export const filterItems = (items: RestaurantTypes[], itemToRemove: string) => {
   return items.filter(item => item.place_name !== itemToRemove)
 }
 
 export const handlePressDeleteButton = (
-  setListItems: React.Dispatch<React.SetStateAction<Restaurant[]>>,
+  setListItems: React.Dispatch<React.SetStateAction<RestaurantTypes[]>>,
   item: string,
 ) => {
   setListItems(prevItems => filterItems(prevItems, item))

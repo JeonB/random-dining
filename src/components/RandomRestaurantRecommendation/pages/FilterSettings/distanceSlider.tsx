@@ -1,5 +1,5 @@
 import { Icon, Slider } from '@rneui/themed'
-import React, { createContext, useContext, useState } from 'react'
+import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 interface DistanceSliderProps {
@@ -7,12 +7,10 @@ interface DistanceSliderProps {
   onDistanceChange: (value: number) => void
 }
 
-export const DistanceSlider = ({
+const DistanceSlider = ({
   onDistanceChange,
   distanceRange,
 }: DistanceSliderProps) => {
-  // const [distanceRange, setDistanceRange] = useState(30)
-
   const handleValueChange = (value: number) => {
     onDistanceChange(value)
   }
@@ -53,3 +51,5 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 })
+
+export default DistanceSlider

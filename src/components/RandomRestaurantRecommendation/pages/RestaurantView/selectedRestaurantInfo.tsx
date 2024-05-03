@@ -1,13 +1,13 @@
-import React, { memo, useEffect } from 'react'
+import React from 'react'
 import { Dimensions, Image, StyleSheet, View } from 'react-native'
-import { Map } from './map'
-import { RestaurantDetail } from './restaurantDetail'
 import { RootStackParamList } from '@_types/navigation'
 import { StackScreenProps } from '@react-navigation/stack'
-import { Restaurant } from '@_types/restaurant'
+import { useRestaurantContext } from '@_3Rpages/context/restaurantContext'
+import { RestaurantTypes } from '@_types/restaurant'
+import Map from './map'
+import RestaurantDetail from './restaurantDetail'
 import RestaurantActionButtons from './restaurantActionButtons'
-import { RandomItemModal } from './randomItemModal'
-import { useRestaurantContext } from '../context/restaurantContext'
+import RandomItemModal from './randomItemModal'
 
 const SelectedRestaurantInfo = ({
   route,
@@ -21,7 +21,7 @@ const SelectedRestaurantInfo = ({
     handleRandomPickClick,
     handleRestaurantChange,
   } = useRestaurantContext()
-  const restaurant: Restaurant | undefined = route.params?.restaurant
+  const restaurant: RestaurantTypes | undefined = route.params?.restaurant
   return (
     <View style={styles.container}>
       <View style={styles.mediaContainer}>

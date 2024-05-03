@@ -1,17 +1,17 @@
 import React, { createContext, useContext } from 'react'
-import { Restaurant } from '@_types/restaurant'
+import { RestaurantTypes } from '@_types/restaurant'
 
 interface ContextType {
   selectedCategories: string[]
   setSelectedCategories: (categories: string[]) => void
   distance: number
   setDistance: (distance: number) => void
-  restaurantItems: Restaurant[]
-  setRestaurantItems: (items: Restaurant[]) => void
+  restaurantItems: RestaurantTypes[]
+  setRestaurantItems: (items: RestaurantTypes[]) => void
   modalVisible: boolean
   setModalVisible: (visible: boolean) => void
-  restaurant: Restaurant | undefined
-  setRestaurant: (restaurant: Restaurant) => void
+  restaurant: RestaurantTypes | undefined
+  setRestaurant: (restaurant: RestaurantTypes) => void
   isLoading: boolean
   setIsLoading: (loading: boolean) => void
   handleRandomPickClick: () => void

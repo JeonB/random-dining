@@ -7,7 +7,7 @@ import { UserCustomList } from '@_components/userCustomList/pages/userCustomList
 import Constants from 'expo-constants'
 import 'regenerator-runtime/runtime'
 import { RootStackParamList } from '@_types/navigation'
-import { RestaurantProvider } from 'src/components/RandomRestaurantRecommendation/pages/context/restaurantProvider'
+import { RestaurantProvider } from '@_3Rpages/context/restaurantProvider'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import MainStack from '@_components/stackScreen'
 ;(Text as any).defaultProps = (Text as any).defaultProps || {}

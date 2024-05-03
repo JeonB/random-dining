@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import ToggleSwitch from '../../../common/toggleSwitch'
+import ToggleSwitch from '@_components/common/toggleSwitch'
 import { StyleSheet, View } from 'react-native'
 import { Text } from '@rneui/themed'
 
@@ -14,7 +14,7 @@ const CATEGORY = [
   '제육볶음',
 ]
 
-export const CategorySwitch = ({
+const CategorySwitch = ({
   onCategoryChange = () => {},
 }: {
   onCategoryChange?: (categories: string[]) => void
@@ -79,3 +79,5 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 })
+
+export default CategorySwitch

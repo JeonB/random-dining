@@ -16,7 +16,7 @@ import { Button } from 'react-native-paper'
 
 import { useListNames } from '@_components/userCustomList/hook/useListNames'
 import { RootStackParamList } from '@_types/navigation'
-import { Restaurant } from '@_types/restaurant'
+import { RestaurantTypes } from '@_types/restaurant'
 import { handlePressRestaurantAddButton } from '@_components/userCustomList/utils/listOperations'
 import { handlePressDeleteButton } from '@_components/userCustomList/utils/listOperations'
 
@@ -26,7 +26,7 @@ export const AddUserList = ({
 }: {
   navigation: NavigationProp<RootStackParamList>
 }) => {
-  const [listItems, setListItems] = useState<Restaurant[]>([]) // 리스트 아이템을 관리하는 상태
+  const [listItems, setListItems] = useState<RestaurantTypes[]>([]) // 리스트 아이템을 관리하는 상태
   const [inputRestaurant, setInputRestaurant] = useState('') // 식당 또는 메뉴 이름을 입력하는 상태
   const [newListName, setNewListName] = useState('') // 새로운 리스트 이름을 관리하는 상태
 
