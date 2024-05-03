@@ -9,8 +9,9 @@ const PositionSelector = () => {
   return (
     <View style={styles.mediaContainer} testID="mediaContainer">
       <Image
-        source={{ uri: 'https://i.postimg.cc/rpJGytmg/image.png' }}
+        source={require('../../../../assets/images/main.png')}
         style={{ width: '100%', height: '100%', marginBottom: 10 }}
+        onError={({ nativeEvent: { error } }) => console.warn(error)}
       />
       <Button
         icon="map-marker"
