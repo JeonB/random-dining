@@ -1,8 +1,7 @@
 import React from 'react'
-import { PositionSelector } from '../pages/positionSelector'
+import PositionSelector from '../pages/positionSelector'
 import { fireEvent, render, screen } from '@testing-library/react-native'
 import { NavigationContainer } from '@react-navigation/native'
-import { RestaurantProvider } from '../pages/context/restaurantProvider'
 describe('postionSelector', () => {
   test('렌더링 테스트', () => {
     render(

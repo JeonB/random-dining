@@ -2,7 +2,7 @@ import React from 'react'
 import { render } from '@testing-library/react-native'
 import { useRoute } from '@react-navigation/native'
 import WebView from 'react-native-webview'
-import { DetailView } from '../pages/RestaurantView/detailView'
+import DetailView from '../pages/RestaurantView/detailView'
 
 jest.mock('react-native-webview', () => jest.fn())
 jest.mock('@react-navigation/native', () => ({

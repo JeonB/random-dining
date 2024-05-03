@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react-native'
-import { DistanceSlider } from '../pages/FilterSettings/distanceSlider'
+import DistanceSlider from '../pages/FilterSettings/distanceSlider'
 import { Slider } from '@rneui/themed'
 import React from 'react'
 

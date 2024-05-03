@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react-native'
 import React from 'react'
-import { Map } from '../pages/RestaurantView/map'
+import Map from '../pages/RestaurantView/map'
 import { RestaurantTypes } from 'src/types/restaurant'
 jest.mock('react-native-webview', () => {
   const { View } = require('react-native')
