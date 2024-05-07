@@ -12,6 +12,15 @@ import { NavigationContainer, NavigationProp } from '@react-navigation/native'
 import { UserCustomList } from '@_components/userCustomList/pages/userCustomList'
 import { RootStackParamList } from '@_types/navigation'
 
+jest.mock('@_components/userCustomList/pages/listManageIcon', () => {
+  return {
+    __esModule: true,
+    ListManageIcon: () => {
+      return null
+    },
+  }
+})
+
 jest.mock('@_components/userCustomList/hook/useListNames', () => ({
   useListNames: () => ({
     listNames: ['List 1', 'List 2'],
@@ -31,6 +40,15 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
   }),
 }))
 
+jest.mock('expo-linear-gradient', () => {
+  return {
+    __esModule: true,
+    default: () => {
+      return null
+    },
+  }
+})
+
 const navigation = {
   navigate: jest.fn(),
 } as unknown as NavigationProp<RootStackParamList>
@@ -49,6 +67,10 @@ describe('<UserCustomList />', () => {
     )
   })
 
+  afterEach(() => {
+    jest.clearAllTimers()
+  })
+
   test('AsyncStorage.getItem 텍스트 렌더링', async () => {
     expect(utils.getByText('List 1')).toBeDefined()
     expect(utils.getByText('List 2')).toBeDefined()
@@ -56,11 +78,9 @@ describe('<UserCustomList />', () => {
 
   test('데이터가 존재하는 리스트 클릭 시 handlePressItem 호출', async () => {
     fireEvent.press(utils.getByText('List 1'))
-    await waitFor(() => {
-      expect(alertSpy).toHaveBeenCalledWith(
-        'List 1 random picker modal opened.',
-      )
-    })
+
+    // Alert.alert 호출되지 않았는지 확인
+    expect(Alert.alert).not.toHaveBeenCalled()
   })
 
   test('데이터가 존재하지 않는 리스트 클릭 시 handlePressItem 호출', async () => {

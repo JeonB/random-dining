@@ -5,11 +5,14 @@ import { NavigationProp } from '@react-navigation/native'
 
 import { ListManageIcon } from '@_components/userCustomList/pages/listManageIcon'
 import { RootStackParamList } from '@_types/navigation'
+import { act } from 'react-test-renderer'
 
 const navigation = {
   navigate: jest.fn(),
   reset: jest.fn(),
 } as unknown as NavigationProp<RootStackParamList>
+
+jest.useFakeTimers()
 
 describe('<ListManageIcon />', () => {
   let utils: RenderAPI
@@ -18,9 +21,12 @@ describe('<ListManageIcon />', () => {
     utils = render(<ListManageIcon navigation={navigation} />)
   })
 
-  test('아이콘 렌더링', async () => {
-    const icon = utils.getByTestId('listManageIcon')
-    expect(icon).toBeTruthy()
+  test('아이콘 렌더링', () => {
+    act(() => {
+      jest.runAllTimers()
+      const icon = utils.getByTestId('listManageIcon')
+      expect(icon).toBeTruthy()
+    })
   })
 
   test('아이콘 클릭시 수정,추가 modal 호출', async () => {

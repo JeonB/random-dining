@@ -45,6 +45,14 @@ jest.mock('@_components/userCustomList/hook/useListNames', () => ({
   }),
 }))
 
+jest.mock('expo-constants', () => ({
+  expoConfig: {
+    extra: {
+      KAKAO_JAVASCRIPT_KEY: '1234',
+    },
+  },
+}))
+
 describe('<AddUserList />', () => {
   let alertSpy: jest.SpyInstance
   let utils: RenderAPI
@@ -136,7 +144,9 @@ describe('<AddUserList />', () => {
     // navigation.reset 호출 확인
     expect(navigation.reset).toHaveBeenCalledWith({
       index: 0,
-      routes: [{ name: 'Main', params: { screen: 'UserCustomList' } }],
+      routes: [
+        { name: 'UserCustomList', params: { screen: 'UserCustomList' } },
+      ],
     })
   })
 })

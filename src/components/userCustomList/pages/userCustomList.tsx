@@ -22,7 +22,7 @@ export const UserCustomList = ({
   const [selectedListName, setSelectedListName] = useState<string>('')
 
   const [modalVisible, setModalVisible] = useState(false)
-  const [restaurantItems, setRestaurantItems] = useState<Restaurant[]>([])
+  const [restaurantItems, setRestaurantItems] = useState<RestaurantTypes[]>([])
 
   const handleRestaurantChange = (index: number) => {
     const selectedRestaurant = restaurantItems[index]
