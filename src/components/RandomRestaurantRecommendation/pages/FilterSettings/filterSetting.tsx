@@ -1,16 +1,18 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Dimensions, ScrollView, StyleSheet, View } from 'react-native'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
+import { RouteProp, useRoute } from '@react-navigation/native'
 import { Text } from '@rneui/themed'
 import DistanceSlider from '@_3Rpages/FilterSettings/distanceSlider'
 import CategorySwitch from '@_3Rpages/FilterSettings/categorySwitch'
 import RandomPickButton from '@_3Rpages/FilterSettings/randomPickButton'
 import RandomItemModal from '@_3Rpages/RestaurantView/randomItemModal'
 import { useRestaurantContext } from '@_3Rpages/context/restaurantContext'
-import { RootStackParamList } from '@_types/navigation'
+import { RestaurantParamList } from 'src/types/restaurantParamList'
 
 const FilterSetting = () => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>()
+  const route = useRoute<RouteProp<RestaurantParamList, 'FilterSetting'>>()
+  const [latitude, setLatitude] = useState(0)
+  const [longitude, setLongitude] = useState(0)
   const {
     handleRandomPickClick,
     handleRestaurantChange,
@@ -21,7 +23,17 @@ const FilterSetting = () => {
     distance,
     setDistance,
     setSelectedCategories,
+    setSelectedLocation,
   } = useRestaurantContext()
+
+  useEffect(() => {
+    const location = route.params?.location
+    if (location) {
+      setLatitude(location.latitude)
+      setLongitude(location.longitude)
+      setSelectedLocation({ latitude: latitude, longitude: longitude })
+    }
+  }, [latitude, longitude])
 
   return (
     <View style={styles.container} testID="test">

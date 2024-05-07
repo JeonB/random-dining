@@ -8,11 +8,12 @@ import Map from './map'
 import RestaurantDetail from './restaurantDetail'
 import RestaurantActionButtons from './restaurantActionButtons'
 import RandomItemModal from './randomItemModal'
+import { RestaurantParamList } from '@_types/restaurantParamList'
 
 const SelectedRestaurantInfo = ({
   route,
   navigation,
-}: StackScreenProps<RootStackParamList, 'SelectedRestaurantInfo'>) => {
+}: StackScreenProps<RestaurantParamList, 'SelectedRestaurantInfo'>) => {
   const {
     modalVisible,
     setModalVisible,
@@ -22,11 +23,18 @@ const SelectedRestaurantInfo = ({
     handleRestaurantChange,
   } = useRestaurantContext()
   const restaurant: RestaurantTypes | undefined = route.params?.restaurant
+  const location: { [key: string]: number } | undefined = route.params?.location
   return (
     <View style={styles.container}>
       <View style={styles.mediaContainer}>
         {restaurant ? (
-          <Map info={restaurant} />
+          <Map
+            info={restaurant}
+            location={{
+              latitude: location?.latitude || 0,
+              longitude: location?.longitude || 0,
+            }}
+          />
         ) : (
           <Image
             source={{ uri: 'https://i.postimg.cc/rpJGytmg/image.png' }}

@@ -15,9 +15,12 @@ interface ContextType {
   isLoading: boolean
   setIsLoading: (loading: boolean) => void
   handleRandomPickClick: () => void
-  // handleCategoryChange: (categories: string[]) => void
-  // handleDistanceRangeChange: (distance: number) => void
   handleRestaurantChange: (index: number) => void
+  selectedLocation: { latitude: number; longitude: number }
+  setSelectedLocation: (location: {
+    latitude: number
+    longitude: number
+  }) => void
 }
 export const RestaurantContext = createContext<ContextType | undefined>(
   undefined,

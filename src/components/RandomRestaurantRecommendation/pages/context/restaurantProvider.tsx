@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { RestaurantContext } from '@_3Rpages/context/restaurantContext'
-import { handleData } from '@_services/api'
+import { getLocation, handleData } from '@_services/api'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { RestaurantTypes } from '@_types/restaurant'
-import { RootStackParamList } from '@_types/navigation'
+import { RestaurantParamList } from '@_types/restaurantParamList'
 
 export const RestaurantProvider = ({
   children,
@@ -13,13 +13,16 @@ export const RestaurantProvider = ({
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const [distance, setDistance] = useState<number>(30)
   const [restaurantItems, setRestaurantItems] = useState<RestaurantTypes[]>([])
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>()
+  const navigation = useNavigation<NavigationProp<RestaurantParamList>>()
   const isMounted = useRef(true)
   const [modalVisible, setModalVisible] = useState(false)
   const [restaurant, setRestaurant] = useState<RestaurantTypes>()
   const [isLoading, setIsLoading] = useState(false)
   const [isChanging, setIsChanging] = useState(false)
-
+  const [selectedLocation, setSelectedLocation] = useState({
+    latitude: 0,
+    longitude: 0,
+  })
   useEffect(() => {
     return () => {
       isMounted.current = false
@@ -31,6 +34,7 @@ export const RestaurantProvider = ({
     setIsLoading(true)
     try {
       const data = await handleData(selectedCategories, distance)
+
       if (isMounted.current && data) {
         setRestaurantItems(data)
         setModalVisible(true)
@@ -52,6 +56,7 @@ export const RestaurantProvider = ({
       setRestaurant(selectedRestaurant)
       navigation.navigate('SelectedRestaurantInfo', {
         restaurant: selectedRestaurant,
+        location: selectedLocation,
       })
     }
 
@@ -75,6 +80,8 @@ export const RestaurantProvider = ({
         setRestaurantItems,
         handleRandomPickClick,
         handleRestaurantChange,
+        selectedLocation,
+        setSelectedLocation,
       }}>
       {children}
     </RestaurantContext.Provider>

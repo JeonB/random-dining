@@ -1,15 +1,25 @@
 import { Button } from 'react-native-paper'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Dimensions, Image, StyleSheet, View } from 'react-native'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { RootStackParamList } from '@_types/navigation'
-
+import { getLocation } from '@_services/api'
+import { RestaurantParamList } from '@_types/restaurantParamList'
+import mainImage from '@_assetImages/main.png'
 const PositionSelector = () => {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>()
+  const navigation = useNavigation<NavigationProp<RestaurantParamList>>()
+  const handleGetCurrentLocation = async () => {
+    const { latitude, longitude } = await getLocation()
+    navigation.navigate('FilterSetting', {
+      location: {
+        latitude: Number(latitude),
+        longitude: Number(longitude),
+      },
+    })
+  }
   return (
     <View style={styles.mediaContainer} testID="mediaContainer">
       <Image
-        source={require('../../../../assets/images/main.png')}
+        source={mainImage}
         style={{ width: '100%', height: '100%', marginBottom: 10 }}
         onError={({ nativeEvent: { error } }) => console.warn(error)}
       />
@@ -19,7 +29,7 @@ const PositionSelector = () => {
         textColor="#272729"
         buttonColor="gainsboro"
         style={styles.button}
-        onPress={() => navigation.navigate('CurrentPosition')}>
+        onPress={handleGetCurrentLocation}>
         내 위치에서 찾기
       </Button>
       <Button
