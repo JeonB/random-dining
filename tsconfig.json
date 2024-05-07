@@ -11,7 +11,8 @@
       "@_components/*": ["src/components/*"],
       "@_types/*": ["src/types/*"],
       "@_services/*": ["src/services/*"],
-      "@_3Rpages/*": ["src/components/RandomRestaurantRecommendation/pages/*"]
+      "@_3Rpages/*": ["src/components/RandomRestaurantRecommendation/pages/*"],
+      "@_assetImages/*": ["assets/images/*"]
     },
     "allowSyntheticDefaultImports": true,
     "jsx": "react"

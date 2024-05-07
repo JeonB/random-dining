@@ -23,6 +23,7 @@ const jestConfig: JestConfigWithTsJest = {
     '^@_3Rpages/(.*)$': [
       '<rootDir>/src/components/RandomRestaurantRecommendation/pages/$1',
     ],
+    '^@_assetImages/(.*)$': ['<rootDir>/assets/images/*'],
   },
 }
 
