@@ -63,4 +63,5 @@ Basic.args = {
   ],
   onIndexChange: () => {},
   itemHeight: 50,
+  setTimeoutFunc: () => {},
 }

@@ -9,7 +9,7 @@ const { KAKAO_RESTAPI_KEY } = Constants.expoConfig?.extra as AppConfig
 const baseUrl = 'https://dapi.kakao.com/v2/local/search/keyword'
 const restAPIkey = KAKAO_RESTAPI_KEY
 
-const getLocation = async () => {
+export const getLocation = async () => {
   const { status } = await Location.requestForegroundPermissionsAsync()
   if (status !== 'granted') {
     Alert.alert(
@@ -44,7 +44,7 @@ export const handleData = async (
     categories[Math.floor(Math.random() * categories.length)]
   let page = 1
   const fetchDataAndUpdatePage = async () => {
-    const data = await fetchData(randomCategory, page, distanceRange)
+    const data: any = await fetchData(randomCategory, page, distanceRange)
     allData.push(...data.documents)
     page++
     return data

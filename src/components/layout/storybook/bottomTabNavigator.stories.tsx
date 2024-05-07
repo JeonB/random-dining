@@ -8,7 +8,7 @@ import {
   BottomTabNavigatorProps,
 } from '@_components/layout/component/bottomTabNavigator'
 import { UserCustomList } from '@_components/userCustomList/pages/userCustomList'
-import { Main } from 'src/main'
+import PositionSelector from '@_3Rpages/positionSelector'
 
 export default {
   title: 'Components/BottomTabNavigator',
