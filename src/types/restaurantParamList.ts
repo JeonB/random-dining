@@ -1,20 +1,21 @@
 import { StoryFn } from '@storybook/react'
-import { RestaurantTypes } from './restaurant'
+import { LocationTypes } from './restaurant'
 
 export interface RestaurantParamList {
+  Detail: { url: string } | undefined
   MapSearch: { mapSearch: string } | undefined
   FilterSetting: { location: { [key: string]: number } } | undefined
   SelectedRestaurantInfo:
     | {
-        restaurant: RestaurantTypes
-        location: { [key: string]: number }
+        restaurant: LocationTypes
         story?: StoryFn<any>
       }
     | undefined
 
   [key: string]:
     | undefined
+    | { url: string }
     | { mapSearch: string }
-    | { restaurant: RestaurantTypes }
+    | { restaurant: LocationTypes }
     | { location: { [key: string]: number } }
 }

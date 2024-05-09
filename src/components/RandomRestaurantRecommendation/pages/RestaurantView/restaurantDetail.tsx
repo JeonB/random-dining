@@ -1,10 +1,10 @@
 import React from 'react'
-import { RestaurantTypes } from '@_types/restaurant'
+import { LocationTypes } from '@_types/restaurant'
 import { DataTable, Icon } from 'react-native-paper'
 import { Dimensions, Linking, StyleSheet, View } from 'react-native'
 import { Text } from '@rneui/themed'
 
-const RestaurantDetail = ({ info }: { info: RestaurantTypes }) => {
+const RestaurantDetail = ({ info }: { info: LocationTypes }) => {
   return (
     <View style={styles.infoView}>
       <Text h4 h4Style={{ fontSize: 20, marginBottom: 10 }}>

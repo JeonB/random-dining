@@ -8,16 +8,16 @@ import RandomItemModal from '@_components/RandomRestaurantRecommendation/pages/R
 import { DefaultFlatList } from '@_components/layout/component/defaultFlatList'
 import { ListManageIcon } from '@_components/userCustomList/pages/listManageIcon'
 import { useListNames } from '@_components/userCustomList/hook/useListNames'
-import { RootStackParamList } from '@_types/navigation'
-import { RestaurantTypes } from '@_types/restaurant'
+import { RestaurantParamList } from '@_types/restaurantParamList'
+import { LocationTypes } from '@_types/restaurant'
 
 export const UserCustomList = ({
   navigation,
 }: {
-  navigation: NavigationProp<RootStackParamList>
+  navigation: NavigationProp<RestaurantParamList>
 }) => {
   const [modalVisible, setModalVisible] = useState(false)
-  const [restaurantItems, setRestaurantItems] = useState<RestaurantTypes[]>([])
+  const [restaurantItems, setRestaurantItems] = useState<LocationTypes[]>([])
   const { listNames, fetchListNames } = useListNames()
 
   const handleRestaurantChange = (index: number) => {

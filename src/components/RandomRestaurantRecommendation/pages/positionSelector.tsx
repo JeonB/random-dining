@@ -2,17 +2,17 @@ import { Button } from 'react-native-paper'
 import React, { useEffect } from 'react'
 import { Dimensions, Image, StyleSheet, View } from 'react-native'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { getLocation } from '@_services/api'
+import { getPositionByGeolocation } from '@_services/api'
 import { RestaurantParamList } from '@_types/restaurantParamList'
 import mainImage from '@_assetImages/main.png'
 const PositionSelector = () => {
   const navigation = useNavigation<NavigationProp<RestaurantParamList>>()
   const handleGetCurrentLocation = async () => {
-    const { latitude, longitude } = await getLocation()
+    const { latitude, longitude } = await getPositionByGeolocation()
     navigation.navigate('FilterSetting', {
       location: {
-        latitude: Number(latitude),
-        longitude: Number(longitude),
+        latitude: latitude,
+        longitude: longitude,
       },
     })
   }

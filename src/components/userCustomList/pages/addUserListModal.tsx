@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Alert, View } from 'react-native'
 
 import { useListNames } from '@_components/userCustomList/hook/useListNames'
-import { RestaurantTypes } from '@_types/restaurant'
+import { LocationTypes } from '@_types/restaurant'
 import { useEffect } from 'react'
 import React from 'react'
 
@@ -11,7 +11,7 @@ export const AddUserListModal = ({
   visible,
   onClose,
 }: {
-  selectedInfo: RestaurantTypes
+  selectedInfo: LocationTypes
   visible: boolean
   onClose: () => void
 }) => {

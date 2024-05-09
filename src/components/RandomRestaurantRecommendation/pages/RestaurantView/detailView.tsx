@@ -1,21 +1,24 @@
 import React from 'react'
 import { StyleSheet, View, Dimensions } from 'react-native'
 import WebView from 'react-native-webview'
-import { useRoute } from '@react-navigation/native'
+import { RouteProp, useRoute } from '@react-navigation/native'
+import { RestaurantParamList } from '@_types/restaurantParamList'
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height
 
 const DetailView = () => {
-  const route = useRoute<any>()
-
+  const route = useRoute<RouteProp<RestaurantParamList, 'Detail'>>()
+  console.log(route.params?.url)
   return (
     <View style={styles.container}>
-      <WebView
-        source={{ uri: route.params?.url }}
-        style={styles.webview}
-        javaScriptEnabled={true}
-      />
+      {route.params?.url && (
+        <WebView
+          source={{ uri: route.params.url }}
+          style={styles.webview}
+          javaScriptEnabled={true}
+        />
+      )}
     </View>
   )
 }

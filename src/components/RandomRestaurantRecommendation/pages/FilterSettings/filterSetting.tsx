@@ -11,8 +11,6 @@ import { RestaurantParamList } from 'src/types/restaurantParamList'
 
 const FilterSetting = () => {
   const route = useRoute<RouteProp<RestaurantParamList, 'FilterSetting'>>()
-  const [latitude, setLatitude] = useState(0)
-  const [longitude, setLongitude] = useState(0)
   const {
     handleRandomPickClick,
     handleRestaurantChange,
@@ -29,11 +27,12 @@ const FilterSetting = () => {
   useEffect(() => {
     const location = route.params?.location
     if (location) {
-      setLatitude(location.latitude)
-      setLongitude(location.longitude)
-      setSelectedLocation({ latitude: latitude, longitude: longitude })
+      setSelectedLocation({
+        longitude: location.longitude,
+        latitude: location.latitude,
+      })
     }
-  }, [latitude, longitude])
+  }, [route.params?.location])
 
   return (
     <View style={styles.container} testID="test">

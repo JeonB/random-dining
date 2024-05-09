@@ -2,10 +2,10 @@ import { Text } from '@rneui/themed'
 import React, { useEffect, useMemo, useRef } from 'react'
 import { Animated, View, StyleSheet } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
-import { RestaurantTypes } from '@_types/restaurant'
+import { LocationTypes } from '@_types/restaurant'
 
 export interface Props {
-  restaurantItems: RestaurantTypes[]
+  restaurantItems: LocationTypes[]
   onIndexChange: (index: number) => void
   itemHeight: number
   closeModal: () => void
@@ -24,7 +24,7 @@ export const AnimatedRandomSelector = (props: Props) => {
 
   const requiredItemsCount = 30
 
-  const shuffleRestaurant = (restaurantItems: RestaurantTypes[]) => {
+  const shuffleRestaurant = (restaurantItems: LocationTypes[]) => {
     for (let i = restaurantItems.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1))
       ;[restaurantItems[i], restaurantItems[j]] = [

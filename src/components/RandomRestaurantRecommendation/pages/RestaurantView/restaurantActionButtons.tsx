@@ -3,12 +3,12 @@ import { Dimensions, StyleSheet, View } from 'react-native'
 import { Button } from 'react-native-paper'
 import { Text } from '@rneui/themed'
 import { NavigationProp } from '@react-navigation/native'
-import { RestaurantTypes } from '@_types/restaurant'
+import { LocationTypes } from '@_types/restaurant'
 import RandomPickButton from '@_3Rpages/FilterSettings/randomPickButton'
 import { AddUserListModal } from '@_components/userCustomList/pages/addUserListModal'
 import { RestaurantParamList } from '@_types/restaurantParamList'
 interface Props {
-  selectedRestaurant: RestaurantTypes
+  selectedRestaurant: LocationTypes
   handleRandomPickClick: () => void
   isLoading: boolean
   navigation: NavigationProp<RestaurantParamList>

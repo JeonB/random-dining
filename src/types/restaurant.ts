@@ -1,5 +1,5 @@
 // 식당 추가시 데이터를 다 넘겨주지 않아도 되도록 테스트
-export interface RestaurantTypes {
+export interface LocationTypes {
   id?: number
   place_name: string
   category_name?: string
