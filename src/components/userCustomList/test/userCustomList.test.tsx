@@ -1,11 +1,11 @@
 import React from 'react'
 import { Alert } from 'react-native'
-
 import {
   render,
   fireEvent,
   waitFor,
   RenderAPI,
+  act,
 } from '@testing-library/react-native'
 import { NavigationContainer, NavigationProp } from '@react-navigation/native'
 
@@ -20,6 +20,13 @@ jest.mock('@_components/userCustomList/pages/listManageIcon', () => {
     },
   }
 })
+
+jest.mock(
+  '@_components/RandomRestaurantRecommendation/pages/RestaurantView/randomItemModal',
+  () => {
+    return jest.fn(() => null)
+  },
+)
 
 jest.mock('@_components/userCustomList/hook/useListNames', () => ({
   useListNames: () => ({
@@ -42,10 +49,7 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
 
 jest.mock('expo-linear-gradient', () => {
   return {
-    __esModule: true,
-    default: () => {
-      return null
-    },
+    LinearGradient: 'LinearGradient',
   }
 })
 
@@ -66,7 +70,6 @@ describe('<UserCustomList />', () => {
       </NavigationContainer>,
     )
   })
-
   afterEach(() => {
     jest.clearAllTimers()
   })
@@ -77,10 +80,11 @@ describe('<UserCustomList />', () => {
   })
 
   test('데이터가 존재하는 리스트 클릭 시 handlePressItem 호출', async () => {
-    fireEvent.press(utils.getByText('List 1'))
-
+    act(() => {
+      fireEvent.press(utils.getByText('List 1'))
+    })
     // Alert.alert 호출되지 않았는지 확인
-    expect(Alert.alert).not.toHaveBeenCalled()
+    await waitFor(() => expect(Alert.alert).not.toHaveBeenCalled())
   })
 
   test('데이터가 존재하지 않는 리스트 클릭 시 handlePressItem 호출', async () => {

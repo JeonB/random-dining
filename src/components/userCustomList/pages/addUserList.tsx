@@ -7,11 +7,11 @@ import { NavigationProp } from '@react-navigation/native'
 import { Button } from 'react-native-paper'
 
 import { useListNames } from '@_components/userCustomList/hook/useListNames'
-import SearchRestaurantModal from '@_components/userCustomList/pages/searchRestaurantModal'
+import SearchRestaurantModal from '@_components/userCustomList/pages/searchRestaurantModal/searchRestaurantModal'
 import { RestaurantNameInput } from '@_components/userCustomList/pages/restaurantNameInput'
 import { RootStackParamList } from '@_types/navigation'
 import { RestaurantTypes } from '@_types/restaurant'
-import { RestaurantListItem } from './restaurantListItem'
+import { RestaurantListItem } from '@_components/userCustomList/pages/restaurantListItem'
 
 const { width, height } = Dimensions.get('window')
 export const AddUserList = ({
@@ -29,6 +29,11 @@ export const AddUserList = ({
   const handlePressSave = async () => {
     if (newListName.length === 0) {
       Alert.alert('리스트 이름을 입력해주세요.')
+      return
+    }
+    // 이미 같은 이름의 리스트가 있는지 확인
+    if (listNames.includes(newListName)) {
+      Alert.alert('같은 이름의 리스트가 있습니다.')
       return
     }
     Alert.alert(
@@ -88,7 +93,8 @@ export const AddUserList = ({
         style={{ marginVertical: 10 }}
         buttonColor="#337AB7"
         mode="contained"
-        onPress={() => setModalVisible(true)}>
+        onPress={() => setModalVisible(true)}
+        testID="SearchButton">
         식당 검색
       </Button>
       <DefaultFlatList

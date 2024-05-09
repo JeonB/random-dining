@@ -1,11 +1,9 @@
 import React from 'react'
-
 import { render, fireEvent, RenderAPI } from '@testing-library/react-native'
 import { NavigationProp } from '@react-navigation/native'
 
 import { ListManageIcon } from '@_components/userCustomList/pages/listManageIcon'
 import { RootStackParamList } from '@_types/navigation'
-import { act } from 'react-test-renderer'
 
 const navigation = {
   navigate: jest.fn(),
@@ -22,11 +20,7 @@ describe('<ListManageIcon />', () => {
   })
 
   test('아이콘 렌더링', () => {
-    act(() => {
-      jest.runAllTimers()
-      const icon = utils.getByTestId('listManageIcon')
-      expect(icon).toBeTruthy()
-    })
+    expect(utils.getByTestId('listManageIcon')).toBeTruthy()
   })
 
   test('아이콘 클릭시 수정,추가 modal 호출', async () => {

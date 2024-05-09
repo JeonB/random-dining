@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Modal,
   View,
@@ -12,6 +12,7 @@ import { Button } from 'react-native-paper'
 
 import { handleData } from '@_services/searchRestaurantApi'
 import { DefaultFlatList } from '@_components/layout/component/defaultFlatList'
+import { ChangeSortButton } from '@_components/userCustomList/pages/searchRestaurantModal/changeSortButton'
 import { RestaurantTypes } from '@_types/restaurant'
 
 interface SearchRestaurantModalProps {
@@ -26,18 +27,39 @@ const SearchRestaurantModal = ({
   listItems,
   setListItems,
 }: SearchRestaurantModalProps) => {
-  const [dataList, setDataList] = useState<RestaurantTypes[]>([])
-  const [inputRestaurant, setInputRestaurant] = useState('')
+  const [dataList, setDataList] = useState<RestaurantTypes[]>([]) // 검색해서 가져온 식당 리스트
+  const [inputRestaurant, setInputRestaurant] = useState('') // 검색창에 입력한 식당 이름
+
+  const [sort, setSort] = useState('accuracy') // 정렬 방식
+
+  // 정렬 스위치
+  const handlePressSortButton = () => {
+    setSort(prevSort => (prevSort === 'accuracy' ? 'distance' : 'accuracy'))
+  }
+
+  useEffect(() => {
+    if (dataList.length > 0) {
+      const fetchData = async () => {
+        try {
+          const data = await handleData(inputRestaurant, sort)
+          data && setDataList(data)
+        } catch (error) {
+          console.error('Error occurred:', error)
+        }
+      }
+      fetchData()
+    }
+  }, [sort]) // 정렬 방식이 바뀔 때마다 실행
 
   // 검색 버튼 클릭
   const handlePressSearchButton = async () => {
     if (inputRestaurant.trim() === '') {
+      // 입력값이 없을 경우 경고창을 띄움
       Alert.alert('식당 또는 메뉴 이름을 입력하세요.')
       return
     }
-
     try {
-      const data = await handleData(inputRestaurant)
+      const data = await handleData(inputRestaurant, sort)
       data && setDataList(data)
     } catch (error) {
       console.error('Error occurred:', error)
@@ -52,7 +74,6 @@ const SearchRestaurantModal = ({
       return
     }
     setListItems([...listItems, newItem])
-
     setInputRestaurant('')
     setDataList([])
     onClose()
@@ -63,7 +84,8 @@ const SearchRestaurantModal = ({
       animationType="fade"
       transparent={true}
       visible={visible}
-      onRequestClose={onClose}>
+      onRequestClose={onClose}
+      testID="SearchModal">
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <View style={styles.restaurantInputContainer}>
@@ -83,22 +105,38 @@ const SearchRestaurantModal = ({
               검색
             </Button>
           </View>
+          {dataList.length !== 0 && (
+            <View style={{ alignItems: 'flex-end' }}>
+              <ChangeSortButton
+                handlePress={handlePressSortButton}
+                sort={sort}
+              />
+            </View>
+          )}
           <DefaultFlatList
             data={dataList}
             keyExtractor={(item, index) => index.toString()}
             renderItem={item => (
               <View style={styles.renderItem}>
-                <Text
-                  style={styles.listText}
-                  numberOfLines={1}
-                  ellipsizeMode="tail">
-                  {item.place_name}
-                </Text>
-                <Button
-                  style={{ width: 50 }}
-                  onPress={() => handlePressAddButton(item)}>
-                  추가
-                </Button>
+                <View style={{ flexShrink: 1 }}>
+                  <Text
+                    style={styles.listText}
+                    numberOfLines={1}
+                    ellipsizeMode="tail">
+                    {item.place_name}
+                  </Text>
+                  <Text
+                    style={{ fontSize: 13 }}
+                    numberOfLines={1}
+                    ellipsizeMode="tail">
+                    ({item.address_name})
+                  </Text>
+                </View>
+                <View style={{ width: 50 }}>
+                  <Button onPress={() => handlePressAddButton(item)}>
+                    추가
+                  </Button>
+                </View>
               </View>
             )}
           />
@@ -124,7 +162,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
-    alignItems: 'center',
   },
   centeredView: {
     flex: 1,
@@ -134,13 +171,14 @@ const styles = StyleSheet.create({
   },
   restaurantInputContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
   },
   renderItem: {
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   restaurantNameField: {
     width: width * 0.6,
@@ -154,7 +192,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   listText: {
-    width: '80%',
     fontSize: 16,
     textAlign: 'left',
   },

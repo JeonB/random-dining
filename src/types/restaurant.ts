@@ -1,4 +1,3 @@
-// 식당 추가시 데이터를 다 넘겨주지 않아도 되도록 테스트
 export interface RestaurantTypes {
   id?: number
   place_name: string
@@ -10,6 +9,7 @@ export interface RestaurantTypes {
   updated_at?: string
   x?: string
   y?: string
+  address_name?: string
 }
 
 // export interface Restaurant {

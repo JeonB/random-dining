@@ -9,7 +9,7 @@ import { Button } from 'react-native-paper'
 import { useListNames } from '@_components/userCustomList/hook/useListNames'
 import { RootStackParamList } from '@_types/navigation'
 import { RestaurantTypes } from '@_types/restaurant'
-import SearchRestaurantModal from '@_components/userCustomList/pages/searchRestaurantModal'
+import SearchRestaurantModal from '@_components/userCustomList/pages/searchRestaurantModal/searchRestaurantModal'
 import { RestaurantNameInput } from '@_components/userCustomList/pages/restaurantNameInput'
 import { RestaurantListItem } from '@_components/userCustomList/pages/restaurantListItem'
 
@@ -172,7 +172,8 @@ export const EditUserList = ({
         style={{ marginVertical: 10 }}
         buttonColor="#337AB7"
         mode="contained"
-        onPress={() => setModalVisible(true)}>
+        onPress={() => setModalVisible(true)}
+        testID="SearchButton">
         식당 검색
       </Button>
       <DefaultFlatList

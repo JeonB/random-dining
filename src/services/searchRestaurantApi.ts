@@ -1,27 +1,64 @@
-import { Alert } from 'react-native'
-import { RestaurantSearchQueryParamsType } from '@_types/queryParams'
+import { Alert, Linking } from 'react-native'
+import * as Location from 'expo-location'
 import Constants from 'expo-constants'
 import { AppConfig } from 'app.config'
 import { RestaurantTypes } from '@_types/restaurant'
+import { RestaurantSearchQueryParamsType } from '@_types/queryParams'
 
 const { KAKAO_RESTAPI_KEY } = Constants.expoConfig?.extra as AppConfig
 const baseUrl = 'https://dapi.kakao.com/v2/local/search/keyword'
 const restAPIkey = KAKAO_RESTAPI_KEY
 
-export const handleData = async (keyword: string) => {
+const getLocation = async () => {
+  const { status } = await Location.requestForegroundPermissionsAsync()
+  if (status !== 'granted') {
+    Alert.alert(
+      '위치 권한이 필요합니다.',
+      '설정 화면으로 이동하시겠습니까?',
+      [
+        {
+          text: '아니오',
+          style: 'cancel',
+        },
+        { text: '예', onPress: () => Linking.openSettings() },
+      ],
+      { cancelable: false },
+    )
+    return { latitude: undefined, longitude: undefined }
+  }
+  const location = await Location.getCurrentPositionAsync({
+    accuracy: Location.Accuracy.Lowest,
+  })
+
+  return {
+    latitude: location.coords.latitude.toString(),
+    longitude: location.coords.longitude.toString(),
+  }
+}
+
+export const handleData = async (keyword: string, sort: string) => {
   const allData: RestaurantTypes[] = []
   let page = 1
 
-  try {
-    let data = await fetchData(keyword, page)
-
-    while (!data.meta.is_end && page < 4) {
+  const { latitude, longitude } = await getLocation()
+  if (latitude && longitude) {
+    const fetchDataAndUpdatePage = async () => {
+      const data = await fetchData(keyword, latitude, longitude, page, sort)
       allData.push(...data.documents)
       page++
-      data = await fetchData(keyword, page)
+      return data
     }
-  } catch (error) {
-    console.error('에러 발생:', error)
+
+    try {
+      let data = await fetchDataAndUpdatePage()
+
+      // Kakao Local API는 최대 3페이지까지(45개) 데이터 제공
+      while (!data.meta.is_end && page < 4) {
+        data = await fetchDataAndUpdatePage()
+      }
+    } catch (error) {
+      console.error('에러 발생:', error)
+    }
   }
 
   if (allData.length === 0) {
@@ -32,14 +69,24 @@ export const handleData = async (keyword: string) => {
   return allData
 }
 
-async function fetchData(query: string, page: number) {
+async function fetchData(
+  query: string,
+  latitude: string,
+  longitude: string,
+  page: number,
+  sort: string,
+) {
   const queryParams: RestaurantSearchQueryParamsType = {
     query,
     category_group_code: 'FD6',
     size: 15,
     page,
+    sort: sort,
   }
-
+  if (sort === 'distance') {
+    queryParams.x = longitude
+    queryParams.y = latitude
+  }
   const queryString = toQueryString(queryParams)
   const url = `${baseUrl}?${queryString}`
   const response = await fetch(url, {

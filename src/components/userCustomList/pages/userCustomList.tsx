@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Text, Alert } from 'react-native'
-
+import { StyleSheet, View, Text, Alert, Dimensions } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationProp, useFocusEffect } from '@react-navigation/native'
 
@@ -16,11 +15,8 @@ export const UserCustomList = ({
 }: {
   navigation: NavigationProp<RootStackParamList>
 }) => {
-  // AsyncStorage에 저장된 리스트 이름들을 가져오는 커스텀 훅
-  const { listNames, fetchListNames } = useListNames()
-
-  const [selectedListName, setSelectedListName] = useState<string>('')
-
+  const { listNames, fetchListNames } = useListNames() // AsyncStorage에 저장된 리스트 이름들을 가져오는 커스텀 훅
+  const [selectedListName, setSelectedListName] = useState<string>('') // 선택된 리스트 이름
   const [modalVisible, setModalVisible] = useState(false)
   const [restaurantItems, setRestaurantItems] = useState<RestaurantTypes[]>([])
 
@@ -33,20 +29,14 @@ export const UserCustomList = ({
       })
     }
   }
-
   useFocusEffect(
     React.useCallback(() => {
       fetchListNames()
-
-      return () => {
-        // 화면이 포커스를 잃을 때 실행할 코드를 작성합니다.
-      }
     }, [fetchListNames]),
   )
-
   const handlePressItem = async (item: string) => {
     try {
-      const savedListData = await AsyncStorage.getItem(item)
+      const savedListData = await AsyncStorage.getItem(item) // 선택된 리스트 이름에 저장된 데이터를 가져옴
       setSelectedListName(item)
       // 리스트에 저장된 데이터가 있을 경우 random picker modal 호출
       if (savedListData !== null && JSON.parse(savedListData).length > 0) {
@@ -63,13 +53,17 @@ export const UserCustomList = ({
 
   return (
     <View style={styles.container}>
-      <DefaultFlatList
-        data={listNames}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={item => <Text style={styles.listText}>{item}</Text>}
-        onPressItem={handlePressItem}
-      />
-      <ListManageIcon navigation={navigation} />
+      <View style={styles.listContainer}>
+        <DefaultFlatList
+          data={listNames}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={item => <Text style={styles.listText}>{item}</Text>}
+          onPressItem={handlePressItem}
+        />
+        <View style={styles.iconWrapper}>
+          <ListManageIcon navigation={navigation} />
+        </View>
+      </View>
       <RandomItemModal
         visible={modalVisible}
         onClose={() => setModalVisible(false)}
@@ -80,10 +74,18 @@ export const UserCustomList = ({
   )
 }
 
+const { width, height } = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 50,
+    padding: width * 0.1,
+  },
+  listContainer: {
+    flex: 1,
+    flexDirection: 'column',
+  },
+  iconWrapper: {
+    alignItems: 'flex-end',
   },
   listText: {
     fontSize: 20,

@@ -1,6 +1,5 @@
 import React from 'react'
 import { Alert } from 'react-native'
-
 import {
   render,
   fireEvent,
@@ -8,7 +7,7 @@ import {
   RenderAPI,
 } from '@testing-library/react-native'
 
-import SearchRestaurantModal from '@_components/userCustomList/pages/searchRestaurantModal'
+import SearchRestaurantModal from '@_components/userCustomList/pages/searchRestaurantModal/searchRestaurantModal'
 import { handleData } from '@_services/searchRestaurantApi'
 
 jest.mock('@_services/searchRestaurantApi', () => ({
@@ -18,6 +17,12 @@ jest.mock('@_services/searchRestaurantApi', () => ({
 const listItems = [{ place_name: 'Item 1' }, { place_name: 'Item 2' }]
 const setListItems = jest.fn()
 const onClose = jest.fn()
+
+jest.mock('@expo/vector-icons', () => {
+  return {
+    MaterialIcons: 'MaterialIcons',
+  }
+})
 
 describe('<SearchRestaurantModal />', () => {
   let alertSpy: jest.SpyInstance
@@ -54,7 +59,9 @@ describe('<SearchRestaurantModal />', () => {
     // 검색 버튼 클릭
     fireEvent.press(utils.getByTestId('searchButton'))
     // handleData 함수가 호출되었는지 확인
-    await waitFor(() => expect(handleData).toHaveBeenCalledWith('새로운 식당'))
+    await waitFor(() =>
+      expect(handleData).toHaveBeenCalledWith('새로운 식당', 'accuracy'),
+    )
     // 식당 리스트가 렌더링되었는지 확인
     expect(utils.getByText('새로운 식당')).toBeDefined()
   })
@@ -65,7 +72,9 @@ describe('<SearchRestaurantModal />', () => {
     )
     fireEvent.changeText(input, '새로운 식당')
     fireEvent.press(utils.getByTestId('searchButton'))
-    await waitFor(() => expect(handleData).toHaveBeenCalledWith('새로운 식당'))
+    await waitFor(() =>
+      expect(handleData).toHaveBeenCalledWith('새로운 식당', 'accuracy'),
+    )
     // 검색된 식당 리스트 렌더링 후 추가 버튼 클릭
     fireEvent.press(utils.getByText('추가'))
     // listItems에 새로운 식당이 추가되었는지 확인
