@@ -23,6 +23,7 @@ export default {
             flex: 1,
             padding: 50,
             justifyContent: 'flex-end',
+            alignItems: 'flex-end',
           }}>
           <Story />
         </View>

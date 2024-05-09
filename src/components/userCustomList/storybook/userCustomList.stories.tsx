@@ -1,5 +1,4 @@
 import React from 'react'
-
 import type { Meta, StoryFn } from '@storybook/react'
 import { NavigationContainer, NavigationProp } from '@react-navigation/native'
 import { action } from '@storybook/addon-actions'

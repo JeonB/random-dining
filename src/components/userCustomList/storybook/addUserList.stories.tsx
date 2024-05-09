@@ -1,11 +1,10 @@
 import React from 'react'
-
 import type { Meta, StoryFn } from '@storybook/react'
 import { NavigationContainer, NavigationProp } from '@react-navigation/native'
 import { action } from '@storybook/addon-actions'
 
-import { RootStackParamList } from '@_types/navigation'
 import { AddUserList } from '@_components/userCustomList/pages/addUserList'
+import { RootStackParamList } from '@_types/navigation'
 
 export default {
   title: 'Components/UserCustomList/AddUserList',
