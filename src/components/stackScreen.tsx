@@ -157,6 +157,22 @@ export const UserCustomListStack = () => {
           ),
         })}
       />
+      <Stack.Screen
+        name="Detail"
+        component={DetailView}
+        options={{
+          title: '상세 화면',
+          headerBackTitleVisible: false,
+          headerBackImage: () => (
+            <AntDesign
+              name="back"
+              size={30}
+              color="midnightblue"
+              style={{ marginLeft: 10 }}
+            />
+          ),
+        }}
+      />
     </Stack.Navigator>
   )
 }
