@@ -1,7 +1,7 @@
 import React from 'react'
 import { Meta, StoryFn } from '@storybook/react'
 import RestaurantDetail from '../pages/RestaurantView/restaurantDetail'
-import { RestaurantTypes } from 'src/types/restaurant'
+import { LocationTypes } from 'src/types/restaurant'
 
 export default {
   title: 'Components/3R/RestaurantView/RestaurantDetail',
@@ -9,8 +9,8 @@ export default {
   tags: ['autodocs'],
 } as Meta
 
-export const Basic: StoryFn<RestaurantTypes> = () => {
-  const mockRestaurant: RestaurantTypes = {
+export const Basic: StoryFn<LocationTypes> = () => {
+  const mockRestaurant: LocationTypes = {
     place_name: '봉이밥',
     category_name: '한식',
     distance: '150',

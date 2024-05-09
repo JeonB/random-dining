@@ -2,7 +2,7 @@ import React from 'react'
 import { View } from 'react-native'
 import { Meta, StoryFn } from '@storybook/react'
 import ToggleSwitch from '../../common/toggleSwitch'
-import { RestaurantTypes } from 'src/types/restaurant'
+import { LocationTypes } from 'src/types/restaurant'
 export default {
   title: 'Components/3R/FilterSettings/CategorySwitch',
   component: ToggleSwitch,
@@ -19,6 +19,6 @@ export default {
   ],
 } as Meta
 
-export const Basic: StoryFn<RestaurantTypes> = () => {
+export const Basic: StoryFn<LocationTypes> = () => {
   return <ToggleSwitch />
 }
