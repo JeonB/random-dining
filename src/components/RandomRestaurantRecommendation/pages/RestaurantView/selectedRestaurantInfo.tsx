@@ -1,14 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Dimensions, Image, StyleSheet, View } from 'react-native'
-import { RootStackParamList } from '@_types/navigation'
 import { StackScreenProps } from '@react-navigation/stack'
 import { useRestaurantContext } from '@_3Rpages/context/restaurantContext'
-import { RestaurantTypes } from '@_types/restaurant'
+import { LocationTypes } from '@_types/restaurant'
 import Map from './map'
 import RestaurantDetail from './restaurantDetail'
 import RestaurantActionButtons from './restaurantActionButtons'
 import RandomItemModal from './randomItemModal'
 import { RestaurantParamList } from '@_types/restaurantParamList'
+import { getPositionByGeolocation } from '@_services/api'
 
 const SelectedRestaurantInfo = ({
   route,
@@ -21,20 +21,14 @@ const SelectedRestaurantInfo = ({
     isLoading,
     handleRandomPickClick,
     handleRestaurantChange,
+    currentLocation,
   } = useRestaurantContext()
-  const restaurant: RestaurantTypes | undefined = route.params?.restaurant
-  const location: { [key: string]: number } | undefined = route.params?.location
+  const restaurant: LocationTypes | undefined = route.params?.restaurant
   return (
     <View style={styles.container}>
       <View style={styles.mediaContainer}>
         {restaurant ? (
-          <Map
-            info={restaurant}
-            location={{
-              latitude: location?.latitude || 0,
-              longitude: location?.longitude || 0,
-            }}
-          />
+          <Map info={restaurant} currentLocation={currentLocation} />
         ) : (
           <Image
             source={{ uri: 'https://i.postimg.cc/rpJGytmg/image.png' }}
