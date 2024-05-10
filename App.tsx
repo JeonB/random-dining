@@ -10,6 +10,7 @@ import { RootStackParamList } from '@_types/navigation'
 import { RestaurantProvider } from '@_3Rpages/context/restaurantProvider'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import MainStack from '@_components/stackScreen'
+import { StatusBar } from 'expo-status-bar'
 ;(Text as any).defaultProps = (Text as any).defaultProps || {}
 ;(Text as any).defaultProps.allowFontScaling = false
 ;(TextInput as any).defaultProps = (TextInput as any).defaultProps || {}
@@ -26,6 +27,7 @@ const Tab = createBottomTabNavigator()
 const App: React.FC = () => {
   return (
     <NavigationContainer>
+      <StatusBar style="dark" />
       <RestaurantProvider>
         <Tab.Navigator initialRouteName="Main">
           <Tab.Screen
