@@ -9,6 +9,7 @@ import {
   Alert,
 } from 'react-native'
 import { Button } from 'react-native-paper'
+import { Feather } from '@expo/vector-icons'
 
 import { handleData } from '@_services/searchRestaurantApi'
 import { DefaultFlatList } from '@_components/layout/component/defaultFlatList'
@@ -53,11 +54,6 @@ const SearchRestaurantModal = ({
 
   // 검색 버튼 클릭
   const handlePressSearchButton = async () => {
-    if (inputRestaurant.trim() === '') {
-      // 입력값이 없을 경우 경고창을 띄움
-      Alert.alert('식당 또는 메뉴 이름을 입력하세요.')
-      return
-    }
     try {
       const data = await handleData(inputRestaurant, sort)
       data && setDataList(data)
@@ -88,25 +84,20 @@ const SearchRestaurantModal = ({
       testID="SearchModal">
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <View style={styles.restaurantInputContainer}>
+          <View style={styles.searchFeild}>
+            <Feather name="search" size={15} color="black" />
             <TextInput
               style={styles.restaurantNameField}
               placeholder="식당 또는 메뉴 이름을 입력하세요."
               onChangeText={setInputRestaurant}
               value={inputRestaurant}
-              testID="restaurantNameField"
               autoFocus={true}
               onSubmitEditing={handlePressSearchButton}
               returnKeyType="search"
+              clearButtonMode="always"
+              testID="restaurantNameField"
+              enablesReturnKeyAutomatically={true}
             />
-            <Button
-              mode="contained"
-              style={styles.searchButton}
-              buttonColor="#337AB7"
-              onPress={handlePressSearchButton}
-              testID="searchButton">
-              검색
-            </Button>
           </View>
           {dataList.length !== 0 && (
             <View style={{ alignItems: 'flex-end' }}>
@@ -143,6 +134,7 @@ const SearchRestaurantModal = ({
               </View>
             )}
           />
+
           <Button
             mode="contained"
             style={{ marginTop: 10 }}
@@ -172,27 +164,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
-  restaurantInputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   renderItem: {
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  restaurantNameField: {
-    width: width * 0.6,
-    borderColor: 'black',
-    borderWidth: 1,
-    borderRadius: 10,
+  searchFeild: {
     padding: 10,
-    marginHorizontal: 5,
+    flexDirection: 'row',
+    backgroundColor: '#d9dbda',
+    borderRadius: 15,
   },
-  searchButton: {
-    borderRadius: 10,
+  restaurantNameField: {
+    marginLeft: 10,
+    marginHorizontal: 5,
+    width: '90%',
   },
   listText: {
     fontSize: 16,

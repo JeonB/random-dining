@@ -27,10 +27,6 @@ export const AddUserList = ({
   const [modalVisible, setModalVisible] = useState(false)
 
   const handlePressSave = async () => {
-    if (newListName.length === 0) {
-      Alert.alert('리스트 이름을 입력해주세요.')
-      return
-    }
     // 이미 같은 이름의 리스트가 있는지 확인
     if (listNames.includes(newListName)) {
       Alert.alert('같은 이름의 리스트가 있습니다.')
@@ -85,7 +81,7 @@ export const AddUserList = ({
         style={styles.listNameField}
         value={newListName}
         onChangeText={setNewListName}
-        placeholder="List Name"
+        placeholder="리스트 이름을 입력하세요."
         autoFocus={true}
         testID="ListNameField"
         returnKeyType="done"
@@ -110,8 +106,9 @@ export const AddUserList = ({
       <View style={styles.buttonContainer}>
         <Button
           mode="contained"
-          buttonColor="gray"
+          buttonColor="#337AB7"
           onPress={handlePressSave}
+          disabled={newListName.length === 0}
           testID="saveListButton">
           저장
         </Button>
@@ -138,7 +135,6 @@ const styles = StyleSheet.create({
     marginTop: height * 0.025,
     marginBottom: height * 0.005,
     padding: 10,
-    fontSize: 18,
   },
   buttonContainer: {
     justifyContent: 'flex-end',

@@ -164,7 +164,7 @@ export const EditUserList = ({
         style={styles.listNameField}
         value={newListName}
         onChangeText={setNewListName}
-        placeholder="List Name"
+        placeholder="리스트 이름을 입력하세요."
         returnKeyType="done"
         testID="ListNameField"
       />
@@ -188,8 +188,9 @@ export const EditUserList = ({
       <View style={styles.buttonContainer}>
         <Button
           mode="contained"
-          buttonColor="gray"
+          buttonColor="#337AB7"
           onPress={handlePressSave}
+          disabled={newListName.length === 0}
           testID="saveListButton">
           저장
         </Button>
@@ -221,7 +222,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: height * 0.005,
     padding: 10,
-    fontSize: 18,
   },
   buttonContainer: {
     justifyContent: 'flex-end',
