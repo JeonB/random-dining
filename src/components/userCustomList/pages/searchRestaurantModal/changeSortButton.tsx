@@ -13,7 +13,10 @@ export const ChangeSortButton: React.FC<ChangeSortButtonProps> = ({
 }) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={handlePress} style={styles.buttonContainer}>
+      <TouchableOpacity
+        onPress={handlePress}
+        style={styles.buttonContainer}
+        testID="sortButton">
         <Text style={{ fontSize: 14 }}>
           {sort === 'distance' ? '거리순' : '정확도순'}
         </Text>

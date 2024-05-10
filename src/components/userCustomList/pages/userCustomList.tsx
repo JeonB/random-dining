@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   iconWrapper: {
+    marginTop: 20,
     alignItems: 'flex-end',
   },
   listText: {

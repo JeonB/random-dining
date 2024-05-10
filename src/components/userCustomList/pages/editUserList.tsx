@@ -165,6 +165,7 @@ export const EditUserList = ({
         value={newListName}
         onChangeText={setNewListName}
         placeholder="List Name"
+        returnKeyType="done"
         testID="ListNameField"
       />
       <RestaurantNameInput listItems={listItems} setListItems={setListItems} />

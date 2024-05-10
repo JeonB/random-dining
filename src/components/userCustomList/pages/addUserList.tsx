@@ -86,7 +86,9 @@ export const AddUserList = ({
         value={newListName}
         onChangeText={setNewListName}
         placeholder="List Name"
+        autoFocus={true}
         testID="ListNameField"
+        returnKeyType="done"
       />
       <RestaurantNameInput listItems={listItems} setListItems={setListItems} />
       <Button

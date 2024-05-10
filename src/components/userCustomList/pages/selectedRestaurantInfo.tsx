@@ -58,17 +58,12 @@ export const SelectedRestaurantInfo = ({
           />
         )}
       </View>
-      {restaurant.x ? (
+      {restaurant.category_name ? (
         <RestaurantDetail info={restaurant} />
       ) : (
         <View style={styles.infoView}>
           <Text h4 h4Style={{ fontSize: 22, margin: 15 }}>
             {restaurant?.place_name || ''}
-          </Text>
-          <Text>
-            {(restaurant?.category_name || '') !== ''
-              ? restaurant.category_name?.slice(5)
-              : ''}
           </Text>
         </View>
       )}

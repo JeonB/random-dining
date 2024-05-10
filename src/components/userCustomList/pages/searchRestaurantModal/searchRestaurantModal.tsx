@@ -95,6 +95,9 @@ const SearchRestaurantModal = ({
               onChangeText={setInputRestaurant}
               value={inputRestaurant}
               testID="restaurantNameField"
+              autoFocus={true}
+              onSubmitEditing={handlePressSearchButton}
+              returnKeyType="search"
             />
             <Button
               mode="contained"
