@@ -75,11 +75,12 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   addIcon: {
+    flex: 1,
+    width: '100%',
     flexDirection: 'row',
     borderColor: 'black',
     borderWidth: 1,
     borderRadius: 10,
-    height: 40,
     paddingHorizontal: 7,
   },
 })
