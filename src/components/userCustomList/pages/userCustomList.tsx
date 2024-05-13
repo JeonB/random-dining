@@ -2,7 +2,11 @@ import React, { useState } from 'react'
 import { StyleSheet, View, Text, Alert } from 'react-native'
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { NavigationProp, useFocusEffect } from '@react-navigation/native'
+import {
+  NavigationProp,
+  useFocusEffect,
+  useNavigation,
+} from '@react-navigation/native'
 
 import RandomItemModal from '@_components/RandomRestaurantRecommendation/pages/RestaurantView/randomItemModal'
 import { DefaultFlatList } from '@_components/layout/component/defaultFlatList'
@@ -13,16 +17,15 @@ import { LocationTypes } from '@_types/restaurant'
 import { RootStackParamList } from 'src/types/navigation'
 
 export const UserCustomList = ({
-  restaurantNavigation,
   navigation,
 }: {
-  restaurantNavigation: NavigationProp<RestaurantParamList>
   navigation: NavigationProp<RootStackParamList>
 }) => {
   const [modalVisible, setModalVisible] = useState(false)
   const [restaurantItems, setRestaurantItems] = useState<LocationTypes[]>([])
   const { listNames, fetchListNames } = useListNames()
-
+  const restaurantNavigation =
+    useNavigation<NavigationProp<RestaurantParamList>>()
   const handleRestaurantChange = (index: number) => {
     const selectedRestaurant = restaurantItems[index]
     if (selectedRestaurant) {

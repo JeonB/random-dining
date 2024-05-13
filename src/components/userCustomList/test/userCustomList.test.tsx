@@ -48,7 +48,7 @@ describe('<UserCustomList />', () => {
     utils = render(
       <NavigationContainer>
         <UserCustomList
-          restaurantNavigation={navigation}
+          // restaurantNavigation={navigation}
           navigation={mockNavigation}
         />
       </NavigationContainer>,

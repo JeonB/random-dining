@@ -34,7 +34,7 @@ export const Basic: StoryFn<typeof UserCustomList> = () => {
   } as NavigationProp<RootStackParamList>
   return (
     <UserCustomList
-      restaurantNavigation={mockNavigation}
+      // restaurantNavigation={mockNavigation}
       navigation={navigation}
     />
   )
