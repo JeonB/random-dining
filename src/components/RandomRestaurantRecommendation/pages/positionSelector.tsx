@@ -30,7 +30,7 @@ const PositionSelector = () => {
         buttonColor="gainsboro"
         style={styles.button}
         onPress={handleGetCurrentLocation}>
-        내 위치에서 찾기
+        현재 위치에서 추천 받기
       </Button>
       <Button
         icon="map-search"
@@ -39,7 +39,7 @@ const PositionSelector = () => {
         buttonColor="gainsboro"
         style={styles.button}
         onPress={() => navigation.navigate('MapSearch')}>
-        지도에서 찾기
+        지도에서 선택한 위치로 추천 받기
       </Button>
     </View>
   )
@@ -51,12 +51,10 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').width * 0.7,
     position: 'relative',
     alignItems: 'center',
-    paddingLeft: 15,
-    paddingRight: 15,
   },
   button: {
     marginTop: 10,
-    width: '90%',
+    width: '80%',
     borderRadius: 10,
     color: 'rgb(108, 109, 115)',
   },

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Dimensions, StyleSheet } from 'react-native'
-import { WebView } from 'react-native-webview'
+import { WebView, WebViewMessageEvent } from 'react-native-webview'
 import { LocationTypes } from '@_types/restaurant'
 import Constants from 'expo-constants'
 import { AppConfig } from 'app.config'
@@ -8,15 +8,29 @@ import { AppConfig } from 'app.config'
 const Map = ({
   info,
   currentLocation,
+  setMarkerLocation,
+  setMarkerVisible,
 }: {
   info?: LocationTypes
   currentLocation: { currentLatitude: number; currentLongitude: number }
+  setMarkerLocation?: (location: { lat: number; lng: number }) => void
+  setMarkerVisible?: (visible: boolean) => void
 }) => {
   const { currentLatitude, currentLongitude } = currentLocation
   const [html, setHtml] = useState('')
   const { KAKAO_JAVASCRIPT_KEY } = Constants.expoConfig?.extra as AppConfig
   const appKey = KAKAO_JAVASCRIPT_KEY
   const [isMapSearch, setIsMapSearch] = useState(false)
+
+  const onMessage = (event: WebViewMessageEvent) => {
+    const data = JSON.parse(event.nativeEvent.data)
+    if (data.lat && data.lng && setMarkerLocation) {
+      setMarkerLocation({ lat: data.lat, lng: data.lng })
+    }
+    if (data.markerVisible !== undefined && setMarkerVisible) {
+      setMarkerVisible(data.markerVisible)
+    }
+  }
   useEffect(() => {
     if (!info) {
       setIsMapSearch(true)
@@ -77,8 +91,8 @@ const Map = ({
                     const map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 
                     const markerPosition  = new kakao.maps.LatLng(${
-                      info ? info.y : 37.5676859104888
-                    }, ${info ? info.x : 126.82597944995});
+                      info ? info.y : currentLatitude
+                    }, ${info ? info.x : currentLongitude});
 
                     const imageSrc = '${isMapSearch ? '' : 'https://i.postimg.cc/pTp9xBHZ/free-icon-restaurant.png'}',
                     imageSize = new kakao.maps.Size(40, 40),
@@ -91,20 +105,20 @@ const Map = ({
                     imageOption,)
 
                     // 마커를 생성합니다
-                    var marker = new kakao.maps.Marker({
+                    const marker = new kakao.maps.Marker({
                       map: map,
                       position: markerPosition,
                       image: markerImage,
                     })
-                    var currentPosition = new kakao.maps.LatLng(${currentLatitude}, ${currentLongitude})
-                    var currentImageSrc = 'https://i.postimg.cc/bv4k38Cq/red-circle.png',
+                    const currentPosition = new kakao.maps.LatLng(${currentLatitude}, ${currentLongitude})
+                    const currentImageSrc = 'https://i.postimg.cc/bv4k38Cq/red-circle.png',
                     currentImageSize = new kakao.maps.Size(20, 20),
                     currentImageOption = { offset: new kakao.maps.Point(24, 40) }
-                    var currentMarkerImage = new kakao.maps.MarkerImage(
+                    const currentMarkerImage = new kakao.maps.MarkerImage(
                       currentImageSrc,
                       currentImageSize,
                       currentImageOption,)
-                    var currentMarker = new kakao.maps.Marker({
+                    const currentMarker = new kakao.maps.Marker({
                       map: map,
                       position: currentPosition,
                       image: currentMarkerImage,
@@ -114,15 +128,42 @@ const Map = ({
                     document.getElementById('currentPositionButton').onclick = function() {
                         map.setCenter(currentPosition);
                     };
-                    // 지도 찾기면 안 버튼이 안 보임
+                    // 지도 찾기면 버튼이 안 보임
                     if (${isMapSearch}) {
                       document.getElementById('currentPositionButton').style.display = 'block';
+                      const clickedMarker = new kakao.maps.Marker({
+                        // 지도 중심좌표에 마커를 생성합니다
+                        position: map.getCenter()
+                      });
+
+
+                      let markerVisible = false;
+                      // 지도에 클릭 이벤트를 등록합니다
+                      kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+
+                          // 클릭한 위도, 경도 정보를 가져옵니다
+                          let latlng = mouseEvent.latLng;
+
+                          // 마커가 이미 표시되어 있다면 마커를 숨기고, 그렇지 않다면 마커를 표시합니다.
+                          if (markerVisible) {
+                              clickedMarker.setMap(null);
+                              markerVisible = false;
+                          } else {
+                              window.ReactNativeWebView.postMessage(JSON.stringify({ lat: latlng.getLat(), lng: latlng.getLng() }));
+                              clickedMarker.setMap(map);
+                              // 마커 위치를 클릭한 위치로 옮깁니다
+                              clickedMarker.setPosition(latlng);
+                              markerVisible = true;
+                          }
+                          window.ReactNativeWebView.postMessage(JSON.stringify({ markerVisible: markerVisible }));
+
+                      });
                     } else {
                         document.getElementById('currentPositionButton').style.display = 'none';
                     }
-                })();
 
 
+                  })();
             </script>
         </body>
     </html>
@@ -137,6 +178,7 @@ const Map = ({
       source={{ html: html }}
       javaScriptEnabled={true}
       testID="map"
+      onMessage={onMessage}
     />
   )
 }

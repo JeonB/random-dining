@@ -32,8 +32,12 @@ const RestaurantDetail = ({ info }: { info: LocationTypes }) => {
           <DataTable.Cell
             style={styles.table}
             textStyle={{ color: 'blue' }}
-            onPress={() => Linking.openURL(`tel:${info?.phone}`)}>
-            {info?.phone}
+            onPress={
+              info?.phone
+                ? () => Linking.openURL(`tel:${info.phone}`)
+                : undefined
+            }>
+            {info?.phone || '번호가 등록되지 않았습니다.'}
           </DataTable.Cell>
         </DataTable.Row>
       </DataTable>

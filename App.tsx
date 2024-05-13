@@ -1,12 +1,14 @@
 import React from 'react'
 import { View, StyleSheet, TextInput } from 'react-native'
 import { Text } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native'
+import { NavigationContainer, useNavigation } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { UserCustomList } from '@_components/userCustomList/pages/userCustomList'
 import Constants from 'expo-constants'
 import 'regenerator-runtime/runtime'
+import { NavigationProp, useFocusEffect } from '@react-navigation/native'
 import { RootStackParamList } from '@_types/navigation'
+import { RestaurantParamList } from '@_types/restaurantParamList'
 import { RestaurantProvider } from '@_3Rpages/context/restaurantProvider'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import MainStack from '@_components/stackScreen'
@@ -21,9 +23,19 @@ console.error = (...args: any) => {
   if (/defaultProps/.test(args[0])) return
   error(...args)
 }
+// const UserCustomListWrapper = () => {
+//   const rootNavigation = useNavigation<NavigationProp<RootStackParamList>>()
+//   const restaurantNavigation =
+//     useNavigation<NavigationProp<RestaurantParamList>>()
+//   return (
+//     <UserCustomList
+//       navigation={rootNavigation}
+//       restaurantNavigation={restaurantNavigation}
+//     />
+//   )
+// }
 const Stack = createStackNavigator<RootStackParamList>()
 const Tab = createBottomTabNavigator()
-
 const App: React.FC = () => {
   return (
     <NavigationContainer>

@@ -9,7 +9,6 @@ const windowHeight = Dimensions.get('window').height
 
 const DetailView = () => {
   const route = useRoute<RouteProp<RestaurantParamList, 'Detail'>>()
-  console.log(route.params?.url)
   return (
     <View style={styles.container}>
       {route.params?.url && (

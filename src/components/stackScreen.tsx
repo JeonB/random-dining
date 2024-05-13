@@ -27,7 +27,7 @@ const MainStack = () => {
         name="MapSearch"
         component={MapSearch}
         options={{
-          title: '지도에서 찾기',
+          title: '지도에서 선택한 위치로 추천 받기',
           headerBackTitleVisible: false,
           headerBackImage: () => (
             <AntDesign

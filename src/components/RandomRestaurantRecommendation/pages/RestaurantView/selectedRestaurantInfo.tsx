@@ -8,7 +8,7 @@ import RestaurantDetail from './restaurantDetail'
 import RestaurantActionButtons from './restaurantActionButtons'
 import RandomItemModal from './randomItemModal'
 import { RestaurantParamList } from '@_types/restaurantParamList'
-import { getPositionByGeolocation } from '@_services/api'
+import mainImage from '@_assetImages/main.png'
 
 const SelectedRestaurantInfo = ({
   route,
@@ -31,8 +31,9 @@ const SelectedRestaurantInfo = ({
           <Map info={restaurant} currentLocation={currentLocation} />
         ) : (
           <Image
-            source={{ uri: 'https://i.postimg.cc/rpJGytmg/image.png' }}
+            source={mainImage}
             style={{ width: '100%', height: '100%' }}
+            onError={({ nativeEvent: { error } }) => console.warn(error)}
           />
         )}
       </View>
@@ -66,11 +67,11 @@ const styles = StyleSheet.create({
   },
   mediaContainer: {
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').width * 0.7,
+    height: Dimensions.get('window').width * 0.6,
     position: 'relative',
     alignItems: 'center',
     padding: 0,
-    margin: 10,
+    marginBottom: 10,
   },
   reselectButton: {
     borderColor: '#003366',
