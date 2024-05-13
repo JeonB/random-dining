@@ -6,12 +6,12 @@ import { DefaultFlatList } from '@_components/layout/component/defaultFlatList'
 import { NavigationProp, RouteProp } from '@react-navigation/native'
 import { Button } from 'react-native-paper'
 
-import { useListNames } from '@_components/userCustomList/hook/useListNames'
+import { useListNames } from '@_userList/hook/useListNames'
 import { RootStackParamList } from '@_types/navigation'
 import { RestaurantTypes } from '@_types/restaurant'
-import SearchRestaurantModal from '@_components/userCustomList/pages/searchRestaurantModal/searchRestaurantModal'
-import { RestaurantNameInput } from '@_components/userCustomList/pages/restaurantNameInput'
-import { RestaurantListItem } from '@_components/userCustomList/pages/restaurantListItem'
+import SearchRestaurantModal from '@_userListPages/searchRestaurantModal/searchRestaurantModal'
+import { RestaurantNameInput } from '@_userListPages/restaurantNameInput'
+import { RestaurantListItem } from '@_userListPages/restaurantListItem'
 
 export const EditUserList = ({
   navigation,

@@ -23,6 +23,10 @@ const jestConfig: JestConfigWithTsJest = {
     '^@_3Rpages/(.*)$': [
       '<rootDir>/src/components/RandomRestaurantRecommendation/pages/$1',
     ],
+    '^@_userList/(.*)$': ['<rootDir>/src/components/userCustomList/$1'],
+    '^@_userListPages/(.*)$': [
+      '<rootDir>/src/components/userCustomList/pages/$1',
+    ],
   },
 }
 

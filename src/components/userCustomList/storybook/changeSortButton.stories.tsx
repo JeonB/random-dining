@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import type { Meta, StoryFn } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 
-import { ChangeSortButton } from '@_components/userCustomList/pages/searchRestaurantModal/changeSortButton'
+import { ChangeSortButton } from '@_userListPages/searchRestaurantModal/changeSortButton'
 import { View } from 'react-native'
 
 export default {

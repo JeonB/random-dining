@@ -5,8 +5,8 @@ import { NavigationProp, useFocusEffect } from '@react-navigation/native'
 
 import RandomItemModal from '@_components/RandomRestaurantRecommendation/pages/RestaurantView/randomItemModal'
 import { DefaultFlatList } from '@_components/layout/component/defaultFlatList'
-import { ListManageIcon } from '@_components/userCustomList/pages/listManageIcon'
-import { useListNames } from '@_components/userCustomList/hook/useListNames'
+import { ListManageIcon } from '@_userListPages/listManageIcon'
+import { useListNames } from '@_userList/hook/useListNames'
 import { RootStackParamList } from '@_types/navigation'
 import { RestaurantTypes } from '@_types/restaurant'
 

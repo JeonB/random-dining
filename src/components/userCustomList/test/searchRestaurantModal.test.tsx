@@ -1,5 +1,5 @@
 import React from 'react'
-import { Alert } from 'react-native'
+import { Alert, View } from 'react-native'
 import {
   render,
   fireEvent,
@@ -7,7 +7,7 @@ import {
   RenderAPI,
 } from '@testing-library/react-native'
 
-import SearchRestaurantModal from '@_components/userCustomList/pages/searchRestaurantModal/searchRestaurantModal'
+import SearchRestaurantModal from '@_userListPages/searchRestaurantModal/searchRestaurantModal'
 import { handleData } from '@_services/searchRestaurantApi'
 
 jest.mock('@_services/searchRestaurantApi', () => ({
@@ -32,12 +32,14 @@ describe('<SearchRestaurantModal />', () => {
     alertSpy = jest.spyOn(Alert, 'alert')
     jest.clearAllMocks()
     utils = render(
-      <SearchRestaurantModal
-        visible={true}
-        onClose={onClose}
-        listItems={listItems}
-        setListItems={setListItems}
-      />,
+      <View style={{ flex: 1 }}>
+        <SearchRestaurantModal
+          visible={true}
+          onClose={onClose}
+          listItems={listItems}
+          setListItems={setListItems}
+        />
+      </View>,
     )
   })
 

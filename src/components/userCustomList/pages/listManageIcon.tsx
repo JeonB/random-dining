@@ -13,7 +13,7 @@ import { Icon } from '@rneui/themed'
 import { Button } from 'react-native-paper'
 
 import { RootStackParamList } from '@_types/navigation'
-import { useSequentialAnimation } from '@_components/userCustomList/hook/useSequentialAnimation'
+import { useSequentialAnimation } from '@_userList/hook/useSequentialAnimation'
 
 export const ListManageIcon = ({
   navigation,

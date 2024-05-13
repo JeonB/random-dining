@@ -13,7 +13,7 @@ import { Feather } from '@expo/vector-icons'
 
 import { handleData } from '@_services/searchRestaurantApi'
 import { DefaultFlatList } from '@_components/layout/component/defaultFlatList'
-import { ChangeSortButton } from '@_components/userCustomList/pages/searchRestaurantModal/changeSortButton'
+import { ChangeSortButton } from '@_userListPages/searchRestaurantModal/changeSortButton'
 import { RestaurantTypes } from '@_types/restaurant'
 
 interface SearchRestaurantModalProps {

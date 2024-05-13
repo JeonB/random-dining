@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import type { Meta, StoryFn } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 
-import SearchRestaurantModal from '@_components/userCustomList/pages/searchRestaurantModal/searchRestaurantModal'
+import SearchRestaurantModal from '@_userListPages/searchRestaurantModal/searchRestaurantModal'
 
 export default {
   title: 'Components/UserCustomList/SearchRestaurantModal',

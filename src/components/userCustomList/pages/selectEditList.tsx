@@ -4,7 +4,7 @@ import { NavigationProp, useFocusEffect } from '@react-navigation/native'
 
 import { DefaultFlatList } from '@_components/layout/component/defaultFlatList'
 import { RootStackParamList } from '@_types/navigation'
-import { useListNames } from '@_components/userCustomList/hook/useListNames'
+import { useListNames } from '@_userList/hook/useListNames'
 
 export const SelectEditList = ({
   navigation,

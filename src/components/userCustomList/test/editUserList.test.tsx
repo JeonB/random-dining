@@ -10,7 +10,7 @@ import {
 import { NavigationProp, RouteProp } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import { EditUserList } from '@_components/userCustomList/pages/editUserList'
+import { EditUserList } from '@_userListPages/editUserList'
 import { RootStackParamList } from '@_types/navigation'
 
 const navigation = {
@@ -65,17 +65,22 @@ jest.mock('expo-location', () => ({
   },
 }))
 
+jest.mock('@expo/vector-icons', () => {
+  return {
+    Feather: 'Feather',
+  }
+})
+
 const mockSaveListNames = jest.fn()
-jest.mock('@_components/userCustomList/hook/useListNames', () => ({
+jest.mock('@_userList/hook/useListNames', () => ({
   useListNames: () => ({
     listNames: ['List 1', 'List 2'],
     saveListNames: mockSaveListNames,
   }),
 }))
 
-jest.mock(
-  '@_components/userCustomList/pages/searchRestaurantModal/changeSortButton',
-  () => jest.fn(),
+jest.mock('@_userListPages/searchRestaurantModal/changeSortButton', () =>
+  jest.fn(),
 )
 
 describe('<EditUserList />', () => {
@@ -146,7 +151,7 @@ describe('<EditUserList />', () => {
 
   test('저장 버튼 클릭시 리스트 저장', async () => {
     // 리스트 이름 수정
-    const inputListName = utils.getByPlaceholderText('List Name')
+    const inputListName = utils.getByTestId('ListNameField')
     fireEvent.changeText(inputListName, '새로운 리스트 이름')
 
     // 식당 추가

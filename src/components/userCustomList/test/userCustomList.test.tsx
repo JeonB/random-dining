@@ -9,10 +9,10 @@ import {
 } from '@testing-library/react-native'
 import { NavigationContainer, NavigationProp } from '@react-navigation/native'
 
-import { UserCustomList } from '@_components/userCustomList/pages/userCustomList'
+import { UserCustomList } from '@_userListPages/userCustomList'
 import { RootStackParamList } from '@_types/navigation'
 
-jest.mock('@_components/userCustomList/pages/listManageIcon', () => {
+jest.mock('@_userListPages/listManageIcon', () => {
   return {
     __esModule: true,
     ListManageIcon: () => {
@@ -28,7 +28,7 @@ jest.mock(
   },
 )
 
-jest.mock('@_components/userCustomList/hook/useListNames', () => ({
+jest.mock('@_userList/hook/useListNames', () => ({
   useListNames: () => ({
     listNames: ['List 1', 'List 2'],
     fetchListNames: jest.fn(),
