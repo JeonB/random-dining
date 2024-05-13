@@ -11,6 +11,7 @@ import { NavigationContainer, NavigationProp } from '@react-navigation/native'
 
 import { UserCustomList } from '@_components/userCustomList/pages/userCustomList'
 import { RootStackParamList } from '@_types/navigation'
+import { RestaurantParamList } from '@_types/restaurantParamList'
 
 jest.mock('@_components/userCustomList/hook/useListNames', () => ({
   useListNames: () => ({
@@ -31,10 +32,12 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
   }),
 }))
 
-const navigation = {
+const mockNavigation = {
   navigate: jest.fn(),
 } as unknown as NavigationProp<RootStackParamList>
-
+const navigation = {
+  navigate: jest.fn(),
+} as unknown as NavigationProp<RestaurantParamList>
 describe('<UserCustomList />', () => {
   let alertSpy: jest.SpyInstance
   let utils: RenderAPI
@@ -44,7 +47,10 @@ describe('<UserCustomList />', () => {
     jest.clearAllMocks()
     utils = render(
       <NavigationContainer>
-        <UserCustomList navigation={navigation} />
+        <UserCustomList
+          restaurantNavigation={navigation}
+          navigation={mockNavigation}
+        />
       </NavigationContainer>,
     )
   })

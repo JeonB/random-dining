@@ -10,11 +10,14 @@ import { ListManageIcon } from '@_components/userCustomList/pages/listManageIcon
 import { useListNames } from '@_components/userCustomList/hook/useListNames'
 import { RestaurantParamList } from '@_types/restaurantParamList'
 import { LocationTypes } from '@_types/restaurant'
+import { RootStackParamList } from 'src/types/navigation'
 
 export const UserCustomList = ({
+  restaurantNavigation,
   navigation,
 }: {
-  navigation: NavigationProp<RestaurantParamList>
+  restaurantNavigation: NavigationProp<RestaurantParamList>
+  navigation: NavigationProp<RootStackParamList>
 }) => {
   const [modalVisible, setModalVisible] = useState(false)
   const [restaurantItems, setRestaurantItems] = useState<LocationTypes[]>([])
@@ -23,7 +26,7 @@ export const UserCustomList = ({
   const handleRestaurantChange = (index: number) => {
     const selectedRestaurant = restaurantItems[index]
     if (selectedRestaurant) {
-      navigation.navigate('SelectedRestaurantInfo', {
+      restaurantNavigation.navigate('SelectedRestaurantInfo', {
         restaurant: selectedRestaurant,
       })
     }

@@ -7,7 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 
 import { RootStackParamList } from '@_types/navigation'
 import { UserCustomList } from '@_components/userCustomList/pages/userCustomList'
-
+import { RestaurantParamList } from '@_types/restaurantParamList'
 const Stack = createStackNavigator()
 
 export default {
@@ -28,7 +28,14 @@ export default {
 export const Basic: StoryFn<typeof UserCustomList> = () => {
   const mockNavigation = {
     navigate: action('navigate'),
+  } as NavigationProp<RestaurantParamList>
+  const navigation = {
+    navigate: action('navigate'),
   } as NavigationProp<RootStackParamList>
-
-  return <UserCustomList navigation={mockNavigation} />
+  return (
+    <UserCustomList
+      restaurantNavigation={mockNavigation}
+      navigation={navigation}
+    />
+  )
 }
