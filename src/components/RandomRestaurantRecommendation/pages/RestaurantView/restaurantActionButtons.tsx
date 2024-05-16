@@ -49,7 +49,13 @@ const RestaurantActionButtons = ({
         isLoading={isLoading}
         icon="autorenew"
         text="다시 선택"
-        style={{ width: Dimensions.get('window').width * 0.5, marginTop: 10 }}
+        style={{
+          width: Dimensions.get('window').width * 0.85,
+          height: Dimensions.get('window').height * 0.05,
+          marginTop: 10,
+          justifyContent: 'center',
+        }}
+        labelStyle={{ fontSize: 25, padding: 6 }}
       />
     </View>
   )
@@ -69,7 +75,7 @@ const styles = StyleSheet.create({
     width: '85%',
   },
   detailButton: {
-    backgroundColor: '#81b0ff',
+    backgroundColor: '#6690FF',
     borderRadius: 5,
     width: Dimensions.get('window').width * 0.4,
     shadowColor: '#000',

@@ -7,8 +7,10 @@ import { LocationTypes } from '@_types/restaurant'
 import { ListItem, Button, Icon } from '@rneui/themed'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { RestaurantParamList } from '@_types/restaurantParamList'
+import { MyTheme } from 'theme'
+
 const MapSearch = () => {
-  const { currentLocation } = useRestaurantContext()
+  const { currentLocation, setCurrentLocation } = useRestaurantContext()
   const navigation = useNavigation<NavigationProp<RestaurantParamList>>()
   const [addressData, setAddressData] = useState<LocationTypes[]>([])
   useEffect(() => {}, [addressData])
@@ -17,7 +19,17 @@ const MapSearch = () => {
     lng: number
   } | null>(null)
   const [markerVisible, setMarkerVisible] = useState<boolean>(false)
-
+  const navigateToFilterSettingWithLocation = (
+    longitude: string,
+    latitude: string,
+  ) => {
+    navigation.navigate('FilterSetting', {
+      location: {
+        longitude: Number(longitude),
+        latitude: Number(latitude),
+      },
+    })
+  }
   return (
     <View style={styles.container}>
       <View style={styles.searchBarContainer}>
@@ -57,7 +69,12 @@ const MapSearch = () => {
           <Button
             radius={'sm'}
             type="solid"
+            color={MyTheme.colors.primary}
             onPress={() => {
+              setCurrentLocation({
+                currentLongitude: Number(currentLocation?.currentLongitude),
+                currentLatitude: Number(currentLocation?.currentLatitude),
+              })
               navigation.navigate('FilterSetting', {
                 location: {
                   longitude: Number(markerLocation?.lng),

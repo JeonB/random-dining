@@ -46,7 +46,11 @@ const FilterSetting = () => {
             onDistanceChange={setDistance}
           />
         </View>
-        <View style={(styles.filterOptions, { marginBottom: 60 })}>
+        <View
+          style={
+            (styles.filterOptions,
+            { marginBottom: Dimensions.get('window').height * 0.2 })
+          }>
           <Text h3 h3Style={styles.text}>
             카테고리
           </Text>
@@ -59,7 +63,12 @@ const FilterSetting = () => {
           isLoading={isLoading}
           icon="chat-question-outline"
           text="뭐 먹지?"
-          style={{ width: Dimensions.get('window').width * 0.5 }}
+          style={{
+            width: '60%',
+            height: '90%',
+            justifyContent: 'center',
+          }}
+          labelStyle={{ fontSize: 25, padding: 10 }}
         />
       </View>
       <RandomItemModal
@@ -79,8 +88,9 @@ const styles = StyleSheet.create({
   text: { textAlign: 'left', alignSelf: 'flex-start', margin: 20 },
   buttonContainer: {
     position: 'absolute',
-    bottom: 10,
+    bottom: Dimensions.get('window').height * 0.1,
     width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height * 0.07,
     alignItems: 'center',
   },
 })

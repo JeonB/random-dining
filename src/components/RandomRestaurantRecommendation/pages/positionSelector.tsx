@@ -5,6 +5,8 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { getPositionByGeolocation } from '@_services/api'
 import { RestaurantParamList } from '@_types/restaurantParamList'
 import mainImage from '@_assetImages/main.png'
+import { MyTheme } from 'theme'
+
 const PositionSelector = () => {
   const navigation = useNavigation<NavigationProp<RestaurantParamList>>()
   const handleGetCurrentLocation = async () => {
@@ -26,18 +28,20 @@ const PositionSelector = () => {
       <Button
         icon="map-marker"
         mode="contained"
-        textColor="#272729"
-        buttonColor="gainsboro"
+        textColor="#fff"
+        buttonColor={MyTheme.colors.primary}
         style={styles.button}
+        labelStyle={styles.buttonLabel}
         onPress={handleGetCurrentLocation}>
         현재 위치에서 추천 받기
       </Button>
       <Button
         icon="map-search"
         mode="contained"
-        textColor="#272729"
-        buttonColor="gainsboro"
+        textColor="#fff"
+        buttonColor={MyTheme.colors.primary}
         style={styles.button}
+        labelStyle={styles.buttonLabel}
         onPress={() => navigation.navigate('MapSearch')}>
         지도에서 선택한 위치로 추천 받기
       </Button>
@@ -55,8 +59,13 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 10,
     width: '80%',
+    height: '20%',
     borderRadius: 10,
-    color: 'rgb(108, 109, 115)',
+    justifyContent: 'center',
+    // color: 'rgb(108, 109, 115)',
+  },
+  buttonLabel: {
+    fontSize: 18,
   },
 })
 

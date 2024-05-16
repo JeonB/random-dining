@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet, TextInput } from 'react-native'
 import { Text } from 'react-native'
-import { DefaultTheme, NavigationContainer } from '@react-navigation/native'
+import { NavigationContainer } from '@react-navigation/native'
 import { UserCustomList } from '@_components/userCustomList/pages/userCustomList'
 import Constants from 'expo-constants'
 import 'regenerator-runtime/runtime'
@@ -10,6 +10,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import MainStack from '@_components/stackScreen'
 import { StatusBar } from 'expo-status-bar'
 import { Ionicons, AntDesign } from '@expo/vector-icons'
+import { MyTheme } from 'theme'
 ;(Text as any).defaultProps = (Text as any).defaultProps || {}
 ;(Text as any).defaultProps.allowFontScaling = false
 ;(TextInput as any).defaultProps = (TextInput as any).defaultProps || {}
@@ -20,14 +21,6 @@ console.error = (...args: any) => {
   if (/defaultProps/.test(args[0])) return
   error(...args)
 }
-// 메인 테마 설정
-const MyTheme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    background: '#fff',
-  },
-}
 const Tab = createBottomTabNavigator()
 const App: React.FC = () => {
   return (
@@ -37,7 +30,7 @@ const App: React.FC = () => {
         <Tab.Navigator
           initialRouteName="Main"
           screenOptions={{
-            tabBarActiveTintColor: 'tomato',
+            tabBarActiveTintColor: MyTheme.colors.primary,
             tabBarInactiveTintColor: 'gray',
           }}>
           <Tab.Screen

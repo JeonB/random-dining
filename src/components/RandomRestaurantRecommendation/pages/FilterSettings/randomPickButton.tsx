@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from 'react-native-paper'
+import { MyTheme } from 'theme'
 
 interface RandomPickButtonProps {
   handleRandomPickClick: () => void
@@ -7,6 +8,7 @@ interface RandomPickButtonProps {
   icon: string
   text: string
   style?: object
+  labelStyle?: object
 }
 
 const RandomPickButton = ({
@@ -15,21 +17,18 @@ const RandomPickButton = ({
   icon,
   text,
   style,
+  labelStyle,
 }: RandomPickButtonProps) => (
   <Button
-    labelStyle={{
-      fontSize: 18,
-      alignItems: 'center',
-      justifyContent: 'center',
-    }}
     mode="elevated"
     textColor="#e6e6fA"
     icon={icon}
-    buttonColor="#FF5733"
+    buttonColor={MyTheme.colors.primary}
     onPress={handleRandomPickClick}
     disabled={isLoading}
     contentStyle={{ flexDirection: 'row-reverse' }}
-    style={style}>
+    style={style}
+    labelStyle={labelStyle}>
     {text}
   </Button>
 )
