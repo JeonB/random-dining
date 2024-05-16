@@ -1,18 +1,15 @@
 import React from 'react'
 import { View, StyleSheet, TextInput } from 'react-native'
 import { Text } from 'react-native'
-import { NavigationContainer, useNavigation } from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
+import { DefaultTheme, NavigationContainer } from '@react-navigation/native'
 import { UserCustomList } from '@_components/userCustomList/pages/userCustomList'
 import Constants from 'expo-constants'
 import 'regenerator-runtime/runtime'
-import { NavigationProp, useFocusEffect } from '@react-navigation/native'
-import { RootStackParamList } from '@_types/navigation'
-import { RestaurantParamList } from '@_types/restaurantParamList'
 import { RestaurantProvider } from '@_3Rpages/context/restaurantProvider'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import MainStack from '@_components/stackScreen'
 import { StatusBar } from 'expo-status-bar'
+import { Ionicons, AntDesign } from '@expo/vector-icons'
 ;(Text as any).defaultProps = (Text as any).defaultProps || {}
 ;(Text as any).defaultProps.allowFontScaling = false
 ;(TextInput as any).defaultProps = (TextInput as any).defaultProps || {}
@@ -23,48 +20,74 @@ console.error = (...args: any) => {
   if (/defaultProps/.test(args[0])) return
   error(...args)
 }
-// const UserCustomListWrapper = () => {
-//   const rootNavigation = useNavigation<NavigationProp<RootStackParamList>>()
-//   const restaurantNavigation =
-//     useNavigation<NavigationProp<RestaurantParamList>>()
-//   return (
-//     <UserCustomList
-//       navigation={rootNavigation}
-//       restaurantNavigation={restaurantNavigation}
-//     />
-//   )
-// }
-const Stack = createStackNavigator<RootStackParamList>()
+// 메인 테마 설정
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: '#fff',
+  },
+}
 const Tab = createBottomTabNavigator()
 const App: React.FC = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={MyTheme}>
       <StatusBar style="dark" />
       <RestaurantProvider>
-        <Tab.Navigator initialRouteName="Main">
+        <Tab.Navigator
+          initialRouteName="Main"
+          screenOptions={{
+            tabBarActiveTintColor: 'tomato',
+            tabBarInactiveTintColor: 'gray',
+          }}>
           <Tab.Screen
             name="Main"
             component={MainStack}
-            options={{ headerShown: false, title: '홈' }}
+            options={{
+              headerShown: false,
+              title: '홈',
+              tabBarIcon: ({ focused, color, size }) => (
+                <Ionicons
+                  name={focused ? 'home' : 'home-outline'}
+                  size={size}
+                  color={color}
+                />
+              ),
+            }}
           />
           <Tab.Screen
             name="UserCustomList"
             component={UserCustomList}
-            options={{ title: '사용자 리스트' }}
+            options={{
+              title: '사용자 리스트',
+              tabBarIcon: ({ focused, color, size }) => (
+                <Ionicons
+                  name={focused ? 'list' : 'list-outline'}
+                  size={size}
+                  color={color}
+                />
+              ),
+            }}
           />
           <Tab.Screen
             name="AD Info"
             component={UserCustomList}
-            options={{ title: '광고 문의' }}
+            options={{
+              title: '광고 문의',
+              tabBarIcon: ({ focused, color, size }) => (
+                <Ionicons
+                  name={
+                    focused
+                      ? 'information-circle'
+                      : 'information-circle-outline'
+                  }
+                  size={size}
+                  color={color}
+                />
+              ),
+            }}
           />
         </Tab.Navigator>
-        {/* <Stack.Navigator initialRouteName="Main">
-          <Stack.Screen
-            component={MainTab}
-            name="Main"
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator> */}
       </RestaurantProvider>
     </NavigationContainer>
   )
