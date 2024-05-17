@@ -14,13 +14,13 @@ import { Feather } from '@expo/vector-icons'
 import { handleData } from '@_services/searchRestaurantApi'
 import { DefaultFlatList } from '@_components/layout/component/defaultFlatList'
 import { ChangeSortButton } from '@_userListPages/searchRestaurantModal/changeSortButton'
-import { RestaurantTypes } from '@_types/restaurant'
+import { LocationTypes } from '@_types/restaurant'
 
 interface SearchRestaurantModalProps {
   visible: boolean
   onClose: () => void
-  listItems: RestaurantTypes[]
-  setListItems: React.Dispatch<React.SetStateAction<RestaurantTypes[]>>
+  listItems: LocationTypes[]
+  setListItems: React.Dispatch<React.SetStateAction<LocationTypes[]>>
 }
 const SearchRestaurantModal = ({
   visible,
@@ -28,7 +28,7 @@ const SearchRestaurantModal = ({
   listItems,
   setListItems,
 }: SearchRestaurantModalProps) => {
-  const [dataList, setDataList] = useState<RestaurantTypes[]>([]) // 검색해서 가져온 식당 리스트
+  const [dataList, setDataList] = useState<LocationTypes[]>([]) // 검색해서 가져온 식당 리스트
   const [inputRestaurant, setInputRestaurant] = useState('') // 검색창에 입력한 식당 이름
 
   const [sort, setSort] = useState('accuracy') // 정렬 방식
@@ -63,7 +63,7 @@ const SearchRestaurantModal = ({
   }
 
   // 추가 버튼 클릭
-  const handlePressAddButton = (newItem: RestaurantTypes) => {
+  const handlePressAddButton = (newItem: LocationTypes) => {
     // 이미 리스트에 있는 식당 이름을 추가한 경우 경고창을 띄움
     if (listItems.some(item => item.place_name === newItem.place_name)) {
       Alert.alert('이미 추가된 식당입니다.')

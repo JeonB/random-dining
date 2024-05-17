@@ -2,11 +2,11 @@ import React, { Dispatch, SetStateAction, useState } from 'react'
 import { Alert, Dimensions, StyleSheet, TextInput, View } from 'react-native'
 import { Icon } from '@rneui/themed'
 
-import { RestaurantTypes } from '@_types/restaurant'
+import { LocationTypes } from '@_types/restaurant'
 
 interface Props {
-  listItems: RestaurantTypes[]
-  setListItems: Dispatch<SetStateAction<RestaurantTypes[]>>
+  listItems: LocationTypes[]
+  setListItems: Dispatch<SetStateAction<LocationTypes[]>>
 }
 
 export const RestaurantNameInput: React.FC<Props> = ({

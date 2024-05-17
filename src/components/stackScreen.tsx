@@ -11,6 +11,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { RootStackParamList } from '@_types/navigation'
 import { RestaurantParamList } from '@_types/restaurantParamList'
 import { Ionicons, AntDesign } from '@expo/vector-icons'
+import MapSearch from './RandomRestaurantRecommendation/pages/RestaurantView/mapSearch'
 
 type CombinedParamList = RootStackParamList & RestaurantParamList
 const MainStack = () => {
@@ -59,110 +60,6 @@ const MainStack = () => {
         component={SelectedRestaurantInfo}
         options={{
           title: '',
-          headerBackTitleVisible: false,
-          headerBackImage: () => (
-            <AntDesign
-              name="back"
-              size={30}
-              color="midnightblue"
-              style={{ marginLeft: 10 }}
-            />
-          ),
-        }}
-      />
-    </Stack.Navigator>
-  )
-}
-
-export const UserCustomListStack = () => {
-  const Stack = createStackNavigator<RootStackParamList>()
-  return (
-    <Stack.Navigator initialRouteName="UserCustomList">
-      <Stack.Screen
-        name="UserCustomList"
-        component={UserCustomList}
-        options={{
-          title: '사용자 리스트',
-          headerBackTitleVisible: false,
-          headerBackImage: () => (
-            <AntDesign
-              name="back"
-              size={30}
-              color="midnightblue"
-              style={{ marginLeft: 10 }}
-            />
-          ),
-        }}
-      />
-      <Stack.Screen
-        name="SelectEditList"
-        component={SelectEditList}
-        options={{
-          title: '',
-          headerBackTitleVisible: false,
-          headerBackImage: () => (
-            <AntDesign
-              name="back"
-              size={30}
-              color="midnightblue"
-              style={{ marginLeft: 10 }}
-            />
-          ),
-        }}
-      />
-      <Stack.Screen
-        name="EditUserList"
-        component={EditUserList}
-        options={{
-          title: '리스트 수정',
-          headerBackTitleVisible: false,
-          headerBackImage: () => (
-            <AntDesign
-              name="back"
-              size={30}
-              color="midnightblue"
-              style={{ marginLeft: 10 }}
-            />
-          ),
-        }}
-      />
-      <Stack.Screen
-        name="AddUserList"
-        component={AddUserList}
-        options={{
-          title: '리스트 추가',
-          headerBackTitleVisible: false,
-          headerBackImage: () => (
-            <AntDesign
-              name="back"
-              size={30}
-              color="midnightblue"
-              style={{ marginLeft: 10 }}
-            />
-          ),
-        }}
-      />
-      <Stack.Screen
-        name="UserSelectedRestaurantInfo"
-        component={UserSelectedRestaurantInfo}
-        options={({ route }) => ({
-          title: `리스트: ${route.params.listname}`,
-          headerBackTitleVisible: false,
-          headerBackImage: () => (
-            <AntDesign
-              name="back"
-              size={30}
-              color="midnightblue"
-              style={{ marginLeft: 10 }}
-            />
-          ),
-        })}
-      />
-      <Stack.Screen
-        name="Detail"
-        component={DetailView}
-        options={{
-          title: '상세 화면',
           headerBackTitleVisible: false,
           headerBackImage: () => (
             <AntDesign

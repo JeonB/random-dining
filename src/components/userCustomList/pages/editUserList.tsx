@@ -8,7 +8,7 @@ import { Button } from 'react-native-paper'
 
 import { useListNames } from '@_userList/hook/useListNames'
 import { RootStackParamList } from '@_types/navigation'
-import { RestaurantTypes } from '@_types/restaurant'
+import { LocationTypes } from '@_types/restaurant'
 import SearchRestaurantModal from '@_userListPages/searchRestaurantModal/searchRestaurantModal'
 import { RestaurantNameInput } from '@_userListPages/restaurantNameInput'
 import { RestaurantListItem } from '@_userListPages/restaurantListItem'
@@ -20,7 +20,7 @@ export const EditUserList = ({
   navigation: NavigationProp<RootStackParamList>
   route: RouteProp<RootStackParamList, 'EditUserList'>
 }) => {
-  const [listItems, setListItems] = useState<RestaurantTypes[]>([]) // 리스트 아이템을 관리하는 상태
+  const [listItems, setListItems] = useState<LocationTypes[]>([]) // 리스트 아이템을 관리하는 상태
   const [listName, setListName] = useState<string>(route.params.listName) // 리스트 이름을 관리하는 상태
   const [newListName, setNewListName] = useState(listName) // 새로운 리스트 이름을 관리하는 상태
 

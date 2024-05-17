@@ -10,7 +10,7 @@ import { useListNames } from '@_userList/hook/useListNames'
 import SearchRestaurantModal from '@_userListPages/searchRestaurantModal/searchRestaurantModal'
 import { RestaurantNameInput } from '@_userListPages/restaurantNameInput'
 import { RootStackParamList } from '@_types/navigation'
-import { RestaurantTypes } from '@_types/restaurant'
+import { LocationTypes } from '@_types/restaurant'
 import { RestaurantListItem } from '@_userListPages/restaurantListItem'
 
 const { width, height } = Dimensions.get('window')
@@ -19,7 +19,7 @@ export const AddUserList = ({
 }: {
   navigation: NavigationProp<RootStackParamList>
 }) => {
-  const [listItems, setListItems] = useState<RestaurantTypes[]>([]) // 리스트 아이템을 관리하는 상태
+  const [listItems, setListItems] = useState<LocationTypes[]>([]) // 리스트 아이템을 관리하는 상태
   const [newListName, setNewListName] = useState('') // 새로운 리스트 이름을 관리하는 상태
 
   const { listNames, saveListNames } = useListNames() // AsyncStorage에 저장된 리스트 이름들을 가져오는 커스텀 훅

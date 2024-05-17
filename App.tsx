@@ -6,7 +6,7 @@ import { UserCustomList } from '@_components/userCustomList/pages/userCustomList
 import Constants from 'expo-constants'
 import 'regenerator-runtime/runtime'
 import { RestaurantProvider } from '@_3Rpages/context/restaurantProvider'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { UserCustomListStack } from '@_components/listStackScreen'
 import RestaurantStackScreen from '@_components/restaurantStackScreen'
 import { StatusBar } from 'expo-status-bar'
 import { Ionicons, AntDesign } from '@expo/vector-icons'

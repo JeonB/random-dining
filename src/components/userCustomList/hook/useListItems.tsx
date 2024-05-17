@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import { RestaurantTypes } from '@_types/restaurant'
+import { LocationTypes } from '@_types/restaurant'
 export const useListItems = (listName: string) => {
-  const [listItemsT, setListItems] = useState<RestaurantTypes[]>([])
+  const [listItemsT, setListItems] = useState<LocationTypes[]>([])
 
   const fetchListItems = async () => {
     try {
@@ -16,11 +16,11 @@ export const useListItems = (listName: string) => {
     }
   }
 
-  const updateListItems = (newListItems: RestaurantTypes[]) => {
+  const updateListItems = (newListItems: LocationTypes[]) => {
     setListItems(newListItems)
   }
 
-  const saveListItems = async (newListItems: RestaurantTypes[]) => {
+  const saveListItems = async (newListItems: LocationTypes[]) => {
     try {
       await AsyncStorage.setItem(listName, JSON.stringify(newListItems))
       setListItems(newListItems)

@@ -2,18 +2,18 @@ import React, { Dispatch, SetStateAction } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Icon } from '@rneui/themed'
 
-import { RestaurantTypes } from '@_types/restaurant'
+import { LocationTypes } from '@_types/restaurant'
 
 interface ItemProps {
-  item: RestaurantTypes
-  setListItems: Dispatch<SetStateAction<RestaurantTypes[]>>
+  item: LocationTypes
+  setListItems: Dispatch<SetStateAction<LocationTypes[]>>
 }
 
 export const RestaurantListItem: React.FC<ItemProps> = ({
   item,
   setListItems,
 }) => {
-  const filterItems = (items: RestaurantTypes[], itemToRemove: string) => {
+  const filterItems = (items: LocationTypes[], itemToRemove: string) => {
     return items.filter(item => item.place_name !== itemToRemove)
   }
   const handlePressDeleteButton = () => {

@@ -2,7 +2,7 @@ import { Alert, Linking } from 'react-native'
 import * as Location from 'expo-location'
 import Constants from 'expo-constants'
 import { AppConfig } from 'app.config'
-import { RestaurantTypes } from '@_types/restaurant'
+import { LocationTypes } from '@_types/restaurant'
 import { RestaurantSearchQueryParamsType } from '@_types/queryParams'
 
 const { KAKAO_RESTAPI_KEY } = Constants.expoConfig?.extra as AppConfig
@@ -37,7 +37,7 @@ const getLocation = async () => {
 }
 
 export const handleData = async (keyword: string, sort: string) => {
-  const allData: RestaurantTypes[] = []
+  const allData: LocationTypes[] = []
   let page = 1
 
   const { latitude, longitude } = await getLocation()
