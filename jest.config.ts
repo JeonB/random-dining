@@ -27,6 +27,7 @@ const jestConfig: JestConfigWithTsJest = {
     '^@_userListPages/(.*)$': [
       '<rootDir>/src/components/userCustomList/pages/$1',
     ],
+    '^@_assetImages/(.*)$': ['<rootDir>/assets/images/*'],
   },
 }
 

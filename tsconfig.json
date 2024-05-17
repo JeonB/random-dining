@@ -13,7 +13,8 @@
       "@_services/*": ["src/services/*"],
       "@_3Rpages/*": ["src/components/RandomRestaurantRecommendation/pages/*"],
       "@_userList/*": ["src/components/userCustomList/*"],
-      "@_userListPages/*": ["src/components/userCustomList/pages/*"]
+      "@_userListPages/*": ["src/components/userCustomList/pages/*"],
+      "@_assetImages/*": ["assets/images/*"]
     },
     "allowSyntheticDefaultImports": true,
     "jsx": "react"

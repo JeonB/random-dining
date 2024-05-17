@@ -1,10 +1,10 @@
 import React from 'react'
-import { RestaurantTypes } from '@_types/restaurant'
+import { LocationTypes } from '@_types/restaurant'
 import { DataTable, Icon } from 'react-native-paper'
 import { Dimensions, Linking, StyleSheet, View } from 'react-native'
 import { Text } from '@rneui/themed'
 
-const RestaurantDetail = ({ info }: { info: RestaurantTypes }) => {
+const RestaurantDetail = ({ info }: { info: LocationTypes }) => {
   return (
     <View style={styles.infoView}>
       <Text h4 h4Style={{ fontSize: 20, marginBottom: 10 }}>
@@ -32,8 +32,12 @@ const RestaurantDetail = ({ info }: { info: RestaurantTypes }) => {
           <DataTable.Cell
             style={styles.table}
             textStyle={{ color: 'blue' }}
-            onPress={() => Linking.openURL(`tel:${info?.phone}`)}>
-            {info?.phone}
+            onPress={
+              info?.phone
+                ? () => Linking.openURL(`tel:${info.phone}`)
+                : undefined
+            }>
+            {info?.phone || '번호가 등록되지 않았습니다.'}
           </DataTable.Cell>
         </DataTable.Row>
       </DataTable>

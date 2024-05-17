@@ -1,12 +1,12 @@
 import { Modal, View, StyleSheet } from 'react-native'
 import { Button } from 'react-native-paper'
 import { AnimatedRandomSelector } from '@_3Rpages/RestaurantView/animatedRandomSelector'
-import { RestaurantTypes } from '@_types/restaurant'
+import { LocationTypes } from '@_types/restaurant'
 import React from 'react'
 
 interface RandomPickerModalProps {
   visible: boolean
-  restaurantItems: RestaurantTypes[]
+  restaurantItems: LocationTypes[]
   onClose: () => void
   onRestaurantIndexChange: (index: number) => void
 }

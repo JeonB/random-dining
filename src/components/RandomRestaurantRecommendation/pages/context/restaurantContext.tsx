@@ -1,23 +1,31 @@
 import React, { createContext, useContext } from 'react'
-import { RestaurantTypes } from '@_types/restaurant'
+import { LocationTypes } from '@_types/restaurant'
 
 interface ContextType {
   selectedCategories: string[]
   setSelectedCategories: (categories: string[]) => void
   distance: number
   setDistance: (distance: number) => void
-  restaurantItems: RestaurantTypes[]
-  setRestaurantItems: (items: RestaurantTypes[]) => void
+  restaurantItems: LocationTypes[]
+  setRestaurantItems: (items: LocationTypes[]) => void
   modalVisible: boolean
   setModalVisible: (visible: boolean) => void
-  restaurant: RestaurantTypes | undefined
-  setRestaurant: (restaurant: RestaurantTypes) => void
+  restaurant: LocationTypes | undefined
+  setRestaurant: (restaurant: LocationTypes) => void
   isLoading: boolean
   setIsLoading: (loading: boolean) => void
   handleRandomPickClick: () => void
-  // handleCategoryChange: (categories: string[]) => void
-  // handleDistanceRangeChange: (distance: number) => void
   handleRestaurantChange: (index: number) => void
+  selectedLocation: { longitude: number; latitude: number }
+  setSelectedLocation: (location: {
+    longitude: number
+    latitude: number
+  }) => void
+  currentLocation: { currentLongitude: number; currentLatitude: number }
+  setCurrentLocation: (location: {
+    currentLongitude: number
+    currentLatitude: number
+  }) => void
 }
 export const RestaurantContext = createContext<ContextType | undefined>(
   undefined,

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react-native'
 import React from 'react'
-import { Map } from '../pages/RestaurantView/map'
-import { RestaurantTypes } from 'src/types/restaurant'
+import Map from '../pages/RestaurantView/map'
+import { LocationTypes } from 'src/types/restaurant'
 jest.mock('react-native-webview', () => {
   const { View } = require('react-native')
   return {
@@ -18,7 +18,7 @@ jest.mock('expo-constants', () => ({
   },
 }))
 // 초기 렌더링 테스트
-const RestaurantInfo: RestaurantTypes = {
+const RestaurantInfo: LocationTypes = {
   place_name: '봉이밥',
   distance: '1km',
   phone: '010-1234-5678',
@@ -30,22 +30,30 @@ const RestaurantInfo: RestaurantTypes = {
   created_at: '',
   updated_at: '',
 }
+const currentLocation = {
+  currentLatitude: 37.5676859104888,
+  currentLongitude: 126.82597944995,
+}
 
 describe('음식점 지도 렌더링 테스트', () => {
   test('Map 컴포넌트가 정상적으로 렌더링 되었는지 확인', () => {
-    render(<Map info={RestaurantInfo} />)
+    render(<Map info={RestaurantInfo} currentLocation={currentLocation} />)
     const map = screen.getByTestId('map')
     expect(map).toBeTruthy()
   })
   test('api키가 제대로 전달되었는지 확인', () => {
-    const { getByTestId } = render(<Map info={RestaurantInfo} />)
+    const { getByTestId } = render(
+      <Map info={RestaurantInfo} currentLocation={currentLocation} />,
+    )
     const webView = getByTestId('map')
     expect(webView.props.children).toContain(
       'https://dapi.kakao.com/v2/maps/sdk.js?appkey=1234',
     )
   })
   test('지도가 정상적으로 생성되었는지 확인', () => {
-    const { getByTestId } = render(<Map info={RestaurantInfo} />)
+    const { getByTestId } = render(
+      <Map info={RestaurantInfo} currentLocation={currentLocation} />,
+    )
     const webView = getByTestId('map')
     expect(webView.props.children).toContain(
       "const container = document.getElementById('map')",

@@ -53,10 +53,12 @@ jest.mock('expo-linear-gradient', () => {
   }
 })
 
-const navigation = {
+const mockNavigation = {
   navigate: jest.fn(),
 } as unknown as NavigationProp<RootStackParamList>
-
+const navigation = {
+  navigate: jest.fn(),
+} as unknown as NavigationProp<RestaurantParamList>
 describe('<UserCustomList />', () => {
   let alertSpy: jest.SpyInstance
   let utils: RenderAPI
@@ -66,7 +68,10 @@ describe('<UserCustomList />', () => {
     jest.clearAllMocks()
     utils = render(
       <NavigationContainer>
-        <UserCustomList navigation={navigation} />
+        <UserCustomList
+          // restaurantNavigation={navigation}
+          navigation={mockNavigation}
+        />
       </NavigationContainer>,
     )
   })

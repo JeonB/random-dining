@@ -2,10 +2,10 @@ import React from 'react'
 import { View } from 'react-native'
 import { Meta, StoryFn } from '@storybook/react'
 import PositionSelector from '../pages/positionSelector'
-import { RestaurantTypes } from '@_types/restaurant'
+import { LocationTypes } from '@_types/restaurant'
 import { action } from '@storybook/addon-actions'
 import { NavigationProp } from '@react-navigation/native'
-import { RootStackParamList } from 'src/types/navigation'
+import { RootStackParamList } from '@_types/navigation'
 export default {
   title: 'Components/3R/PositionSelector',
   component: PositionSelector,
@@ -22,11 +22,11 @@ export default {
   ],
 } as Meta
 
-export const Basic: StoryFn<RestaurantTypes> = () => {
+export const Basic: StoryFn<LocationTypes> = () => {
   const mockNavigation = {
     navigate: action('navigate'),
     goBack: action('goBack'),
   } as NavigationProp<RootStackParamList>
 
-  return <PositionSelector />
+  return <PositionSelector navigation={mockNavigation} />
 }

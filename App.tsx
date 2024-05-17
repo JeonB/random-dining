@@ -3,11 +3,15 @@ import { StyleSheet, TextInput, Text } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { UserCustomList } from '@_components/userCustomList/pages/userCustomList'
 import Constants from 'expo-constants'
 import 'regenerator-runtime/runtime'
-import { RootStackParamList } from '@_types/navigation'
 import { RestaurantProvider } from '@_3Rpages/context/restaurantProvider'
-import { MainStack, UserCustomListStack } from '@_components/stackScreen'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import MainStack, { UserCustomListStack } from '@_components/stackScreen'
+import { StatusBar } from 'expo-status-bar'
+import { Ionicons, AntDesign } from '@expo/vector-icons'
+import { MyTheme } from 'theme'
 import { Support } from '@_components/support/pages/support'
 ;(Text as any).defaultProps = (Text as any).defaultProps || {}
 ;(Text as any).defaultProps.allowFontScaling = false
@@ -19,28 +23,65 @@ console.error = (...args: any) => {
   if (/defaultProps/.test(args[0])) return
   error(...args)
 }
-const Stack = createStackNavigator<RootStackParamList>()
 const Tab = createBottomTabNavigator()
-
 const App: React.FC = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={MyTheme}>
+      <StatusBar style="dark" />
       <RestaurantProvider>
-        <Tab.Navigator initialRouteName="Main">
+        <Tab.Navigator
+          initialRouteName="Main"
+          screenOptions={{
+            tabBarActiveTintColor: MyTheme.colors.primary,
+            tabBarInactiveTintColor: 'gray',
+          }}>
           <Tab.Screen
             name="Main"
             component={MainStack}
-            options={{ headerShown: false, title: '홈' }}
+            options={{
+              headerShown: false,
+              title: '홈',
+              tabBarIcon: ({ focused, color, size }) => (
+                <Ionicons
+                  name={focused ? 'home' : 'home-outline'}
+                  size={size}
+                  color={color}
+                />
+              ),
+            }}
           />
           <Tab.Screen
             name="UserCustomListTab"
             component={UserCustomListStack}
-            options={{ headerShown: false, title: '사용자 리스트' }}
+            options={{
+              headerShown: false,
+              title: '사용자 리스트',
+              tabBarIcon: ({ focused, color, size }) => (
+                <Ionicons
+                  name={focused ? 'list' : 'list-outline'}
+                  size={size}
+                  color={color}
+                />
+              ),
+            }}
           />
           <Tab.Screen
             name="AD Info"
             component={Support}
-            options={{ headerShown: true, title: '광고 문의' }}
+            options={{
+              title: '광고 문의',
+              tabBarIcon: ({ focused, color, size }) => (
+                <Ionicons
+                  name={
+                    focused
+                      ? 'information-circle'
+                      : 'information-circle-outline'
+                  }
+                  size={size}
+                  color={color}
+                />
+              ),
+            }}
           />
         </Tab.Navigator>
       </RestaurantProvider>

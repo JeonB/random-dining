@@ -1,12 +1,22 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { View } from 'react-native'
 import { Meta, StoryFn } from '@storybook/react'
 import SelectedRestaurantInfo from '../pages/RestaurantView/selectedRestaurantInfo'
-import { RestaurantTypes } from '@_types/restaurant'
+import { LocationTypes } from '@_types/restaurant'
 import { RootStackParamList } from 'src/types/navigation'
-import { RouteProp } from '@react-navigation/native'
+import { NavigationContainer, RouteProp } from '@react-navigation/native'
 import { action } from '@storybook/addon-actions'
-import { StackNavigationProp } from '@react-navigation/stack'
+import {
+  StackNavigationProp,
+  createStackNavigator,
+} from '@react-navigation/stack'
+import { RestaurantProvider } from '../pages/context/restaurantProvider'
+
+const Stack = createStackNavigator<RootStackParamList>()
+const StoryScreen = ({ route }) => {
+  const Story = route.params.story
+  return <Story />
+}
 
 export default {
   title: 'Components/3R/RestaurantView/SelectedRestaurantInfo',
@@ -15,10 +25,25 @@ export default {
     onPress: { action: '필터 화면 혹은 지도로 이동' },
   },
   tags: ['autodocs'],
+  decorators: [
+    Story => (
+      <RestaurantProvider>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="SelectedRestaurantInfo"
+              component={StoryScreen}
+              initialParams={{ story: Story }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </RestaurantProvider>
+    ),
+  ],
 } as Meta
 
-export const Basic: StoryFn<RestaurantTypes> = () => {
-  const mockRestaurant: RestaurantTypes = {
+export const Basic: StoryFn<LocationTypes> = () => {
+  const mockRestaurant: LocationTypes = {
     place_name: '봉이밥',
     category_name: '한식',
     distance: '150',
@@ -45,6 +70,16 @@ export const Basic: StoryFn<RestaurantTypes> = () => {
   } as RouteProp<RootStackParamList, 'SelectedRestaurantInfo'>
 
   return (
-    <SelectedRestaurantInfo navigation={mockNavigation} route={mockRoute} />
+    <SelectedRestaurantInfo
+      route={{
+        key: 'mockKey',
+        name: 'SelectedRestaurantInfo',
+        params: {
+          restaurant: mockRestaurant,
+          location: { latitude: 0, longitude: 0 },
+        },
+      }}
+      navigation={mockNavigation}
+    />
   )
 }

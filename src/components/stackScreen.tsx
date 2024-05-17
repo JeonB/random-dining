@@ -3,17 +3,18 @@ import FilterSetting from '@_3Rpages/FilterSettings/filterSetting'
 import DetailView from '@_3Rpages/RestaurantView/detailView'
 import SelectedRestaurantInfo from '@_3Rpages/RestaurantView/selectedRestaurantInfo'
 import PositionSelector from '@_3Rpages/positionSelector'
-import { SelectedRestaurantInfo as UserSelectedRestaurantInfo } from '@_userListPages/selectedRestaurantInfo'
-import { AddUserList } from '@_userListPages/addUserList'
-import { EditUserList } from '@_userListPages/editUserList'
-import { SelectEditList } from '@_userListPages/selectEditList'
-import { UserCustomList } from '@_userListPages/userCustomList'
+import { AddUserList } from './userCustomList/pages/addUserList'
+import { EditUserList } from './userCustomList/pages/editUserList'
+import { SelectEditList } from './userCustomList/pages/selectEditList'
+import { UserCustomList } from './userCustomList/pages/userCustomList'
 import { createStackNavigator } from '@react-navigation/stack'
 import { RootStackParamList } from '@_types/navigation'
+import { RestaurantParamList } from '@_types/restaurantParamList'
 import { Ionicons, AntDesign } from '@expo/vector-icons'
 
-export const MainStack = () => {
-  const Stack = createStackNavigator<RootStackParamList>()
+type CombinedParamList = RootStackParamList & RestaurantParamList
+const MainStack = () => {
+  const Stack = createStackNavigator<CombinedParamList>()
   return (
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen
@@ -22,10 +23,10 @@ export const MainStack = () => {
         options={{ title: '홈 화면', headerBackTitleVisible: false }}
       />
       <Stack.Screen
-        name="Detail"
-        component={DetailView}
+        name="MapSearch"
+        component={MapSearch}
         options={{
-          title: '상세 화면',
+          title: '지도에서 선택한 위치로 추천 받기',
           headerBackTitleVisible: false,
           headerBackImage: () => (
             <AntDesign
@@ -38,10 +39,10 @@ export const MainStack = () => {
         }}
       />
       <Stack.Screen
-        name="CurrentPosition"
+        name="FilterSetting"
         component={FilterSetting}
         options={{
-          title: '현재 화면에서 찾기',
+          title: '필터 설정',
           headerBackTitleVisible: false,
           headerBackImage: () => (
             <AntDesign

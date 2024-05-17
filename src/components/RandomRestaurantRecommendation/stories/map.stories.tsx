@@ -2,7 +2,7 @@ import React from 'react'
 import { View } from 'react-native'
 import { Meta, StoryFn } from '@storybook/react'
 import Map from '../pages/RestaurantView/map'
-import { RestaurantTypes } from 'src/types/restaurant'
+import { LocationTypes } from '@_types/restaurant'
 export default {
   title: 'Components/3R/RestaurantView/Map',
   component: Map,
@@ -16,7 +16,15 @@ export default {
   ],
 } as Meta
 
-export const Basic: StoryFn<RestaurantTypes> = () => <Map info={info} />
+export const Basic: StoryFn<LocationTypes> = () => (
+  <Map
+    info={info}
+    location={{
+      latitude: 0,
+      longitude: 0,
+    }}
+  />
+)
 const info = {
   place_name: 'Restaurant 1',
   id: 0,
@@ -28,4 +36,4 @@ const info = {
   updated_at: '',
   x: '126.82597944995',
   y: '37.5676859104888',
-} as RestaurantTypes
+} as LocationTypes

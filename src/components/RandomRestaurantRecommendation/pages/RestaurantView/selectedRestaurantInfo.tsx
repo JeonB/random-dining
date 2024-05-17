@@ -1,18 +1,19 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Dimensions, Image, StyleSheet, View } from 'react-native'
-import { RootStackParamList } from '@_types/navigation'
 import { StackScreenProps } from '@react-navigation/stack'
 import { useRestaurantContext } from '@_3Rpages/context/restaurantContext'
-import { RestaurantTypes } from '@_types/restaurant'
+import { LocationTypes } from '@_types/restaurant'
 import Map from './map'
 import RestaurantDetail from './restaurantDetail'
 import RestaurantActionButtons from './restaurantActionButtons'
 import RandomItemModal from './randomItemModal'
+import { RestaurantParamList } from '@_types/restaurantParamList'
+import mainImage from '@_assetImages/main.png'
 
 const SelectedRestaurantInfo = ({
   route,
   navigation,
-}: StackScreenProps<RootStackParamList, 'SelectedRestaurantInfo'>) => {
+}: StackScreenProps<RestaurantParamList, 'SelectedRestaurantInfo'>) => {
   const {
     modalVisible,
     setModalVisible,
@@ -20,17 +21,19 @@ const SelectedRestaurantInfo = ({
     isLoading,
     handleRandomPickClick,
     handleRestaurantChange,
+    currentLocation,
   } = useRestaurantContext()
-  const restaurant: RestaurantTypes | undefined = route.params?.restaurant
+  const restaurant: LocationTypes | undefined = route.params?.restaurant
   return (
     <View style={styles.container}>
       <View style={styles.mediaContainer}>
         {restaurant ? (
-          <Map info={restaurant} />
+          <Map info={restaurant} currentLocation={currentLocation} />
         ) : (
           <Image
-            source={{ uri: 'https://i.postimg.cc/rpJGytmg/image.png' }}
+            source={mainImage}
             style={{ width: '100%', height: '100%' }}
+            onError={({ nativeEvent: { error } }) => console.warn(error)}
           />
         )}
       </View>
@@ -64,11 +67,11 @@ const styles = StyleSheet.create({
   },
   mediaContainer: {
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').width * 0.7,
+    height: Dimensions.get('window').width * 0.6,
     position: 'relative',
     alignItems: 'center',
     padding: 0,
-    margin: 10,
+    marginBottom: 10,
   },
   reselectButton: {
     borderColor: '#003366',
