@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Text } from '@rneui/themed'
 
 import { RootStackParamList } from '@_types/navigation'
-import { RestaurantTypes } from '@_types/restaurant'
+import { LocationTypes } from '@_types/restaurant'
 import Map from '@_components/RandomRestaurantRecommendation/pages/RestaurantView/map'
 import RestaurantDetail from '@_components/RandomRestaurantRecommendation/pages/RestaurantView/restaurantDetail'
 import RestaurantActionButtons from '@_components/RandomRestaurantRecommendation/pages/RestaurantView/restaurantActionButtons'
@@ -16,11 +16,11 @@ export const SelectedRestaurantInfo = ({
   route,
   navigation,
 }: StackScreenProps<RootStackParamList, 'UserSelectedRestaurantInfo'>) => {
-  const restaurant: RestaurantTypes | undefined = route.params?.restaurant
+  const restaurant: LocationTypes | undefined = route.params?.restaurant
   const listName: string | undefined = route.params?.listname
 
   const [modalVisible, setModalVisible] = useState(false)
-  const [restaurantItems, setRestaurantItems] = useState<RestaurantTypes[]>([])
+  const [restaurantItems, setRestaurantItems] = useState<LocationTypes[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
   const handleRestaurantChange = (index: number) => {

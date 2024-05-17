@@ -12,7 +12,7 @@ import { DefaultFlatList } from '@_components/layout/component/defaultFlatList'
 import { ListManageIcon } from '@_userListPages/listManageIcon'
 import { useListNames } from '@_userList/hook/useListNames'
 import { RootStackParamList } from '@_types/navigation'
-import { RestaurantTypes } from '@_types/restaurant'
+import { LocationTypes } from '@_types/restaurant'
 
 export const UserCustomList = ({
   navigation,
@@ -22,7 +22,7 @@ export const UserCustomList = ({
   const { listNames, fetchListNames } = useListNames() // AsyncStorage에 저장된 리스트 이름들을 가져오는 커스텀 훅
   const [selectedListName, setSelectedListName] = useState<string>('') // 선택된 리스트 이름
   const [modalVisible, setModalVisible] = useState(false)
-  const [restaurantItems, setRestaurantItems] = useState<RestaurantTypes[]>([])
+  const [restaurantItems, setRestaurantItems] = useState<LocationTypes[]>([])
 
   const handleRestaurantChange = (index: number) => {
     const selectedRestaurant = restaurantItems[index]

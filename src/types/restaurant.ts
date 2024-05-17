@@ -10,6 +10,7 @@ export interface LocationTypes {
   updated_at?: string
   x?: string
   y?: string
+  address_name?: string
 }
 
 // export interface Restaurant {
