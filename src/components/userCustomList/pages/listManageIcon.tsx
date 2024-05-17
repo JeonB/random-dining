@@ -11,7 +11,7 @@ import {
 import { NavigationProp } from '@react-navigation/native'
 import { Icon } from '@rneui/themed'
 import { Button } from 'react-native-paper'
-
+import { MyTheme } from 'theme'
 import { RootStackParamList } from '@_types/listParamList'
 import { useSequentialAnimation } from '@_userList/hook/useSequentialAnimation'
 
@@ -98,6 +98,7 @@ export const ListManageIcon = ({
                   <Animated.View style={{ opacity: addButtonOpacity }}>
                     <Button
                       style={styles.button}
+                      buttonColor={MyTheme.colors.primary}
                       mode="contained"
                       onPress={handleAddButtonClick}>
                       리스트 추가하기
@@ -106,6 +107,7 @@ export const ListManageIcon = ({
                   <Animated.View style={{ opacity: editButtonOpacity }}>
                     <Button
                       style={styles.button}
+                      buttonColor={MyTheme.colors.primary}
                       mode="contained"
                       onPress={handleEditButtonClick}>
                       리스트 수정하기
@@ -128,7 +130,7 @@ const styles = StyleSheet.create({
   },
   button: {
     margin: 3,
-    backgroundColor: '#2E6FCF',
+    // backgroundColor: '#2E6FCF',
     borderRadius: 10,
   },
 })

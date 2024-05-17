@@ -1,20 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import {
-  Modal,
-  View,
-  StyleSheet,
-  TextInput,
-  Dimensions,
-  Text,
-  Alert,
-} from 'react-native'
+import { Modal, View, StyleSheet, Dimensions, Text, Alert } from 'react-native'
 import { Button } from 'react-native-paper'
-import { Feather } from '@expo/vector-icons'
 
 import { handleData } from '@_services/searchRestaurantApi'
-import { DefaultFlatList } from '@_components/layout/component/defaultFlatList'
-import { ChangeSortButton } from '@_userListPages/searchRestaurantModal/changeSortButton'
 import { LocationTypes } from '@_types/restaurant'
+import { DefaultFlatList } from '@_userListPages/defaultFlatList'
+import { ChangeSortButton } from '@_userListPages/searchRestaurantModal/changeSortButton'
+import { SearchInput } from '@_userListPages/searchRestaurantModal/searchInput'
 
 interface SearchRestaurantModalProps {
   visible: boolean
@@ -84,21 +76,11 @@ const SearchRestaurantModal = ({
       testID="SearchModal">
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <View style={styles.searchFeild}>
-            <Feather name="search" size={15} color="black" />
-            <TextInput
-              style={styles.restaurantNameField}
-              placeholder="식당 또는 메뉴 이름을 입력하세요."
-              onChangeText={setInputRestaurant}
-              value={inputRestaurant}
-              autoFocus={true}
-              onSubmitEditing={handlePressSearchButton}
-              returnKeyType="search"
-              clearButtonMode="always"
-              testID="restaurantNameField"
-              enablesReturnKeyAutomatically={true}
-            />
-          </View>
+          <SearchInput
+            inputRestaurant={inputRestaurant}
+            setInputRestaurant={setInputRestaurant}
+            handlePressSearchButton={handlePressSearchButton}
+          />
           {dataList.length !== 0 && (
             <View style={{ alignItems: 'flex-end' }}>
               <ChangeSortButton
@@ -134,12 +116,7 @@ const SearchRestaurantModal = ({
               </View>
             )}
           />
-
-          <Button
-            mode="contained"
-            style={{ marginTop: 10 }}
-            buttonColor="gray"
-            onPress={onClose}>
+          <Button mode="contained" buttonColor="gray" onPress={onClose}>
             닫기
           </Button>
         </View>
@@ -169,17 +146,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-  },
-  searchFeild: {
-    padding: 10,
-    flexDirection: 'row',
-    backgroundColor: '#d9dbda',
-    borderRadius: 15,
-  },
-  restaurantNameField: {
-    marginLeft: 10,
-    marginHorizontal: 5,
-    width: '90%',
   },
   listText: {
     fontSize: 16,

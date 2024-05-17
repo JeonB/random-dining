@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, View, Alert, TextInput, Dimensions } from 'react-native'
-
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { DefaultFlatList } from '@_components/layout/component/defaultFlatList'
 import { NavigationProp, RouteProp } from '@react-navigation/native'
 import { Button } from 'react-native-paper'
 
-import { useListNames } from '@_userList/hook/useListNames'
+import { MyTheme } from 'theme'
 import { RootStackParamList } from '@_types/listParamList'
 import { LocationTypes } from '@_types/restaurant'
+import { useListNames } from '@_userList/hook/useListNames'
+import { DefaultFlatList } from '@_userListPages/defaultFlatList'
 import SearchRestaurantModal from '@_userListPages/searchRestaurantModal/searchRestaurantModal'
 import { RestaurantNameInput } from '@_userListPages/restaurantNameInput'
 import { RestaurantListItem } from '@_userListPages/restaurantListItem'
@@ -156,7 +156,7 @@ export const EditUserList = ({
         <Button
           onPress={() => handlePressDeleteListButton(listName)}
           testID="deleteListButton"
-          textColor="red">
+          textColor="#FF3A54">
           리스트 삭제
         </Button>
       </View>
@@ -171,7 +171,7 @@ export const EditUserList = ({
       <RestaurantNameInput listItems={listItems} setListItems={setListItems} />
       <Button
         style={{ marginVertical: 10 }}
-        buttonColor="#337AB7"
+        buttonColor={MyTheme.colors.primary}
         mode="contained"
         onPress={() => setModalVisible(true)}
         testID="SearchButton">
@@ -188,7 +188,7 @@ export const EditUserList = ({
       <View style={styles.buttonContainer}>
         <Button
           mode="contained"
-          buttonColor="#337AB7"
+          buttonColor={MyTheme.colors.primary}
           onPress={handlePressSave}
           disabled={newListName.length === 0}
           testID="saveListButton">
@@ -226,11 +226,11 @@ const styles = StyleSheet.create({
   buttonContainer: {
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
-    marginVertical: height * 0.05,
+    marginBottom: height * 0.05,
+    marginTop: height * 0.02,
   },
   renderItem: {
     borderWidth: 0,
-    borderBottomColor: 'black',
     borderBottomWidth: 1,
   },
 })

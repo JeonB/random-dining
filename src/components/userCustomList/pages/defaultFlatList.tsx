@@ -7,6 +7,7 @@ import {
   StyleProp,
   ViewStyle,
 } from 'react-native'
+import { MyTheme } from 'theme'
 
 export interface FlatListProps<T> {
   data: T[]
@@ -68,8 +69,9 @@ const styles = StyleSheet.create({
   },
   item: {
     backgroundColor: '#fff',
-    borderColor: 'black',
-    borderWidth: 0.2,
+    borderColor: 'lightgray',
+    borderWidth: 1,
+    borderRadius: 10,
     padding: 10,
     paddingLeft: 20,
     marginVertical: 5,
