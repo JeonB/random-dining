@@ -2,13 +2,12 @@ import React from 'react'
 import { StyleSheet, TextInput, Text } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { UserCustomList } from '@_components/userCustomList/pages/userCustomList'
 import Constants from 'expo-constants'
 import 'regenerator-runtime/runtime'
 import { RestaurantProvider } from '@_3Rpages/context/restaurantProvider'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import MainStack, { UserCustomListStack } from '@_components/stackScreen'
+import RestaurantStackScreen from '@_components/restaurantStackScreen'
 import { StatusBar } from 'expo-status-bar'
 import { Ionicons, AntDesign } from '@expo/vector-icons'
 import { MyTheme } from 'theme'
@@ -37,7 +36,7 @@ const App: React.FC = () => {
           }}>
           <Tab.Screen
             name="Main"
-            component={MainStack}
+            component={RestaurantStackScreen}
             options={{
               headerShown: false,
               title: '홈',
