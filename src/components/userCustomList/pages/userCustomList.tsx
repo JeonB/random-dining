@@ -11,7 +11,7 @@ import RandomItemModal from '@_components/RandomRestaurantRecommendation/pages/R
 import { DefaultFlatList } from '@_components/layout/component/defaultFlatList'
 import { ListManageIcon } from '@_userListPages/listManageIcon'
 import { useListNames } from '@_userList/hook/useListNames'
-import { RootStackParamList } from '@_types/navigation'
+import { RootStackParamList } from '@_types/listParamList'
 import { LocationTypes } from '@_types/restaurant'
 
 export const UserCustomList = ({

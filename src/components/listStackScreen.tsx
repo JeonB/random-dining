@@ -6,7 +6,7 @@ import { SelectEditList } from './userCustomList/pages/selectEditList'
 import { UserCustomList } from './userCustomList/pages/userCustomList'
 import { SelectedRestaurantInfo } from './userCustomList/pages/selectedRestaurantInfo'
 import { createStackNavigator } from '@react-navigation/stack'
-import { RootStackParamList } from '@_types/navigation'
+import { RootStackParamList } from '@_types/listParamList'
 import { Ionicons, AntDesign } from '@expo/vector-icons'
 
 export const UserCustomListStack = () => {

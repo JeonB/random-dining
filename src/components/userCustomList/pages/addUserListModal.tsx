@@ -34,8 +34,10 @@ export const AddUserListModal = ({
               // 선택된 항목이 리스트에 없으면 추가하고, AsyncStorage에 저장
               if (
                 !list.some(
-                  (item: { id: number }) =>
-                    item && item.id && item.id === selectedInfo.id,
+                  (item: { place_name: string }) =>
+                    item &&
+                    item.place_name &&
+                    item.place_name === selectedInfo.place_name,
                 )
               ) {
                 list.push(selectedInfo)

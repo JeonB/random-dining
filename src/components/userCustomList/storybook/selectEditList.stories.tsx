@@ -4,7 +4,7 @@ import type { Meta, StoryFn } from '@storybook/react'
 import { NavigationContainer, NavigationProp } from '@react-navigation/native'
 import { action } from '@storybook/addon-actions'
 
-import { RootStackParamList } from '@_types/navigation'
+import { RootStackParamList } from '@_types/listParamList'
 import { SelectEditList } from '@_userListPages/selectEditList'
 
 export default {

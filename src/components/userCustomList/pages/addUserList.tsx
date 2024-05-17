@@ -9,7 +9,7 @@ import { Button } from 'react-native-paper'
 import { useListNames } from '@_userList/hook/useListNames'
 import SearchRestaurantModal from '@_userListPages/searchRestaurantModal/searchRestaurantModal'
 import { RestaurantNameInput } from '@_userListPages/restaurantNameInput'
-import { RootStackParamList } from '@_types/navigation'
+import { RootStackParamList } from '@_types/listParamList'
 import { LocationTypes } from '@_types/restaurant'
 import { RestaurantListItem } from '@_userListPages/restaurantListItem'
 

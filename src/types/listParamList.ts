@@ -1,14 +1,14 @@
 import { LocationTypes } from './restaurant'
 
 export interface RootStackParamList {
-  Main: { main: string } | undefined
+  Detail: { url: string } | undefined
   UserSelectedRestaurantInfo: { restaurant: LocationTypes; listname: string }
   SelectEditList: undefined
   AddUserList: undefined
   EditUserList: { listName: string }
   [key: string]:
     | undefined
-    | { main: string }
+    | { url: string }
     | { listName: string }
     | { restaurant: LocationTypes }
 }

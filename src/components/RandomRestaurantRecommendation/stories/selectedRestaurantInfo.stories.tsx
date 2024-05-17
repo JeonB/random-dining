@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { Meta, StoryFn } from '@storybook/react'
 import SelectedRestaurantInfo from '../pages/RestaurantView/selectedRestaurantInfo'
 import { LocationTypes } from '@_types/restaurant'
-import { RootStackParamList } from 'src/types/navigation'
+import { RootStackParamList } from '@_types/listParamList'
 import { NavigationContainer, RouteProp } from '@react-navigation/native'
 import { action } from '@storybook/addon-actions'
 import {

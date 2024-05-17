@@ -3,7 +3,7 @@ import { render, fireEvent, RenderAPI } from '@testing-library/react-native'
 import { NavigationProp } from '@react-navigation/native'
 
 import { ListManageIcon } from '@_userListPages/listManageIcon'
-import { RootStackParamList } from '@_types/navigation'
+import { RootStackParamList } from '@_types/listParamList'
 
 const navigation = {
   navigate: jest.fn(),

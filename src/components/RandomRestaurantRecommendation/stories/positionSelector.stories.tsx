@@ -5,7 +5,7 @@ import PositionSelector from '../pages/positionSelector'
 import { LocationTypes } from '@_types/restaurant'
 import { action } from '@storybook/addon-actions'
 import { NavigationProp } from '@react-navigation/native'
-import { RootStackParamList } from '@_types/navigation'
+import { RootStackParamList } from '@_types/listParamList'
 export default {
   title: 'Components/3R/PositionSelector',
   component: PositionSelector,

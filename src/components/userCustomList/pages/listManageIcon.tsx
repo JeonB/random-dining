@@ -12,7 +12,7 @@ import { NavigationProp } from '@react-navigation/native'
 import { Icon } from '@rneui/themed'
 import { Button } from 'react-native-paper'
 
-import { RootStackParamList } from '@_types/navigation'
+import { RootStackParamList } from '@_types/listParamList'
 import { useSequentialAnimation } from '@_userList/hook/useSequentialAnimation'
 
 export const ListManageIcon = ({

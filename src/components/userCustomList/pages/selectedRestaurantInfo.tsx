@@ -5,17 +5,20 @@ import { StackScreenProps } from '@react-navigation/stack'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Text } from '@rneui/themed'
 
-import { RootStackParamList } from '@_types/navigation'
+import { RootStackParamList } from '@_types/listParamList'
 import { LocationTypes } from '@_types/restaurant'
-import Map from '@_components/RandomRestaurantRecommendation/pages/RestaurantView/map'
-import RestaurantDetail from '@_components/RandomRestaurantRecommendation/pages/RestaurantView/restaurantDetail'
-import RestaurantActionButtons from '@_components/RandomRestaurantRecommendation/pages/RestaurantView/restaurantActionButtons'
-import RandomItemModal from '@_components/RandomRestaurantRecommendation/pages/RestaurantView/randomItemModal'
+import Map from '@_3Rpages/RestaurantView/map'
+import RestaurantDetail from '@_3Rpages/RestaurantView/restaurantDetail'
+import RandomItemModal from '@_3Rpages/RestaurantView/randomItemModal'
+import { useRestaurantContext } from '@_3Rpages/context/restaurantContext'
+import RestaurantActionButtons from '@_userListPages/restaurantActionButtons'
 
 export const SelectedRestaurantInfo = ({
   route,
   navigation,
 }: StackScreenProps<RootStackParamList, 'UserSelectedRestaurantInfo'>) => {
+  const { currentLocation } = useRestaurantContext()
+
   const restaurant: LocationTypes | undefined = route.params?.restaurant
   const listName: string | undefined = route.params?.listname
 
@@ -50,7 +53,7 @@ export const SelectedRestaurantInfo = ({
     <View style={styles.container}>
       <View style={styles.mediaContainer}>
         {restaurant.x ? (
-          <Map info={restaurant} />
+          <Map info={restaurant} currentLocation={currentLocation} />
         ) : (
           <Image
             source={require('../../../../assets/splash.png')}

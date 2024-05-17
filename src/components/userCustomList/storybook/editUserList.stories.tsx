@@ -8,7 +8,7 @@ import {
 } from '@react-navigation/native'
 import { action } from '@storybook/addon-actions'
 
-import { RootStackParamList } from '@_types/navigation'
+import { RootStackParamList } from '@_types/listParamList'
 import { EditUserList } from '@_userListPages/editUserList'
 
 export default {

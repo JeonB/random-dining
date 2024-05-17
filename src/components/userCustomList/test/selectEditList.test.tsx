@@ -4,7 +4,7 @@ import { render, fireEvent, RenderAPI } from '@testing-library/react-native'
 import { NavigationContainer, NavigationProp } from '@react-navigation/native'
 
 import { SelectEditList } from '@_userListPages/selectEditList'
-import { RootStackParamList } from '@_types/navigation'
+import { RootStackParamList } from '@_types/listParamList'
 
 const navigation = {
   navigate: jest.fn(),

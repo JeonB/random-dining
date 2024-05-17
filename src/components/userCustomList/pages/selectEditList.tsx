@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Dimensions } from 'react-native'
 import { NavigationProp, useFocusEffect } from '@react-navigation/native'
 
 import { DefaultFlatList } from '@_components/layout/component/defaultFlatList'
-import { RootStackParamList } from '@_types/navigation'
+import { RootStackParamList } from '@_types/listParamList'
 import { useListNames } from '@_userList/hook/useListNames'
 
 export const SelectEditList = ({

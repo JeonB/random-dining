@@ -4,7 +4,7 @@ import { NavigationContainer, NavigationProp } from '@react-navigation/native'
 import { action } from '@storybook/addon-actions'
 
 import { AddUserList } from '@_userListPages/addUserList'
-import { RootStackParamList } from '@_types/navigation'
+import { RootStackParamList } from '@_types/listParamList'
 
 export default {
   title: 'Components/UserCustomList/AddUserList',

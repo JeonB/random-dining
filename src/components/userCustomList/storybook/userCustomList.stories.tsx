@@ -4,7 +4,7 @@ import { NavigationContainer, NavigationProp } from '@react-navigation/native'
 import { action } from '@storybook/addon-actions'
 import { createStackNavigator } from '@react-navigation/stack'
 
-import { RootStackParamList } from '@_types/navigation'
+import { RootStackParamList } from '@_types/listParamList'
 import { UserCustomList } from '@_userListPages/userCustomList'
 
 const Stack = createStackNavigator()

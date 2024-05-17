@@ -4,7 +4,7 @@ import FilterSetting from '../pages/FilterSettings/filterSetting'
 import { LocationTypes } from '@_types/restaurant'
 import { action } from '@storybook/addon-actions'
 import { NavigationProp } from '@react-navigation/native'
-import { RootStackParamList } from 'src/types/navigation'
+import { RootStackParamList } from '@_types/listParamList'
 
 export default {
   title: 'Components/3R/FilterSettings/FilterSetting',
