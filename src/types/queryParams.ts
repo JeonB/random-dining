@@ -8,3 +8,11 @@ export interface QueryParamsType {
   page: number
   [key: string]: string | number
 }
+
+export interface RestaurantSearchQueryParamsType {
+  query: string
+  category_group_code: string
+  size: number
+  page: number
+  [key: string]: string | number
+}

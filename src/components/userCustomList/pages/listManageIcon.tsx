@@ -9,14 +9,11 @@ import {
   Animated,
 } from 'react-native'
 import { NavigationProp } from '@react-navigation/native'
-
 import { Icon } from '@rneui/themed'
 import { Button } from 'react-native-paper'
 
 import { RootStackParamList } from '@_types/navigation'
-import { useSequentialAnimation } from '@_components/userCustomList/hook/useSequentialAnimation'
-
-const { width, height } = Dimensions.get('window')
+import { useSequentialAnimation } from '@_userList/hook/useSequentialAnimation'
 
 export const ListManageIcon = ({
   navigation,
@@ -24,49 +21,34 @@ export const ListManageIcon = ({
   navigation: NavigationProp<RootStackParamList>
 }) => {
   const [showSettingsModal, setShowSettingsModal] = React.useState(false)
+
   const [modalStyle, setModalStyle] = useState({})
-
-  // 아이콘 회전 방향
-  const [direction, setDirection] = useState(0)
-
-  const [editButtonOpacity, addButtonOpacity] =
-    useSequentialAnimation(showSettingsModal)
+  const iconRef = React.createRef<TouchableOpacity>() // 아이콘 위치를 가져오기 위한 ref
 
   // 아이콘 위치에 따라 모달 위치 조정
-  const handleIconLayout = (event: {
-    nativeEvent: {
-      layout: { x: number; y: number; width: number; height: number }
-    }
-  }) => {
-    const { x, y, width, height } = event.nativeEvent.layout
-    setModalStyle({
-      position: 'absolute',
-      right: x - width / 3,
-      top: y,
+  const handleIconClick = () => {
+    iconRef.current?.measure((x, y, width, height, pageX, pageY) => {
+      const screenWidth = Dimensions.get('window').width
+      const screenHeight = Dimensions.get('window').height
+      setModalStyle({
+        position: 'absolute',
+        right: screenWidth - (pageX + width),
+        bottom: screenHeight - pageY,
+      })
     })
+    setShowSettingsModal(!showSettingsModal)
   }
 
-  // 리스트 수정 버튼 클릭
-  const handleEditButtonClick = () => {
-    navigation.navigate('SelectEditList')
-    setShowSettingsModal(false)
-  }
+  // 아이콘 클릭시 회전 애니메이션
+  const [direction, setDirection] = useState(0) // 아이콘 회전 방향
 
-  const handleAddButtonClick = () => {
-    navigation.navigate('AddUserList')
-    setShowSettingsModal(false)
-  }
+  const [editButtonOpacity, addButtonOpacity] =
+    useSequentialAnimation(showSettingsModal) // 모달 표시 여부에 따라 순차적으로 애니메이션 실행 훅
   useEffect(() => {
     setDirection(showSettingsModal ? -1 : 1)
     rotateIcon()
   }, [showSettingsModal])
-
-  const handleIconClick = () => {
-    setShowSettingsModal(!showSettingsModal)
-  }
-
-  const rotationAngle = useRef(new Animated.Value(0)).current
-
+  const rotationAngle = useRef(new Animated.Value(0)).current // 회전 각도 관리
   const rotateIcon = () => {
     Animated.timing(rotationAngle, {
       toValue: direction * 0.2,
@@ -74,25 +56,32 @@ export const ListManageIcon = ({
       useNativeDriver: true,
     }).start(() => {})
   }
-
+  // 아이콘 회전 각도 계산
   const rotateInterpolate = rotationAngle.interpolate({
     inputRange: [0, 1],
     outputRange: ['0deg', '360deg'],
   })
 
+  // 리스트 수정 버튼 클릭
+  const handleEditButtonClick = () => {
+    navigation.navigate('SelectEditList')
+    setShowSettingsModal(false)
+  }
+
+  // 리스트 추가 버튼 클릭
+  const handleAddButtonClick = () => {
+    navigation.navigate('AddUserList')
+    setShowSettingsModal(false)
+  }
+
   return (
     <>
       <TouchableOpacity
         onPress={handleIconClick}
-        onLayout={handleIconLayout}
-        style={styles.icon}>
+        ref={iconRef}
+        testID="listManageIcon">
         <Animated.View style={{ transform: [{ rotate: rotateInterpolate }] }}>
-          <Icon
-            name="settings"
-            size={30}
-            color="black"
-            testID="listManageIcon"
-          />
+          <Icon name="settings" size={35} color="black" />
         </Animated.View>
       </TouchableOpacity>
       {showSettingsModal && (
@@ -100,7 +89,8 @@ export const ListManageIcon = ({
           visible={showSettingsModal}
           onRequestClose={() => setShowSettingsModal(false)}
           transparent
-          animationType="fade">
+          animationType="fade"
+          testID="ManageModal">
           <TouchableWithoutFeedback onPress={() => setShowSettingsModal(false)}>
             <View style={styles.container}>
               <TouchableWithoutFeedback>
@@ -135,9 +125,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 50,
-  },
-  icon: {
-    left: width * 0.3,
   },
   button: {
     margin: 3,

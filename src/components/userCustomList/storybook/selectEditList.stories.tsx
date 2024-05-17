@@ -5,7 +5,7 @@ import { NavigationContainer, NavigationProp } from '@react-navigation/native'
 import { action } from '@storybook/addon-actions'
 
 import { RootStackParamList } from '@_types/navigation'
-import { SelectEditList } from '@_components/userCustomList/pages/selectEditList'
+import { SelectEditList } from '@_userListPages/selectEditList'
 
 export default {
   title: 'Components/UserCustomList/SelectEditList',

@@ -9,7 +9,7 @@ import {
 import { action } from '@storybook/addon-actions'
 
 import { RootStackParamList } from '@_types/navigation'
-import { EditUserList } from '@_components/userCustomList/pages/editUserList'
+import { EditUserList } from '@_userListPages/editUserList'
 
 export default {
   title: 'Components/UserCustomList/EditUserList',

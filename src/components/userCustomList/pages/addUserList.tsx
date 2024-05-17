@@ -1,24 +1,17 @@
 import React, { useState } from 'react'
-import {
-  StyleSheet,
-  View,
-  Text,
-  Alert,
-  TextInput,
-  Dimensions,
-} from 'react-native'
+import { StyleSheet, View, Alert, TextInput, Dimensions } from 'react-native'
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { DefaultFlatList } from '@_components/layout/component/defaultFlatList'
 import { NavigationProp } from '@react-navigation/native'
-import { Icon } from '@rneui/themed'
 import { Button } from 'react-native-paper'
 
-import { useListNames } from '@_components/userCustomList/hook/useListNames'
+import { useListNames } from '@_userList/hook/useListNames'
+import SearchRestaurantModal from '@_userListPages/searchRestaurantModal/searchRestaurantModal'
+import { RestaurantNameInput } from '@_userListPages/restaurantNameInput'
 import { RootStackParamList } from '@_types/navigation'
 import { RestaurantTypes } from '@_types/restaurant'
-import { handlePressRestaurantAddButton } from '@_components/userCustomList/utils/listOperations'
-import { handlePressDeleteButton } from '@_components/userCustomList/utils/listOperations'
+import { RestaurantListItem } from '@_userListPages/restaurantListItem'
 
 const { width, height } = Dimensions.get('window')
 export const AddUserList = ({
@@ -27,14 +20,16 @@ export const AddUserList = ({
   navigation: NavigationProp<RootStackParamList>
 }) => {
   const [listItems, setListItems] = useState<RestaurantTypes[]>([]) // 리스트 아이템을 관리하는 상태
-  const [inputRestaurant, setInputRestaurant] = useState('') // 식당 또는 메뉴 이름을 입력하는 상태
   const [newListName, setNewListName] = useState('') // 새로운 리스트 이름을 관리하는 상태
 
   const { listNames, saveListNames } = useListNames() // AsyncStorage에 저장된 리스트 이름들을 가져오는 커스텀 훅
 
+  const [modalVisible, setModalVisible] = useState(false)
+
   const handlePressSave = async () => {
-    if (newListName.length === 0) {
-      Alert.alert('리스트 이름을 입력해주세요.')
+    // 이미 같은 이름의 리스트가 있는지 확인
+    if (listNames.includes(newListName)) {
+      Alert.alert('같은 이름의 리스트가 있습니다.')
       return
     }
     Alert.alert(
@@ -63,7 +58,10 @@ export const AddUserList = ({
                 navigation.reset({
                   index: 0,
                   routes: [
-                    { name: 'Main', params: { screen: 'UserCustomList' } },
+                    {
+                      name: 'UserCustomList',
+                      params: { screen: 'UserCustomList' },
+                    },
                   ],
                 })
               }
@@ -83,60 +81,44 @@ export const AddUserList = ({
         style={styles.listNameField}
         value={newListName}
         onChangeText={setNewListName}
-        placeholder="List Name"
+        placeholder="리스트 이름을 입력하세요."
+        autoFocus={true}
         testID="ListNameField"
+        returnKeyType="done"
       />
-      <View style={styles.restaurantInputContainer}>
-        <TextInput
-          style={styles.restaurantNameField}
-          placeholder="식당 또는 메뉴 이름을 입력하세요."
-          onChangeText={setInputRestaurant}
-          value={inputRestaurant}
-          testID="restaurantNameField"
-        />
-        <Icon
-          name="add"
-          size={22}
-          onPress={() =>
-            handlePressRestaurantAddButton(
-              inputRestaurant,
-              listItems,
-              setListItems,
-              setInputRestaurant,
-            )
-          }
-          testID="restaurantAddButton"
-          style={styles.addIcon}
-        />
-      </View>
+      <RestaurantNameInput listItems={listItems} setListItems={setListItems} />
+      <Button
+        style={{ marginVertical: 10 }}
+        buttonColor="#337AB7"
+        mode="contained"
+        onPress={() => setModalVisible(true)}
+        testID="SearchButton">
+        식당 검색
+      </Button>
       <DefaultFlatList
         data={listItems}
         keyExtractor={(item, index) => index.toString()}
         renderItem={item => (
-          <View style={styles.listItemContainer}>
-            <Text>{item.place_name}</Text>
-            <Icon
-              name="delete"
-              size={22}
-              color="red"
-              testID={`restaurantDeleteButton-${item.place_name}`}
-              onPress={() =>
-                handlePressDeleteButton(setListItems, item.place_name)
-              }
-            />
-          </View>
+          <RestaurantListItem item={item} setListItems={setListItems} />
         )}
         itemStyle={styles.renderItem}
       />
       <View style={styles.buttonContainer}>
         <Button
           mode="contained"
-          buttonColor="gray"
+          buttonColor="#337AB7"
           onPress={handlePressSave}
+          disabled={newListName.length === 0}
           testID="saveListButton">
           저장
         </Button>
       </View>
+      <SearchRestaurantModal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        listItems={listItems}
+        setListItems={setListItems}
+      />
     </View>
   )
 }
@@ -145,42 +127,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: width * 0.1,
-    // paddingVertical: height * 0.05,
   },
   listNameField: {
     borderColor: 'black',
     borderWidth: 1,
     borderRadius: 10,
-    marginTop: height * 0.05,
+    marginTop: height * 0.025,
     marginBottom: height * 0.005,
     padding: 10,
-    fontSize: 18,
-  },
-  restaurantInputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: height * 0.01,
-  },
-  restaurantNameField: {
-    width: '85%',
-    borderColor: 'black',
-    borderWidth: 1,
-    borderRadius: 10,
-    padding: 10,
-  },
-  addIcon: {
-    flexDirection: 'row',
-    borderColor: 'black',
-    borderWidth: 1,
-    borderRadius: 10,
-    height: 40,
-    paddingHorizontal: 7,
-  },
-  listItemContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
   },
   buttonContainer: {
     justifyContent: 'flex-end',

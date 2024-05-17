@@ -1,6 +1,5 @@
 import React from 'react'
 import { Alert } from 'react-native'
-
 import {
   render,
   fireEvent,
@@ -11,7 +10,7 @@ import {
 import { NavigationProp, RouteProp } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import { EditUserList } from '@_components/userCustomList/pages/editUserList'
+import { EditUserList } from '@_userListPages/editUserList'
 import { RootStackParamList } from '@_types/navigation'
 
 const navigation = {
@@ -45,34 +44,66 @@ jest.mock('@react-native-async-storage/async-storage', () => {
   return mockAsyncStorage
 })
 
+jest.mock('expo-constants', () => ({
+  expoConfig: {
+    extra: {
+      KAKAO_JAVASCRIPT_KEY: '1234',
+    },
+  },
+}))
+
+jest.mock('expo-location', () => ({
+  requestForegroundPermissionsAsync: jest.fn(() => ({ status: 'granted' })),
+  getCurrentPositionAsync: jest.fn(() => ({
+    coords: {
+      latitude: 37.78825,
+      longitude: -122.4324,
+    },
+  })),
+  Accuracy: {
+    Lowest: 'Lowest',
+  },
+}))
+
+jest.mock('@expo/vector-icons', () => {
+  return {
+    Feather: 'Feather',
+  }
+})
+
 const mockSaveListNames = jest.fn()
-jest.mock('@_components/userCustomList/hook/useListNames', () => ({
+jest.mock('@_userList/hook/useListNames', () => ({
   useListNames: () => ({
     listNames: ['List 1', 'List 2'],
     saveListNames: mockSaveListNames,
   }),
 }))
 
+jest.mock('@_userListPages/searchRestaurantModal/changeSortButton', () =>
+  jest.fn(),
+)
+
 describe('<EditUserList />', () => {
   let alertSpy: jest.SpyInstance
   let utils: RenderAPI
 
-  beforeEach(() => {
+  beforeEach(async () => {
     alertSpy = jest.spyOn(Alert, 'alert')
     jest.clearAllMocks()
-    utils = render(<EditUserList navigation={navigation} route={route} />)
+    await waitFor(
+      () =>
+        (utils = render(
+          <EditUserList navigation={navigation} route={route} />,
+        )),
+    )
   })
 
   afterEach(() => {
     alertSpy.mockRestore()
   })
 
-  test('식당 리스트 렌더링', async () => {
-    const item1 = await utils.findByText('Item 1')
-    expect(item1).toBeDefined()
-  })
-
-  test('리스트 이름 수정 필드, 식당 추가 필드, 리스트 삭제 버튼, 리스트 저장 버튼 렌더링', async () => {
+  test('식당 리스트, 리스트 이름 수정 필드, 식당 추가 필드, 리스트 삭제 버튼, 리스트 저장 버튼 렌더링', async () => {
+    expect(utils.findByText('Item 1')).toBeDefined()
     expect(utils.getByTestId('ListNameField')).toBeDefined() // 리스트 이름 수정 입력 필드
     expect(utils.getByTestId('restaurantNameField')).toBeDefined() // 식당 이름 입력 필드
     expect(utils.getByTestId('restaurantAddButton')).toBeDefined() // 식당 추가 버튼
@@ -102,6 +133,12 @@ describe('<EditUserList />', () => {
     expect(alertSpy).toHaveBeenCalledWith(message)
   })
 
+  test('식당 검색 버튼 클릭시 모달 open', async () => {
+    expect(utils.getByTestId('SearchButton')).toBeTruthy()
+    fireEvent.press(utils.getByTestId('SearchButton'))
+    expect(utils.getByTestId('SearchModal')).toBeTruthy()
+  })
+
   test('리스트 삭제 버튼 클릭시 리스트 삭제', async () => {
     fireEvent.press(utils.getByTestId('deleteListButton'))
     act(() => {
@@ -114,7 +151,7 @@ describe('<EditUserList />', () => {
 
   test('저장 버튼 클릭시 리스트 저장', async () => {
     // 리스트 이름 수정
-    const inputListName = utils.getByPlaceholderText('List Name')
+    const inputListName = utils.getByTestId('ListNameField')
     fireEvent.changeText(inputListName, '새로운 리스트 이름')
 
     // 식당 추가
@@ -168,7 +205,9 @@ describe('<EditUserList />', () => {
     // navigation.reset 호출 확인
     expect(navigation.reset).toHaveBeenCalledWith({
       index: 0,
-      routes: [{ name: 'Main', params: { screen: 'UserCustomList' } }],
+      routes: [
+        { name: 'UserCustomList', params: { screen: 'UserCustomList' } },
+      ],
     })
   })
 

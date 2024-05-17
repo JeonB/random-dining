@@ -1,11 +1,10 @@
 import React from 'react'
-import { StyleSheet, View, Text } from 'react-native'
-
+import { StyleSheet, View, Text, Dimensions } from 'react-native'
 import { NavigationProp, useFocusEffect } from '@react-navigation/native'
 
 import { DefaultFlatList } from '@_components/layout/component/defaultFlatList'
 import { RootStackParamList } from '@_types/navigation'
-import { useListNames } from '@_components/userCustomList/hook/useListNames'
+import { useListNames } from '@_userList/hook/useListNames'
 
 export const SelectEditList = ({
   navigation,
@@ -34,23 +33,24 @@ export const SelectEditList = ({
 
   return (
     <View style={styles.container}>
+      <View style={styles.infoArea}>
+        <Text style={styles.infoText}>수정 할 리스트를 선택해주세요</Text>
+      </View>
       <DefaultFlatList
         data={listNames}
         keyExtractor={(item, index) => index.toString()}
         renderItem={item => <Text style={styles.listText}>{item}</Text>}
         onPressItem={handlePressItem}
       />
-      <View style={styles.infoArea}>
-        <Text style={styles.infoText}>수정 할 리스트를 선택해주세요</Text>
-      </View>
     </View>
   )
 }
 
+const { width, height } = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 50,
+    padding: width * 0.1,
   },
   listText: {
     fontSize: 20,
@@ -59,10 +59,14 @@ const styles = StyleSheet.create({
   infoArea: {
     alignItems: 'center',
     marginBottom: 20,
+    borderBlockColor: 'gray',
+    borderWidth: 0.5,
+    borderRadius: 10,
+    padding: 10,
+    backgroundColor: 'gray',
   },
   infoText: {
+    color: 'white',
     fontSize: 20,
-    padding: 10,
-    backgroundColor: 'lightgray',
   },
 })

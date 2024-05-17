@@ -1,6 +1,5 @@
 import React from 'react'
 import { Alert } from 'react-native'
-
 import {
   render,
   fireEvent,
@@ -11,7 +10,7 @@ import {
 import { NavigationProp } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import { AddUserList } from '@_components/userCustomList/pages/addUserList'
+import { AddUserList } from '@_userListPages/addUserList'
 import { RootStackParamList } from '@_types/navigation'
 
 const navigation = {
@@ -37,13 +36,44 @@ jest.mock('@react-native-async-storage/async-storage', () => {
   return mockAsyncStorage
 })
 
+jest.mock('expo-constants', () => ({
+  expoConfig: {
+    extra: {
+      KAKAO_JAVASCRIPT_KEY: '1234',
+    },
+  },
+}))
+
+jest.mock('expo-location', () => ({
+  requestForegroundPermissionsAsync: jest.fn(() => ({ status: 'granted' })),
+  getCurrentPositionAsync: jest.fn(() => ({
+    coords: {
+      latitude: 37.78825,
+      longitude: -122.4324,
+    },
+  })),
+  Accuracy: {
+    Lowest: 'Lowest',
+  },
+}))
+
+jest.mock('@expo/vector-icons', () => {
+  return {
+    Feather: 'Feather',
+  }
+})
+
 const mockSaveListNames = jest.fn()
-jest.mock('@_components/userCustomList/hook/useListNames', () => ({
+jest.mock('@_userList/hook/useListNames', () => ({
   useListNames: () => ({
     listNames: ['List 1', 'List 2'],
     saveListNames: mockSaveListNames,
   }),
 }))
+
+jest.mock('@_userListPages/searchRestaurantModal/changeSortButton', () =>
+  jest.fn(),
+)
 
 describe('<AddUserList />', () => {
   let alertSpy: jest.SpyInstance
@@ -76,7 +106,6 @@ describe('<AddUserList />', () => {
 
   test('식당 이름을 작성하지 않고 추가 버튼 클릭시 예외 문구', async () => {
     const message = '식당 또는 메뉴 이름을 입력하세요.'
-
     const input = utils.getByPlaceholderText(
       '식당 또는 메뉴 이름을 입력하세요.',
     )
@@ -86,9 +115,15 @@ describe('<AddUserList />', () => {
     expect(alertSpy).toHaveBeenCalledWith(message)
   })
 
+  test('식당 검색 버튼 클릭시 모달 open', async () => {
+    expect(utils.getByTestId('SearchButton')).toBeTruthy()
+    fireEvent.press(utils.getByTestId('SearchButton'))
+    expect(utils.getByTestId('SearchModal')).toBeTruthy()
+  })
+
   test('저장 버튼 클릭시 리스트 저장', async () => {
     // 리스트 이름 수정
-    const inputListName = utils.getByPlaceholderText('List Name')
+    const inputListName = utils.getByTestId('ListNameField')
     fireEvent.changeText(inputListName, '새로운 리스트 이름')
 
     // 식당 추가
@@ -136,7 +171,9 @@ describe('<AddUserList />', () => {
     // navigation.reset 호출 확인
     expect(navigation.reset).toHaveBeenCalledWith({
       index: 0,
-      routes: [{ name: 'Main', params: { screen: 'UserCustomList' } }],
+      routes: [
+        { name: 'UserCustomList', params: { screen: 'UserCustomList' } },
+      ],
     })
   })
 })

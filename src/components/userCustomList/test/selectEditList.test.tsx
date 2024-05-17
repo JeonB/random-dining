@@ -3,7 +3,7 @@ import React from 'react'
 import { render, fireEvent, RenderAPI } from '@testing-library/react-native'
 import { NavigationContainer, NavigationProp } from '@react-navigation/native'
 
-import { SelectEditList } from '@_components/userCustomList/pages/selectEditList'
+import { SelectEditList } from '@_userListPages/selectEditList'
 import { RootStackParamList } from '@_types/navigation'
 
 const navigation = {
@@ -23,7 +23,7 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
   }),
 }))
 
-jest.mock('@_components/userCustomList/hook/useListNames', () => ({
+jest.mock('@_userList/hook/useListNames', () => ({
   useListNames: () => ({
     listNames: ['List 1', 'List 2'],
     fetchListNames: jest.fn(),

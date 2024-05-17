@@ -1,15 +1,14 @@
 import React from 'react'
-import { View, StyleSheet, TextInput } from 'react-native'
-import { Text } from 'react-native'
+import { StyleSheet, TextInput, Text } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { UserCustomList } from '@_components/userCustomList/pages/userCustomList'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Constants from 'expo-constants'
 import 'regenerator-runtime/runtime'
 import { RootStackParamList } from '@_types/navigation'
 import { RestaurantProvider } from '@_3Rpages/context/restaurantProvider'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import MainStack from '@_components/stackScreen'
+import { MainStack, UserCustomListStack } from '@_components/stackScreen'
+import { Support } from '@_components/support/pages/support'
 ;(Text as any).defaultProps = (Text as any).defaultProps || {}
 ;(Text as any).defaultProps.allowFontScaling = false
 ;(TextInput as any).defaultProps = (TextInput as any).defaultProps || {}
@@ -34,23 +33,16 @@ const App: React.FC = () => {
             options={{ headerShown: false, title: '홈' }}
           />
           <Tab.Screen
-            name="UserCustomList"
-            component={UserCustomList}
-            options={{ title: '사용자 리스트' }}
+            name="UserCustomListTab"
+            component={UserCustomListStack}
+            options={{ headerShown: false, title: '사용자 리스트' }}
           />
           <Tab.Screen
             name="AD Info"
-            component={UserCustomList}
-            options={{ title: '광고 문의' }}
+            component={Support}
+            options={{ headerShown: true, title: '광고 문의' }}
           />
         </Tab.Navigator>
-        {/* <Stack.Navigator initialRouteName="Main">
-          <Stack.Screen
-            component={MainTab}
-            name="Main"
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator> */}
       </RestaurantProvider>
     </NavigationContainer>
   )

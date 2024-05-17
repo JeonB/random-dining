@@ -1,18 +1,34 @@
 import React from 'react'
 import { Alert } from 'react-native'
-
 import {
   render,
   fireEvent,
   waitFor,
   RenderAPI,
+  act,
 } from '@testing-library/react-native'
 import { NavigationContainer, NavigationProp } from '@react-navigation/native'
 
-import { UserCustomList } from '@_components/userCustomList/pages/userCustomList'
+import { UserCustomList } from '@_userListPages/userCustomList'
 import { RootStackParamList } from '@_types/navigation'
 
-jest.mock('@_components/userCustomList/hook/useListNames', () => ({
+jest.mock('@_userListPages/listManageIcon', () => {
+  return {
+    __esModule: true,
+    ListManageIcon: () => {
+      return null
+    },
+  }
+})
+
+jest.mock(
+  '@_components/RandomRestaurantRecommendation/pages/RestaurantView/randomItemModal',
+  () => {
+    return jest.fn(() => null)
+  },
+)
+
+jest.mock('@_userList/hook/useListNames', () => ({
   useListNames: () => ({
     listNames: ['List 1', 'List 2'],
     fetchListNames: jest.fn(),
@@ -31,6 +47,12 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
   }),
 }))
 
+jest.mock('expo-linear-gradient', () => {
+  return {
+    LinearGradient: 'LinearGradient',
+  }
+})
+
 const navigation = {
   navigate: jest.fn(),
 } as unknown as NavigationProp<RootStackParamList>
@@ -48,6 +70,9 @@ describe('<UserCustomList />', () => {
       </NavigationContainer>,
     )
   })
+  afterEach(() => {
+    jest.clearAllTimers()
+  })
 
   test('AsyncStorage.getItem 텍스트 렌더링', async () => {
     expect(utils.getByText('List 1')).toBeDefined()
@@ -55,12 +80,11 @@ describe('<UserCustomList />', () => {
   })
 
   test('데이터가 존재하는 리스트 클릭 시 handlePressItem 호출', async () => {
-    fireEvent.press(utils.getByText('List 1'))
-    await waitFor(() => {
-      expect(alertSpy).toHaveBeenCalledWith(
-        'List 1 random picker modal opened.',
-      )
+    act(() => {
+      fireEvent.press(utils.getByText('List 1'))
     })
+    // Alert.alert 호출되지 않았는지 확인
+    await waitFor(() => expect(Alert.alert).not.toHaveBeenCalled())
   })
 
   test('데이터가 존재하지 않는 리스트 클릭 시 handlePressItem 호출', async () => {

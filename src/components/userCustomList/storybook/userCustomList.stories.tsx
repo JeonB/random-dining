@@ -1,12 +1,11 @@
 import React from 'react'
-
 import type { Meta, StoryFn } from '@storybook/react'
 import { NavigationContainer, NavigationProp } from '@react-navigation/native'
 import { action } from '@storybook/addon-actions'
 import { createStackNavigator } from '@react-navigation/stack'
 
 import { RootStackParamList } from '@_types/navigation'
-import { UserCustomList } from '@_components/userCustomList/pages/userCustomList'
+import { UserCustomList } from '@_userListPages/userCustomList'
 
 const Stack = createStackNavigator()
 
