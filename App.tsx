@@ -12,6 +12,7 @@ import { StatusBar } from 'expo-status-bar'
 import { Ionicons, AntDesign } from '@expo/vector-icons'
 import { MyTheme } from 'theme'
 import { Support } from '@_components/support/pages/support'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 ;(Text as any).defaultProps = (Text as any).defaultProps || {}
 ;(Text as any).defaultProps.allowFontScaling = false
 ;(TextInput as any).defaultProps = (TextInput as any).defaultProps || {}
