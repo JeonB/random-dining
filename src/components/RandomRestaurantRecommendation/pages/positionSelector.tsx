@@ -6,6 +6,7 @@ import { getPositionByGeolocation } from '@_services/api'
 import { RestaurantParamList } from '@_types/restaurantParamList'
 import mainImage from '@_assetImages/main.png'
 import { MyTheme } from 'theme'
+import InlineAd from './inlinedAd'
 
 const PositionSelector = () => {
   const navigation = useNavigation<NavigationProp<RestaurantParamList>>()
@@ -45,6 +46,7 @@ const PositionSelector = () => {
         onPress={() => navigation.navigate('MapSearch')}>
         지도에서 선택한 위치로 추천 받기
       </Button>
+      <InlineAd />
     </View>
   )
 }

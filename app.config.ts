@@ -23,12 +23,16 @@ export default {
   assetBundlePatterns: ['**/*'],
   ios: {
     supportsTablet: true,
+    buildNumber: '1.0.0',
+    bundleIdentifier: 'com.ifinfo.randomdining',
   },
   android: {
     adaptiveIcon: {
       foregroundImage: './assets/adaptive-icon.png',
       backgroundColor: '#ffffff',
     },
+    package: 'com.ifinfo.randomdining',
+    versionCode: 1,
   },
   web: {
     favicon: './assets/favicon.png',
