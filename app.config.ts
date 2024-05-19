@@ -25,6 +25,10 @@ export default {
     supportsTablet: true,
     buildNumber: '1.0.0',
     bundleIdentifier: 'com.ifinfo.randomdining',
+    infoPlist: {
+      NSUserTrackingUsageDescription:
+        '사용자의 데이터는 개인화된 광고 제공 목적으로 사용됩니다.',
+    },
   },
   android: {
     adaptiveIcon: {
@@ -37,4 +41,13 @@ export default {
   web: {
     favicon: './assets/favicon.png',
   },
+  plugins: [
+    [
+      'expo-tracking-transparency',
+      {
+        userTrackingPermission:
+          '사용자의 데이터는 개인화된 광고 제공 목적으로 사용됩니다.',
+      },
+    ],
+  ],
 }

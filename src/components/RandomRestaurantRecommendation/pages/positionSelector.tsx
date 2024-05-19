@@ -20,34 +20,38 @@ const PositionSelector = () => {
     })
   }
   return (
-    <View style={styles.mediaContainer} testID="mediaContainer">
-      <Image
-        source={mainImage}
-        style={{ width: '100%', height: '100%', marginBottom: 10 }}
-        onError={({ nativeEvent: { error } }) => console.warn(error)}
-      />
-      <Button
-        icon="map-marker"
-        mode="contained"
-        textColor="#fff"
-        buttonColor={MyTheme.colors.primary}
-        style={styles.button}
-        labelStyle={styles.buttonLabel}
-        onPress={handleGetCurrentLocation}>
-        현재 위치에서 추천 받기
-      </Button>
-      <Button
-        icon="map-search"
-        mode="contained"
-        textColor="#fff"
-        buttonColor={MyTheme.colors.primary}
-        style={styles.button}
-        labelStyle={styles.buttonLabel}
-        onPress={() => navigation.navigate('MapSearch')}>
-        지도에서 선택한 위치로 추천 받기
-      </Button>
-      <InlineAd />
-    </View>
+    <>
+      <View style={styles.mediaContainer} testID="mediaContainer">
+        <Image
+          source={mainImage}
+          style={{ width: '100%', height: '100%', marginBottom: 10 }}
+          onError={({ nativeEvent: { error } }) => console.warn(error)}
+        />
+        <Button
+          icon="map-marker"
+          mode="contained"
+          textColor="#fff"
+          buttonColor={MyTheme.colors.primary}
+          style={styles.button}
+          labelStyle={styles.buttonLabel}
+          onPress={handleGetCurrentLocation}>
+          현재 위치에서 추천 받기
+        </Button>
+        <Button
+          icon="map-search"
+          mode="contained"
+          textColor="#fff"
+          buttonColor={MyTheme.colors.primary}
+          style={styles.button}
+          labelStyle={styles.buttonLabel}
+          onPress={() => navigation.navigate('MapSearch')}>
+          지도에서 선택한 위치로 추천 받기
+        </Button>
+      </View>
+      <View style={styles.inlineAd}>
+        <InlineAd />
+      </View>
+    </>
   )
 }
 
@@ -68,6 +72,10 @@ const styles = StyleSheet.create({
   },
   buttonLabel: {
     fontSize: 18,
+  },
+  inlineAd: {
+    position: 'absolute',
+    bottom: 10,
   },
 })
 
