@@ -87,7 +87,9 @@ export async function fetchLocationData(
     const url = `${baseUrl}?${queryString}`
     const data = await fetchData(url)
     if (data.documents.length === 0) {
-      Alert.alert('존재하지 않는 주소입니다.')
+      Alert.alert(
+        '주변에 식당이 없습니다. 거리 범위 또는 카테고리를 조정해주세요.',
+      )
       return
     }
     allData.push(...data.documents)

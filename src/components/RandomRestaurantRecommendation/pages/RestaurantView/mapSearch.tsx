@@ -31,7 +31,7 @@ const MapSearch = () => {
     })
   }
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID="map-search">
       <View style={styles.searchBarContainer}>
         <PlaceSearchBar setAddressData={setAddressData} />
       </View>
@@ -43,14 +43,11 @@ const MapSearch = () => {
         data={addressData}
         renderItem={({ item }) => (
           <ListItem
-            onPress={() => {
-              navigation.navigate('FilterSetting', {
-                location: {
-                  longitude: Number(item.x),
-                  latitude: Number(item.y),
-                },
-              })
-            }}>
+            onPress={event =>
+              item.x &&
+              item.y &&
+              navigateToFilterSettingWithLocation(item.x, item.y)
+            }>
             <ListItem.Content>
               <ListItem.Title>{item.place_name}</ListItem.Title>
             </ListItem.Content>
