@@ -9,11 +9,13 @@ const windowHeight = Dimensions.get('window').height
 
 const DetailView = () => {
   const route = useRoute<RouteProp<RestaurantParamList, 'Detail'>>()
+  const url = route.params?.url
+  const secureUrl = url?.startsWith('http://') ? 'https://' + url.slice(7) : url
   return (
     <View style={styles.container}>
-      {route.params?.url && (
+      {secureUrl && (
         <WebView
-          source={{ uri: route.params.url }}
+          source={{ uri: secureUrl }}
           style={styles.webview}
           javaScriptEnabled={true}
         />
