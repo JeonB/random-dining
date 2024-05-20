@@ -8,7 +8,7 @@ import {
 } from '@react-navigation/native'
 
 import RandomItemModal from '@_components/RandomRestaurantRecommendation/pages/RestaurantView/randomItemModal'
-import { DefaultFlatList } from '@_components/layout/component/defaultFlatList'
+import { DefaultFlatList } from '@_userListPages/defaultFlatList'
 import { ListManageIcon } from '@_userListPages/listManageIcon'
 import { useListNames } from '@_userList/hook/useListNames'
 import { RootStackParamList } from '@_types/listParamList'
@@ -61,7 +61,14 @@ export const UserCustomList = ({
         <DefaultFlatList
           data={listNames}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={item => <Text style={styles.listText}>{item}</Text>}
+          renderItem={item => (
+            <Text
+              style={styles.listText}
+              numberOfLines={1}
+              ellipsizeMode="tail">
+              {item}
+            </Text>
+          )}
           onPressItem={handlePressItem}
         />
         <View style={styles.iconWrapper}>

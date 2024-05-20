@@ -48,6 +48,7 @@ export const RestaurantNameInput: React.FC<Props> = ({
         testID="restaurantNameField"
         onSubmitEditing={handlePressRestaurantAddButton}
         returnKeyType="done"
+        clearButtonMode="always"
       />
       <Icon
         name="add"

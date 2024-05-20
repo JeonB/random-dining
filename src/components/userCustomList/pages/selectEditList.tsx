@@ -2,8 +2,9 @@ import React from 'react'
 import { StyleSheet, View, Text, Dimensions } from 'react-native'
 import { NavigationProp, useFocusEffect } from '@react-navigation/native'
 
-import { DefaultFlatList } from '@_components/layout/component/defaultFlatList'
+import { MyTheme } from 'theme'
 import { RootStackParamList } from '@_types/listParamList'
+import { DefaultFlatList } from '@_userListPages/defaultFlatList'
 import { useListNames } from '@_userList/hook/useListNames'
 
 export const SelectEditList = ({
@@ -39,7 +40,11 @@ export const SelectEditList = ({
       <DefaultFlatList
         data={listNames}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={item => <Text style={styles.listText}>{item}</Text>}
+        renderItem={item => (
+          <Text style={styles.listText} numberOfLines={1} ellipsizeMode="tail">
+            {item}
+          </Text>
+        )}
         onPressItem={handlePressItem}
       />
     </View>
@@ -60,9 +65,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
     borderBlockColor: 'gray',
-    borderWidth: 0.5,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
     borderRadius: 10,
-    padding: 10,
+    padding: 15,
     backgroundColor: 'gray',
   },
   infoText: {
