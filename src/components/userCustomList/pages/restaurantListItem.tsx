@@ -22,11 +22,15 @@ export const RestaurantListItem: React.FC<ItemProps> = ({
 
   return (
     <View style={styles.listItemContainer}>
-      <Text>{item.place_name}</Text>
+      <View style={styles.textContainer}>
+        <Text numberOfLines={1} ellipsizeMode="tail">
+          {item.place_name}
+        </Text>
+      </View>
       <Icon
         name="delete"
         size={22}
-        color="red"
+        color="#FF3A54"
         testID={`restaurantDeleteButton-${item.place_name}`}
         onPress={handlePressDeleteButton}
       />
@@ -38,5 +42,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  textContainer: {
+    flex: 1,
   },
 })
