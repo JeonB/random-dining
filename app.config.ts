@@ -2,6 +2,7 @@ const dotenv = require('dotenv/config')
 export interface AppConfig {
   KAKAO_RESTAPI_KEY: string
   KAKAO_JAVASCRIPT_KEY: string
+  KAKAO_NATIVEAPP_KEY: string
 }
 export default {
   name: 'random-dining',
