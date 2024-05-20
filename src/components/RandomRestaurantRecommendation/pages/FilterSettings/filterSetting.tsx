@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Dimensions, ScrollView, StyleSheet, View } from 'react-native'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { Text } from '@rneui/themed'
@@ -34,6 +34,9 @@ const FilterSetting = () => {
     }
   }, [route.params?.location])
 
+  const handleClose = useCallback(() => {
+    setModalVisible(false)
+  }, [])
   return (
     <View style={styles.container} testID="test">
       <ScrollView>
@@ -73,7 +76,7 @@ const FilterSetting = () => {
       </View>
       <RandomItemModal
         visible={modalVisible}
-        onClose={() => setModalVisible(false)}
+        onClose={handleClose}
         restaurantItems={restaurantItems}
         onRestaurantIndexChange={handleRestaurantChange}
       />

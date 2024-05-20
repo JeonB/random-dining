@@ -1,5 +1,5 @@
 import { Text } from '@rneui/themed'
-import React, { useEffect, useMemo, useRef } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, View, StyleSheet } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { LocationTypes } from '@_types/restaurant'
@@ -20,8 +20,10 @@ export const AnimatedRandomSelector = (props: Props) => {
     closeModal,
     setTimeoutFunc = setTimeout,
   } = props
-  const scrollY = useRef(new Animated.Value(0)).current
 
+  const [isAnimating, setIsAnimating] = useState(false)
+  const scrollY = useRef(new Animated.Value(0)).current
+  const animatedValue = useRef(new Animated.Value(0)).current
   const requiredItemsCount = 30
 
   const shuffleRestaurant = (restaurantItems: LocationTypes[]) => {
@@ -48,6 +50,7 @@ export const AnimatedRandomSelector = (props: Props) => {
   }, [restaurantItems])
 
   const startAnimation = () => {
+    setIsAnimating(true)
     Animated.sequence([
       Animated.timing(scrollY, {
         toValue: -(requiredItemsCount * itemHeight + itemHeight / 2),
@@ -64,13 +67,16 @@ export const AnimatedRandomSelector = (props: Props) => {
         Math.round(-(scrollY as any)._value / itemHeight) %
         restaurantItems.length
       onIndexChange(finalIndex)
-      setTimeoutFunc(closeModal, 500)
+      setIsAnimating(false)
+      closeModal()
     })
   }
 
   useEffect(() => {
     startAnimation()
-  }, [restaurantItems, itemHeight])
+    console.log('start animation')
+    setIsAnimating(false)
+  }, [])
 
   return (
     <View style={{ height: itemHeight * 3, overflow: 'hidden', width: '100%' }}>
