@@ -26,13 +26,11 @@ export const getPositionByGeolocation = async () => {
     )
     return { latitude: 0, longitude: 0 }
   }
-  const location = await Location.getCurrentPositionAsync({
-    accuracy: Location.Accuracy.Lowest,
-  })
+  const location = await Location.getLastKnownPositionAsync({})
 
   return {
-    latitude: location.coords.latitude,
-    longitude: location.coords.longitude,
+    latitude: location?.coords.latitude,
+    longitude: location?.coords.longitude,
   }
 }
 

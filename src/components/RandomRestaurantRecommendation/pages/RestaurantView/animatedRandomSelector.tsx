@@ -74,7 +74,6 @@ export const AnimatedRandomSelector = (props: Props) => {
 
   useEffect(() => {
     startAnimation()
-    console.log('start animation')
     setIsAnimating(false)
   }, [])
 
