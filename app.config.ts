@@ -5,7 +5,7 @@ export interface AppConfig {
   KAKAO_NATIVEAPP_KEY: string
 }
 export default {
-  name: 'random-dining',
+  name: '랜덤다이닝',
   slug: 'random-dining',
   version: '1.0.0',
   extra: {

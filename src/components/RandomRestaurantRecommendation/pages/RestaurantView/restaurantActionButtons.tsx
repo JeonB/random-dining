@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     width: '85%',
   },
   detailButton: {
-    backgroundColor: '#6690FF',
+    backgroundColor: '#FF7F50',
     borderRadius: 5,
     width: Dimensions.get('window').width * 0.4,
     shadowColor: '#000',
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   detailButtonText: {
-    color: '#FFFDD0',
+    color: '#e6e6fA',
     fontSize: 18,
   },
 })

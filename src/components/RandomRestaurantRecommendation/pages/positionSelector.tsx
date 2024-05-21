@@ -1,7 +1,11 @@
 import { Button } from 'react-native-paper'
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Dimensions, Image, StyleSheet, View } from 'react-native'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
+import {
+  NavigationProp,
+  useFocusEffect,
+  useNavigation,
+} from '@react-navigation/native'
 import { getPositionByGeolocation } from '@_services/api'
 import { RestaurantParamList } from '@_types/restaurantParamList'
 import mainImage from '@_assetImages/main.png'
@@ -10,8 +14,15 @@ import InlineAd from './inlinedAd'
 
 const PositionSelector = () => {
   const navigation = useNavigation<NavigationProp<RestaurantParamList>>()
+  const [isMapSearcButtonDisabled, setMapSearchButtonDisabled] = useState(false)
+  const [isCurrentSearchButtonDisabled, setCurrentSearchButtonDisabled] =
+    useState(false)
   const handleGetCurrentLocation = async () => {
     const { latitude, longitude } = await getPositionByGeolocation()
+    if (!latitude || !longitude) {
+      console.error('위도 또는 경도 값이 없습니다.')
+      return
+    }
     navigation.navigate('FilterSetting', {
       location: {
         latitude: latitude,
@@ -19,12 +30,18 @@ const PositionSelector = () => {
       },
     })
   }
+  useFocusEffect(
+    useCallback(() => {
+      setMapSearchButtonDisabled(false)
+      setCurrentSearchButtonDisabled(false)
+    }, []),
+  )
   return (
     <>
       <View style={styles.mediaContainer} testID="mediaContainer">
         <Image
           source={mainImage}
-          style={{ width: '100%', height: '100%', marginBottom: 10 }}
+          style={{ width: '90%', height: '120%', marginBottom: 10 }}
           onError={({ nativeEvent: { error } }) => console.warn(error)}
         />
         <Button
@@ -34,7 +51,11 @@ const PositionSelector = () => {
           buttonColor={MyTheme.colors.primary}
           style={styles.button}
           labelStyle={styles.buttonLabel}
-          onPress={handleGetCurrentLocation}>
+          disabled={isCurrentSearchButtonDisabled}
+          onPress={() => {
+            handleGetCurrentLocation()
+            setCurrentSearchButtonDisabled(true)
+          }}>
           현재 위치에서 추천 받기
         </Button>
         <Button
@@ -44,7 +65,11 @@ const PositionSelector = () => {
           buttonColor={MyTheme.colors.primary}
           style={styles.button}
           labelStyle={styles.buttonLabel}
-          onPress={() => navigation.navigate('MapSearch')}>
+          disabled={isMapSearcButtonDisabled}
+          onPress={() => {
+            setMapSearchButtonDisabled(true)
+            navigation.navigate('MapSearch')
+          }}>
           지도에서 선택한 위치로 추천 받기
         </Button>
       </View>

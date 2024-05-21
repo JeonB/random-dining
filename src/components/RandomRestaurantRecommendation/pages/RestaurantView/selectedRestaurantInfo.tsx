@@ -78,12 +78,6 @@ const styles = StyleSheet.create({
     margin: 15,
     borderRadius: 5,
   },
-  detailButton: {
-    backgroundColor: '#2E6FCF',
-    borderRadius: 5,
-    width: 200,
-    margin: 15,
-  },
 })
 
 export default SelectedRestaurantInfo
