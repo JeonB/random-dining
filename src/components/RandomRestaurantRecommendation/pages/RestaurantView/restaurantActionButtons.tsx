@@ -62,7 +62,7 @@ const RestaurantActionButtons = ({
         }}
         labelStyle={{
           fontSize: 25,
-          paddingTop: Platform.select({ ios: 7, android: 10 }),
+          paddingTop: Platform.select({ ios: 6, android: 10 }),
         }}
       />
     </View>
