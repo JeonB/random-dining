@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Dimensions, StyleSheet, View } from 'react-native'
+import { Dimensions, Platform, StyleSheet, View } from 'react-native'
 import { Button } from 'react-native-paper'
 import { Text } from '@rneui/themed'
 import { NavigationProp } from '@react-navigation/native'
@@ -60,7 +60,10 @@ const RestaurantActionButtons = ({
           marginTop: 10,
           justifyContent: 'center',
         }}
-        labelStyle={{ fontSize: 25, padding: 6 }}
+        labelStyle={{
+          fontSize: 25,
+          paddingTop: Platform.select({ ios: 7, android: 10 }),
+        }}
       />
     </View>
   )
@@ -81,6 +84,9 @@ const styles = StyleSheet.create({
     width: '85%',
   },
   detailButton: {
+    paddingTop: Platform.select({ ios: 1, android: 3 }),
+    paddingLeft: 0,
+    paddingRight: 0,
     backgroundColor: MyTheme.colors.secondary,
     borderRadius: 5,
     width: Dimensions.get('window').width * 0.4,
@@ -95,6 +101,6 @@ const styles = StyleSheet.create({
   },
   detailButtonText: {
     color: '#e6e6fA',
-    fontSize: 18,
+    fontSize: Dimensions.get('window').width > 390 ? 19 : 17,
   },
 })

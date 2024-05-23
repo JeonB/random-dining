@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { View, Switch, StyleSheet } from 'react-native'
-
+import { View, StyleSheet, Dimensions, Platform } from 'react-native'
+import { Switch } from 'react-native-switch'
+import { MyTheme } from 'theme'
 const ToggleSwitch = ({
   onToggle,
   initialState = false,
@@ -19,11 +20,21 @@ const ToggleSwitch = ({
   return (
     <View style={styles.container}>
       <Switch
-        trackColor={{ false: '#767577', true: '#81b0ff' }}
-        thumbColor={isEnabled ? '#e6e6fA' : '#f4f3f4'}
-        ios_backgroundColor="#3e3e3e"
-        onValueChange={toggleSwitch}
         value={isEnabled}
+        onValueChange={toggleSwitch}
+        disabled={false}
+        circleSize={30}
+        barHeight={30}
+        circleBorderWidth={2}
+        backgroundActive={MyTheme.colors.primary}
+        backgroundInactive={'#767577'}
+        circleActiveColor={MyTheme.colors.background}
+        circleInActiveColor={'#f4f3f4'}
+        renderActiveText={false}
+        renderInActiveText={false}
+        switchWidthMultiplier={1.8}
+        switchLeftPx={2}
+        switchRightPx={2}
       />
     </View>
   )

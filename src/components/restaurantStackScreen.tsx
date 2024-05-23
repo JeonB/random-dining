@@ -15,7 +15,7 @@ const RestaurantStackScreen = () => {
       <Stack.Screen
         name="Home"
         component={PositionSelector}
-        options={{ title: '홈 화면', headerBackTitleVisible: false }}
+        options={{ title: '', headerBackTitleVisible: false }}
       />
       <Stack.Screen
         name="MapSearch"

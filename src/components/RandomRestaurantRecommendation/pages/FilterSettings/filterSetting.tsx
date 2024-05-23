@@ -1,5 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Dimensions, ScrollView, StyleSheet, View } from 'react-native'
+import {
+  Dimensions,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { Text } from '@rneui/themed'
 import DistanceSlider from '@_3Rpages/FilterSettings/distanceSlider'
@@ -71,7 +77,10 @@ const FilterSetting = () => {
             height: '90%',
             justifyContent: 'center',
           }}
-          labelStyle={{ fontSize: 25, padding: 10 }}
+          labelStyle={{
+            fontSize: 25,
+            paddingTop: Platform.select({ ios: 10, android: 12 }),
+          }}
         />
       </View>
       <RandomItemModal
