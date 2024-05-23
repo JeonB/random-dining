@@ -3,16 +3,7 @@ import ToggleSwitch from '@_components/common/toggleSwitch'
 import { StyleSheet, View } from 'react-native'
 import { Text } from '@rneui/themed'
 
-const CATEGORY = [
-  'ALL',
-  '한식',
-  '일식',
-  '중식',
-  '양식',
-  '분식',
-  '아시아음식',
-  '제육볶음',
-]
+const CATEGORY = ['ALL', '한식', '일식', '중식', '양식', '분식', '아시아음식']
 
 const CategorySwitch = ({
   onCategoryChange = () => {},
