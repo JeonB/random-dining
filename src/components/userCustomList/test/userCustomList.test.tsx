@@ -12,7 +12,7 @@ import { NavigationContainer, NavigationProp } from '@react-navigation/native'
 import { UserCustomList } from '@_userListPages/userCustomList'
 import { RootStackParamList } from '@_types/listParamList'
 
-jest.mock('@_userListPages/listManageIcon', () => {
+jest.mock('@_userListPages/listManage/listManageIcon', () => {
   return {
     __esModule: true,
     ListManageIcon: () => {

@@ -66,22 +66,21 @@ const styles = StyleSheet.create({
   restaurantInputContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
   },
   restaurantNameField: {
     width: '85%',
     borderColor: 'black',
     borderWidth: 1,
     borderRadius: 10,
-    padding: 10,
+    padding: 12,
+    fontSize: 17,
   },
   addIcon: {
     flex: 1,
-    width: '100%',
     flexDirection: 'row',
     borderColor: 'black',
     borderWidth: 1,
     borderRadius: 10,
-    paddingHorizontal: 7,
+    paddingHorizontal: 10,
   },
 })

@@ -134,12 +134,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginTop: height * 0.025,
     marginBottom: height * 0.005,
-    padding: 10,
+    padding: 12,
+    fontSize: 18,
   },
   buttonContainer: {
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
-    marginBottom: height * 0.05,
+    marginBottom: height * 0.1,
     marginTop: height * 0.02,
   },
   renderItem: {

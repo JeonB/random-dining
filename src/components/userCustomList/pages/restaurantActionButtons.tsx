@@ -13,6 +13,7 @@ interface Props {
   handleRandomPickClick: () => void
   isLoading: boolean
   navigation: NavigationProp<RootStackParamList>
+  listName: string
 }
 
 const RestaurantActionButtons = ({
@@ -20,6 +21,7 @@ const RestaurantActionButtons = ({
   handleRandomPickClick,
   isLoading,
   navigation,
+  listName,
 }: Props) => {
   const handleDetailViewClick = () => {
     if (restaurant && restaurant.place_url) {
@@ -27,18 +29,24 @@ const RestaurantActionButtons = ({
     }
   }
   const [modalVisible, setModalVisible] = useState(false)
+
+  const handleEditButtonClick = () => {
+    navigation.navigate('EditUserList', { listName: listName })
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
-        <Button
-          onPress={handleDetailViewClick}
-          disabled={!restaurant.place_url}
-          style={[
-            styles.detailButton,
-            !restaurant.place_url && styles.disabledButton,
-          ]}>
-          <Text style={styles.detailButtonText}>식당 상세 정보</Text>
-        </Button>
+        {restaurant.place_url ? (
+          <Button onPress={handleDetailViewClick} style={[styles.detailButton]}>
+            <Text style={styles.detailButtonText}>식당 상세 정보</Text>
+          </Button>
+        ) : (
+          <Button onPress={handleEditButtonClick} style={[styles.detailButton]}>
+            <Text style={styles.detailButtonText}>리스트 수정</Text>
+          </Button>
+        )}
+
         <Button
           onPress={() => setModalVisible(true)}
           style={styles.detailButton}>

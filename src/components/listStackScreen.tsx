@@ -5,12 +5,29 @@ import { EditUserList } from './userCustomList/pages/editUserList'
 import { SelectEditList } from './userCustomList/pages/selectEditList'
 import { UserCustomList } from './userCustomList/pages/userCustomList'
 import { SelectedRestaurantInfo } from './userCustomList/pages/selectedRestaurantInfo'
-import { createStackNavigator } from '@react-navigation/stack'
+import { StackScreenProps, createStackNavigator } from '@react-navigation/stack'
 import { RootStackParamList } from '@_types/listParamList'
-import { Ionicons, AntDesign } from '@expo/vector-icons'
+import { AntDesign } from '@expo/vector-icons'
+import { useHideTabBar } from './useHideTabBar'
+
+const EditUserListScreen = ({
+  navigation,
+  route,
+}: StackScreenProps<RootStackParamList, 'EditUserList'>) => {
+  useHideTabBar()
+  return <EditUserList navigation={navigation} route={route} />
+}
+
+const AddUserListScreen = ({
+  navigation,
+}: StackScreenProps<RootStackParamList, 'AddUserList'>) => {
+  useHideTabBar()
+  return <AddUserList navigation={navigation} />
+}
 
 export const UserCustomListStack = () => {
   const Stack = createStackNavigator<RootStackParamList>()
+
   return (
     <Stack.Navigator initialRouteName="UserCustomList">
       <Stack.Screen
@@ -18,6 +35,7 @@ export const UserCustomListStack = () => {
         component={UserCustomList}
         options={{
           title: '사용자 리스트',
+          headerTitleAlign: 'center',
           headerBackTitleVisible: false,
           headerBackImage: () => (
             <AntDesign
@@ -47,9 +65,10 @@ export const UserCustomListStack = () => {
       />
       <Stack.Screen
         name="EditUserList"
-        component={EditUserList}
+        component={EditUserListScreen}
         options={{
           title: '리스트 수정',
+          headerTitleAlign: 'center',
           headerBackTitleVisible: false,
           headerBackImage: () => (
             <AntDesign
@@ -63,9 +82,10 @@ export const UserCustomListStack = () => {
       />
       <Stack.Screen
         name="AddUserList"
-        component={AddUserList}
+        component={AddUserListScreen}
         options={{
           title: '리스트 추가',
+          headerTitleAlign: 'center',
           headerBackTitleVisible: false,
           headerBackImage: () => (
             <AntDesign
@@ -82,6 +102,7 @@ export const UserCustomListStack = () => {
         component={SelectedRestaurantInfo}
         options={({ route }) => ({
           title: `리스트: ${route.params.listname}`,
+          headerTitleAlign: 'center',
           headerBackTitleVisible: false,
           headerBackImage: () => (
             <AntDesign
@@ -98,6 +119,7 @@ export const UserCustomListStack = () => {
         component={DetailView}
         options={{
           title: '상세 화면',
+          headerTitleAlign: 'center',
           headerBackTitleVisible: false,
           headerBackImage: () => (
             <AntDesign

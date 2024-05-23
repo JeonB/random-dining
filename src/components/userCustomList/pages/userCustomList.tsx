@@ -9,7 +9,7 @@ import {
 
 import RandomItemModal from '@_components/RandomRestaurantRecommendation/pages/RestaurantView/randomItemModal'
 import { DefaultFlatList } from '@_userListPages/defaultFlatList'
-import { ListManageIcon } from '@_userListPages/listManageIcon'
+import { ListManageIcon } from '@_userListPages/listManage/listManageIcon'
 import { useListNames } from '@_userList/hook/useListNames'
 import { RootStackParamList } from '@_types/listParamList'
 import { LocationTypes } from '@_types/restaurant'

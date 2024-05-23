@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Dimensions, Image, StyleSheet, View } from 'react-native'
-
 import { StackScreenProps } from '@react-navigation/stack'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Text } from '@rneui/themed'
@@ -51,21 +50,25 @@ export const SelectedRestaurantInfo = ({
   }
   return (
     <View style={styles.container}>
-      <View style={styles.mediaContainer}>
-        {restaurant.x ? (
+      {restaurant.x ? (
+        <View style={styles.mapContainer}>
           <Map info={restaurant} currentLocation={currentLocation} />
-        ) : (
+        </View>
+      ) : (
+        <View style={styles.mediaContainer}>
           <Image
-            source={require('../../../../assets/splash.png')}
+            source={require('../../../../assets/icon.png')}
             style={{ width: '100%', height: '100%' }}
           />
-        )}
-      </View>
+        </View>
+      )}
       {restaurant.category_name ? (
         <RestaurantDetail info={restaurant} />
       ) : (
         <View style={styles.infoView}>
-          <Text h4 h4Style={{ fontSize: 22, margin: 15 }}>
+          <Text
+            h4
+            h4Style={{ fontSize: 28, marginBottom: 15, fontWeight: 'bold' }}>
             {restaurant?.place_name || ''}
           </Text>
         </View>
@@ -75,6 +78,7 @@ export const SelectedRestaurantInfo = ({
         handleRandomPickClick={handleRandomPickClick}
         isLoading={isLoading}
         navigation={navigation}
+        listName={listName}
       />
       <RandomItemModal
         visible={modalVisible}
@@ -94,9 +98,16 @@ const styles = StyleSheet.create({
   infoView: {
     width: deviceWidth > 430 ? 450 : 400,
     alignItems: 'center',
-    margin: 5,
+    // margin: 5,
   },
   mediaContainer: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').width,
+    position: 'relative',
+    alignItems: 'center',
+    padding: 20,
+  },
+  mapContainer: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').width * 0.7,
     position: 'relative',

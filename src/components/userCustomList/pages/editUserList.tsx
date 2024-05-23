@@ -172,6 +172,7 @@ export const EditUserList = ({
       <Button
         style={{ marginVertical: 10 }}
         buttonColor={MyTheme.colors.primary}
+        labelStyle={{ fontSize: 16 }}
         mode="contained"
         onPress={() => setModalVisible(true)}
         testID="SearchButton">
@@ -221,12 +222,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     marginBottom: height * 0.005,
-    padding: 10,
+    padding: 12,
+    fontSize: 18,
   },
   buttonContainer: {
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
-    marginBottom: height * 0.05,
+    marginBottom: height * 0.1,
     marginTop: height * 0.02,
   },
   renderItem: {

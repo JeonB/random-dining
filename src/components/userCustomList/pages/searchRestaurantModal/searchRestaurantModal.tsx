@@ -127,6 +127,12 @@ const SearchRestaurantModal = ({
 
 const { width, height } = Dimensions.get('window')
 const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
   modalView: {
     width: width * 0.9,
     height: height * 0.7,
@@ -134,12 +140,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
-  },
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    position: 'absolute',
+    top: height * 0.1,
   },
   renderItem: {
     width: '100%',

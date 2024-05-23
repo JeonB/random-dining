@@ -1,19 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
-import {
-  TouchableOpacity,
-  Modal,
-  View,
-  TouchableWithoutFeedback,
-  StyleSheet,
-  Dimensions,
-  Animated,
-} from 'react-native'
+import { TouchableOpacity, Dimensions, Animated } from 'react-native'
 import { NavigationProp } from '@react-navigation/native'
 import { Icon } from '@rneui/themed'
-import { Button } from 'react-native-paper'
-import { MyTheme } from 'theme'
 import { RootStackParamList } from '@_types/listParamList'
 import { useSequentialAnimation } from '@_userList/hook/useSequentialAnimation'
+import { ListManageModal } from './listManageModal'
 
 export const ListManageIcon = ({
   navigation,
@@ -84,53 +75,15 @@ export const ListManageIcon = ({
           <Icon name="settings" size={35} color="black" />
         </Animated.View>
       </TouchableOpacity>
-      {showSettingsModal && (
-        <Modal
-          visible={showSettingsModal}
-          onRequestClose={() => setShowSettingsModal(false)}
-          transparent
-          animationType="fade"
-          testID="ManageModal">
-          <TouchableWithoutFeedback onPress={() => setShowSettingsModal(false)}>
-            <View style={styles.container}>
-              <TouchableWithoutFeedback>
-                <View style={modalStyle}>
-                  <Animated.View style={{ opacity: addButtonOpacity }}>
-                    <Button
-                      style={styles.button}
-                      buttonColor={MyTheme.colors.primary}
-                      mode="contained"
-                      onPress={handleAddButtonClick}>
-                      리스트 추가하기
-                    </Button>
-                  </Animated.View>
-                  <Animated.View style={{ opacity: editButtonOpacity }}>
-                    <Button
-                      style={styles.button}
-                      buttonColor={MyTheme.colors.primary}
-                      mode="contained"
-                      onPress={handleEditButtonClick}>
-                      리스트 수정하기
-                    </Button>
-                  </Animated.View>
-                </View>
-              </TouchableWithoutFeedback>
-            </View>
-          </TouchableWithoutFeedback>
-        </Modal>
-      )}
+      <ListManageModal
+        visible={showSettingsModal}
+        onRequestClose={() => setShowSettingsModal(false)}
+        handleAddButtonClick={handleAddButtonClick}
+        handleEditButtonClick={handleEditButtonClick}
+        addButtonOpacity={addButtonOpacity}
+        editButtonOpacity={editButtonOpacity}
+        modalStyle={modalStyle}
+      />
     </>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 50,
-  },
-  button: {
-    margin: 3,
-    // backgroundColor: '#2E6FCF',
-    borderRadius: 10,
-  },
-})

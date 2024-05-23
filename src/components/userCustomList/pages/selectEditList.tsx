@@ -35,7 +35,7 @@ export const SelectEditList = ({
   return (
     <View style={styles.container}>
       <View style={styles.infoArea}>
-        <Text style={styles.infoText}>수정 할 리스트를 선택해주세요</Text>
+        <Text style={styles.infoText}>수정 할 리스트를 선택해주세요.</Text>
       </View>
       <DefaultFlatList
         data={listNames}
@@ -55,18 +55,21 @@ const { width, height } = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: width * 0.1,
+    paddingHorizontal: width * 0.1,
+    paddingVertical: width * 0.05,
   },
   listText: {
     fontSize: 20,
     textAlign: 'center',
   },
   infoArea: {
+    justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
     borderBlockColor: 'gray',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.5,
+    elevation: 5,
     borderRadius: 10,
     padding: 15,
     backgroundColor: 'gray',
