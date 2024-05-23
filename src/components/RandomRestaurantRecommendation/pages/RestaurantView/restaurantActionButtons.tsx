@@ -7,6 +7,7 @@ import { LocationTypes } from '@_types/restaurant'
 import RandomPickButton from '@_3Rpages/FilterSettings/randomPickButton'
 import { AddUserListModal } from '@_components/userCustomList/pages/addUserListModal'
 import { RestaurantParamList } from '@_types/restaurantParamList'
+import { MyTheme } from 'theme'
 interface Props {
   selectedRestaurant: LocationTypes
   handleRandomPickClick: () => void
@@ -29,10 +30,14 @@ const RestaurantActionButtons = ({
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
-        <Button onPress={handleDetailViewClick} style={styles.detailButton}>
+        <Button
+          mode="elevated"
+          onPress={handleDetailViewClick}
+          style={styles.detailButton}>
           <Text style={styles.detailButtonText}>식당 상세 정보</Text>
         </Button>
         <Button
+          mode="elevated"
           onPress={() => setModalVisible(true)}
           style={styles.detailButton}>
           <Text style={styles.detailButtonText}>리스트 추가</Text>
@@ -64,6 +69,7 @@ export default RestaurantActionButtons
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: -40,
     flexDirection: 'column',
     alignItems: 'center',
     alignSelf: 'center',
@@ -75,7 +81,7 @@ const styles = StyleSheet.create({
     width: '85%',
   },
   detailButton: {
-    backgroundColor: '#FF7F50',
+    backgroundColor: MyTheme.colors.secondary,
     borderRadius: 5,
     width: Dimensions.get('window').width * 0.4,
     shadowColor: '#000',

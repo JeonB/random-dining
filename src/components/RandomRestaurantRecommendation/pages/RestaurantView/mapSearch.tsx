@@ -66,7 +66,7 @@ const MapSearch = () => {
           <Button
             radius={'sm'}
             type="solid"
-            color={MyTheme.colors.primary}
+            color={MyTheme.colors.secondary}
             onPress={() => {
               setCurrentLocation({
                 currentLongitude: Number(currentLocation?.currentLongitude),
