@@ -20,7 +20,7 @@ const RandomPickButton = ({
   labelStyle,
 }: RandomPickButtonProps) => (
   <Button
-    mode="elevated"
+    mode="contained"
     textColor="#e6e6fA"
     icon={icon}
     buttonColor={MyTheme.colors.primary}
