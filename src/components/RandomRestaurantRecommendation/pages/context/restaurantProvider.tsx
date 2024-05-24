@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { RestaurantContext } from '@_3Rpages/context/restaurantContext'
 import { fetchRestaurantData, getPositionByGeolocation } from '@_services/api'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
@@ -43,47 +43,27 @@ export const RestaurantProvider = ({
     }
   }, [])
 
-  // selectedLocation의 latitude와 longitude가 0이 아닐 때까지 기다린 후, 해당 값을 반환
-  const getLocation = useCallback(() => {
-    return new Promise<{ longitude: number; latitude: number }>(
-      (resolve, reject) => {
-        const checkLocation = setInterval(() => {
-          if (
-            selectedLocation.longitude !== 0 &&
-            selectedLocation.latitude !== 0
-          ) {
-            clearInterval(checkLocation)
-            resolve(selectedLocation)
-          }
-        }, 50)
-
-        setTimeout(() => {
-          clearInterval(checkLocation)
-          reject(new Error('Timeout'))
-        }, 3000)
-      },
-    )
-  }, [selectedLocation])
-
-  // getLocation 함수를 통해 위치 정보를 가져온 후, 해당 위치를 기반으로 레스토랑 데이터를 가져옴. useCallback 훅은 이 함수가 getLocation, distance, selectedCategories 중 하나가 변경될 때만 새로 생성
+  // distance, selectedCategories 중 하나가 변경될 때만 새로 생성
   const handleRestaurantData = useCallback(async () => {
     try {
-      const location = await getLocation()
       const data = await fetchRestaurantData(
         selectedCategories,
         distance,
-        String(location.longitude),
-        String(location.latitude),
+        String(selectedLocation.longitude),
+        String(selectedLocation.latitude),
       )
 
       if (isMounted.current && data) {
-        setRestaurantItems(data)
+        const filteredData = data.filter(
+          (item): item is LocationTypes => item !== undefined,
+        )
+        setRestaurantItems(filteredData)
         setModalVisible(true)
       }
     } catch (error) {
       console.error('Error occurred:', error)
     }
-  }, [getLocation, distance, selectedCategories])
+  }, [distance, selectedCategories])
 
   // 레스토랑 데이터를 가져오는 과정을 시작하고, 해당 과정이 완료되면 로딩 상태를 업데이트
   const handleRandomPickClick = useCallback(() => {
@@ -96,20 +76,30 @@ export const RestaurantProvider = ({
   }, [handleRestaurantData])
 
   // 주어진 인덱스에 해당하는 레스토랑을 선택하고, 해당 식당의 정보를 보여주는 페이지로 이동
-  const handleRestaurantChange = (index: number) => {
-    if (isChanging) return // 이미 변경 중이면 무시
-    setIsChanging(true) // 변경 시작
-    const selectedRestaurant = restaurantItems[index]
-    if (selectedRestaurant) {
-      setRestaurant(selectedRestaurant)
-      navigation.navigate('SelectedRestaurantInfo', {
-        restaurant: selectedRestaurant,
-      })
-    }
+  const handleRestaurantChange = useCallback(
+    (index: number) => {
+      if (isChanging) return // 이미 변경 중이면 무시
+      setIsChanging(true) // 변경 시작
+      const selectedRestaurant = restaurantItems[index]
+      if (selectedRestaurant) {
+        setRestaurant(selectedRestaurant)
+        navigation.navigate('SelectedRestaurantInfo', {
+          restaurant: selectedRestaurant,
+        })
+      }
 
-    setIsChanging(false) // 변경 완료
-  }
+      setIsChanging(false) // 변경 완료
+    },
+    [isChanging, restaurantItems],
+  )
 
+  const value = useMemo(
+    () => ({
+      restaurant,
+      setRestaurant,
+    }),
+    [restaurant, setRestaurant],
+  )
   return (
     <RestaurantContext.Provider
       value={{
