@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { TouchableOpacity, Dimensions, Animated, Alert } from 'react-native'
-import { NavigationProp } from '@react-navigation/native'
+import { NavigationProp, useFocusEffect } from '@react-navigation/native'
 import { Icon } from '@rneui/themed'
 import { RootStackParamList } from '@_types/listParamList'
 import { useSequentialAnimation } from '@_userList/hook/useSequentialAnimation'
@@ -17,7 +17,13 @@ export const ListManageIcon = ({
   const [modalStyle, setModalStyle] = useState({})
   const iconRef = React.createRef<TouchableOpacity>() // 아이콘 위치를 가져오기 위한 ref
 
-  const { listNames } = useListNames()
+  const { listNames, fetchListNames } = useListNames()
+
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchListNames()
+    }, [listNames]),
+  )
 
   // 아이콘 위치에 따라 모달 위치 조정
   const handleIconClick = () => {
@@ -58,7 +64,8 @@ export const ListManageIcon = ({
 
   // 리스트 수정 버튼 클릭
   const handleEditButtonClick = () => {
-    if (listNames === null || listNames.length === 0) {
+    console.log('listNames', listNames)
+    if (listNames.length === 0) {
       Alert.alert('저장된 리스트가 없습니다.')
     } else {
       navigation.navigate('SelectEditList')
