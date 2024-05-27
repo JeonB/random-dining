@@ -31,13 +31,13 @@ const RestaurantActionButtons = ({
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
         <Button
-          mode="elevated"
+          mode="contained"
           onPress={handleDetailViewClick}
           style={styles.detailButton}>
           <Text style={styles.detailButtonText}>식당 상세 정보</Text>
         </Button>
         <Button
-          mode="elevated"
+          mode="contained"
           onPress={() => setModalVisible(true)}
           style={styles.detailButton}>
           <Text style={styles.detailButtonText}>리스트 추가</Text>
@@ -59,6 +59,15 @@ const RestaurantActionButtons = ({
           height: Dimensions.get('window').height * 0.05,
           marginTop: 10,
           justifyContent: 'center',
+          shadowColor: '#000',
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          backgroundColor: MyTheme.colors.primary,
+          shadowOpacity: 0.25,
+          shadowRadius: 3.84,
+          elevation: 1,
         }}
         labelStyle={{
           fontSize: 25,
@@ -97,7 +106,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5,
+    elevation: 1,
   },
   detailButtonText: {
     color: '#e6e6fA',

@@ -46,7 +46,7 @@ const PositionSelector = () => {
         />
         <Button
           icon="map-marker"
-          mode="elevated"
+          mode="contained"
           textColor="#fff"
           buttonColor={MyTheme.colors.primary}
           style={styles.button}
@@ -60,7 +60,7 @@ const PositionSelector = () => {
         </Button>
         <Button
           icon="map-search"
-          mode="elevated"
+          mode="contained"
           textColor="#fff"
           buttonColor={MyTheme.colors.primary}
           style={styles.button}

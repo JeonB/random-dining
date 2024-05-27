@@ -14,6 +14,7 @@ import RandomPickButton from '@_3Rpages/FilterSettings/randomPickButton'
 import RandomItemModal from '@_3Rpages/RestaurantView/randomItemModal'
 import { useRestaurantContext } from '@_3Rpages/context/restaurantContext'
 import { RestaurantParamList } from 'src/types/restaurantParamList'
+import { MyTheme } from 'theme'
 
 const FilterSetting = () => {
   const route = useRoute<RouteProp<RestaurantParamList, 'FilterSetting'>>()
@@ -76,6 +77,15 @@ const FilterSetting = () => {
             width: '60%',
             height: '90%',
             justifyContent: 'center',
+            shadowColor: '#000',
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            backgroundColor: MyTheme.colors.primary,
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+            elevation: 1,
           }}
           labelStyle={{
             fontSize: 25,
