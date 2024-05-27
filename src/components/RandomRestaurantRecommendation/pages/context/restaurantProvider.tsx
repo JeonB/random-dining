@@ -10,6 +10,7 @@ export const RestaurantProvider = ({
 }: {
   children: React.ReactNode
 }) => {
+  const [showAd, setShowAd] = React.useState(true)
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const [distance, setDistance] = useState<number>(30)
   const [restaurantItems, setRestaurantItems] = useState<LocationTypes[]>([])
@@ -121,6 +122,8 @@ export const RestaurantProvider = ({
         setSelectedLocation,
         currentLocation,
         setCurrentLocation,
+        showAd,
+        setShowAd,
       }}>
       {children}
     </RestaurantContext.Provider>

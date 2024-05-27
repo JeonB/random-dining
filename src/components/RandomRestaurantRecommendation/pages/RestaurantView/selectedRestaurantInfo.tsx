@@ -24,6 +24,14 @@ const SelectedRestaurantInfo = ({
     currentLocation,
   } = useRestaurantContext()
   const restaurant: LocationTypes | undefined = route.params?.restaurant
+  const { setShowAd } = useRestaurantContext()
+  useEffect(() => {
+    setShowAd(false)
+
+    return () => {
+      setShowAd(true)
+    }
+  }, [])
   return (
     <View style={styles.container}>
       <View style={styles.mediaContainer}>

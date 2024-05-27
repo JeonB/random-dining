@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react'
 import { StyleSheet, TextInput, Text } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native'
+import {
+  NavigationContainer,
+  useNavigationState,
+} from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { UserCustomList } from '@_components/userCustomList/pages/userCustomList'
 import Constants from 'expo-constants'
@@ -12,9 +15,14 @@ import { StatusBar } from 'expo-status-bar'
 import { Ionicons, AntDesign } from '@expo/vector-icons'
 import { MyTheme } from 'theme'
 import { Support } from '@_components/support/pages/support'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import {
+  BottomTabBar,
+  createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs'
 import { requestTrackingPermissionsAsync } from 'expo-tracking-transparency'
 import mobileAds from 'react-native-google-mobile-ads'
+import InlineAd from 'src/components/RandomRestaurantRecommendation/pages/inlinedAd'
+import { useRestaurantContext } from 'src/components/RandomRestaurantRecommendation/pages/context/restaurantContext'
 ;(Text as any).defaultProps = (Text as any).defaultProps || {}
 ;(Text as any).defaultProps.allowFontScaling = false
 ;(TextInput as any).defaultProps = (TextInput as any).defaultProps || {}
@@ -25,6 +33,7 @@ console.error = (...args: any) => {
   if (/defaultProps/.test(args[0])) return
   error(...args)
 }
+
 const Tab = createBottomTabNavigator()
 const App: React.FC = () => {
   useEffect(() => {
@@ -45,6 +54,11 @@ const App: React.FC = () => {
       <RestaurantProvider>
         <Tab.Navigator
           initialRouteName="Main"
+          tabBar={props => (
+            <>
+              <BottomTabBar {...props} />
+            </>
+          )}
           screenOptions={{
             tabBarActiveTintColor: MyTheme.colors.primary,
             tabBarInactiveTintColor: 'gray',

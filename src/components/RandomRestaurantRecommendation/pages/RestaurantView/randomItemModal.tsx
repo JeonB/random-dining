@@ -3,6 +3,7 @@ import { Button } from 'react-native-paper'
 import { AnimatedRandomSelector } from '@_3Rpages/RestaurantView/animatedRandomSelector'
 import { LocationTypes } from '@_types/restaurant'
 import React, { memo } from 'react'
+import InlineAd from '../inlinedAd'
 
 interface RandomPickerModalProps {
   visible: boolean
@@ -28,6 +29,9 @@ const RandomItemModal = memo(
             closeModal={onClose}
           />
           <Button onPress={onClose}>Close</Button>
+          <View style={styles.inlineAd}>
+            <InlineAd />
+          </View>
         </View>
       </Modal>
     )
@@ -39,6 +43,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  inlineAd: {
+    position: 'absolute',
+    bottom: 5,
   },
 })
 RandomItemModal.displayName = 'RandomItemModal'

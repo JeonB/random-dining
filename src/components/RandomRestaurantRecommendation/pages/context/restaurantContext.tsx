@@ -26,6 +26,8 @@ interface ContextType {
     currentLongitude: number
     currentLatitude: number
   }) => void
+  showAd: true
+  setShowAd: (showAd: boolean) => void
 }
 export const RestaurantContext = createContext<ContextType | undefined>(
   undefined,
