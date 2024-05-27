@@ -4,6 +4,7 @@ import { fetchRestaurantData, getPositionByGeolocation } from '@_services/api'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { LocationTypes } from '@_types/restaurant'
 import { RestaurantParamList } from '@_types/restaurantParamList'
+import { Alert, Linking } from 'react-native'
 
 export const RestaurantProvider = ({
   children,
@@ -29,14 +30,30 @@ export const RestaurantProvider = ({
     currentLatitude: 0,
   })
   const getCurrentLocation = async () => {
-    const { longitude: currentLongitude, latitude: currentLatitude } =
-      await getPositionByGeolocation()
-    setCurrentLocation({
-      currentLongitude,
-      currentLatitude,
-    })
+    try {
+      const { longitude: currentLongitude, latitude: currentLatitude } =
+        await getPositionByGeolocation()
+      setCurrentLocation({
+        currentLongitude,
+        currentLatitude,
+      })
+    } catch (error) {
+      console.error('위치 권한이 거부되었습니다.')
+      // 사용자에게 알림을 표시하고 위치 권한 설정으로 이동
+      Alert.alert(
+        '위치 권한 필요',
+        '이 기능을 사용하려면 위치 권한이 필요합니다. 설정으로 이동하시겠습니까?',
+        [
+          {
+            text: '취소',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+          { text: '확인', onPress: () => Linking.openSettings() },
+        ],
+      )
+    }
   }
-
   useEffect(() => {
     getCurrentLocation()
     return () => {

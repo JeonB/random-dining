@@ -1,12 +1,14 @@
+import { ExpoConfig, ConfigContext } from 'expo/config'
 const dotenv = require('dotenv/config')
 export interface AppConfig {
   KAKAO_RESTAPI_KEY: string
   KAKAO_JAVASCRIPT_KEY: string
   KAKAO_NATIVEAPP_KEY: string
 }
-export default {
+export default ({ config }: ConfigContext): ExpoConfig => ({
+  ...config,
   name: '랜덤다이닝',
-  slug: 'random-dining',
+  slug: 'randomdining',
   version: '1.0.0',
   extra: {
     storybookEnabled: process.env.STORYBOOK_ENABLED,
@@ -51,4 +53,4 @@ export default {
       },
     ],
   ],
-}
+})

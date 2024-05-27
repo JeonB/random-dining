@@ -21,8 +21,6 @@ import {
 } from '@react-navigation/bottom-tabs'
 import { requestTrackingPermissionsAsync } from 'expo-tracking-transparency'
 import mobileAds from 'react-native-google-mobile-ads'
-import InlineAd from 'src/components/RandomRestaurantRecommendation/pages/inlinedAd'
-import { useRestaurantContext } from 'src/components/RandomRestaurantRecommendation/pages/context/restaurantContext'
 ;(Text as any).defaultProps = (Text as any).defaultProps || {}
 ;(Text as any).defaultProps.allowFontScaling = false
 ;(TextInput as any).defaultProps = (TextInput as any).defaultProps || {}
