@@ -64,7 +64,6 @@ export const ListManageIcon = ({
 
   // 리스트 수정 버튼 클릭
   const handleEditButtonClick = () => {
-    console.log('listNames', listNames)
     if (listNames.length === 0) {
       Alert.alert('저장된 리스트가 없습니다.')
     } else {

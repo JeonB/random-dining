@@ -15,6 +15,7 @@ import { MyTheme } from 'theme'
 import { useListNames } from '@_components/userCustomList/hook/useListNames'
 import { CreateNewListModal } from '@_userListPages/createNewListModal'
 import { LocationTypes } from '@_types/restaurant'
+import { useFocusEffect } from '@react-navigation/native'
 
 export const AddUserListModal = ({
   selectedInfo,
@@ -25,10 +26,15 @@ export const AddUserListModal = ({
   visible: boolean
   onClose: () => void
 }) => {
-  const { listNames, saveListNames } = useListNames()
+  const { listNames, saveListNames, fetchListNames } = useListNames()
   const [newListModalVisible, setNewListModalVisible] = useState(false)
   const [newListName, setNewListName] = useState('')
 
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchListNames()
+    }, []),
+  )
   const addToList = async (listName: string) => {
     const savedList = await AsyncStorage.getItem(listName)
     const list = savedList ? JSON.parse(savedList) : []
