@@ -1,15 +1,17 @@
 import React from 'react'
-import DetailView from '@_3Rpages/RestaurantView/detailView'
-import { AddUserList } from './userCustomList/pages/addUserList'
-import { EditUserList } from './userCustomList/pages/editUserList'
-import { SelectEditList } from './userCustomList/pages/selectEditList'
-import { UserCustomList } from './userCustomList/pages/userCustomList'
-import { SelectedRestaurantInfo } from './userCustomList/pages/selectedRestaurantInfo'
+import { View, StyleSheet } from 'react-native'
 import { StackScreenProps, createStackNavigator } from '@react-navigation/stack'
-import { RootStackParamList } from '@_types/listParamList'
 import { AntDesign } from '@expo/vector-icons'
 import { useHideTabBar } from './useHideTabBar'
-
+import { RootStackParamList } from '@_types/listParamList'
+import InlineAd from '@_3Rpages/inlinedAd'
+import DetailView from '@_3Rpages/RestaurantView/detailView'
+import { AddUserList } from '@_userListPages/addUserList'
+import { EditUserList } from '@_userListPages/editUserList'
+import { SelectEditList } from '@_userListPages/selectEditList'
+import { UserCustomList } from '@_userListPages/userCustomList'
+import { SelectedRestaurantInfo } from '@_userListPages/selectedRestaurantInfo'
+import { DeleteListButton } from '@_userListPages/deleteListButton'
 const EditUserListScreen = ({
   navigation,
   route,
@@ -34,23 +36,18 @@ export const UserCustomListStack = () => {
         name="UserCustomList"
         component={UserCustomList}
         options={{
-          title: '사용자 리스트',
-          headerTitleAlign: 'center',
           headerBackTitleVisible: false,
-          headerBackImage: () => (
-            <AntDesign
-              name="back"
-              size={30}
-              color="midnightblue"
-              style={{ marginLeft: 10 }}
-            />
+          headerTitle: props => (
+            <View style={styles.inlineAd}>
+              <InlineAd />
+            </View>
           ),
         }}
       />
       <Stack.Screen
         name="SelectEditList"
         component={SelectEditList}
-        options={{
+        options={({ navigation }) => ({
           title: '',
           headerBackTitleVisible: false,
           headerBackImage: () => (
@@ -61,7 +58,8 @@ export const UserCustomListStack = () => {
               style={{ marginLeft: 10 }}
             />
           ),
-        }}
+          headerRight: props => <DeleteListButton navigation={navigation} />,
+        })}
       />
       <Stack.Screen
         name="EditUserList"
@@ -134,3 +132,9 @@ export const UserCustomListStack = () => {
     </Stack.Navigator>
   )
 }
+
+const styles = StyleSheet.create({
+  inlineAd: {
+    alignItems: 'center',
+  },
+})

@@ -6,6 +6,7 @@ import { MyTheme } from 'theme'
 import { RootStackParamList } from '@_types/listParamList'
 import { DefaultFlatList } from '@_userListPages/defaultFlatList'
 import { useListNames } from '@_userList/hook/useListNames'
+import { Button } from 'react-native-paper'
 
 export const SelectEditList = ({
   navigation,
@@ -17,10 +18,6 @@ export const SelectEditList = ({
   useFocusEffect(
     React.useCallback(() => {
       fetchListNames()
-
-      return () => {
-        // 화면이 포커스를 잃을 때 실행할 코드
-      }
     }, [fetchListNames]),
   )
 
@@ -72,7 +69,7 @@ const styles = StyleSheet.create({
     elevation: 5,
     borderRadius: 10,
     padding: 15,
-    backgroundColor: 'gray',
+    backgroundColor: MyTheme.colors.secondary,
   },
   infoText: {
     color: 'white',

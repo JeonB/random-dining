@@ -51,8 +51,6 @@ export const handleData = async (keyword: string, sort: string) => {
 
     try {
       let data = await fetchDataAndUpdatePage()
-
-      // Kakao Local API는 최대 3페이지까지(45개) 데이터 제공
       while (!data.meta.is_end && page < 4) {
         data = await fetchDataAndUpdatePage()
       }
@@ -82,11 +80,10 @@ async function fetchData(
     size: 15,
     page,
     sort: sort,
+    x: longitude,
+    y: latitude,
   }
-  if (sort === 'distance') {
-    queryParams.x = longitude
-    queryParams.y = latitude
-  }
+
   const queryString = toQueryString(queryParams)
   const url = `${baseUrl}?${queryString}`
   const response = await fetch(url, {

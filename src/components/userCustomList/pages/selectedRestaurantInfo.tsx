@@ -63,23 +63,40 @@ export const SelectedRestaurantInfo = ({
         </View>
       )}
       {restaurant.category_name ? (
-        <RestaurantDetail info={restaurant} />
+        <View>
+          <RestaurantDetail info={restaurant} />
+          <RestaurantActionButtons
+            selectedRestaurant={restaurant}
+            handleRandomPickClick={handleRandomPickClick}
+            isLoading={isLoading}
+            navigation={navigation}
+            listName={listName}
+          />
+        </View>
       ) : (
-        <View style={styles.infoView}>
-          <Text
-            h4
-            h4Style={{ fontSize: 28, marginBottom: 15, fontWeight: 'bold' }}>
-            {restaurant?.place_name || ''}
-          </Text>
+        <View>
+          <View style={styles.infoView}>
+            <Text
+              style={{
+                width: '80%',
+                textAlign: 'center',
+              }}
+              h4
+              h4Style={{ fontSize: 28, marginBottom: 15, fontWeight: 'bold' }}
+              numberOfLines={1}
+              ellipsizeMode="tail">
+              {restaurant?.place_name || ''}
+            </Text>
+          </View>
+          <RestaurantActionButtons
+            selectedRestaurant={restaurant}
+            handleRandomPickClick={handleRandomPickClick}
+            isLoading={isLoading}
+            navigation={navigation}
+            listName={listName}
+          />
         </View>
       )}
-      <RestaurantActionButtons
-        selectedRestaurant={restaurant}
-        handleRandomPickClick={handleRandomPickClick}
-        isLoading={isLoading}
-        navigation={navigation}
-        listName={listName}
-      />
       <RandomItemModal
         visible={modalVisible}
         onClose={() => setModalVisible(false)}
@@ -98,7 +115,15 @@ const styles = StyleSheet.create({
   infoView: {
     width: deviceWidth > 430 ? 450 : 400,
     alignItems: 'center',
-    // margin: 5,
+    marginBottom: 50,
+  },
+  mapContainer: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').width * 0.6,
+    position: 'relative',
+    alignItems: 'center',
+    padding: 0,
+    marginBottom: 10,
   },
   mediaContainer: {
     width: Dimensions.get('window').width,
@@ -106,14 +131,6 @@ const styles = StyleSheet.create({
     position: 'relative',
     alignItems: 'center',
     padding: 20,
-  },
-  mapContainer: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').width * 0.7,
-    position: 'relative',
-    alignItems: 'center',
-    padding: 0,
-    margin: 10,
   },
   reselectButton: {
     borderColor: '#003366',

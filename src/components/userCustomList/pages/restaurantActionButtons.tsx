@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Dimensions, StyleSheet, View } from 'react-native'
+import { Dimensions, Platform, StyleSheet, View } from 'react-native'
 import { Button } from 'react-native-paper'
 import { Text } from '@rneui/themed'
 import { NavigationProp } from '@react-navigation/native'
@@ -7,6 +7,7 @@ import { LocationTypes } from '@_types/restaurant'
 import { RootStackParamList } from '@_types/listParamList'
 import RandomPickButton from '@_3Rpages/FilterSettings/randomPickButton'
 import { AddUserListModal } from '@_userListPages/addUserListModal'
+import { MyTheme } from 'theme'
 
 interface Props {
   selectedRestaurant: LocationTypes
@@ -70,7 +71,10 @@ const RestaurantActionButtons = ({
           marginTop: 10,
           justifyContent: 'center',
         }}
-        labelStyle={{ fontSize: 25, padding: 6 }}
+        labelStyle={{
+          fontSize: 25,
+          paddingTop: Platform.select({ ios: 6, android: 10 }),
+        }}
       />
     </View>
   )
@@ -79,6 +83,7 @@ export default RestaurantActionButtons
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: -40,
     flexDirection: 'column',
     alignItems: 'center',
     alignSelf: 'center',
@@ -90,7 +95,10 @@ const styles = StyleSheet.create({
     width: '85%',
   },
   detailButton: {
-    backgroundColor: '#6690FF',
+    paddingTop: Platform.select({ ios: 1, android: 3 }),
+    paddingLeft: 0,
+    paddingRight: 0,
+    backgroundColor: MyTheme.colors.secondary,
     borderRadius: 5,
     width: Dimensions.get('window').width * 0.4,
     shadowColor: '#000',
@@ -103,10 +111,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   detailButtonText: {
-    color: '#FFFDD0',
-    fontSize: 18,
-  },
-  disabledButton: {
-    backgroundColor: 'gray',
+    color: '#e6e6fA',
+    fontSize: Dimensions.get('window').width > 390 ? 19 : 17,
   },
 })

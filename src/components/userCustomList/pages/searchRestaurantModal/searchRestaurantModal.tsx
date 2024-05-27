@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Modal, View, StyleSheet, Dimensions, Text, Alert } from 'react-native'
 import { Button } from 'react-native-paper'
 
+import { MyTheme } from 'theme'
 import { handleData } from '@_services/searchRestaurantApi'
 import { LocationTypes } from '@_types/restaurant'
 import { DefaultFlatList } from '@_userListPages/defaultFlatList'
@@ -49,6 +50,7 @@ const SearchRestaurantModal = ({
     try {
       const data = await handleData(inputRestaurant, sort)
       data && setDataList(data)
+      console.log('data', data)
     } catch (error) {
       console.error('Error occurred:', error)
     }
@@ -109,7 +111,9 @@ const SearchRestaurantModal = ({
                   </Text>
                 </View>
                 <View style={{ width: 50 }}>
-                  <Button onPress={() => handlePressAddButton(item)}>
+                  <Button
+                    textColor={MyTheme.colors.primary}
+                    onPress={() => handlePressAddButton(item)}>
                     추가
                   </Button>
                 </View>
@@ -150,7 +154,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   listText: {
-    fontSize: 16,
+    fontSize: 17,
     textAlign: 'left',
   },
 })

@@ -1,11 +1,7 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, Text, Alert, Dimensions } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import {
-  NavigationProp,
-  useFocusEffect,
-  useNavigation,
-} from '@react-navigation/native'
+import { NavigationProp, useFocusEffect } from '@react-navigation/native'
 
 import RandomItemModal from '@_components/RandomRestaurantRecommendation/pages/RestaurantView/randomItemModal'
 import { DefaultFlatList } from '@_userListPages/defaultFlatList'

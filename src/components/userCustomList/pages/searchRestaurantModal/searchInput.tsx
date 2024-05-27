@@ -23,7 +23,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
     <Feather name="search" size={15} color="black" />
     <TextInput
       style={styles.restaurantNameField}
-      placeholder="식당 또는 메뉴 이름을 입력하세요."
+      placeholder="식당, 메뉴 검색"
       onChangeText={setInputRestaurant}
       value={inputRestaurant}
       autoFocus={true}
@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   restaurantNameField: {
+    fontSize: 16,
     marginLeft: 10,
     marginHorizontal: 5,
     width: '90%',
