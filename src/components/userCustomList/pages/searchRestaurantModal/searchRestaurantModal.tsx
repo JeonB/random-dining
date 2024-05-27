@@ -50,7 +50,6 @@ const SearchRestaurantModal = ({
     try {
       const data = await handleData(inputRestaurant, sort)
       data && setDataList(data)
-      console.log('data', data)
     } catch (error) {
       console.error('Error occurred:', error)
     }
