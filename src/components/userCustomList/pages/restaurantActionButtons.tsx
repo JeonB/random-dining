@@ -83,7 +83,7 @@ export default RestaurantActionButtons
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: -40,
+    marginTop: -50,
     flexDirection: 'column',
     alignItems: 'center',
     alignSelf: 'center',
