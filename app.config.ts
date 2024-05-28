@@ -8,7 +8,7 @@ export interface AppConfig {
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: '랜덤다이닝',
-  slug: 'randomdining',
+  slug: 'random-dining',
   version: '1.0.0',
   extra: {
     storybookEnabled: process.env.STORYBOOK_ENABLED,
