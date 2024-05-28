@@ -9,6 +9,7 @@ import { ListManageIcon } from '@_userListPages/listManage/listManageIcon'
 import { useListNames } from '@_userList/hook/useListNames'
 import { RootStackParamList } from '@_types/listParamList'
 import { LocationTypes } from '@_types/restaurant'
+import { MyTheme } from 'theme'
 
 export const UserCustomList = ({
   navigation,
@@ -54,19 +55,27 @@ export const UserCustomList = ({
   return (
     <View style={styles.container}>
       <View style={styles.listContainer}>
-        <DefaultFlatList
-          data={listNames}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={item => (
-            <Text
-              style={styles.listText}
-              numberOfLines={1}
-              ellipsizeMode="tail">
-              {item}
-            </Text>
-          )}
-          onPressItem={handlePressItem}
-        />
+        {listNames.length === 0 ? (
+          <View style={styles.infoArea}>
+            <View style={styles.textArea}>
+              <Text style={styles.infoText}>나만의 리스트를 만들어보세요</Text>
+            </View>
+          </View>
+        ) : (
+          <DefaultFlatList
+            data={listNames}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={item => (
+              <Text
+                style={styles.listText}
+                numberOfLines={1}
+                ellipsizeMode="tail">
+                {item}
+              </Text>
+            )}
+            onPressItem={handlePressItem}
+          />
+        )}
         <View style={styles.iconWrapper}>
           <ListManageIcon navigation={navigation} />
         </View>
@@ -98,5 +107,22 @@ const styles = StyleSheet.create({
   listText: {
     fontSize: 20,
     textAlign: 'center',
+  },
+  infoArea: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  textArea: {
+    borderRadius: 10,
+    padding: 15,
+    paddingHorizontal: 25,
+    backgroundColor: MyTheme.colors.primary,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    elevation: 5,
+  },
+  infoText: {
+    color: 'white',
+    fontSize: 20,
   },
 })

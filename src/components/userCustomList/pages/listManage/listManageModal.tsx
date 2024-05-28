@@ -71,5 +71,11 @@ const styles = StyleSheet.create({
   button: {
     margin: 3,
     borderRadius: 10,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.3,
+    elevation: 1,
   },
 })
