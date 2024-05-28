@@ -2,6 +2,7 @@ import React, { Dispatch, SetStateAction, useState } from 'react'
 import { Alert, Dimensions, StyleSheet, TextInput, View } from 'react-native'
 import { Icon } from '@rneui/themed'
 import { LocationTypes } from '@_types/restaurant'
+import { MyTheme } from 'theme'
 
 interface Props {
   listItems: LocationTypes[]
@@ -15,12 +16,6 @@ export const RestaurantNameInput: React.FC<Props> = ({
   const [inputRestaurant, setInputRestaurant] = useState('')
 
   const handlePressRestaurantAddButton = () => {
-    // 입력 필드가 비어있을 경우 경고창을 띄움
-    if (inputRestaurant.trim() === '') {
-      Alert.alert('식당 또는 메뉴 이름을 입력하세요.')
-      return
-    }
-
     // 이미 리스트에 있는 식당 이름을 입력한 경우 경고창을 띄움
     if (listItems.some(item => item.place_name === inputRestaurant.trim())) {
       Alert.alert('이미 리스트에 있는 식당 이름입니다.')
@@ -36,7 +31,7 @@ export const RestaurantNameInput: React.FC<Props> = ({
     ])
     setInputRestaurant('') // 입력 필드를 초기화
   }
-
+  const addIconColor = inputRestaurant ? MyTheme.colors.primary : 'gray'
   return (
     <View style={styles.restaurantInputContainer}>
       <TextInput
@@ -52,9 +47,12 @@ export const RestaurantNameInput: React.FC<Props> = ({
       <Icon
         name="add"
         size={22}
+        color={addIconColor}
         onPress={handlePressRestaurantAddButton}
         testID="restaurantAddButton"
         style={styles.addIcon}
+        disabled={inputRestaurant.trim() === ''}
+        disabledStyle={{ backgroundColor: 'white' }}
       />
     </View>
   )
@@ -77,7 +75,6 @@ const styles = StyleSheet.create({
   addIcon: {
     flex: 1,
     flexDirection: 'row',
-    borderColor: 'black',
     borderWidth: 1,
     borderRadius: 10,
     paddingHorizontal: 10,
