@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { RestaurantContext } from '@_3Rpages/context/restaurantContext'
 import { fetchRestaurantData, getPositionByGeolocation } from '@_services/api'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
@@ -11,9 +11,9 @@ export const RestaurantProvider = ({
 }: {
   children: React.ReactNode
 }) => {
-  const [showAd, setShowAd] = React.useState(true)
+  const [showAd, setShowAd] = useState(true)
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
-  const [distance, setDistance] = useState<number>(30)
+  const [distance, setDistance] = useState(30)
   const [restaurantItems, setRestaurantItems] = useState<LocationTypes[]>([])
   const navigation = useNavigation<NavigationProp<RestaurantParamList>>()
   const isMounted = useRef(true)
@@ -98,6 +98,7 @@ export const RestaurantProvider = ({
     (index: number) => {
       if (isChanging) return // 이미 변경 중이면 무시
       setIsChanging(true) // 변경 시작
+
       const selectedRestaurant = restaurantItems[index]
       if (selectedRestaurant) {
         setRestaurant(selectedRestaurant)
@@ -111,13 +112,6 @@ export const RestaurantProvider = ({
     [isChanging, restaurantItems],
   )
 
-  const value = useMemo(
-    () => ({
-      restaurant,
-      setRestaurant,
-    }),
-    [restaurant, setRestaurant],
-  )
   return (
     <RestaurantContext.Provider
       value={{
