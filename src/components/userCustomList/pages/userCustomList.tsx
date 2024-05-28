@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import { StyleSheet, View, Text, Alert, Dimensions } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationProp, useFocusEffect } from '@react-navigation/native'
-
-import RandomItemModal from '@_components/RandomRestaurantRecommendation/pages/RestaurantView/randomItemModal'
+import { Button } from 'react-native-paper'
+import { MyTheme } from 'theme'
+import RandomItemModal from '@_3Rpages/RestaurantView/randomItemModal'
+import { LocationTypes } from '@_types/restaurant'
+import { RootStackParamList } from '@_types/listParamList'
+import { useListNames } from '@_userList/hook/useListNames'
 import { DefaultFlatList } from '@_userListPages/defaultFlatList'
 import { ListManageIcon } from '@_userListPages/listManage/listManageIcon'
-import { useListNames } from '@_userList/hook/useListNames'
-import { RootStackParamList } from '@_types/listParamList'
-import { LocationTypes } from '@_types/restaurant'
-import { MyTheme } from 'theme'
 
 export const UserCustomList = ({
   navigation,
@@ -52,14 +52,24 @@ export const UserCustomList = ({
     }
   }
 
+  const handleAddButtonClick = () => {
+    navigation.navigate('AddUserList')
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.listContainer}>
         {listNames.length === 0 ? (
           <View style={styles.infoArea}>
-            <View style={styles.textArea}>
-              <Text style={styles.infoText}>나만의 리스트를 만들어보세요</Text>
-            </View>
+            <Button
+              mode="contained"
+              style={styles.infoButton}
+              buttonColor={MyTheme.colors.primary}
+              textColor="white"
+              labelStyle={styles.infoText}
+              onPress={handleAddButtonClick}>
+              나만의 리스트를 만들어보세요!
+            </Button>
           </View>
         ) : (
           <DefaultFlatList
@@ -112,17 +122,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-  textArea: {
+  infoButton: {
     borderRadius: 10,
-    padding: 15,
-    paddingHorizontal: 25,
-    backgroundColor: MyTheme.colors.primary,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.5,
-    elevation: 5,
+    padding: 5,
+    paddingHorizontal: 20,
   },
   infoText: {
-    color: 'white',
-    fontSize: 20,
+    fontSize: 18,
   },
 })

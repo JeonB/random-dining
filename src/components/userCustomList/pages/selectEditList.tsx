@@ -1,12 +1,10 @@
 import React from 'react'
 import { StyleSheet, View, Text, Dimensions } from 'react-native'
 import { NavigationProp, useFocusEffect } from '@react-navigation/native'
-
 import { MyTheme } from 'theme'
 import { RootStackParamList } from '@_types/listParamList'
 import { DefaultFlatList } from '@_userListPages/defaultFlatList'
 import { useListNames } from '@_userList/hook/useListNames'
-import { Button } from 'react-native-paper'
 
 export const SelectEditList = ({
   navigation,

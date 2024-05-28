@@ -3,7 +3,6 @@ import { StyleSheet, View, Alert, TextInput, Dimensions } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationProp, RouteProp } from '@react-navigation/native'
 import { Button } from 'react-native-paper'
-
 import { MyTheme } from 'theme'
 import { RootStackParamList } from '@_types/listParamList'
 import { LocationTypes } from '@_types/restaurant'

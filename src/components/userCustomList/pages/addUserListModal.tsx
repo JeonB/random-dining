@@ -10,12 +10,12 @@ import {
   Dimensions,
 } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useFocusEffect } from '@react-navigation/native'
 import { Button } from 'react-native-paper'
 import { MyTheme } from 'theme'
-import { useListNames } from '@_components/userCustomList/hook/useListNames'
-import { CreateNewListModal } from '@_userListPages/createNewListModal'
 import { LocationTypes } from '@_types/restaurant'
-import { useFocusEffect } from '@react-navigation/native'
+import { useListNames } from '@_userList/hook/useListNames'
+import { CreateNewListModal } from '@_userListPages/createNewListModal'
 
 export const AddUserListModal = ({
   selectedInfo,

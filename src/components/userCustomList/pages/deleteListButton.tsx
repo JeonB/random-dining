@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Alert } from 'react-native'
-import { NavigationProp, useFocusEffect } from '@react-navigation/native'
+import { NavigationProp } from '@react-navigation/native'
 import { Button } from 'react-native-paper'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { RootStackParamList } from '@_types/listParamList'

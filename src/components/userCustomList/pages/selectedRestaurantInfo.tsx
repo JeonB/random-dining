@@ -3,7 +3,6 @@ import { Dimensions, Image, StyleSheet, View } from 'react-native'
 import { StackScreenProps } from '@react-navigation/stack'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Text } from '@rneui/themed'
-
 import { RootStackParamList } from '@_types/listParamList'
 import { LocationTypes } from '@_types/restaurant'
 import Map from '@_3Rpages/RestaurantView/map'

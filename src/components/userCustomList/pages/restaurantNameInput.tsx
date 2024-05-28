@@ -1,7 +1,6 @@
 import React, { Dispatch, SetStateAction, useState } from 'react'
 import { Alert, Dimensions, StyleSheet, TextInput, View } from 'react-native'
 import { Icon } from '@rneui/themed'
-
 import { LocationTypes } from '@_types/restaurant'
 
 interface Props {
