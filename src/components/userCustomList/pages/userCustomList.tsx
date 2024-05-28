@@ -27,6 +27,7 @@ export const UserCustomList = ({
       navigation.navigate('UserSelectedRestaurantInfo', {
         restaurant: selectedRestaurant,
         listname: selectedListName,
+        restaurantList: restaurantItems,
       })
     }
   }

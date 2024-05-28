@@ -31,22 +31,20 @@ export const SelectedRestaurantInfo = ({
       navigation.navigate('UserSelectedRestaurantInfo', {
         restaurant: selectedRestaurant,
         listname: listName,
+        restaurantList: restaurantItems,
       })
     }
   }
 
   const handleRandomPickClick = async () => {
     try {
-      const savedListData = await AsyncStorage.getItem(listName)
-      // 리스트에 저장된 데이터가 있을 경우 random picker modal 호출
-      if (savedListData !== null && JSON.parse(savedListData).length > 0) {
-        setRestaurantItems(JSON.parse(savedListData))
-        setModalVisible(true)
-      }
+      setRestaurantItems(route.params?.restaurantList)
+      setModalVisible(true)
     } catch (error) {
       console.error('Error loading list data:', error)
     }
   }
+
   return (
     <View style={styles.container}>
       {restaurant.x ? (
