@@ -41,11 +41,11 @@
       <true/>
     </dict>
     <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>Allow $(PRODUCT_NAME) to access your location</string>
+    <string>$(PRODUCT_NAME)이 위치 기반 식당 추천을 위해 위치 정보를 사용하도록 허용합니다.</string>
     <key>NSLocationAlwaysUsageDescription</key>
-    <string>Allow $(PRODUCT_NAME) to access your location</string>
+    <string>$(PRODUCT_NAME)이 위치 기반 식당 추천을 위해 위치 정보를 사용하도록 허용합니다.</string>
     <key>NSLocationWhenInUseUsageDescription</key>
-    <string>Allow $(PRODUCT_NAME) to access your location</string>
+    <string>$(PRODUCT_NAME)이 위치 기반 식당 추천을 위해 위치 정보를 사용하도록 허용합니다.</string>
     <key>NSUserTrackingUsageDescription</key>
     <string>사용자의 데이터는 개인화된 광고 제공 목적으로 사용됩니다.</string>
     <key>UILaunchStoryboardName</key>
