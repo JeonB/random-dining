@@ -31,11 +31,13 @@ export const UserCustomList = ({
       })
     }
   }
+
   useFocusEffect(
     React.useCallback(() => {
       fetchListNames()
-    }, [fetchListNames]),
+    }, []),
   )
+
   const handlePressItem = async (item: string) => {
     try {
       const savedListData = await AsyncStorage.getItem(item) // 선택된 리스트 이름에 저장된 데이터를 가져옴

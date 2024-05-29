@@ -1,7 +1,8 @@
 import React from 'react'
 import { StyleSheet, View, Text, Dimensions } from 'react-native'
-import { NavigationProp, useFocusEffect } from '@react-navigation/native'
+import { NavigationProp } from '@react-navigation/native'
 import { MyTheme } from 'theme'
+import { useHideTabBar } from '@_components/useHideTabBar'
 import { RootStackParamList } from '@_types/listParamList'
 import { DefaultFlatList } from '@_userListPages/defaultFlatList'
 import { useListNames } from '@_userList/hook/useListNames'
@@ -11,13 +12,9 @@ export const SelectEditList = ({
 }: {
   navigation: NavigationProp<RootStackParamList>
 }) => {
-  const { listNames, fetchListNames } = useListNames()
+  useHideTabBar()
 
-  useFocusEffect(
-    React.useCallback(() => {
-      fetchListNames()
-    }, [fetchListNames]),
-  )
+  const { listNames } = useListNames()
 
   const handlePressItem = async (item: string) => {
     try {

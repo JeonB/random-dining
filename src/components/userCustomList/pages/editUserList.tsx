@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationProp, RouteProp } from '@react-navigation/native'
 import { Button } from 'react-native-paper'
 import { MyTheme } from 'theme'
+import { useHideTabBar } from '@_components/useHideTabBar'
 import { RootStackParamList } from '@_types/listParamList'
 import { LocationTypes } from '@_types/restaurant'
 import { useListNames } from '@_userList/hook/useListNames'
@@ -19,6 +20,8 @@ export const EditUserList = ({
   navigation: NavigationProp<RootStackParamList>
   route: RouteProp<RootStackParamList, 'EditUserList'>
 }) => {
+  useHideTabBar()
+
   const [listItems, setListItems] = useState<LocationTypes[]>([]) // 리스트 아이템을 관리하는 상태
   const [listName, setListName] = useState<string>(route.params.listName) // 리스트 이름을 관리하는 상태
   const [newListName, setNewListName] = useState(listName) // 새로운 리스트 이름을 관리하는 상태

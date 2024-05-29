@@ -6,8 +6,7 @@ import {
   StyleSheet,
   Animated,
 } from 'react-native'
-import { Button } from 'react-native-paper'
-import { MyTheme } from 'theme'
+import { ListManageButton } from '@_userListPages/listManage/listManageButton'
 
 export const ListManageModal = ({
   visible,
@@ -37,24 +36,16 @@ export const ListManageModal = ({
         <View style={styles.container}>
           <TouchableWithoutFeedback>
             <View style={modalStyle}>
-              <Animated.View style={{ opacity: addButtonOpacity }}>
-                <Button
-                  style={styles.button}
-                  buttonColor={MyTheme.colors.primary}
-                  mode="contained"
-                  onPress={handleAddButtonClick}>
-                  리스트 추가하기
-                </Button>
-              </Animated.View>
-              <Animated.View style={{ opacity: editButtonOpacity }}>
-                <Button
-                  style={styles.button}
-                  buttonColor={MyTheme.colors.primary}
-                  mode="contained"
-                  onPress={handleEditButtonClick}>
-                  리스트 수정하기
-                </Button>
-              </Animated.View>
+              <ListManageButton
+                opacity={addButtonOpacity}
+                onPress={handleAddButtonClick}
+                title="리스트 추가하기"
+              />
+              <ListManageButton
+                opacity={editButtonOpacity}
+                onPress={handleEditButtonClick}
+                title="리스트 수정하기"
+              />
             </View>
           </TouchableWithoutFeedback>
         </View>
@@ -67,15 +58,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 50,
-  },
-  button: {
-    margin: 3,
-    borderRadius: 10,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.3,
-    elevation: 1,
   },
 })

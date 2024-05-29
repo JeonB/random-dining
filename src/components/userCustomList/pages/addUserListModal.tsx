@@ -35,6 +35,7 @@ export const AddUserListModal = ({
       fetchListNames()
     }, []),
   )
+
   const addToList = async (listName: string) => {
     const savedList = await AsyncStorage.getItem(listName)
     const list = savedList ? JSON.parse(savedList) : []
