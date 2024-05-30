@@ -1,14 +1,10 @@
 import React, { useEffect } from 'react'
 import { StyleSheet, TextInput, Text } from 'react-native'
-import {
-  NavigationContainer,
-  useNavigationState,
-} from '@react-navigation/native'
-import { createStackNavigator } from '@react-navigation/stack'
-import { UserCustomList } from '@_components/userCustomList/pages/userCustomList'
+import { NavigationContainer } from '@react-navigation/native'
 import Constants from 'expo-constants'
 import 'regenerator-runtime/runtime'
-import { RestaurantProvider } from '@_3Rpages/context/restaurantProvider'
+import { RestaurantProvider } from '@_components/common/context/restaurantProvider'
+import { useStore } from '@_components/common/zustandStore'
 import { UserCustomListStack } from '@_components/listStackScreen'
 import RestaurantStackScreen from '@_components/restaurantStackScreen'
 import { StatusBar } from 'expo-status-bar'
@@ -34,18 +30,17 @@ console.error = (...args: any) => {
 
 const Tab = createBottomTabNavigator()
 const App: React.FC = () => {
+  const setTrackingGranted = useStore(state => state.setTrackingGranted)
+  const trackingGranted = useStore(state => state.trackingGranted)
   useEffect(() => {
     ;(async () => {
-      // Google AdMob will show any messages here that you just set up on the AdMob Privacy & Messaging page
+      // 앱 설치 후 googleAdmob 앱 추적 권한 요청 출력
       const { status: trackingStatus } = await requestTrackingPermissionsAsync()
-      if (trackingStatus !== 'granted') {
-        // Do something here such as turn off Sentry tracking, store in context/redux to allow for personalized ads, etc.
-      }
+      setTrackingGranted(trackingStatus === 'denied')
 
-      // Initialize the ads
       await mobileAds().initialize()
     })()
-  }, [])
+  }, [trackingGranted])
   return (
     <NavigationContainer theme={MyTheme}>
       <StatusBar style="dark" />

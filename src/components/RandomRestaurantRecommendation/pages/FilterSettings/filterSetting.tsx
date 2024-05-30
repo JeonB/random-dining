@@ -12,7 +12,7 @@ import DistanceSlider from '@_3Rpages/FilterSettings/distanceSlider'
 import CategorySwitch from '@_3Rpages/FilterSettings/categorySwitch'
 import RandomPickButton from '@_3Rpages/FilterSettings/randomPickButton'
 import RandomItemModal from '@_3Rpages/RestaurantView/randomItemModal'
-import { useRestaurantContext } from '@_3Rpages/context/restaurantContext'
+import { useRestaurantContext } from '@_components/common/context/restaurantContext'
 import { RestaurantParamList } from '@_types/restaurantParamList'
 import { MyTheme } from 'theme'
 

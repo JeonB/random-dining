@@ -1,7 +1,8 @@
 import { View } from 'react-native'
 import * as Device from 'expo-device'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads'
+import { useStore } from 'src/components/common/zustandStore'
 
 const iosAdmobBanner = 'ca-app-pub-3940256099942544/6300978111'
 const androidAdmobBanner = 'ca-app-pub-3940256099942544/6300978111'
@@ -10,6 +11,8 @@ const productionID =
 
 const InlineAd = () => {
   const [isAdLoaded, setIsAdLoaded] = useState<boolean>(false)
+  const isTrackingGranted = useStore(state => state.trackingGranted)
+  useEffect(() => {}, [isTrackingGranted])
   return (
     <View style={{ height: isAdLoaded ? 'auto' : 0 }}>
       <BannerAd
@@ -17,7 +20,7 @@ const InlineAd = () => {
         unitId={__DEV__ ? TestIds.BANNER : productionID}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
         requestOptions={{
-          requestNonPersonalizedAdsOnly: true,
+          requestNonPersonalizedAdsOnly: isTrackingGranted,
           // You can change this setting depending on whether you want to use the permissions tracking we set up in the initializing
         }}
         onAdLoaded={() => {
@@ -27,5 +30,4 @@ const InlineAd = () => {
     </View>
   )
 }
-
 export default InlineAd

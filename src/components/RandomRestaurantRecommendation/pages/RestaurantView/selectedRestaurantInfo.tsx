@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Alert, Dimensions, Image, StyleSheet, View } from 'react-native'
 import { StackScreenProps } from '@react-navigation/stack'
-import { useRestaurantContext } from '@_3Rpages/context/restaurantContext'
+import { useRestaurantContext } from '@_components/common/context/restaurantContext'
 import { LocationTypes } from '@_types/restaurant'
 import Map from './map'
 import RestaurantDetail from './restaurantDetail'

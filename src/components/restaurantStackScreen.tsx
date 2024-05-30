@@ -8,8 +8,8 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { RestaurantParamList } from '@_types/restaurantParamList'
 import { Ionicons, AntDesign } from '@expo/vector-icons'
 import { useNavigationState } from '@react-navigation/native'
-import InlineAd from './RandomRestaurantRecommendation/pages/inlinedAd'
-import { useRestaurantContext } from './RandomRestaurantRecommendation/pages/context/restaurantContext'
+import InlineAd from '@_3Rpages/inlinedAd'
+import { useRestaurantContext } from '@_components/common/context/restaurantContext'
 
 const RestaurantStackScreen = () => {
   const Stack = createStackNavigator<RestaurantParamList>()

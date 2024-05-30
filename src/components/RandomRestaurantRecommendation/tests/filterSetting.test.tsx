@@ -2,7 +2,7 @@ import { render, fireEvent } from '@testing-library/react-native'
 import FilterSetting from '../pages/FilterSettings/filterSetting'
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
-import { RestaurantProvider } from '../pages/context/restaurantProvider'
+import { RestaurantProvider } from '@_components/common/context/restaurantProvider'
 
 jest.mock('expo-constants', () => ({
   expoConfig: {

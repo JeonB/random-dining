@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { RestaurantContext } from '@_3Rpages/context/restaurantContext'
+import { RestaurantContext } from './restaurantContext'
 import { fetchRestaurantData, getPositionByGeolocation } from '@_services/api'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { LocationTypes } from '@_types/restaurant'

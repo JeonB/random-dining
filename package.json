@@ -7,6 +7,8 @@
     "start": "expo start",
     "android": "expo run:android",
     "ios": "expo run:ios",
+    "dev:build:ios": "eas build --profile development --platform ios",
+    "dev:build:android": "eas build --profile development --platform android",
     "web": "expo start --web",
     "web-storybook": "STORYBOOK_ENABLED='true' expo start --web",
     "test": "jest",
@@ -48,7 +50,8 @@
     "react-native-search-bar": "^3.5.1",
     "react-native-switch": "^1.5.1",
     "react-native-web": "~0.19.6",
-    "react-native-webview": "13.8.6"
+    "react-native-webview": "13.8.6",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.24.4",
