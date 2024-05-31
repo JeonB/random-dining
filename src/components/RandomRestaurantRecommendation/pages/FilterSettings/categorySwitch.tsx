@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import ToggleSwitch from '@_components/common/toggleSwitch'
+import ToggleSwitch from '@_components/common/ui/toggleSwitch'
 import { StyleSheet, View } from 'react-native'
 import { Text } from '@rneui/themed'
 

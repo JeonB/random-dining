@@ -2,7 +2,7 @@ import { View } from 'react-native'
 import * as Device from 'expo-device'
 import React, { useEffect, useState } from 'react'
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads'
-import { useStore } from 'src/components/common/zustandStore'
+import { useStore } from '@_components/common/utils/zustandStore'
 
 const iosAdmobBanner = 'ca-app-pub-3940256099942544/6300978111'
 const androidAdmobBanner = 'ca-app-pub-3940256099942544/6300978111'

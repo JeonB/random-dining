@@ -1,7 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
 import { Meta, StoryFn } from '@storybook/react'
-import ToggleSwitch from '../../common/toggleSwitch'
+import ToggleSwitch from '../../common/ui/toggleSwitch'
 import { LocationTypes } from 'src/types/restaurant'
 export default {
   title: 'Components/3R/FilterSettings/CategorySwitch',

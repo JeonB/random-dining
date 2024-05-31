@@ -1,11 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import {
-  Dimensions,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  View,
-} from 'react-native'
+import { Dimensions, ScrollView, StyleSheet, View } from 'react-native'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { Text } from '@rneui/themed'
 import DistanceSlider from '@_3Rpages/FilterSettings/distanceSlider'
@@ -73,24 +67,8 @@ const FilterSetting = () => {
           isLoading={isLoading}
           icon="chat-question-outline"
           text="뭐 먹지?"
-          style={{
-            width: '60%',
-            height: '90%',
-            justifyContent: 'center',
-            shadowColor: '#000',
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            backgroundColor: MyTheme.colors.primary,
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-            elevation: 1,
-          }}
-          labelStyle={{
-            fontSize: 25,
-            paddingTop: Platform.select({ ios: 10, android: 12 }),
-          }}
+          style={styles.button}
+          labelStyle={styles.buttonLabel}
         />
       </View>
       <RandomItemModal
@@ -106,14 +84,41 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  filterOptions: { marginTop: 20 },
-  text: { textAlign: 'left', alignSelf: 'flex-start', margin: 20 },
+  filterOptions: {
+    marginTop: MyTheme.width * 18,
+  },
+  text: {
+    textAlign: 'left',
+    alignSelf: 'flex-start',
+    margin: MyTheme.width * 15,
+  },
   buttonContainer: {
     position: 'absolute',
-    bottom: Dimensions.get('window').height * 0.1,
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height * 0.07,
+    bottom: Dimensions.get('window').height * 0.01,
+    width: MyTheme.width * 300,
+    height: MyTheme.width * 50,
     alignItems: 'center',
+    alignSelf: 'center',
+  },
+  button: {
+    width: MyTheme.width * 180,
+    height: MyTheme.width * 40,
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    backgroundColor: MyTheme.colors.primary,
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 1,
+  },
+  buttonLabel: {
+    fontSize: MyTheme.width * 20,
+    textAlignVertical: 'center', // Android
+    lineHeight: MyTheme.width * 23, // iOS
+    paddingTop: MyTheme.width * 2,
   },
 })
 
