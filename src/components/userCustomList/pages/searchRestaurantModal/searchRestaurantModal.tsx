@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Modal, View, StyleSheet, Dimensions, Text, Alert } from 'react-native'
 import { Button } from 'react-native-paper'
-
 import { MyTheme } from 'theme'
 import { handleData } from '@_services/searchRestaurantApi'
 import { LocationTypes } from '@_types/restaurant'

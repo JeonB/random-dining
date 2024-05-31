@@ -1,8 +1,7 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
-import { StackScreenProps, createStackNavigator } from '@react-navigation/stack'
+import { createStackNavigator } from '@react-navigation/stack'
 import { AntDesign } from '@expo/vector-icons'
-import { useHideTabBar } from './useHideTabBar'
 import { RootStackParamList } from '@_types/listParamList'
 import InlineAd from '@_3Rpages/inlinedAd'
 import DetailView from '@_3Rpages/RestaurantView/detailView'
@@ -12,20 +11,6 @@ import { SelectEditList } from '@_userListPages/selectEditList'
 import { UserCustomList } from '@_userListPages/userCustomList'
 import { SelectedRestaurantInfo } from '@_userListPages/selectedRestaurantInfo'
 import { DeleteListButton } from '@_userListPages/deleteListButton'
-const EditUserListScreen = ({
-  navigation,
-  route,
-}: StackScreenProps<RootStackParamList, 'EditUserList'>) => {
-  useHideTabBar()
-  return <EditUserList navigation={navigation} route={route} />
-}
-
-const AddUserListScreen = ({
-  navigation,
-}: StackScreenProps<RootStackParamList, 'AddUserList'>) => {
-  useHideTabBar()
-  return <AddUserList navigation={navigation} />
-}
 
 export const UserCustomListStack = () => {
   const Stack = createStackNavigator<RootStackParamList>()
@@ -63,7 +48,7 @@ export const UserCustomListStack = () => {
       />
       <Stack.Screen
         name="EditUserList"
-        component={EditUserListScreen}
+        component={EditUserList}
         options={{
           title: '리스트 수정',
           headerTitleAlign: 'center',
@@ -80,7 +65,7 @@ export const UserCustomListStack = () => {
       />
       <Stack.Screen
         name="AddUserList"
-        component={AddUserListScreen}
+        component={AddUserList}
         options={{
           title: '리스트 추가',
           headerTitleAlign: 'center',

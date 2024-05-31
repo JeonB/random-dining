@@ -3,7 +3,6 @@ import { Dimensions, Image, StyleSheet, View } from 'react-native'
 import { StackScreenProps } from '@react-navigation/stack'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Text } from '@rneui/themed'
-
 import { RootStackParamList } from '@_types/listParamList'
 import { LocationTypes } from '@_types/restaurant'
 import Map from '@_3Rpages/RestaurantView/map'
@@ -32,22 +31,20 @@ export const SelectedRestaurantInfo = ({
       navigation.navigate('UserSelectedRestaurantInfo', {
         restaurant: selectedRestaurant,
         listname: listName,
+        restaurantList: restaurantItems,
       })
     }
   }
 
   const handleRandomPickClick = async () => {
     try {
-      const savedListData = await AsyncStorage.getItem(listName)
-      // 리스트에 저장된 데이터가 있을 경우 random picker modal 호출
-      if (savedListData !== null && JSON.parse(savedListData).length > 0) {
-        setRestaurantItems(JSON.parse(savedListData))
-        setModalVisible(true)
-      }
+      setRestaurantItems(route.params?.restaurantList)
+      setModalVisible(true)
     } catch (error) {
       console.error('Error loading list data:', error)
     }
   }
+
   return (
     <View style={styles.container}>
       {restaurant.x ? (
@@ -82,7 +79,11 @@ export const SelectedRestaurantInfo = ({
                 textAlign: 'center',
               }}
               h4
-              h4Style={{ fontSize: 28, marginBottom: 15, fontWeight: 'bold' }}
+              h4Style={{
+                fontSize: (deviceWidth / 400) * 25,
+                marginBottom: 15,
+                fontWeight: 'bold',
+              }}
               numberOfLines={1}
               ellipsizeMode="tail">
               {restaurant?.place_name || ''}
@@ -113,9 +114,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   infoView: {
-    width: deviceWidth > 430 ? 450 : 400,
+    width: (Dimensions.get('window').width / 400) * 400,
     alignItems: 'center',
-    marginBottom: 50,
+    marginBottom: 60,
   },
   mapContainer: {
     width: Dimensions.get('window').width,
@@ -126,8 +127,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   mediaContainer: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').width,
+    width: (Dimensions.get('window').width / 400) * 350,
+    height: (Dimensions.get('window').width / 400) * 350,
     position: 'relative',
     alignItems: 'center',
     padding: 20,

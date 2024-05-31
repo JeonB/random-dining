@@ -1,25 +1,20 @@
 import React from 'react'
 import { StyleSheet, View, Text, Dimensions } from 'react-native'
-import { NavigationProp, useFocusEffect } from '@react-navigation/native'
-
+import { NavigationProp } from '@react-navigation/native'
 import { MyTheme } from 'theme'
+import { useHideTabBar } from '@_components/useHideTabBar'
 import { RootStackParamList } from '@_types/listParamList'
 import { DefaultFlatList } from '@_userListPages/defaultFlatList'
 import { useListNames } from '@_userList/hook/useListNames'
-import { Button } from 'react-native-paper'
 
 export const SelectEditList = ({
   navigation,
 }: {
   navigation: NavigationProp<RootStackParamList>
 }) => {
-  const { listNames, fetchListNames } = useListNames()
+  useHideTabBar()
 
-  useFocusEffect(
-    React.useCallback(() => {
-      fetchListNames()
-    }, [fetchListNames]),
-  )
+  const { listNames } = useListNames()
 
   const handlePressItem = async (item: string) => {
     try {
@@ -52,7 +47,7 @@ const { width, height } = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: width * 0.1,
+    paddingHorizontal: width * 0.07,
     paddingVertical: width * 0.05,
   },
   listText: {
@@ -63,12 +58,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
-    borderBlockColor: 'gray',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.5,
-    elevation: 5,
     borderRadius: 10,
-    padding: 15,
+    padding: 10,
     backgroundColor: MyTheme.colors.secondary,
   },
   infoText: {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Alert } from 'react-native'
-import { NavigationProp, useFocusEffect } from '@react-navigation/native'
+import { NavigationProp } from '@react-navigation/native'
 import { Button } from 'react-native-paper'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { RootStackParamList } from '@_types/listParamList'
@@ -11,13 +11,8 @@ export const DeleteListButton = ({
 }: {
   navigation: NavigationProp<RootStackParamList>
 }) => {
-  const { listNames, fetchListNames } = useListNames()
+  const { listNames, saveListNames } = useListNames()
 
-  useFocusEffect(
-    React.useCallback(() => {
-      fetchListNames()
-    }, [fetchListNames]),
-  )
   const handlePressDeleteListButton = async () => {
     Alert.alert(
       `모든 리스트를 삭제하시겠습니까?`,
@@ -36,6 +31,7 @@ export const DeleteListButton = ({
                   await AsyncStorage.removeItem(listName)
                 }
                 await AsyncStorage.removeItem('listnames')
+                await saveListNames([])
               }
               Alert.alert('삭제되었습니다.')
               navigation.reset({

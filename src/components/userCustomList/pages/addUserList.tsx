@@ -3,8 +3,8 @@ import { StyleSheet, View, Alert, TextInput, Dimensions } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationProp } from '@react-navigation/native'
 import { Button } from 'react-native-paper'
-
 import { MyTheme } from 'theme'
+import { useHideTabBar } from '@_components/useHideTabBar'
 import { RootStackParamList } from '@_types/listParamList'
 import { LocationTypes } from '@_types/restaurant'
 import { useListNames } from '@_userList/hook/useListNames'
@@ -19,6 +19,8 @@ export const AddUserList = ({
 }: {
   navigation: NavigationProp<RootStackParamList>
 }) => {
+  useHideTabBar()
+
   const [listItems, setListItems] = useState<LocationTypes[]>([]) // 리스트 아이템을 관리하는 상태
   const [newListName, setNewListName] = useState('') // 새로운 리스트 이름을 관리하는 상태
 
@@ -126,7 +128,7 @@ export const AddUserList = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: width * 0.1,
+    paddingHorizontal: width * 0.07,
   },
   listNameField: {
     borderColor: 'black',
@@ -135,7 +137,7 @@ const styles = StyleSheet.create({
     marginTop: height * 0.025,
     marginBottom: height * 0.005,
     padding: 12,
-    fontSize: 18,
+    fontSize: width > 360 ? 17 : 15,
   },
   buttonContainer: {
     justifyContent: 'flex-end',

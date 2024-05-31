@@ -26,10 +26,10 @@ export const useSequentialAnimation = (
 
     Animated.sequence(
       show
-        ? [firstAnimation, secondAnimation] // 첫 번째 애니메이션 먼저 실행
+        ? [firstAnimation, secondAnimation]
         : [secondAnimation, firstAnimation],
     ).start()
-  }, [show, duration, firstValue, secondValue])
+  }, [show, duration])
 
   return [firstValue, secondValue]
 }

@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import { StyleSheet, View, Text, Alert, Dimensions } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationProp, useFocusEffect } from '@react-navigation/native'
-
-import RandomItemModal from '@_components/RandomRestaurantRecommendation/pages/RestaurantView/randomItemModal'
+import { Button } from 'react-native-paper'
+import { MyTheme } from 'theme'
+import RandomItemModal from '@_3Rpages/RestaurantView/randomItemModal'
+import { LocationTypes } from '@_types/restaurant'
+import { RootStackParamList } from '@_types/listParamList'
+import { useListNames } from '@_userList/hook/useListNames'
 import { DefaultFlatList } from '@_userListPages/defaultFlatList'
 import { ListManageIcon } from '@_userListPages/listManage/listManageIcon'
-import { useListNames } from '@_userList/hook/useListNames'
-import { RootStackParamList } from '@_types/listParamList'
-import { LocationTypes } from '@_types/restaurant'
 
 export const UserCustomList = ({
   navigation,
@@ -26,14 +27,17 @@ export const UserCustomList = ({
       navigation.navigate('UserSelectedRestaurantInfo', {
         restaurant: selectedRestaurant,
         listname: selectedListName,
+        restaurantList: restaurantItems,
       })
     }
   }
+
   useFocusEffect(
     React.useCallback(() => {
       fetchListNames()
-    }, [fetchListNames]),
+    }, []),
   )
+
   const handlePressItem = async (item: string) => {
     try {
       const savedListData = await AsyncStorage.getItem(item) // 선택된 리스트 이름에 저장된 데이터를 가져옴
@@ -51,22 +55,40 @@ export const UserCustomList = ({
     }
   }
 
+  const handleAddButtonClick = () => {
+    navigation.navigate('AddUserList')
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.listContainer}>
-        <DefaultFlatList
-          data={listNames}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={item => (
-            <Text
-              style={styles.listText}
-              numberOfLines={1}
-              ellipsizeMode="tail">
-              {item}
-            </Text>
-          )}
-          onPressItem={handlePressItem}
-        />
+        {listNames.length === 0 ? (
+          <View style={styles.infoArea}>
+            <Button
+              mode="contained"
+              style={styles.infoButton}
+              buttonColor={MyTheme.colors.primary}
+              textColor="white"
+              labelStyle={styles.infoText}
+              onPress={handleAddButtonClick}>
+              나만의 리스트를 만들어보세요!
+            </Button>
+          </View>
+        ) : (
+          <DefaultFlatList
+            data={listNames}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={item => (
+              <Text
+                style={styles.listText}
+                numberOfLines={1}
+                ellipsizeMode="tail">
+                {item}
+              </Text>
+            )}
+            onPressItem={handlePressItem}
+          />
+        )}
         <View style={styles.iconWrapper}>
           <ListManageIcon navigation={navigation} />
         </View>
@@ -85,7 +107,7 @@ const { width, height } = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: width * 0.1,
+    padding: width * 0.07,
   },
   listContainer: {
     flex: 1,
@@ -98,5 +120,17 @@ const styles = StyleSheet.create({
   listText: {
     fontSize: 20,
     textAlign: 'center',
+  },
+  infoArea: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  infoButton: {
+    borderRadius: 10,
+    padding: 5,
+    width: '100%',
+  },
+  infoText: {
+    fontSize: width > 360 ? 20 : 15,
   },
 })
