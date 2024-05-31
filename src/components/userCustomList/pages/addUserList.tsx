@@ -128,7 +128,7 @@ export const AddUserList = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: width * 0.1,
+    paddingHorizontal: width * 0.07,
   },
   listNameField: {
     borderColor: 'black',
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     marginTop: height * 0.025,
     marginBottom: height * 0.005,
     padding: 12,
-    fontSize: 18,
+    fontSize: width > 360 ? 17 : 15,
   },
   buttonContainer: {
     justifyContent: 'flex-end',

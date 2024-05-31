@@ -107,7 +107,7 @@ const { width, height } = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: width * 0.1,
+    padding: width * 0.07,
   },
   listContainer: {
     flex: 1,
@@ -128,9 +128,9 @@ const styles = StyleSheet.create({
   infoButton: {
     borderRadius: 10,
     padding: 5,
-    paddingHorizontal: 20,
+    width: '100%',
   },
   infoText: {
-    fontSize: 18,
+    fontSize: width > 360 ? 20 : 15,
   },
 })

@@ -79,7 +79,11 @@ export const SelectedRestaurantInfo = ({
                 textAlign: 'center',
               }}
               h4
-              h4Style={{ fontSize: 28, marginBottom: 15, fontWeight: 'bold' }}
+              h4Style={{
+                fontSize: (deviceWidth / 400) * 25,
+                marginBottom: 15,
+                fontWeight: 'bold',
+              }}
               numberOfLines={1}
               ellipsizeMode="tail">
               {restaurant?.place_name || ''}
@@ -110,9 +114,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   infoView: {
-    width: deviceWidth > 430 ? 450 : 400,
+    width: (Dimensions.get('window').width / 400) * 400,
     alignItems: 'center',
-    marginBottom: 50,
+    marginBottom: 60,
   },
   mapContainer: {
     width: Dimensions.get('window').width,
@@ -123,8 +127,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   mediaContainer: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').width,
+    width: (Dimensions.get('window').width / 400) * 350,
+    height: (Dimensions.get('window').width / 400) * 350,
     position: 'relative',
     alignItems: 'center',
     padding: 20,

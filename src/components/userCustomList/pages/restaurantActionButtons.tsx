@@ -47,7 +47,6 @@ const RestaurantActionButtons = ({
             <Text style={styles.detailButtonText}>리스트 수정</Text>
           </Button>
         )}
-
         <Button
           onPress={() => setModalVisible(true)}
           style={styles.detailButton}>
@@ -59,7 +58,6 @@ const RestaurantActionButtons = ({
         visible={modalVisible}
         onClose={() => setModalVisible(false)}
       />
-
       <RandomPickButton
         handleRandomPickClick={handleRandomPickClick}
         isLoading={isLoading}
@@ -67,13 +65,13 @@ const RestaurantActionButtons = ({
         text="다시 선택"
         style={{
           width: Dimensions.get('window').width * 0.85,
-          height: Dimensions.get('window').height * 0.05,
+          height: (Dimensions.get('window').height / 400) * 25,
           marginTop: 10,
           justifyContent: 'center',
         }}
         labelStyle={{
-          fontSize: 25,
-          paddingTop: Platform.select({ ios: 6, android: 10 }),
+          fontSize: (Dimensions.get('window').width / 400) * 25,
+          paddingTop: (Dimensions.get('window').width / 400) * 7,
         }}
       />
     </View>

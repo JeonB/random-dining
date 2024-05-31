@@ -47,7 +47,7 @@ const { width, height } = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: width * 0.1,
+    paddingHorizontal: width * 0.07,
     paddingVertical: width * 0.05,
   },
   listText: {
@@ -58,12 +58,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
-    borderBlockColor: 'gray',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.5,
-    elevation: 5,
     borderRadius: 10,
-    padding: 15,
+    padding: 10,
     backgroundColor: MyTheme.colors.secondary,
   },
   infoText: {

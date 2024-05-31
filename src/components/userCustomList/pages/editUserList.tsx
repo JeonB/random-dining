@@ -212,7 +212,7 @@ const { width, height } = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: width * 0.1,
+    paddingHorizontal: width * 0.07,
   },
   deleteListButton: {
     justifyContent: 'flex-start',

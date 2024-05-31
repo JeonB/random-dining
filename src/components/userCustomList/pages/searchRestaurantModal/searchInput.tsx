@@ -27,7 +27,11 @@ export const SearchInput: React.FC<SearchInputProps> = ({
       onChangeText={setInputRestaurant}
       value={inputRestaurant}
       autoFocus={true}
-      onSubmitEditing={handlePressSearchButton}
+      onSubmitEditing={() => {
+        if (inputRestaurant.trim() !== '') {
+          handlePressSearchButton()
+        }
+      }}
       returnKeyType="search"
       clearButtonMode="always"
       testID="restaurantNameField"
