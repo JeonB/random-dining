@@ -56,7 +56,6 @@ const Map = ({
             }
             #currentPositionButton {
               position: absolute;
-              bottom: 100px;
               right: 10px;
               z-index: 1;
               background-image: url('https://i.postimg.cc/1XyyGg1b/gps2.png');
@@ -73,6 +72,12 @@ const Map = ({
           }
         </style>
             <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=${appKey}&libraries=services"></script>
+            <script>
+              window.onload = function() {
+                var button = document.getElementById('currentPositionButton');
+                button.style.bottom = window.innerHeight * 0.1 + 'px';
+              };
+            </script>
         </head>
         <body >
             <div id="map" ></div>
