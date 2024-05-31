@@ -16,8 +16,8 @@ export const UserCustomList = ({
 }: {
   navigation: NavigationProp<RootStackParamList>
 }) => {
-  const { listNames, fetchListNames } = useListNames() // AsyncStorage에 저장된 리스트 이름들을 가져오는 커스텀 훅
-  const [selectedListName, setSelectedListName] = useState<string>('') // 선택된 리스트 이름
+  const { listNames, fetchListNames } = useListNames()
+  const [selectedListName, setSelectedListName] = useState<string>('')
   const [modalVisible, setModalVisible] = useState(false)
   const [restaurantItems, setRestaurantItems] = useState<LocationTypes[]>([])
 
@@ -40,7 +40,7 @@ export const UserCustomList = ({
 
   const handlePressItem = async (item: string) => {
     try {
-      const savedListData = await AsyncStorage.getItem(item) // 선택된 리스트 이름에 저장된 데이터를 가져옴
+      const savedListData = await AsyncStorage.getItem(item)
       setSelectedListName(item)
       // 리스트에 저장된 데이터가 있을 경우 random picker modal 호출
       if (savedListData !== null && JSON.parse(savedListData).length > 0) {
@@ -103,23 +103,23 @@ export const UserCustomList = ({
   )
 }
 
-const { width, height } = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: width * 0.07,
+    padding: MyTheme.width * 30,
   },
   listContainer: {
     flex: 1,
     flexDirection: 'column',
   },
   iconWrapper: {
-    marginTop: 20,
+    marginTop: MyTheme.width * 10,
     alignItems: 'flex-end',
   },
   listText: {
-    fontSize: 20,
+    fontSize: MyTheme.width * 20,
     textAlign: 'center',
+    lineHeight: MyTheme.width * 24,
   },
   infoArea: {
     flex: 1,
@@ -127,10 +127,11 @@ const styles = StyleSheet.create({
   },
   infoButton: {
     borderRadius: 10,
-    padding: 5,
+    paddingVertical: MyTheme.width * 5,
     width: '100%',
   },
   infoText: {
-    fontSize: width > 360 ? 20 : 15,
+    fontSize: MyTheme.width * 18,
+    paddingTop: MyTheme.width * 2,
   },
 })

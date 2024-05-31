@@ -22,12 +22,12 @@ export const useHideTabBar = () => {
     }
     const focusListener = navigation.addListener('focus', hideTabBar)
     const blurListener = navigation.addListener('blur', showTabBar)
+
     hideTabBar()
 
     return () => {
       focusListener()
       blurListener()
-      showTabBar()
     }
   }, [navigation, route])
 }

@@ -90,12 +90,15 @@ export const AddUserListModal = ({
             <FlatList
               data={listNames}
               keyExtractor={item => item}
-              renderItem={({ item }) => (
+              renderItem={({ item, index }) => (
                 <TouchableOpacity
-                  style={styles.listItemContainer}
+                  style={[
+                    styles.listItemContainer,
+                    index === 0 ? styles.firstItemContainer : null,
+                  ]}
                   onPress={() => addToList(item)}>
                   <Text
-                    style={styles.listItem}
+                    style={[styles.listItem]}
                     numberOfLines={1}
                     ellipsizeMode="tail">
                     {item}
@@ -139,12 +142,10 @@ const styles = StyleSheet.create({
   },
   modalView: {
     position: 'absolute',
-    top: height * 0.2,
-    width: width * 0.8,
-    margin: 20,
+    width: MyTheme.width * 300,
     backgroundColor: 'rgba(245, 245, 245, 0.95)',
     borderRadius: 10,
-    padding: 20,
+    padding: MyTheme.width * 20,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 4,
@@ -155,9 +156,9 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: MyTheme.width * 20,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: 5,
   },
   subTitle: {
     textAlign: 'center',
@@ -165,19 +166,22 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   listContainer: {
-    borderTopWidth: 0.2,
     borderColor: 'gray',
     maxHeight: height * 0.3,
     marginBottom: 10,
   },
   listItemContainer: {
-    borderBottomWidth: 0.2,
+    borderBottomWidth: 0.5,
     borderColor: 'gray',
   },
   listItem: {
     padding: 10,
     fontSize: 18,
     textAlign: 'center',
+  },
+  firstItemContainer: {
+    borderTopWidth: 0.5,
+    borderColor: 'gray',
   },
   newListButtonLabel: {
     fontSize: 18,

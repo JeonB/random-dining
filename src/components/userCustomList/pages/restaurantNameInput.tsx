@@ -1,17 +1,8 @@
 import React, { Dispatch, SetStateAction, useState } from 'react'
-import {
-  Alert,
-  Dimensions,
-  Platform,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import { Alert, StyleSheet, TextInput, View } from 'react-native'
 import { Icon } from '@rneui/themed'
 import { LocationTypes } from '@_types/restaurant'
 import { MyTheme } from 'theme'
-import { Feather } from '@expo/vector-icons'
 interface Props {
   listItems: LocationTypes[]
   setListItems: Dispatch<SetStateAction<LocationTypes[]>>
@@ -49,23 +40,12 @@ export const RestaurantNameInput: React.FC<Props> = ({
           value={inputRestaurant}
           testID="restaurantNameField"
           returnKeyType="done"
-          clearButtonMode="always"
           onSubmitEditing={() => {
             if (inputRestaurant.trim() !== '') {
               handlePressRestaurantAddButton()
             }
           }}
         />
-        {Platform.OS === 'android' && inputRestaurant ? (
-          <TouchableOpacity
-            style={{
-              position: 'absolute',
-              right: 15,
-            }}
-            onPress={() => setInputRestaurant('')}>
-            <Feather name="x" size={15} color="black" />
-          </TouchableOpacity>
-        ) : null}
       </View>
       <View style={styles.iconContainer}>
         <Icon
@@ -82,7 +62,6 @@ export const RestaurantNameInput: React.FC<Props> = ({
   )
 }
 
-const { width, height } = Dimensions.get('window')
 const styles = StyleSheet.create({
   restaurantInputContainer: {
     flexDirection: 'row',
@@ -92,15 +71,16 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 1,
     borderRadius: 10,
-    padding: 12,
-    fontSize: width > 360 ? 17 : 15,
-    marginRight: 5,
+    padding: MyTheme.width * 10,
+    fontSize: MyTheme.width * 16,
+    marginRight: MyTheme.width * 5,
+    lineHeight: MyTheme.width * 24,
   },
   iconContainer: {
     justifyContent: 'center',
     borderWidth: 1,
     borderRadius: 10,
-    padding: 10,
+    padding: MyTheme.width * 10,
   },
   inputArea: {
     flex: 1,
