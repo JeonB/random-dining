@@ -10,7 +10,7 @@ import {
   StackNavigationProp,
   createStackNavigator,
 } from '@react-navigation/stack'
-import { RestaurantProvider } from '../pages/context/restaurantProvider'
+import { RestaurantProvider } from '@_components/common/context/restaurantProvider'
 
 const Stack = createStackNavigator<RootStackParamList>()
 const StoryScreen = ({ route }) => {

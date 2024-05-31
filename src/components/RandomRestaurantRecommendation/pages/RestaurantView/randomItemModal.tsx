@@ -11,28 +11,26 @@ interface RandomPickerModalProps {
   onRestaurantIndexChange: (index: number) => void
 }
 
-const RandomItemModal = memo(
-  ({
-    visible,
-    onClose,
-    onRestaurantIndexChange,
-    restaurantItems,
-  }: RandomPickerModalProps) => {
-    return (
-      <Modal style={styles.modal} visible={visible} onRequestClose={onClose}>
-        <View style={styles.modal}>
-          <AnimatedRandomSelector
-            itemHeight={36}
-            restaurantItems={restaurantItems}
-            onIndexChange={onRestaurantIndexChange}
-            closeModal={onClose}
-          />
-          <Button onPress={onClose}>Close</Button>
-        </View>
-      </Modal>
-    )
-  },
-)
+const RandomItemModal = ({
+  visible,
+  onClose,
+  onRestaurantIndexChange,
+  restaurantItems,
+}: RandomPickerModalProps) => {
+  return (
+    <Modal style={styles.modal} visible={visible} onRequestClose={onClose}>
+      <View style={styles.modal}>
+        <AnimatedRandomSelector
+          itemHeight={36}
+          restaurantItems={restaurantItems}
+          onIndexChange={onRestaurantIndexChange}
+          closeModal={onClose}
+        />
+        <Button onPress={onClose}>Close</Button>
+      </View>
+    </Modal>
+  )
+}
 
 const styles = StyleSheet.create({
   modal: {
@@ -40,6 +38,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  inlineAd: {
+    position: 'absolute',
+    bottom: 5,
+  },
 })
-RandomItemModal.displayName = 'RandomItemModal'
-export default memo(RandomItemModal)
+export default RandomItemModal

@@ -55,6 +55,7 @@ const fetchData = async (url: string) => {
       },
     })
     if (!response.ok) {
+      Alert.alert('존재하지 않는 주소입니다. 키워드로 검색해주세요.')
       console.error(`데이터를 불러오는데 실패했습니다: ${response.statusText}`)
       return null
     }
@@ -69,6 +70,8 @@ const fetchData = async (url: string) => {
   }
 }
 
+const locationDataCache: Record<string, LocationTypes[]> = {}
+
 export async function fetchLocationData(
   query: string,
   x?: string,
@@ -78,6 +81,7 @@ export async function fetchLocationData(
 ) {
   const allData: LocationTypes[] = []
   let page = 1
+  let url = ''
   while (page < 4) {
     const queryParams: QueryParamsType = {
       query,
@@ -89,7 +93,13 @@ export async function fetchLocationData(
       page,
     }
     const queryString = createQueryString(queryParams)
-    const url = `${baseUrl}?${queryString}`
+    url = `${baseUrl}?${queryString}`
+
+    // 캐시 확인
+    if (locationDataCache[url]) {
+      return locationDataCache[url]
+    }
+
     const data = await fetchData(url)
     if (data === null) {
       return null
@@ -100,39 +110,10 @@ export async function fetchLocationData(
     }
     page++
   }
-
+  locationDataCache[url] = allData
   return allData
 }
 
-// export const fetchRestaurantData = async (
-//   categories: string[],
-//   distanceRange: number,
-//   longitude?: string,
-//   latitude?: string,
-// ) => {
-//   let allData: LocationTypes[] | undefined = []
-//   const randomCategory =
-//     categories[Math.floor(Math.random() * categories.length)]
-
-//   try {
-//     allData = await fetchLocationData(
-//       randomCategory,
-//       longitude,
-//       latitude,
-//       'FD6',
-//       distanceRange,
-//     )
-//   } catch (error) {
-//     console.error('에러 발생:', error)
-//   }
-
-//   if (allData?.length === 0) {
-//     Alert.alert('주변에 식당이 없습니다. 거리 범위를 조정해주세요.')
-//     return
-//   }
-
-//   return allData
-// }
 export const fetchRestaurantData = async (
   categories: string[],
   distanceRange: number,

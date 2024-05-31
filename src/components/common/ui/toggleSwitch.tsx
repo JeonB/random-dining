@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, Dimensions, Platform } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { Switch } from 'react-native-switch'
 import { MyTheme } from 'theme'
 const ToggleSwitch = ({

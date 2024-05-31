@@ -69,6 +69,7 @@ const Map = ({
               border: none;
               border-radius: 50%;
               box-shadow: 0px 2px 10.84px 0px rgba(0, 0, 0, 0.25);
+              touch-action: manipulation;
           }
         </style>
             <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=${appKey}&libraries=services"></script>

@@ -9,7 +9,7 @@ import { LocationTypes } from '@_types/restaurant'
 import Map from '@_3Rpages/RestaurantView/map'
 import RestaurantDetail from '@_3Rpages/RestaurantView/restaurantDetail'
 import RandomItemModal from '@_3Rpages/RestaurantView/randomItemModal'
-import { useRestaurantContext } from '@_3Rpages/context/restaurantContext'
+import { useRestaurantContext } from '@_components/common/context/restaurantContext'
 import RestaurantActionButtons from '@_userListPages/restaurantActionButtons'
 
 export const SelectedRestaurantInfo = ({

@@ -1,6 +1,7 @@
 import { Icon, Slider } from '@rneui/themed'
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { Platform, StyleSheet, Text, View } from 'react-native'
+import { MyTheme } from 'theme'
 
 interface DistanceSliderProps {
   distanceRange: number
@@ -18,6 +19,12 @@ const DistanceSlider = ({
   return (
     <View style={[styles.contentView]}>
       <Slider
+        style={{
+          width: Platform.select({
+            android: MyTheme.width * 305,
+            ios: MyTheme.width * 320,
+          }),
+        }}
         value={distanceRange}
         onValueChange={handleValueChange}
         maximumValue={300}
@@ -44,10 +51,10 @@ const DistanceSlider = ({
 }
 const styles = StyleSheet.create({
   contentView: {
-    padding: 10,
-    width: '90%',
+    padding: MyTheme.width * 10,
+    width: MyTheme.width * 330,
     justifyContent: 'center',
-    alignItems: 'stretch',
+    // alignItems: 'stretch',
     alignSelf: 'center',
   },
 })

@@ -1,6 +1,6 @@
 import { Button } from 'react-native-paper'
-import React, { useCallback, useEffect, useState } from 'react'
-import { Dimensions, Image, StyleSheet, View } from 'react-native'
+import React, { useCallback, useState } from 'react'
+import { Image, StyleSheet, View } from 'react-native'
 import {
   NavigationProp,
   useFocusEffect,
@@ -10,8 +10,6 @@ import { getPositionByGeolocation } from '@_services/api'
 import { RestaurantParamList } from '@_types/restaurantParamList'
 import mainImage from '@_assetImages/main.png'
 import { MyTheme } from 'theme'
-import InlineAd from './inlinedAd'
-
 const PositionSelector = () => {
   const navigation = useNavigation<NavigationProp<RestaurantParamList>>()
   const [isMapSearcButtonDisabled, setMapSearchButtonDisabled] = useState(false)
@@ -41,7 +39,7 @@ const PositionSelector = () => {
       <View style={styles.mediaContainer} testID="mediaContainer">
         <Image
           source={mainImage}
-          style={{ width: '90%', height: '120%', marginBottom: 10 }}
+          style={styles.image}
           onError={({ nativeEvent: { error } }) => console.warn(error)}
         />
         <Button
@@ -73,24 +71,27 @@ const PositionSelector = () => {
           지도에서 선택한 위치로 추천 받기
         </Button>
       </View>
-      <View style={styles.inlineAd}>
-        <InlineAd />
-      </View>
     </>
   )
 }
 
 const styles = StyleSheet.create({
   mediaContainer: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').width * 0.7,
+    width: MyTheme.width * 350,
+    height: MyTheme.width * 800,
     position: 'relative',
     alignItems: 'center',
+    alignSelf: 'center',
+  },
+  image: {
+    width: '95%',
+    height: MyTheme.width * 280,
+    marginBottom: MyTheme.width * 10,
   },
   button: {
-    marginTop: 10,
-    width: '80%',
-    height: '20%',
+    marginTop: MyTheme.width * 10,
+    width: MyTheme.width * 300,
+    height: MyTheme.width * 40,
     borderRadius: 10,
     justifyContent: 'center',
     shadowColor: '#000',
@@ -104,7 +105,7 @@ const styles = StyleSheet.create({
     elevation: 1,
   },
   buttonLabel: {
-    fontSize: 18,
+    fontSize: MyTheme.width * 16,
   },
   inlineAd: {
     position: 'absolute',

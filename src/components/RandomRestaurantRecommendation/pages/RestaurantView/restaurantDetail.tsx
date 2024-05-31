@@ -40,10 +40,11 @@ const RestaurantDetail = ({ info }: { info: LocationTypes }) => {
       <Text
         style={{
           width: '80%',
+          height: '9%',
           textAlign: 'center',
         }}
         h4
-        h4Style={{ fontSize: 25, marginBottom: 10 }}
+        h4Style={{ fontSize: 25, marginBottom: 5 }}
         numberOfLines={1}
         ellipsizeMode="tail">
         {info?.place_name || ''}
