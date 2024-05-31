@@ -45,7 +45,13 @@ const CategorySwitch = ({
           key={category}
           style={{ flexDirection: 'column', marginBottom: 3 }}>
           <View style={styles.container}>
-            <Text h4 h4Style={{ alignSelf: 'center', paddingLeft: 10 }}>
+            <Text
+              h4
+              h4Style={{
+                alignSelf: 'center',
+                paddingLeft: 10,
+                fontWeight: 'normal',
+              }}>
               {category}
             </Text>
             <ToggleSwitch

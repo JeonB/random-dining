@@ -1,5 +1,14 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Alert, Dimensions, Image, StyleSheet, View } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
+import {
+  Alert,
+  Dimensions,
+  Image,
+  StyleSheet,
+  View,
+  Platform,
+  ScrollView,
+  LayoutChangeEvent,
+} from 'react-native'
 import { StackScreenProps } from '@react-navigation/stack'
 import { useRestaurantContext } from '@_components/common/context/restaurantContext'
 import { LocationTypes } from '@_types/restaurant'
@@ -9,6 +18,7 @@ import RestaurantActionButtons from './restaurantActionButtons'
 import RandomItemModal from './randomItemModal'
 import { RestaurantParamList } from '@_types/restaurantParamList'
 import mainImage from '@_assetImages/main.png'
+import { MyTheme } from 'theme'
 
 const SelectedRestaurantInfo = ({
   route,
@@ -45,7 +55,24 @@ const SelectedRestaurantInfo = ({
       })
     }
   }
+  const [contentHeight, setContentHeight] = useState(0)
+  const screenHeight = Dimensions.get('window').height / 300
 
+  const onLayout = (event: LayoutChangeEvent) => {
+    setContentHeight(event.nativeEvent.layout.height)
+  }
+
+  const Content = restaurant && (
+    <View onLayout={onLayout} style={{ width: Dimensions.get('window').width }}>
+      <RestaurantDetail info={restaurant} />
+      <RestaurantActionButtons
+        selectedRestaurant={restaurant}
+        handleRandomPickClick={handleReselectClick}
+        isLoading={isLoading}
+        navigation={navigation}
+      />
+    </View>
+  )
   return (
     <View style={styles.container}>
       <View style={styles.mediaContainer}>
@@ -59,19 +86,11 @@ const SelectedRestaurantInfo = ({
           />
         )}
       </View>
-
-      {restaurant && (
-        <View>
-          <RestaurantDetail info={restaurant} />
-          <RestaurantActionButtons
-            selectedRestaurant={restaurant}
-            handleRandomPickClick={handleReselectClick}
-            isLoading={isLoading}
-            navigation={navigation}
-          />
-        </View>
+      {contentHeight > screenHeight * 150 ? (
+        <ScrollView>{Content}</ScrollView>
+      ) : (
+        Content
       )}
-
       <RandomItemModal
         visible={modalVisible}
         onClose={() => setModalVisible(false)}
@@ -89,7 +108,10 @@ const styles = StyleSheet.create({
   },
   mediaContainer: {
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').width * 0.6,
+    height: Platform.select({
+      ios: MyTheme.width * 230,
+      android: MyTheme.width * 220,
+    }),
     position: 'relative',
     alignItems: 'center',
     padding: 0,

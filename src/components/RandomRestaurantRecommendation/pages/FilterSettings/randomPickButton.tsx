@@ -1,4 +1,5 @@
 import React from 'react'
+import { Platform } from 'react-native'
 import { Button } from 'react-native-paper'
 import { MyTheme } from 'theme'
 
@@ -20,7 +21,7 @@ const RandomPickButton = ({
   labelStyle,
 }: RandomPickButtonProps) => (
   <Button
-    mode="contained"
+    mode={Platform.OS === 'ios' ? 'contained' : 'elevated'}
     textColor="#e6e6fA"
     icon={icon}
     buttonColor={MyTheme.colors.primary}

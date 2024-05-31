@@ -1,5 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Dimensions, ScrollView, StyleSheet, View } from 'react-native'
+import {
+  Dimensions,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native'
 import { RouteProp, useRoute } from '@react-navigation/native'
 import { Text } from '@rneui/themed'
 import DistanceSlider from '@_3Rpages/FilterSettings/distanceSlider'
@@ -91,6 +97,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     alignSelf: 'flex-start',
     margin: MyTheme.width * 15,
+    fontWeight: 'normal',
   },
   buttonContainer: {
     position: 'absolute',
@@ -102,7 +109,10 @@ const styles = StyleSheet.create({
   },
   button: {
     width: MyTheme.width * 180,
-    height: MyTheme.width * 40,
+    height: Platform.select({
+      ios: MyTheme.width * 45,
+      android: MyTheme.width * 40,
+    }),
     justifyContent: 'center',
     shadowColor: '#000',
     shadowOffset: {
@@ -115,10 +125,11 @@ const styles = StyleSheet.create({
     elevation: 1,
   },
   buttonLabel: {
-    fontSize: MyTheme.width * 20,
-    textAlignVertical: 'center', // Android
-    lineHeight: MyTheme.width * 23, // iOS
-    paddingTop: MyTheme.width * 2,
+    fontSize: Platform.select({
+      ios: MyTheme.width * 22,
+      android: MyTheme.width * 20,
+    }),
+    lineHeight: MyTheme.width * 23,
   },
 })
 
