@@ -1,7 +1,7 @@
 import React from 'react'
 import { LocationTypes } from '@_types/restaurant'
 import { DataTable, Icon } from 'react-native-paper'
-import { Dimensions, Image, Linking, StyleSheet, View } from 'react-native'
+import { Image, Linking, StyleSheet, View } from 'react-native'
 import { Text } from '@rneui/themed'
 import mainImage from '@_assetImages/main.png'
 import koreanFood from '@_assetImages/korean.png'
@@ -10,6 +10,8 @@ import chineseFood from '@_assetImages/chinese.png'
 import westernFood from '@_assetImages/western.png'
 import dduck from '@_assetImages/dduck.png'
 import asianFood from '@_assetImages/asian.png'
+import { MyTheme } from 'theme'
+
 const RestaurantDetail = ({ info }: { info: LocationTypes }) => {
   function extractMainCategory(categoryName: string) {
     const splitCategory = categoryName.split(' > ')
@@ -35,50 +37,45 @@ const RestaurantDetail = ({ info }: { info: LocationTypes }) => {
         return mainImage
     }
   }
+
   return (
     <View style={styles.infoView}>
       <Text
-        style={{
-          width: '80%',
-          height: '9%',
-          textAlign: 'center',
-        }}
+        style={styles.restaurantName}
         h4
-        h4Style={{ fontSize: 25, marginBottom: 5 }}
+        h4Style={styles.restaurantNameLabel}
         numberOfLines={1}
         ellipsizeMode="tail">
         {info?.place_name || ''}
       </Text>
 
-      <View style={{ width: '100%', height: '38%', alignItems: 'center' }}>
-        <Image
-          style={{ width: '60%', height: '100%', borderRadius: 10 }}
-          source={getCategoryImage(info?.category_name || '')}
-          resizeMode="stretch"
-        />
-      </View>
+      <Image
+        style={styles.image}
+        source={getCategoryImage(info?.category_name || '')}
+        resizeMode="stretch"
+      />
       {/* fetch한 데이터에서 '음식점 > ' 부분 제거 */}
-      <Text style={{ fontSize: 18, marginTop: 5 }}>
+      <Text style={styles.categoryNameLabel}>
         {(info?.category_name || '') !== '' ? info.category_name?.slice(5) : ''}
       </Text>
-      <DataTable style={{ padding: 1 }}>
+      <DataTable style={{ padding: MyTheme.width * 1 }}>
         <DataTable.Header>
-          <DataTable.Title style={styles.table} textStyle={{ fontSize: 15 }}>
-            <Icon source="run" size={24} />
+          <DataTable.Title style={styles.table} textStyle={styles.tableText}>
+            <Icon source="run" size={MyTheme.width * 24} />
             거리
           </DataTable.Title>
-          <DataTable.Title style={styles.table} textStyle={{ fontSize: 15 }}>
-            <Icon source="phone" size={24} /> 전화번호
+          <DataTable.Title style={styles.table} textStyle={styles.tableText}>
+            <Icon source="phone" size={MyTheme.width * 24} /> 전화번호
           </DataTable.Title>
         </DataTable.Header>
 
         <DataTable.Row>
-          <DataTable.Cell style={styles.table} textStyle={{ fontSize: 15 }}>
+          <DataTable.Cell style={styles.table} textStyle={styles.tableText}>
             {info?.distance} m
           </DataTable.Cell>
           <DataTable.Cell
             style={styles.table}
-            textStyle={{ color: 'blue', fontSize: 15 }}
+            textStyle={{ ...styles.tableText, color: 'blue' }}
             onPress={
               info?.phone
                 ? () => Linking.openURL(`tel:${info.phone}`)
@@ -91,16 +88,39 @@ const RestaurantDetail = ({ info }: { info: LocationTypes }) => {
     </View>
   )
 }
-const deviceWidth = Dimensions.get('window').width
 const styles = StyleSheet.create({
+  infoView: {
+    width: MyTheme.width * 400,
+    alignItems: 'center',
+    alignSelf: 'center',
+    margin: MyTheme.width * 2,
+  },
+  restaurantName: {
+    width: MyTheme.width * 330,
+    height: MyTheme.width * 40,
+    textAlign: 'center',
+  },
+  restaurantNameLabel: {
+    fontSize: MyTheme.width * 25,
+    marginBottom: MyTheme.width * 2,
+    fontWeight: 'normal',
+  },
+  image: {
+    width: MyTheme.width * 200,
+    height: MyTheme.width * 100,
+    borderRadius: 10,
+  },
+  categoryNameLabel: {
+    fontSize: MyTheme.width * 18,
+    marginTop: MyTheme.width * 10,
+    fontWeight: 'normal',
+  },
   table: {
     justifyContent: 'center',
     alignItems: 'center',
   },
-  infoView: {
-    width: deviceWidth > 430 ? 450 : 400,
-    alignItems: 'center',
-    margin: 1,
+  tableText: {
+    fontSize: MyTheme.width * 15,
   },
 })
 

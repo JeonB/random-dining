@@ -1,6 +1,6 @@
 import { Button } from 'react-native-paper'
 import React, { useCallback, useState } from 'react'
-import { Image, StyleSheet, View } from 'react-native'
+import { Image, StyleSheet, View, Platform } from 'react-native'
 import {
   NavigationProp,
   useFocusEffect,
@@ -35,7 +35,7 @@ const PositionSelector = () => {
     }, []),
   )
   return (
-    <>
+    <View style={{ flex: 1 }}>
       <View style={styles.mediaContainer} testID="mediaContainer">
         <Image
           source={mainImage}
@@ -44,7 +44,7 @@ const PositionSelector = () => {
         />
         <Button
           icon="map-marker"
-          mode="contained"
+          mode={Platform.OS === 'ios' ? 'contained' : 'elevated'}
           textColor="#fff"
           buttonColor={MyTheme.colors.primary}
           style={styles.button}
@@ -58,7 +58,7 @@ const PositionSelector = () => {
         </Button>
         <Button
           icon="map-search"
-          mode="contained"
+          mode={Platform.OS === 'ios' ? 'contained' : 'elevated'}
           textColor="#fff"
           buttonColor={MyTheme.colors.primary}
           style={styles.button}
@@ -71,7 +71,7 @@ const PositionSelector = () => {
           지도에서 선택한 위치로 추천 받기
         </Button>
       </View>
-    </>
+    </View>
   )
 }
 
@@ -84,14 +84,23 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   image: {
-    width: '95%',
+    width: Platform.select({
+      ios: MyTheme.width * 330,
+      android: MyTheme.width * 320,
+    }),
     height: MyTheme.width * 280,
     marginBottom: MyTheme.width * 10,
   },
   button: {
     marginTop: MyTheme.width * 10,
-    width: MyTheme.width * 300,
-    height: MyTheme.width * 40,
+    width: Platform.select({
+      ios: MyTheme.width * 320,
+      android: MyTheme.width * 310,
+    }),
+    height: Platform.select({
+      ios: MyTheme.width * 45,
+      android: MyTheme.width * 40,
+    }),
     borderRadius: 10,
     justifyContent: 'center',
     shadowColor: '#000',
@@ -105,11 +114,10 @@ const styles = StyleSheet.create({
     elevation: 1,
   },
   buttonLabel: {
-    fontSize: MyTheme.width * 16,
-  },
-  inlineAd: {
-    position: 'absolute',
-    bottom: 10,
+    fontSize: Platform.select({
+      ios: MyTheme.width * 18,
+      android: MyTheme.width * 16,
+    }),
   },
 })
 
