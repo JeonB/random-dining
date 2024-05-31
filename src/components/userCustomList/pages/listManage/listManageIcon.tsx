@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react'
 import { TouchableOpacity, Dimensions, Animated, Alert } from 'react-native'
 import { NavigationProp, useFocusEffect } from '@react-navigation/native'
 import { Icon } from '@rneui/themed'
+import { MyTheme } from 'theme'
 import { RootStackParamList } from '@_types/listParamList'
 import { useSequentialAnimation } from '@_userList/hook/useSequentialAnimation'
 import { useListNames } from '@_userList/hook/useListNames'
@@ -75,7 +76,7 @@ export const ListManageIcon = ({
         ref={iconRef}
         testID="listManageIcon">
         <Animated.View style={{ transform: [{ rotate: rotateInterpolate }] }}>
-          <Icon name="settings" size={35} color="black" />
+          <Icon name="settings" size={MyTheme.width * 35} color="black" />
         </Animated.View>
       </TouchableOpacity>
       <ListManageModal

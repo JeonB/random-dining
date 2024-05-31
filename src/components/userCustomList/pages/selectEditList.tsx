@@ -47,23 +47,26 @@ const { width, height } = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: width * 0.07,
-    paddingVertical: width * 0.05,
+    paddingHorizontal: MyTheme.width * 30,
+    paddingVertical: MyTheme.width * 15,
   },
   listText: {
-    fontSize: 20,
+    fontSize: MyTheme.width * 20,
     textAlign: 'center',
+    lineHeight: MyTheme.width * 24,
   },
   infoArea: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: MyTheme.width * 10,
     borderRadius: 10,
-    padding: 10,
+    paddingVertical: 10,
     backgroundColor: MyTheme.colors.secondary,
   },
   infoText: {
     color: 'white',
-    fontSize: 20,
+    fontSize: MyTheme.width * 20,
+    lineHeight: MyTheme.width * 24,
+    paddingTop: MyTheme.width,
   },
 })

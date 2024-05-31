@@ -25,9 +25,7 @@ export const EditUserList = ({
   const [listItems, setListItems] = useState<LocationTypes[]>([]) // 리스트 아이템을 관리하는 상태
   const [listName, setListName] = useState<string>(route.params.listName) // 리스트 이름을 관리하는 상태
   const [newListName, setNewListName] = useState(listName) // 새로운 리스트 이름을 관리하는 상태
-
   const { listNames, saveListNames } = useListNames() // AsyncStorage에 저장된 리스트 이름들을 가져오는 커스텀 훅
-
   const [modalVisible, setModalVisible] = useState(false)
 
   useEffect(() => {
@@ -212,26 +210,26 @@ const { width, height } = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: width * 0.07,
+    paddingHorizontal: MyTheme.width * 20,
   },
   deleteListButton: {
     justifyContent: 'flex-start',
     alignItems: 'flex-end',
-    marginVertical: height * 0.01,
+    marginVertical: MyTheme.width * 5,
   },
   listNameField: {
     borderColor: 'black',
     borderWidth: 1,
     borderRadius: 10,
-    marginBottom: height * 0.005,
-    padding: 12,
-    fontSize: 18,
+    marginBottom: MyTheme.width * 5,
+    padding: MyTheme.width * 10,
+    fontSize: MyTheme.width * 18,
   },
   buttonContainer: {
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
-    marginBottom: height * 0.1,
-    marginTop: height * 0.02,
+    marginBottom: MyTheme.width * 50,
+    marginTop: MyTheme.width * 2,
   },
   renderItem: {
     borderWidth: 0,

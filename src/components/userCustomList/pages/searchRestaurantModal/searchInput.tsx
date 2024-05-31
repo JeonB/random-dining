@@ -1,12 +1,6 @@
 import React from 'react'
-import {
-  View,
-  TextInput,
-  Platform,
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native'
-import { Feather } from '@expo/vector-icons'
+import { StyleSheet } from 'react-native'
+import { SearchBar } from '@rneui/themed'
 
 interface SearchInputProps {
   inputRestaurant: string
@@ -19,50 +13,37 @@ export const SearchInput: React.FC<SearchInputProps> = ({
   setInputRestaurant,
   handlePressSearchButton,
 }) => (
-  <View style={styles.searchFeild}>
-    <Feather name="search" size={15} color="black" />
-    <TextInput
-      style={styles.restaurantNameField}
-      placeholder="식당, 메뉴 검색"
-      onChangeText={setInputRestaurant}
-      value={inputRestaurant}
-      autoFocus={true}
-      onSubmitEditing={() => {
-        if (inputRestaurant.trim() !== '') {
-          handlePressSearchButton()
-        }
-      }}
-      returnKeyType="search"
-      clearButtonMode="always"
-      testID="restaurantNameField"
-      enablesReturnKeyAutomatically={true}
-    />
-    {Platform.OS === 'android' && inputRestaurant ? (
-      <TouchableOpacity
-        style={{
-          position: 'absolute',
-          right: 15,
-        }}
-        onPress={() => setInputRestaurant('')}>
-        <Feather name="x" size={15} color="black" />
-      </TouchableOpacity>
-    ) : null}
-  </View>
+  <SearchBar
+    onClear={() => setInputRestaurant('')}
+    placeholder="식당, 메뉴 검색"
+    onChangeText={setInputRestaurant}
+    value={inputRestaurant}
+    containerStyle={styles.innerContainer}
+    inputStyle={styles.input}
+    inputContainerStyle={styles.inputContainer}
+    autoFocus={true}
+    returnKeyType="search"
+    onSubmitEditing={() => {
+      if (inputRestaurant.trim() !== '') {
+        handlePressSearchButton()
+      }
+    }}
+  />
 )
 
 const styles = StyleSheet.create({
-  searchFeild: {
-    alignItems: 'center',
-    padding: 10,
-    flexDirection: 'row',
+  innerContainer: {
+    padding: 0,
+    borderRadius: 10,
     backgroundColor: '#d9dbda',
-    borderRadius: 15,
+    borderBlockColor: 'white',
   },
-  restaurantNameField: {
-    fontSize: 16,
-    marginLeft: 10,
-    marginHorizontal: 5,
-    width: '90%',
+  inputContainer: {
+    borderRadius: 10,
+    backgroundColor: '#d9dbda',
+  },
+  input: {
+    color: 'black',
   },
 })
 

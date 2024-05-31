@@ -60,7 +60,7 @@ export const handleData = async (keyword: string, sort: string) => {
   }
 
   if (allData.length === 0) {
-    Alert.alert('검색된 식당이 없습니다.')
+    // Alert.alert('검색된 식당이 없습니다.')
     return
   }
 

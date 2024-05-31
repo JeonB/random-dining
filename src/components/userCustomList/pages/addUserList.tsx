@@ -92,6 +92,10 @@ export const AddUserList = ({
       <Button
         style={{ marginVertical: 10 }}
         buttonColor={MyTheme.colors.primary}
+        labelStyle={{
+          fontSize: MyTheme.width * 18,
+          paddingTop: MyTheme.width * 2,
+        }}
         mode="contained"
         onPress={() => setModalVisible(true)}
         testID="SearchButton">
@@ -128,26 +132,25 @@ export const AddUserList = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: width * 0.07,
+    paddingHorizontal: MyTheme.width * 20,
   },
   listNameField: {
     borderColor: 'black',
     borderWidth: 1,
     borderRadius: 10,
-    marginTop: height * 0.025,
-    marginBottom: height * 0.005,
-    padding: 12,
-    fontSize: width > 360 ? 17 : 15,
+    marginTop: MyTheme.width * 20,
+    marginBottom: MyTheme.width * 5,
+    padding: MyTheme.width * 10,
+    fontSize: MyTheme.width * 18,
   },
   buttonContainer: {
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
-    marginBottom: height * 0.1,
-    marginTop: height * 0.02,
+    marginBottom: MyTheme.width * 50,
+    marginTop: MyTheme.width * 2,
   },
   renderItem: {
     borderWidth: 0,
-    borderBottomColor: 'black',
     borderBottomWidth: 1,
   },
 })
