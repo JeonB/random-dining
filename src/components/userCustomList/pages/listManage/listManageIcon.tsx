@@ -1,8 +1,13 @@
 import React, { useRef, useState, useEffect } from 'react'
-import { TouchableOpacity, Dimensions, Animated, Alert } from 'react-native'
-import { NavigationProp, useFocusEffect } from '@react-navigation/native'
+import {
+  TouchableOpacity,
+  Dimensions,
+  Animated,
+  Alert,
+  Platform,
+} from 'react-native'
+import { NavigationProp } from '@react-navigation/native'
 import { Icon } from '@rneui/themed'
-import { MyTheme } from 'theme'
 import { RootStackParamList } from '@_types/listParamList'
 import { useSequentialAnimation } from '@_userList/hook/useSequentialAnimation'
 import { useListNames } from '@_userList/hook/useListNames'
@@ -21,10 +26,11 @@ export const ListManageIcon = ({
     iconRef.current?.measure((x, y, width, height, pageX, pageY) => {
       const screenWidth = Dimensions.get('window').width
       const screenHeight = Dimensions.get('window').height
+
       setModalStyle({
         position: 'absolute',
         right: screenWidth - (pageX + width),
-        bottom: screenHeight - pageY,
+        bottom: Platform.OS === 'android' ? 120 : screenHeight - pageY,
       })
       fetchListNames()
       setShowSettingsModal(prev => !prev)
@@ -76,7 +82,7 @@ export const ListManageIcon = ({
         ref={iconRef}
         testID="listManageIcon">
         <Animated.View style={{ transform: [{ rotate: rotateInterpolate }] }}>
-          <Icon name="settings" size={MyTheme.width * 35} color="black" />
+          <Icon name="settings" size={35} color="black" />
         </Animated.View>
       </TouchableOpacity>
       <ListManageModal
