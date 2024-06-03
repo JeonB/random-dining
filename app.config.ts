@@ -14,6 +14,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     storybookEnabled: process.env.STORYBOOK_ENABLED,
     KAKAO_RESTAPI_KEY: process.env.KAKAO_RESTAPI_KEY,
     KAKAO_JAVASCRIPT_KEY: process.env.KAKAO_JAVASCRIPT_KEY,
+    eas: {
+      projectId: 'a6d7b0a6-43fb-42f0-b832-33ba126e59d8',
+    },
   },
   orientation: 'portrait',
   icon: './assets/icon.png',

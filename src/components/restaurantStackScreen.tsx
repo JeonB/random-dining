@@ -9,12 +9,12 @@ import { RestaurantParamList } from '@_types/restaurantParamList'
 import { Ionicons, AntDesign } from '@expo/vector-icons'
 import { useNavigationState } from '@react-navigation/native'
 import InlineAd from '@_3Rpages/inlinedAd'
-import { useRestaurantContext } from '@_components/common/context/restaurantContext'
+import { useStore } from './common/utils/zustandStore'
 
 const RestaurantStackScreen = () => {
   const Stack = createStackNavigator<RestaurantParamList>()
   const screenName = useNavigationState(state => state.routes[state.index].name)
-  const { showAd } = useRestaurantContext()
+  const { showAd } = useStore()
   return (
     <>
       <Stack.Navigator initialRouteName="Home">

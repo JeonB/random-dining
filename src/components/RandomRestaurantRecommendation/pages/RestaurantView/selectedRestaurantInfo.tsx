@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   Alert,
   Dimensions,
@@ -10,21 +10,20 @@ import {
   LayoutChangeEvent,
 } from 'react-native'
 import { StackScreenProps } from '@react-navigation/stack'
-import { useRestaurantContext } from '@_components/common/context/restaurantContext'
 import { LocationTypes } from '@_types/restaurant'
 import Map from './map'
-import RestaurantDetail from './restaurantDetail'
-import RestaurantActionButtons from './restaurantActionButtons'
 import RandomItemModal from './randomItemModal'
 import { RestaurantParamList } from '@_types/restaurantParamList'
 import mainImage from '@_assetImages/main.png'
 import { MyTheme } from 'theme'
+import { useStore } from 'src/components/common/utils/zustandStore'
+import Content from './content'
 
 const SelectedRestaurantInfo = ({
   route,
   navigation,
 }: StackScreenProps<RestaurantParamList, 'SelectedRestaurantInfo'>) => {
-  const { restaurantItems, currentLocation, setShowAd } = useRestaurantContext()
+  const { restaurantItems, currentLocation, setShowAd } = useStore()
   const restaurant: LocationTypes | undefined = route.params?.restaurant
   const [modalVisible, setModalVisible] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -37,7 +36,7 @@ const SelectedRestaurantInfo = ({
       isMounted.current = false
     }
   }, [])
-  const handleReselectClick = () => {
+  const handleReselectClick = useCallback(() => {
     setIsLoading(true)
     if (restaurantItems) {
       setModalVisible(true)
@@ -45,16 +44,19 @@ const SelectedRestaurantInfo = ({
     } else {
       Alert.alert('식당을 다시 선택할 수 없습니다.')
     }
-  }
+  }, [restaurantItems])
 
-  const handleRestaurantChange = (index: number) => {
-    const selectedRestaurant = restaurantItems[index]
-    if (selectedRestaurant) {
-      navigation.navigate('SelectedRestaurantInfo', {
-        restaurant: selectedRestaurant,
-      })
-    }
-  }
+  const handleRestaurantChange = useCallback(
+    (index: number) => {
+      const selectedRestaurant = restaurantItems[index]
+      if (selectedRestaurant) {
+        navigation.navigate('SelectedRestaurantInfo', {
+          restaurant: selectedRestaurant,
+        })
+      }
+    },
+    [restaurantItems, navigation],
+  )
   const [contentHeight, setContentHeight] = useState(0)
   const screenHeight = Dimensions.get('window').height / 300
 
@@ -62,17 +64,20 @@ const SelectedRestaurantInfo = ({
     setContentHeight(event.nativeEvent.layout.height)
   }
 
-  const Content = restaurant && (
-    <View onLayout={onLayout} style={{ width: Dimensions.get('window').width }}>
-      <RestaurantDetail info={restaurant} />
-      <RestaurantActionButtons
-        selectedRestaurant={restaurant}
-        handleRandomPickClick={handleReselectClick}
-        isLoading={isLoading}
-        navigation={navigation}
-      />
-    </View>
-  )
+  const ContentComponent =
+    restaurant &&
+    useMemo(
+      () => (
+        <Content
+          onLayout={onLayout}
+          restaurant={restaurant}
+          handleReselectClick={handleReselectClick}
+          isLoading={isLoading}
+          navigation={navigation}
+        />
+      ),
+      [onLayout, restaurant, handleReselectClick, isLoading, navigation],
+    )
   return (
     <View style={styles.container}>
       <View style={styles.mediaContainer}>
@@ -87,9 +92,9 @@ const SelectedRestaurantInfo = ({
         )}
       </View>
       {contentHeight > screenHeight * 150 ? (
-        <ScrollView>{Content}</ScrollView>
+        <ScrollView>{ContentComponent}</ScrollView>
       ) : (
-        Content
+        ContentComponent
       )}
       <RandomItemModal
         visible={modalVisible}

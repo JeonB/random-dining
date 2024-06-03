@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import {
   Dimensions,
   Platform,
@@ -6,31 +6,35 @@ import {
   StyleSheet,
   View,
 } from 'react-native'
-import { RouteProp, useRoute } from '@react-navigation/native'
+import {
+  NavigationProp,
+  RouteProp,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native'
 import { Text } from '@rneui/themed'
 import DistanceSlider from '@_3Rpages/FilterSettings/distanceSlider'
 import CategorySwitch from '@_3Rpages/FilterSettings/categorySwitch'
 import RandomPickButton from '@_3Rpages/FilterSettings/randomPickButton'
 import RandomItemModal from '@_3Rpages/RestaurantView/randomItemModal'
-import { useRestaurantContext } from '@_components/common/context/restaurantContext'
 import { RestaurantParamList } from '@_types/restaurantParamList'
 import { MyTheme } from 'theme'
+import { useStore } from 'src/components/common/utils/zustandStore'
+import { fetchRestaurantData } from 'src/services/api'
+import { LocationTypes } from 'src/types/restaurant'
 
 const FilterSetting = () => {
   const route = useRoute<RouteProp<RestaurantParamList, 'FilterSetting'>>()
+  const [modalVisible, setModalVisible] = useState(false)
   const {
-    handleRandomPickClick,
-    handleRestaurantChange,
-    modalVisible,
-    setModalVisible,
-    restaurantItems,
-    isLoading,
-    distance,
-    setDistance,
+    selectedCategories,
     setSelectedCategories,
+    selectedLocation,
     setSelectedLocation,
-  } = useRestaurantContext()
-
+    restaurantItems,
+    setRestaurantItems,
+    setRestaurant,
+  } = useStore()
   useEffect(() => {
     const location = route.params?.location
     if (location) {
@@ -40,7 +44,61 @@ const FilterSetting = () => {
       })
     }
   }, [route.params?.location])
+  const isMounted = useRef(true)
+  const [distance, setDistance] = useState(30)
+  const [isLoading, setIsLoading] = useState(false)
+  const [isChanging, setIsChanging] = useState(false)
+  const navigation = useNavigation<NavigationProp<RestaurantParamList>>()
+  // distance, selectedCategories 중 하나가 변경될 때만 새로 생성
+  const handleRestaurantData = useCallback(async () => {
+    try {
+      const data = await fetchRestaurantData(
+        selectedCategories,
+        distance,
+        String(selectedLocation.longitude),
+        String(selectedLocation.latitude),
+      )
 
+      if (isMounted.current && data) {
+        const filteredData = data.filter(
+          (item): item is LocationTypes => item !== undefined,
+        )
+        setRestaurantItems(filteredData)
+        setModalVisible(true)
+      }
+    } catch (error) {
+      console.error('Error occurred:', error)
+    }
+  }, [distance, selectedCategories])
+
+  // 레스토랑 데이터를 가져오는 과정을 시작하고, 해당 과정이 완료되면 로딩 상태를 업데이트
+  const handleRandomPickClick = useCallback(() => {
+    setIsLoading(true)
+    handleRestaurantData().finally(() => {
+      if (isMounted.current) {
+        setIsLoading(false)
+      }
+    })
+  }, [handleRestaurantData])
+
+  // 주어진 인덱스에 해당하는 레스토랑을 선택하고, 해당 식당의 정보를 보여주는 페이지로 이동
+  const handleRestaurantChange = useCallback(
+    (index: number) => {
+      if (isChanging) return // 이미 변경 중이면 무시
+      setIsChanging(true) // 변경 시작
+
+      const selectedRestaurant = restaurantItems[index]
+      if (selectedRestaurant) {
+        setRestaurant(selectedRestaurant)
+        navigation.navigate('SelectedRestaurantInfo', {
+          restaurant: selectedRestaurant,
+        })
+      }
+
+      setIsChanging(false) // 변경 완료
+    },
+    [isChanging, restaurantItems],
+  )
   const handleClose = useCallback(() => {
     setModalVisible(false)
   }, [])
