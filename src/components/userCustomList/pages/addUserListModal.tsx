@@ -62,6 +62,10 @@ export const AddUserListModal = ({
   }
 
   const createNewList = async () => {
+    if (listNames.includes(newListName)) {
+      Alert.alert('같은 이름의 리스트가 있습니다.')
+      return
+    }
     if (newListName.trim()) {
       listNames.push(newListName)
       await saveListNames(listNames)
