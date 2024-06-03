@@ -1,5 +1,12 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Text, Alert, Dimensions } from 'react-native'
+import {
+  StyleSheet,
+  View,
+  Text,
+  Alert,
+  Dimensions,
+  Platform,
+} from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationProp, useFocusEffect } from '@react-navigation/native'
 import { Button } from 'react-native-paper'
@@ -65,7 +72,7 @@ export const UserCustomList = ({
         {listNames.length === 0 ? (
           <View style={styles.infoArea}>
             <Button
-              mode="contained"
+              mode={Platform.OS === 'ios' ? 'contained' : 'elevated'}
               style={styles.infoButton}
               buttonColor={MyTheme.colors.primary}
               textColor="white"
@@ -129,9 +136,18 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: MyTheme.width * 5,
     width: '100%',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
   },
   infoText: {
-    fontSize: MyTheme.width * 18,
+    fontSize: Platform.select({
+      ios: MyTheme.width * 18,
+      android: MyTheme.width * 16,
+    }),
     paddingTop: MyTheme.width * 2,
   },
 })

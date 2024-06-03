@@ -1,8 +1,16 @@
 import React, { useState } from 'react'
-import { Dimensions, Image, StyleSheet, View } from 'react-native'
+import {
+  Dimensions,
+  Image,
+  StyleSheet,
+  View,
+  LayoutChangeEvent,
+  Platform,
+  ScrollView,
+} from 'react-native'
 import { StackScreenProps } from '@react-navigation/stack'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Text } from '@rneui/themed'
+import { MyTheme } from 'theme'
 import { RootStackParamList } from '@_types/listParamList'
 import { LocationTypes } from '@_types/restaurant'
 import Map from '@_3Rpages/RestaurantView/map'
@@ -45,6 +53,45 @@ export const SelectedRestaurantInfo = ({
     }
   }
 
+  const [contentHeight, setContentHeight] = useState(0)
+  const screenHeight = Dimensions.get('window').height / 300
+
+  const onLayout = (event: LayoutChangeEvent) => {
+    setContentHeight(event.nativeEvent.layout.height)
+  }
+
+  const Content = (
+    <View onLayout={onLayout} style={{ width: Dimensions.get('window').width }}>
+      {restaurant.category_name ? (
+        <RestaurantDetail info={restaurant} />
+      ) : (
+        <View style={styles.infoView}>
+          <Text
+            style={{
+              width: '80%',
+              textAlign: 'center',
+            }}
+            h4
+            h4Style={{
+              fontSize: MyTheme.width * 25,
+              fontWeight: 'bold',
+            }}
+            numberOfLines={1}
+            ellipsizeMode="tail">
+            {restaurant?.place_name || ''}
+          </Text>
+        </View>
+      )}
+      <RestaurantActionButtons
+        selectedRestaurant={restaurant}
+        handleRandomPickClick={handleRandomPickClick}
+        isLoading={isLoading}
+        navigation={navigation}
+        listName={listName}
+      />
+    </View>
+  )
+
   return (
     <View style={styles.container}>
       {restaurant.x ? (
@@ -59,44 +106,10 @@ export const SelectedRestaurantInfo = ({
           />
         </View>
       )}
-      {restaurant.category_name ? (
-        <View>
-          <RestaurantDetail info={restaurant} />
-          <RestaurantActionButtons
-            selectedRestaurant={restaurant}
-            handleRandomPickClick={handleRandomPickClick}
-            isLoading={isLoading}
-            navigation={navigation}
-            listName={listName}
-          />
-        </View>
+      {contentHeight > screenHeight * 150 ? (
+        <ScrollView>{Content}</ScrollView>
       ) : (
-        <View>
-          <View style={styles.infoView}>
-            <Text
-              style={{
-                width: '80%',
-                textAlign: 'center',
-              }}
-              h4
-              h4Style={{
-                fontSize: (deviceWidth / 400) * 25,
-                marginBottom: 15,
-                fontWeight: 'bold',
-              }}
-              numberOfLines={1}
-              ellipsizeMode="tail">
-              {restaurant?.place_name || ''}
-            </Text>
-          </View>
-          <RestaurantActionButtons
-            selectedRestaurant={restaurant}
-            handleRandomPickClick={handleRandomPickClick}
-            isLoading={isLoading}
-            navigation={navigation}
-            listName={listName}
-          />
-        </View>
+        Content
       )}
       <RandomItemModal
         visible={modalVisible}
@@ -114,21 +127,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   infoView: {
-    width: (Dimensions.get('window').width / 400) * 400,
+    width: deviceWidth,
     alignItems: 'center',
-    marginBottom: 60,
+    marginBottom: 30,
   },
   mapContainer: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').width * 0.6,
+    width: deviceWidth,
+    height: Platform.select({
+      ios: MyTheme.width * 230,
+      android: MyTheme.width * 220,
+    }),
     position: 'relative',
     alignItems: 'center',
     padding: 0,
     marginBottom: 10,
   },
   mediaContainer: {
-    width: (Dimensions.get('window').width / 400) * 350,
-    height: (Dimensions.get('window').width / 400) * 350,
+    width: deviceWidth * 0.9,
+    height: deviceWidth * 0.9,
     position: 'relative',
     alignItems: 'center',
     padding: 20,

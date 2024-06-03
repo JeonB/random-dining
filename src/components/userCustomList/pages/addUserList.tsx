@@ -1,5 +1,12 @@
 import React, { useState } from 'react'
-import { StyleSheet, View, Alert, TextInput, Dimensions } from 'react-native'
+import {
+  StyleSheet,
+  View,
+  Alert,
+  TextInput,
+  Dimensions,
+  Platform,
+} from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationProp } from '@react-navigation/native'
 import { Button } from 'react-native-paper'
@@ -90,13 +97,10 @@ export const AddUserList = ({
       />
       <RestaurantNameInput listItems={listItems} setListItems={setListItems} />
       <Button
-        style={{ marginVertical: 10 }}
+        style={styles.button}
         buttonColor={MyTheme.colors.primary}
-        labelStyle={{
-          fontSize: MyTheme.width * 18,
-          paddingTop: MyTheme.width * 2,
-        }}
-        mode="contained"
+        labelStyle={styles.buttonLabel}
+        mode={Platform.OS === 'ios' ? 'contained' : 'elevated'}
         onPress={() => setModalVisible(true)}
         testID="SearchButton">
         식당 검색
@@ -111,7 +115,9 @@ export const AddUserList = ({
       />
       <View style={styles.buttonContainer}>
         <Button
-          mode="contained"
+          style={styles.button}
+          mode={Platform.OS === 'ios' ? 'contained' : 'elevated'}
+          labelStyle={styles.buttonLabel}
           buttonColor={MyTheme.colors.primary}
           onPress={handlePressSave}
           disabled={newListName.length === 0}
@@ -148,6 +154,23 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     marginBottom: MyTheme.width * 50,
     marginTop: MyTheme.width * 2,
+  },
+  button: {
+    marginVertical: MyTheme.width * 10,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
+  buttonLabel: {
+    color: 'white',
+    fontSize: Platform.select({
+      ios: MyTheme.width * 18,
+      android: MyTheme.width * 16,
+    }),
+    paddingTop: MyTheme.width * 2,
   },
   renderItem: {
     borderWidth: 0,
