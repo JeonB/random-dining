@@ -39,7 +39,7 @@ export const Support = () => {
             />
             <View style={{ marginLeft: 20 }}>
               <Text style={styles.text}>Email</Text>
-              <Text style={styles.textContent}>aaa@ifinfo.co.kr</Text>
+              <Text style={styles.textContent}>ifinfo2@ifinfo.co.kr</Text>
             </View>
           </View>
         </View>
@@ -54,7 +54,7 @@ export const Support = () => {
             <View style={{ marginLeft: 20 }}>
               <Text style={styles.text}>Tel</Text>
               <TouchableOpacity onPress={handlePressCall}>
-                <Text style={styles.textContent}>12-345-678</Text>
+                <Text style={styles.textContent}>02-6383-3101</Text>
               </TouchableOpacity>
             </View>
           </View>
