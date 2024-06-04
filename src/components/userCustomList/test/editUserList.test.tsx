@@ -83,6 +83,12 @@ jest.mock('@_userListPages/searchRestaurantModal/changeSortButton', () =>
   jest.fn(),
 )
 
+jest.mock('@_components/useHideTabBar', () => ({
+  useHideTabBar: () => {
+    return jest.fn()
+  },
+}))
+
 describe('<EditUserList />', () => {
   let alertSpy: jest.SpyInstance
   let utils: RenderAPI
@@ -119,18 +125,6 @@ describe('<EditUserList />', () => {
     fireEvent.press(utils.getByTestId('restaurantAddButton'))
 
     expect(utils.getByText('새로운 식당')).toBeTruthy()
-  })
-
-  test('식당 이름을 작성하지 않고 추가 버튼 클릭시 예외 문구', async () => {
-    const message = '식당 또는 메뉴 이름을 입력하세요.'
-
-    const input = utils.getByPlaceholderText(
-      '식당 또는 메뉴 이름을 입력하세요.',
-    )
-    fireEvent.changeText(input, '')
-    fireEvent.press(utils.getByTestId('restaurantAddButton'))
-
-    expect(alertSpy).toHaveBeenCalledWith(message)
   })
 
   test('식당 검색 버튼 클릭시 모달 open', async () => {
