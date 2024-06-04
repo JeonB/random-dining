@@ -1,10 +1,8 @@
 import { create } from 'zustand'
 import { LocationTypes } from '@_types/restaurant'
-import { fetchRestaurantData, getPositionByGeolocation } from '@_services/api'
-import { Alert, Linking } from 'react-native'
 interface State {
-  trackingGranted: boolean
-  setTrackingGranted: (trackingGranted: boolean) => void
+  trackingDenied: boolean
+  setTrackingDenied: (trackingDenied: boolean) => void
   showAd: boolean
   setShowAd: (showAd: boolean) => void
   selectedCategories: string[]
@@ -34,8 +32,8 @@ interface State {
 }
 
 export const useStore = create<State>()(set => ({
-  trackingGranted: false,
-  setTrackingGranted: trackingGranted => set({ trackingGranted }),
+  trackingDenied: false,
+  setTrackingDenied: trackingDenied => set({ trackingDenied }),
   showAd: true,
   setShowAd: showAd => set({ showAd }),
   selectedCategories: [],

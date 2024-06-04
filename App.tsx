@@ -30,17 +30,20 @@ console.error = (...args: any) => {
 
 const Tab = createBottomTabNavigator()
 const App: React.FC = () => {
-  const setTrackingGranted = useStore(state => state.setTrackingGranted)
-  const trackingGranted = useStore(state => state.trackingGranted)
+  // Zustand 상태 관리 라이브러리를 사용하여 글로벌 상태에서 setTrackingGranted 함수와 trackingGranted 값을 가져옴
+  const setTrackingDenied = useStore(state => state.setTrackingDenied)
+  const trackingDenied = useStore(state => state.trackingDenied)
   useEffect(() => {
     ;(async () => {
-      // 앱 설치 후 googleAdmob 앱 추적 권한 요청 출력
+      // requestTrackingPermissionsAsync : 사용자 또는 기기를 추적하는 데 사용할 수 있는
+      // 앱 관련 데이터에 대한 액세스를 승인하거나 거부하도록 사용자에게 요청하는 함수
       const { status: trackingStatus } = await requestTrackingPermissionsAsync()
-      setTrackingGranted(trackingStatus === 'denied')
+      // 사용자의 액세스 승인 여부를 trackingDenied에 저장
+      setTrackingDenied(trackingStatus === 'denied')
 
       await mobileAds().initialize()
     })()
-  }, [trackingGranted])
+  }, [trackingDenied])
   return (
     <NavigationContainer theme={MyTheme}>
       <StatusBar style="dark" />
