@@ -148,6 +148,7 @@ const styles = StyleSheet.create({
       ios: MyTheme.width * 18,
       android: MyTheme.width * 16,
     }),
+    lineHeight: MyTheme.width * 23,
   },
 })
 
