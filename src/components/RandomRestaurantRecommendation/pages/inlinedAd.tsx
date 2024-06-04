@@ -4,24 +4,26 @@ import React, { useEffect, useState } from 'react'
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads'
 import { useStore } from '@_components/common/utils/zustandStore'
 
-const iosAdmobBanner = 'ca-app-pub-3940256099942544/6300978111'
-const androidAdmobBanner = 'ca-app-pub-3940256099942544/6300978111'
+const iosAdmobBanner = 'google admob에서 할당 받은 ID'
+const androidAdmobBanner = 'google admob에서 할당 받은 ID'
 const productionID =
   Device.osName === 'Android' ? androidAdmobBanner : iosAdmobBanner
 
 const InlineAd = () => {
   const [isAdLoaded, setIsAdLoaded] = useState<boolean>(false)
-  const isTrackingGranted = useStore(state => state.trackingGranted)
-  useEffect(() => {}, [isTrackingGranted])
+  const isTrackingDenied = useStore(state => state.trackingDenied)
+
+  useEffect(() => {}, [isTrackingDenied])
+
   return (
     <View style={{ height: isAdLoaded ? 'auto' : 0 }}>
       <BannerAd
-        // It is extremely important to use test IDs as you can be banned/restricted by Google AdMob for inappropriately using real ad banners during testing
+        // 반드시 개발 환경에서는 테스트 광고 ID를 사용하고 프로덕션 환경에서는 실제 광고 ID를 사용해야 합니다.
         unitId={__DEV__ ? TestIds.BANNER : productionID}
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
         requestOptions={{
-          requestNonPersonalizedAdsOnly: isTrackingGranted,
-          // You can change this setting depending on whether you want to use the permissions tracking we set up in the initializing
+          // App.tsx에서 업데이트한 trackingDenied 값에 따라 사용자화된 광고 제공여부 정함
+          requestNonPersonalizedAdsOnly: isTrackingDenied,
         }}
         onAdLoaded={() => {
           setIsAdLoaded(true)

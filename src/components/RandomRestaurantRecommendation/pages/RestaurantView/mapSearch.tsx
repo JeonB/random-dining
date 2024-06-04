@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { Dimensions, FlatList, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, FlatList, StyleSheet, View } from 'react-native'
 import Map from './map'
 import PlaceSearchBar from './placeSearchBar'
-import { useRestaurantContext } from '@_components/common/context/restaurantContext'
 import { LocationTypes } from '@_types/restaurant'
 import { ListItem, Button, Icon } from '@rneui/themed'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import { RestaurantParamList } from '@_types/restaurantParamList'
 import { MyTheme } from 'theme'
+import { useStore } from 'src/components/common/utils/zustandStore'
 
 const MapSearch = () => {
-  const { currentLocation, setCurrentLocation } = useRestaurantContext()
+  const { currentLocation, setCurrentLocation } = useStore()
   const navigation = useNavigation<NavigationProp<RestaurantParamList>>()
   const [addressData, setAddressData] = useState<LocationTypes[]>([])
   useEffect(() => {}, [addressData])
