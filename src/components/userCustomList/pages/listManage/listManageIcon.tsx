@@ -22,6 +22,9 @@ export const ListManageIcon = ({
   const [modalStyle, setModalStyle] = useState({})
   const iconRef = useRef<TouchableOpacity>(null)
   const { listNames, fetchListNames } = useListNames()
+  const [direction, setDirection] = useState(0)
+  const [isFirstRender, setIsFirstRender] = useState(true)
+
   const handleIconClick = () => {
     iconRef.current?.measure((x, y, width, height, pageX, pageY) => {
       const screenWidth = Dimensions.get('window').width
@@ -37,9 +40,11 @@ export const ListManageIcon = ({
     })
   }
 
-  const [direction, setDirection] = useState(0)
-
   useEffect(() => {
+    if (isFirstRender) {
+      setIsFirstRender(false)
+      return
+    }
     setDirection(showSettingsModal ? 1 : -1)
   }, [showSettingsModal])
 
@@ -49,12 +54,13 @@ export const ListManageIcon = ({
   const rotationAngle = useRef(new Animated.Value(0)).current
 
   useEffect(() => {
+    if (isFirstRender) return
     Animated.timing(rotationAngle, {
       toValue: direction * 0.2,
       duration: 500,
       useNativeDriver: true,
     }).start()
-  }, [direction])
+  }, [direction, isFirstRender])
 
   const rotateInterpolate = rotationAngle.interpolate({
     inputRange: [0, 1],

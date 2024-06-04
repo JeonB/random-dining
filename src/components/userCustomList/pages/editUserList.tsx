@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, View, Alert, TextInput, Dimensions } from 'react-native'
+import { StyleSheet, View, Alert, TextInput, Platform } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationProp, RouteProp } from '@react-navigation/native'
 import { Button } from 'react-native-paper'
@@ -170,10 +170,10 @@ export const EditUserList = ({
       />
       <RestaurantNameInput listItems={listItems} setListItems={setListItems} />
       <Button
-        style={{ marginVertical: 10 }}
+        style={styles.button}
         buttonColor={MyTheme.colors.primary}
-        labelStyle={{ fontSize: 16 }}
-        mode="contained"
+        labelStyle={styles.buttonLabel}
+        mode={Platform.OS === 'ios' ? 'contained' : 'elevated'}
         onPress={() => setModalVisible(true)}
         testID="SearchButton">
         식당 검색
@@ -188,7 +188,9 @@ export const EditUserList = ({
       />
       <View style={styles.buttonContainer}>
         <Button
-          mode="contained"
+          style={styles.button}
+          mode={Platform.OS === 'ios' ? 'contained' : 'elevated'}
+          labelStyle={styles.buttonLabel}
           buttonColor={MyTheme.colors.primary}
           onPress={handlePressSave}
           disabled={newListName.length === 0}
@@ -206,7 +208,6 @@ export const EditUserList = ({
   )
 }
 
-const { width, height } = Dimensions.get('window')
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -230,6 +231,23 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     marginBottom: MyTheme.width * 50,
     marginTop: MyTheme.width * 2,
+  },
+  button: {
+    marginVertical: MyTheme.width * 10,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
+  buttonLabel: {
+    color: 'white',
+    fontSize: Platform.select({
+      ios: MyTheme.width * 18,
+      android: MyTheme.width * 16,
+    }),
+    paddingTop: MyTheme.width * 2,
   },
   renderItem: {
     borderWidth: 0,

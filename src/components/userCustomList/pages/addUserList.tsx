@@ -1,12 +1,5 @@
 import React, { useState } from 'react'
-import {
-  StyleSheet,
-  View,
-  Alert,
-  TextInput,
-  Dimensions,
-  Platform,
-} from 'react-native'
+import { StyleSheet, View, Alert, TextInput, Platform } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationProp } from '@react-navigation/native'
 import { Button } from 'react-native-paper'
@@ -20,7 +13,6 @@ import SearchRestaurantModal from '@_userListPages/searchRestaurantModal/searchR
 import { RestaurantNameInput } from '@_userListPages/restaurantNameInput'
 import { RestaurantListItem } from '@_userListPages/restaurantListItem'
 
-const { width, height } = Dimensions.get('window')
 export const AddUserList = ({
   navigation,
 }: {

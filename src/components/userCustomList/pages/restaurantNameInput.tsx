@@ -1,5 +1,11 @@
 import React, { Dispatch, SetStateAction, useState } from 'react'
-import { Alert, StyleSheet, TextInput, View } from 'react-native'
+import {
+  Alert,
+  StyleSheet,
+  TextInput,
+  View,
+  TouchableOpacity,
+} from 'react-native'
 import { Icon } from '@rneui/themed'
 import { LocationTypes } from '@_types/restaurant'
 import { MyTheme } from 'theme'
@@ -47,17 +53,13 @@ export const RestaurantNameInput: React.FC<Props> = ({
           }}
         />
       </View>
-      <View style={styles.iconContainer}>
-        <Icon
-          name="add"
-          size={22}
-          color={addIconColor}
-          onPress={handlePressRestaurantAddButton}
-          testID="restaurantAddButton"
-          disabled={inputRestaurant.trim() === ''}
-          disabledStyle={{ backgroundColor: 'white' }}
-        />
-      </View>
+      <TouchableOpacity
+        style={styles.iconContainer}
+        onPress={handlePressRestaurantAddButton}
+        disabled={inputRestaurant.trim() === ''}
+        testID="restaurantAddButton">
+        <Icon name="add" size={22} color={addIconColor} />
+      </TouchableOpacity>
     </View>
   )
 }

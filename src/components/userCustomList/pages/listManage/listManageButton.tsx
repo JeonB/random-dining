@@ -38,6 +38,6 @@ const styles = {
       height: 2,
     },
     shadowOpacity: 0.3,
-    elevation: 1,
+    elevation: 3,
   },
 }

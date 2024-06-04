@@ -34,20 +34,18 @@ export const ListManageModal = ({
       testID="ManageModal">
       <TouchableWithoutFeedback onPress={onRequestClose}>
         <View style={styles.container}>
-          <TouchableWithoutFeedback>
-            <View style={modalStyle}>
-              <ListManageButton
-                opacity={addButtonOpacity}
-                onPress={handleAddButtonClick}
-                title="리스트 추가하기"
-              />
-              <ListManageButton
-                opacity={editButtonOpacity}
-                onPress={handleEditButtonClick}
-                title="리스트 수정하기"
-              />
-            </View>
-          </TouchableWithoutFeedback>
+          <View style={modalStyle}>
+            <ListManageButton
+              opacity={addButtonOpacity}
+              onPress={handleAddButtonClick}
+              title="리스트 추가하기"
+            />
+            <ListManageButton
+              opacity={editButtonOpacity}
+              onPress={handleEditButtonClick}
+              title="리스트 수정하기"
+            />
+          </View>
         </View>
       </TouchableWithoutFeedback>
     </Modal>
@@ -57,6 +55,5 @@ export const ListManageModal = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 50,
   },
 })
