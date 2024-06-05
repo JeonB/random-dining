@@ -29,7 +29,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   assetBundlePatterns: ['**/*'],
   ios: {
     supportsTablet: false,
-    buildNumber: '1.0.0',
+    buildNumber: '1.0.1',
     bundleIdentifier: 'com.ifinfo.randomdining',
     infoPlist: {
       NSUserTrackingUsageDescription:
