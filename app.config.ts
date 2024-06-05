@@ -28,7 +28,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   assetBundlePatterns: ['**/*'],
   ios: {
-    supportsTablet: true,
+    supportsTablet: false,
     buildNumber: '1.0.0',
     bundleIdentifier: 'com.ifinfo.randomdining',
     infoPlist: {
