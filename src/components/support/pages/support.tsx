@@ -23,7 +23,7 @@ export const Support = () => {
     Linking.openURL(phoneNumber)
   }
   const handlePressWebsite = () => {
-    Linking.openURL('http://www.ifinfo.co.kr')
+    Linking.openURL('https://www.ifinfo.co.kr')
   }
 
   return (

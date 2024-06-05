@@ -39,8 +39,8 @@
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
+		<key>NSAllowsArbitraryLoadsInWebContent</key>
+    <true/>
 	</dict>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>$(PRODUCT_NAME)이 위치 기반 식당 추천을 위해 위치 정보를 사용하도록 허용합니다.</string>
