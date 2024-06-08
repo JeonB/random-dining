@@ -73,7 +73,9 @@ export const AnimatedRandomSelector = (props: Props) => {
   ])
 
   useEffect(() => {
-    startAnimation()
+    if (restaurantItems.length > 0) {
+      setTimeoutFunc(startAnimation, 100)
+    }
     return () => {
       scrollY.removeAllListeners()
     }

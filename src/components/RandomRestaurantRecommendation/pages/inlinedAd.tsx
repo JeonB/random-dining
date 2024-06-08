@@ -3,11 +3,13 @@ import * as Device from 'expo-device'
 import React, { useEffect, useState } from 'react'
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads'
 import { useStore } from '@_components/common/utils/zustandStore'
+import Constants from 'expo-constants'
+import { AppConfig } from 'app.config'
 
-const iosAdmobBanner = 'google admob에서 할당 받은 ID'
-const androidAdmobBanner = 'google admob에서 할당 받은 ID'
+const { PROD_ANDROID_BANNER_ID } = Constants.expoConfig?.extra as AppConfig
+const { PROD_IOS_BANNER_ID } = Constants.expoConfig?.extra as AppConfig
 const productionID =
-  Device.osName === 'Android' ? androidAdmobBanner : iosAdmobBanner
+  Device.osName === 'Android' ? PROD_ANDROID_BANNER_ID : PROD_IOS_BANNER_ID
 
 const InlineAd = () => {
   const [isAdLoaded, setIsAdLoaded] = useState<boolean>(false)
