@@ -19,7 +19,7 @@ import RandomPickButton from '@_3Rpages/FilterSettings/randomPickButton'
 import RandomItemModal from '@_3Rpages/RestaurantView/randomItemModal'
 import { RestaurantParamList } from '@_types/restaurantParamList'
 import { MyTheme } from 'theme'
-import { useStore } from 'src/components/common/utils/zustandStore'
+import { useStore } from '@_common/utils/zustandStore'
 import { fetchRestaurantData } from 'src/services/api'
 import { LocationTypes } from 'src/types/restaurant'
 

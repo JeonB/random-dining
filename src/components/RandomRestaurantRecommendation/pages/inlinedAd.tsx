@@ -2,7 +2,7 @@ import { View } from 'react-native'
 import * as Device from 'expo-device'
 import React, { useEffect, useState } from 'react'
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads'
-import { useStore } from '@_components/common/utils/zustandStore'
+import { useStore } from '@_common/utils/zustandStore'
 import Constants from 'expo-constants'
 import { AppConfig } from 'app.config'
 
@@ -15,7 +15,9 @@ const InlineAd = () => {
   const [isAdLoaded, setIsAdLoaded] = useState<boolean>(false)
   const isTrackingDenied = useStore(state => state.trackingDenied)
 
-  useEffect(() => {}, [isTrackingDenied])
+  useEffect(() => {
+    console.log('isTrackingDenied', isTrackingDenied)
+  }, [isTrackingDenied])
 
   return (
     <View style={{ height: isAdLoaded ? 'auto' : 0 }}>

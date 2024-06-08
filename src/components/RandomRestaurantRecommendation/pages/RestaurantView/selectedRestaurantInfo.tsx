@@ -16,7 +16,7 @@ import RandomItemModal from './randomItemModal'
 import { RestaurantParamList } from '@_types/restaurantParamList'
 import mainImage from '@_assetImages/main.png'
 import { MyTheme } from 'theme'
-import { useStore } from 'src/components/common/utils/zustandStore'
+import { useStore } from '@_common/utils/zustandStore'
 import Content from './content'
 
 const SelectedRestaurantInfo = ({

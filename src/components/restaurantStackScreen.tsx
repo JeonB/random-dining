@@ -7,13 +7,11 @@ import MapSearch from '@_3Rpages/RestaurantView/mapSearch'
 import { createStackNavigator } from '@react-navigation/stack'
 import { RestaurantParamList } from '@_types/restaurantParamList'
 import { Ionicons, AntDesign } from '@expo/vector-icons'
-import { useNavigationState } from '@react-navigation/native'
 import InlineAd from '@_3Rpages/inlinedAd'
-import { useStore } from './common/utils/zustandStore'
+import { useStore } from '@_common/utils/zustandStore'
 
 const RestaurantStackScreen = () => {
   const Stack = createStackNavigator<RestaurantParamList>()
-  const screenName = useNavigationState(state => state.routes[state.index].name)
   const { showAd } = useStore()
   return (
     <>
@@ -21,7 +19,10 @@ const RestaurantStackScreen = () => {
         <Stack.Screen
           name="Home"
           component={PositionSelector}
-          options={{ title: '', headerBackTitleVisible: false }}
+          options={{
+            title: '',
+            headerBackTitleVisible: false,
+          }}
         />
         <Stack.Screen
           name="MapSearch"

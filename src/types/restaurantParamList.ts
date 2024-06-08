@@ -3,7 +3,7 @@ import { LocationTypes } from './restaurant'
 
 export interface RestaurantParamList {
   Detail: { url: string } | undefined
-  MapSearch: { mapSearch: string } | undefined
+  MapSearch: { location: { [key: string]: number } } | undefined
   FilterSetting: { location: { [key: string]: number } } | undefined
   SelectedRestaurantInfo:
     | {
@@ -15,7 +15,6 @@ export interface RestaurantParamList {
   [key: string]:
     | undefined
     | { url: string }
-    | { mapSearch: string }
     | { restaurant: LocationTypes }
     | { location: { [key: string]: number } }
 }

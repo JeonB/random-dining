@@ -4,14 +4,20 @@ import Map from './map'
 import PlaceSearchBar from './placeSearchBar'
 import { LocationTypes } from '@_types/restaurant'
 import { ListItem, Button, Icon } from '@rneui/themed'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
+import {
+  NavigationProp,
+  RouteProp,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native'
 import { RestaurantParamList } from '@_types/restaurantParamList'
 import { MyTheme } from 'theme'
-import { useStore } from 'src/components/common/utils/zustandStore'
+import { useStore } from '@_common/utils/zustandStore'
 
 const MapSearch = () => {
   const { currentLocation, setCurrentLocation } = useStore()
   const navigation = useNavigation<NavigationProp<RestaurantParamList>>()
+  const route = useRoute<RouteProp<RestaurantParamList, 'FilterSetting'>>()
   const [addressData, setAddressData] = useState<LocationTypes[]>([])
   useEffect(() => {}, [addressData])
   const [markerLocation, setMarkerLocation] = useState<{
@@ -30,6 +36,16 @@ const MapSearch = () => {
       },
     })
   }
+
+  useEffect(() => {
+    const location = route.params?.location
+    if (location) {
+      setCurrentLocation({
+        currentLongitude: location.longitude,
+        currentLatitude: location.latitude,
+      })
+    }
+  }, [route.params?.location])
   return (
     <View style={styles.container} testID="map-search">
       <View style={styles.searchBarContainer}>

@@ -18,6 +18,7 @@ const jestConfig: JestConfigWithTsJest = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   moduleNameMapper: {
     '^@_components/(.*)$': '<rootDir>/src/components/$1',
+    '^@_common/(.*)$': '<rootDir>/src/components/common/$1',
     '^@_types/(.*)$': '<rootDir>/src/types/$1',
     '^@_services/(.*)$': '<rootDir>/src/services/$1',
     '^@_3Rpages/(.*)$': [

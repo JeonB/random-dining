@@ -9,6 +9,7 @@
       "*": ["*"],
       "@_tests/*": ["src/tests/*"],
       "@_components/*": ["src/components/*"],
+      "@_common/*": ["src/components/common/*"],
       "@_types/*": ["src/types/*"],
       "@_services/*": ["src/services/*"],
       "@_3Rpages/*": ["src/components/RandomRestaurantRecommendation/pages/*"],
