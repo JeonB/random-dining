@@ -33,6 +33,7 @@ const App: React.FC = () => {
   // Zustand 상태 관리 라이브러리를 사용하여 글로벌 상태에서 setTrackingGranted 함수와 trackingGranted 값을 가져옴
   const setTrackingDenied = useStore(state => state.setTrackingDenied)
   const trackingDenied = useStore(state => state.trackingDenied)
+  const { setShowAd } = useStore()
   useEffect(() => {
     ;(async () => {
       // requestTrackingPermissionsAsync : 사용자 또는 기기를 추적하는 데 사용할 수 있는
@@ -41,6 +42,7 @@ const App: React.FC = () => {
       // 사용자의 액세스 승인 여부를 trackingDenied에 저장
       setTrackingDenied(trackingStatus === 'denied')
 
+      setShowAd(true)
       await mobileAds().initialize()
     })()
   }, [trackingDenied])

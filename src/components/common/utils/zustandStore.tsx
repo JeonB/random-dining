@@ -32,9 +32,9 @@ interface State {
 }
 
 export const useStore = create<State>()(set => ({
-  trackingDenied: false,
+  trackingDenied: true,
   setTrackingDenied: trackingDenied => set({ trackingDenied }),
-  showAd: true,
+  showAd: false,
   setShowAd: showAd => set({ showAd }),
   selectedCategories: [],
   setSelectedCategories: categories => set({ selectedCategories: categories }),

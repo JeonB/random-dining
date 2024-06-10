@@ -46,7 +46,10 @@ export const RestaurantProvider = ({
         [
           {
             text: '취소',
-            onPress: () => console.log('Cancel Pressed'),
+            onPress: () =>
+              console.log(
+                '위치 권한 설정은 핵심 기능이므로 추후에 꼭 허용해주세요',
+              ),
             style: 'cancel',
           },
           { text: '확인', onPress: () => Linking.openSettings() },

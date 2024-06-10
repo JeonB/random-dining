@@ -15,9 +15,7 @@ const InlineAd = () => {
   const [isAdLoaded, setIsAdLoaded] = useState<boolean>(false)
   const isTrackingDenied = useStore(state => state.trackingDenied)
 
-  useEffect(() => {
-    console.log('isTrackingDenied', isTrackingDenied)
-  }, [isTrackingDenied])
+  useEffect(() => {}, [isTrackingDenied])
 
   return (
     <View style={{ height: isAdLoaded ? 'auto' : 0 }}>
