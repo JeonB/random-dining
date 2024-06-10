@@ -93,7 +93,7 @@ const App: React.FC = () => {
             name="AD Info"
             component={Support}
             options={{
-              title: '광고 문의',
+              title: '문의',
               tabBarIcon: ({ focused, color, size }) => (
                 <Ionicons
                   name={
