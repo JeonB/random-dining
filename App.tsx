@@ -1,5 +1,11 @@
-import React, { useEffect } from 'react'
-import { StyleSheet, TextInput, Text } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import {
+  StyleSheet,
+  TextInput,
+  Text,
+  ActivityIndicator,
+  ImageBackground,
+} from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import Constants from 'expo-constants'
 import 'regenerator-runtime/runtime'
@@ -34,6 +40,10 @@ const App: React.FC = () => {
   const setTrackingDenied = useStore(state => state.setTrackingDenied)
   const trackingDenied = useStore(state => state.trackingDenied)
   const { setShowAd } = useStore()
+
+  // 앱의 초기 로딩 상태를 관리하는 상태 변수 추가
+  const [isLoading, setIsLoading] = useState(true)
+
   useEffect(() => {
     ;(async () => {
       // requestTrackingPermissionsAsync : 사용자 또는 기기를 추적하는 데 사용할 수 있는
@@ -44,8 +54,27 @@ const App: React.FC = () => {
 
       setShowAd(true)
       await mobileAds().initialize()
+
+      // 사용자의 선택이 완료되면 isLoading 상태를 false로 설정
+      setIsLoading(false)
     })()
   }, [trackingDenied])
+  // isLoading 상태에 따라 앱의 렌더링 제어
+  if (isLoading) {
+    // 로딩 인디케이터 표시
+    return (
+      <ImageBackground
+        source={require('./assets/splash.png')}
+        style={{
+          flex: 1,
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+          marginBottom: 50,
+        }}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </ImageBackground>
+    )
+  }
   return (
     <NavigationContainer theme={MyTheme}>
       <StatusBar style="dark" />
