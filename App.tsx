@@ -45,19 +45,15 @@ const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    ;(async () => {
-      // requestTrackingPermissionsAsync : 사용자 또는 기기를 추적하는 데 사용할 수 있는
-      // 앱 관련 데이터에 대한 액세스를 승인하거나 거부하도록 사용자에게 요청하는 함수
+    setTimeout(async () => {
       const { status: trackingStatus } = await requestTrackingPermissionsAsync()
-      // 사용자의 액세스 승인 여부를 trackingDenied에 저장
       setTrackingDenied(trackingStatus === 'denied')
 
       setShowAd(true)
       await mobileAds().initialize()
 
-      // 사용자의 선택이 완료되면 isLoading 상태를 false로 설정
       setIsLoading(false)
-    })()
+    }, 500)
   }, [trackingDenied])
   // isLoading 상태에 따라 앱의 렌더링 제어
   if (isLoading) {
