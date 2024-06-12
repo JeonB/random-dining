@@ -103,7 +103,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       backgroundColor: '#ffffff',
     },
     package: 'com.ifinfo.randomdining',
-    versionCode: 1,
+    versionCode: 14,
     permissions: ['com.google.android.gms.permission.AD_ID'],
   },
   web: {

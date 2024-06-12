@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Dimensions, StyleSheet } from 'react-native'
+import { Dimensions, StyleSheet, SafeAreaView } from 'react-native'
 import { WebView, WebViewMessageEvent } from 'react-native-webview'
 import { LocationTypes } from '@_types/restaurant'
 import Constants from 'expo-constants'
@@ -78,6 +78,7 @@ const Map = ({
                 button.style.bottom = window.innerHeight * 0.1 + 'px';
               };
             </script>
+            
         </head>
         <body >
             <div id="map" ></div>
@@ -179,14 +180,17 @@ const Map = ({
   }, [info, appKey, isMapSearch])
 
   return (
-    <WebView
-      style={styles.container}
-      source={{ html: html, baseUrl: '' }}
-      javaScriptEnabled={true}
-      testID="map"
-      originWhitelist={['*']}
-      onMessage={onMessage}
-    />
+    <SafeAreaView style={{ flex: 1 }}>
+      <WebView
+        style={styles.container}
+        source={{ html: html, baseUrl: '' }}
+        javaScriptEnabled={true}
+        testID="map"
+        originWhitelist={['*']}
+        onMessage={onMessage}
+        // mixedContentMode="always"
+      />
+    </SafeAreaView>
   )
 }
 const styles = StyleSheet.create({
