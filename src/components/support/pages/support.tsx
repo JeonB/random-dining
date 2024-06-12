@@ -15,9 +15,9 @@ export const Support = () => {
     let phoneNumber = ''
 
     if (Platform.OS === 'android') {
-      phoneNumber = 'tel:${12345678}'
+      phoneNumber = 'tel:${0263833101}'
     } else {
-      phoneNumber = 'telprompt:${12345678}'
+      phoneNumber = 'telprompt:${0263833101}'
     }
 
     Linking.openURL(phoneNumber)
