@@ -12,14 +12,7 @@ import { Icon } from '@rneui/themed'
 
 export const Support = () => {
   const handlePressCall = () => {
-    let phoneNumber = ''
-
-    if (Platform.OS === 'android') {
-      phoneNumber = 'tel:${0263833101}'
-    } else {
-      phoneNumber = 'telprompt:${0263833101}'
-    }
-
+    const phoneNumber = 'tel:02-6383-3101'
     Linking.openURL(phoneNumber)
   }
   const handlePressWebsite = () => {
