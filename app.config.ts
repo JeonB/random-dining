@@ -10,7 +10,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: '랜덤다이닝',
   slug: 'random-dining',
-  version: '1.0.0',
+  version: '1.0.1',
   extra: {
     storybookEnabled: process.env.STORYBOOK_ENABLED,
     KAKAO_RESTAPI_KEY: process.env.KAKAO_RESTAPI_KEY,
