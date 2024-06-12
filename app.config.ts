@@ -32,9 +32,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   assetBundlePatterns: ['**/*'],
   ios: {
     supportsTablet: false,
-    buildNumber: '1.0.5',
+    buildNumber: '1.0.6',
     bundleIdentifier: 'com.ifinfo.randomdining',
     infoPlist: {
+      ITSAppUsesNonExemptEncryption: false,
       NSUserTrackingUsageDescription:
         '개인에게 최적화된 광고를 제공하기 위해 사용자의 광고활동 정보를 수집합니다.',
       SKAdNetworkItems: [
@@ -103,7 +104,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       backgroundColor: '#ffffff',
     },
     package: 'com.ifinfo.randomdining',
-    versionCode: 14,
+    versionCode: 15,
     permissions: ['com.google.android.gms.permission.AD_ID'],
   },
   web: {
