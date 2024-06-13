@@ -5,6 +5,7 @@ import {
   Text,
   ActivityIndicator,
   ImageBackground,
+  Platform,
 } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import Constants from 'expo-constants'
@@ -60,13 +61,8 @@ const App: React.FC = () => {
     // 로딩 인디케이터 표시
     return (
       <ImageBackground
-        source={require('./assets/splash.png')}
-        style={{
-          flex: 1,
-          justifyContent: 'flex-end',
-          alignItems: 'center',
-          marginBottom: 50,
-        }}>
+        source={require('./assets/images/main.png')}
+        style={styles.image}>
         <ActivityIndicator size="large" color="#0000ff" />
       </ImageBackground>
     )
@@ -149,7 +145,19 @@ if (
   AppEntryPoint = require('./.storybook').default
 }
 const styles = StyleSheet.create({
-  container: {},
+  image: {
+    width: Platform.select({
+      ios: MyTheme.width * 330,
+      android: MyTheme.width * 320,
+    }),
+    flex: 1,
+    height: MyTheme.width * 280,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    alignSelf: 'center',
+    marginTop: MyTheme.width * 130,
+    marginBottom: MyTheme.width * 120,
+  },
 })
 
 export default AppEntryPoint

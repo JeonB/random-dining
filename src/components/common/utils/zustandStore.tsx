@@ -7,8 +7,6 @@ interface State {
   setShowAd: (showAd: boolean) => void
   selectedCategories: string[]
   setSelectedCategories: (categories: string[]) => void
-  distance: number
-  setDistance: (distance: number) => void
   restaurantItems: LocationTypes[]
   setRestaurantItems: (items: LocationTypes[]) => void
   modalVisible: boolean
@@ -38,8 +36,6 @@ export const useStore = create<State>()(set => ({
   setShowAd: showAd => set({ showAd }),
   selectedCategories: [],
   setSelectedCategories: categories => set({ selectedCategories: categories }),
-  distance: 30,
-  setDistance: distance => set({ distance }),
   restaurantItems: [],
   setRestaurantItems: items => set({ restaurantItems: items }),
   modalVisible: false,

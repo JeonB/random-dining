@@ -27,9 +27,9 @@ const DistanceSlider = ({
         }}
         value={distanceRange}
         onValueChange={handleValueChange}
-        maximumValue={300}
-        minimumValue={30}
-        step={10}
+        maximumValue={1000}
+        minimumValue={100}
+        step={100}
         allowTouchTrack
         trackStyle={{ height: 5, backgroundColor: 'transparent' }}
         thumbStyle={{ height: 20, width: 20, backgroundColor: 'transparent' }}

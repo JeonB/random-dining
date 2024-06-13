@@ -45,7 +45,7 @@ const FilterSetting = () => {
     }
   }, [route.params?.location])
   const isMounted = useRef(true)
-  const [distance, setDistance] = useState(30)
+  const [distance, setDistance] = useState(100)
   const [isLoading, setIsLoading] = useState(false)
   const [isChanging, setIsChanging] = useState(false)
   const navigation = useNavigation<NavigationProp<RestaurantParamList>>()
