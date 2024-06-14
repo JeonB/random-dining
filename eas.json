@@ -5,12 +5,18 @@
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "channel": "development"
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "channel": "preview"
+    },
+    "preview2": {
+      "channel": "preview"
     },
     "production": {
+      "channel": "production",
       "ios": {
         "cocoapods": "1.15.2"
       }
@@ -19,8 +25,12 @@
   "submit": {
     "production": {
       "android": {
-        "track": "production",
-        "releaseStatus": "draft"
+        "track": "production"
+      }
+    },
+    "preview": {
+      "android": {
+        "track": "internal"
       }
     }
   }

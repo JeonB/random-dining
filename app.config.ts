@@ -104,12 +104,17 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       backgroundColor: '#ffffff',
     },
     package: 'com.ifinfo.randomdining',
-    versionCode: 15,
+    versionCode: 18,
     permissions: ['com.google.android.gms.permission.AD_ID'],
   },
   web: {
     favicon: './assets/favicon.png',
   },
+  updates: {
+    url: 'https://u.expo.dev/a6d7b0a6-43fb-42f0-b832-33ba126e59d8',
+    channel: 'preview',
+  },
+  runtimeVersion: '1.0.0',
   plugins: [
     [
       'expo-tracking-transparency',
