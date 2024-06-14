@@ -32,7 +32,9 @@ const PositionSelector = () => {
   const handleGetCurrentLocationForMap = async () => {
     const { latitude, longitude } = await getPositionByGeolocation()
     if (!latitude || !longitude) {
-      console.error('위도 또는 경도 값이 없습니다.')
+      console.error(
+        '기기가 좌표를 불러오지 못 하고 있습니다. 위치 설정 옵션을 확인해주세요.',
+      )
       return
     }
     navigation.navigate('MapSearch', {
