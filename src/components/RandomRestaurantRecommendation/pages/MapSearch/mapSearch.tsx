@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Dimensions, FlatList, StyleSheet, View } from 'react-native'
-import Map from './map'
+import Map from '@_common/ui/map'
 import PlaceSearchBar from './placeSearchBar'
-import { LocationTypes } from '@_types/restaurant'
+import { LocationTypes, RestaurantParamList } from '@_types'
 import { ListItem, Button, Icon } from '@rneui/themed'
 import {
   NavigationProp,
@@ -10,7 +10,6 @@ import {
   useNavigation,
   useRoute,
 } from '@react-navigation/native'
-import { RestaurantParamList } from '@_types/restaurantParamList'
 import { MyTheme } from 'theme'
 import { useStore } from '@_common/utils/zustandStore'
 

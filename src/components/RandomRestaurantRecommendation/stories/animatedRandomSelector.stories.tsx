@@ -4,7 +4,7 @@ import { Meta, StoryFn } from '@storybook/react'
 import {
   AnimatedRandomSelector,
   Props,
-} from '../pages/RestaurantView/animatedRandomSelector'
+} from '../../common/ui/animatedRandomSelector'
 
 export default {
   title: 'Components/3R/RestaurantView/RandomItemSelect',

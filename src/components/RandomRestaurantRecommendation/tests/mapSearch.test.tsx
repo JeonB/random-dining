@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react-native'
-import MapSearch from '../pages/RestaurantView/mapSearch'
+import MapSearch from '../pages/MapSearch/mapSearch'
 import { RestaurantProvider } from '@_components/common/context/restaurantProvider'
 import { useNavigation } from '@react-navigation/native'
 jest.mock('react-native-webview', () => {

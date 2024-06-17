@@ -1,9 +1,8 @@
 import { Alert, Linking } from 'react-native'
 import * as Location from 'expo-location'
-import { QueryParamsType } from '@_types/queryParams'
+import { QueryParamsType, LocationTypes } from '@_types'
 import Constants from 'expo-constants'
 import { AppConfig } from 'app.config'
-import { LocationTypes } from '@_types/restaurant'
 import { checkInternetConnection } from '@_common/utils/checkInternetConnection'
 
 const { KAKAO_RESTAPI_KEY } = Constants.expoConfig?.extra as AppConfig

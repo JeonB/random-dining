@@ -1,5 +1,5 @@
 import React from 'react'
-import { LocationTypes } from '@_types/restaurant'
+import { LocationTypes } from '@_types'
 import { DataTable, Icon } from 'react-native-paper'
 import { Image, Linking, StyleSheet, View } from 'react-native'
 import { Text } from '@rneui/themed'

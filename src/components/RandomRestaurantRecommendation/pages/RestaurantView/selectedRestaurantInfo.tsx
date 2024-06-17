@@ -10,13 +10,12 @@ import {
   LayoutChangeEvent,
 } from 'react-native'
 import { StackScreenProps } from '@react-navigation/stack'
-import { LocationTypes } from '@_types/restaurant'
-import Map from './map'
+import { LocationTypes, RestaurantParamList } from '@_types'
+import Map from '@_common/ui/map'
+import { useStore } from '@_common/utils/zustandStore'
 import RandomItemModal from './randomItemModal'
-import { RestaurantParamList } from '@_types/restaurantParamList'
 import mainImage from '@_assetImages/main.png'
 import { MyTheme } from 'theme'
-import { useStore } from '@_common/utils/zustandStore'
 import Content from './content'
 
 const SelectedRestaurantInfo = ({

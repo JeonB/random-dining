@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react-native'
-import { AnimatedRandomSelector } from '../pages/RestaurantView/animatedRandomSelector'
+import { AnimatedRandomSelector } from '../../common/ui/animatedRandomSelector'
 import { LocationTypes } from 'src/types/restaurant'
 
 describe('AnimatedRandomSelector', () => {

@@ -8,7 +8,7 @@ interface DistanceSliderProps {
   onDistanceChange: (value: number) => void
 }
 
-const DistanceSlider = ({
+export const DistanceSlider = ({
   onDistanceChange,
   distanceRange,
 }: DistanceSliderProps) => {

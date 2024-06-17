@@ -1,8 +1,8 @@
 import { Text } from '@rneui/themed'
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef } from 'react'
 import { Animated, View, StyleSheet } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
-import { LocationTypes } from '@_types/restaurant'
+import { LocationTypes } from '@_types'
 
 export interface Props {
   restaurantItems: LocationTypes[]

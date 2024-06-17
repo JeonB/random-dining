@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, View, Dimensions } from 'react-native'
 import WebView from 'react-native-webview'
 import { RouteProp, useRoute } from '@react-navigation/native'
-import { RestaurantParamList } from '@_types/restaurantParamList'
+import { RestaurantParamList } from '@_types'
 
 const windowWidth = Dimensions.get('window').width
 const windowHeight = Dimensions.get('window').height

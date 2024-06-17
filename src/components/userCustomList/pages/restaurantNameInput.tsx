@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import { Icon } from '@rneui/themed'
-import { LocationTypes } from '@_types/restaurant'
+import { LocationTypes } from '@_types'
 import { MyTheme } from 'theme'
 interface Props {
   listItems: LocationTypes[]

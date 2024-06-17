@@ -6,7 +6,6 @@ import {
   Dimensions,
   Linking,
   TouchableOpacity,
-  Platform,
 } from 'react-native'
 import { Icon } from '@rneui/themed'
 

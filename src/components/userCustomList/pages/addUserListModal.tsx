@@ -13,7 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useFocusEffect } from '@react-navigation/native'
 import { Button } from 'react-native-paper'
 import { MyTheme } from 'theme'
-import { LocationTypes } from '@_types/restaurant'
+import { LocationTypes } from '@_types'
 import { useListNames } from '@_userList/hook/useListNames'
 import { CreateNewListModal } from '@_userListPages/createNewListModal'
 

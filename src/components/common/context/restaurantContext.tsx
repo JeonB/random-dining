@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from 'react'
-import { LocationTypes } from '@_types/restaurant'
+import { LocationTypes } from '@_types'
 
 interface ContextType {
   selectedCategories: string[]

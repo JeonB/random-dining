@@ -7,7 +7,7 @@ import {
   useNavigation,
 } from '@react-navigation/native'
 import { getPositionByGeolocation } from '@_services/api'
-import { RestaurantParamList } from '@_types/restaurantParamList'
+import { RestaurantParamList } from '@_types'
 import mainImage from '@_assetImages/main.png'
 import { MyTheme } from 'theme'
 

@@ -2,8 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { RestaurantContext } from './restaurantContext'
 import { fetchRestaurantData, getPositionByGeolocation } from '@_services/api'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { LocationTypes } from '@_types/restaurant'
-import { RestaurantParamList } from '@_types/restaurantParamList'
+import { LocationTypes, RestaurantParamList } from '@_types'
 import { Alert, Linking } from 'react-native'
 
 export const RestaurantProvider = ({

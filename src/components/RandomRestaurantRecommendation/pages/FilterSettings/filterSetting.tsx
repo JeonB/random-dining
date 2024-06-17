@@ -13,15 +13,16 @@ import {
   useRoute,
 } from '@react-navigation/native'
 import { Text } from '@rneui/themed'
-import DistanceSlider from '@_3Rpages/FilterSettings/distanceSlider'
-import CategorySwitch from '@_3Rpages/FilterSettings/categorySwitch'
-import RandomPickButton from '@_3Rpages/FilterSettings/randomPickButton'
+import {
+  DistanceSlider,
+  CategorySwitch,
+  RandomPickButton,
+} from '@_3Rpages/FilterSettings'
 import RandomItemModal from '@_3Rpages/RestaurantView/randomItemModal'
-import { RestaurantParamList } from '@_types/restaurantParamList'
 import { MyTheme } from 'theme'
 import { useStore } from '@_common/utils/zustandStore'
-import { fetchRestaurantData } from 'src/services/api'
-import { LocationTypes } from 'src/types/restaurant'
+import { fetchRestaurantData } from '@_services/api'
+import { RestaurantParamList, LocationTypes } from '@_types'
 
 const FilterSetting = () => {
   const route = useRoute<RouteProp<RestaurantParamList, 'FilterSetting'>>()

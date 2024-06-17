@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
+import ToggleSwitch from '@_common/ui/toggleSwitch'
 import { Text } from '@rneui/themed'
 import { MyTheme } from 'theme'
 
@@ -28,7 +29,7 @@ const getImageByCategory = (category: string) => {
   return images[category]
 }
 
-const CategorySwitch = ({
+export const CategorySwitch = ({
   onCategoryChange = () => {},
 }: {
   onCategoryChange?: (categories: string[]) => void

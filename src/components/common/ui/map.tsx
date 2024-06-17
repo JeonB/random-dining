@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Dimensions, StyleSheet, SafeAreaView } from 'react-native'
 import { WebView, WebViewMessageEvent } from 'react-native-webview'
-import { LocationTypes } from '@_types/restaurant'
+import { LocationTypes } from '@_types'
 import Constants from 'expo-constants'
 import { AppConfig } from 'app.config'
 
@@ -78,7 +78,7 @@ const Map = ({
                 button.style.bottom = window.innerHeight * 0.1 + 'px';
               };
             </script>
-            
+
         </head>
         <body >
             <div id="map" ></div>

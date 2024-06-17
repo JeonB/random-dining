@@ -12,7 +12,7 @@ interface RandomPickButtonProps {
   labelStyle?: object
 }
 
-const RandomPickButton = ({
+export const RandomPickButton = ({
   handleRandomPickClick,
   isLoading,
   icon,

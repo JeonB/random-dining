@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Button } from 'react-native-paper'
 import { MyTheme } from 'theme'
-import { LocationTypes } from '@_types/restaurant'
+import { LocationTypes } from '@_types'
 
 interface RenderItemProps {
   item: LocationTypes

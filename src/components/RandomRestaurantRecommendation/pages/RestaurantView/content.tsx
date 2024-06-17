@@ -2,9 +2,8 @@ import React from 'react'
 import RestaurantActionButtons from './restaurantActionButtons'
 import RestaurantDetail from './restaurantDetail'
 import { Dimensions, LayoutChangeEvent, View } from 'react-native'
-import { LocationTypes } from 'src/types/restaurant'
+import { LocationTypes, RestaurantParamList } from '@_types'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { RestaurantParamList } from 'src/types/restaurantParamList'
 
 interface Props {
   restaurant: LocationTypes

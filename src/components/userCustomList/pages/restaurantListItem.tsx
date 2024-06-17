@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Icon } from '@rneui/themed'
-import { LocationTypes } from '@_types/restaurant'
+import { LocationTypes } from '@_types'
 
 interface ItemProps {
   item: LocationTypes

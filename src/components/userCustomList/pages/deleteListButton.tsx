@@ -3,7 +3,7 @@ import { View, Alert } from 'react-native'
 import { NavigationProp } from '@react-navigation/native'
 import { Button } from 'react-native-paper'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { RootStackParamList } from '@_types/listParamList'
+import { RootStackParamList } from '@_types'
 import { useListNames } from '@_userList/hook/useListNames'
 
 export const DeleteListButton = ({

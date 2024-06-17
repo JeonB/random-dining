@@ -3,8 +3,7 @@ import * as Location from 'expo-location'
 import Constants from 'expo-constants'
 import { AppConfig } from 'app.config'
 import { checkInternetConnection } from '@_common/utils/checkInternetConnection'
-import { LocationTypes } from '@_types/restaurant'
-import { RestaurantSearchQueryParamsType } from '@_types/queryParams'
+import { LocationTypes, RestaurantSearchQueryParamsType } from '@_types'
 
 const { KAKAO_RESTAPI_KEY } = Constants.expoConfig?.extra as AppConfig
 const baseUrl = 'https://dapi.kakao.com/v2/local/search/keyword'

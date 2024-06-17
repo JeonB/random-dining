@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 import { NavigationProp } from '@react-navigation/native'
 import { Icon } from '@rneui/themed'
-import { RootStackParamList } from '@_types/listParamList'
+import { RootStackParamList } from '@_types'
 import { useSequentialAnimation } from '@_userList/hook/useSequentialAnimation'
 import { useListNames } from '@_userList/hook/useListNames'
 import { ListManageModal } from '@_userListPages/listManage/listManageModal'

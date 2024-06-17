@@ -11,12 +11,11 @@ import {
 import { StackScreenProps } from '@react-navigation/stack'
 import { Text } from '@rneui/themed'
 import { MyTheme } from 'theme'
-import { RootStackParamList } from '@_types/listParamList'
-import { LocationTypes } from '@_types/restaurant'
-import Map from '@_3Rpages/RestaurantView/map'
+import { RootStackParamList, LocationTypes } from '@_types'
+import Map from '@_common/ui/map'
 import RestaurantDetail from '@_3Rpages/RestaurantView/restaurantDetail'
 import RandomItemModal from '@_3Rpages/RestaurantView/randomItemModal'
-import { useRestaurantContext } from '@_components/common/context/restaurantContext'
+import { useRestaurantContext } from '@_common/context/restaurantContext'
 import RestaurantActionButtons from '@_userListPages/restaurantActionButtons'
 
 export const SelectedRestaurantInfo = ({

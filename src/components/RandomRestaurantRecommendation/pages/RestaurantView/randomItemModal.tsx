@@ -1,8 +1,8 @@
 import { Modal, View, StyleSheet } from 'react-native'
 import { Button } from 'react-native-paper'
-import { AnimatedRandomSelector } from '@_3Rpages/RestaurantView/animatedRandomSelector'
-import { LocationTypes } from '@_types/restaurant'
-import React, { memo } from 'react'
+import { AnimatedRandomSelector } from '@_common/ui/animatedRandomSelector'
+import { LocationTypes } from '@_types'
+import React from 'react'
 
 interface RandomPickerModalProps {
   visible: boolean

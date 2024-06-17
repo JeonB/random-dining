@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Dimensions } from 'react-native'
 import { NavigationProp } from '@react-navigation/native'
 import { MyTheme } from 'theme'
 import { useHideTabBar } from '@_components/useHideTabBar'
-import { RootStackParamList } from '@_types/listParamList'
+import { RootStackParamList } from '@_types'
 import { DefaultFlatList } from '@_userListPages/defaultFlatList'
 import { useListNames } from '@_userList/hook/useListNames'
 

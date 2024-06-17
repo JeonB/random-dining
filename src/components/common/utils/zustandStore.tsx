@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { LocationTypes } from '@_types/restaurant'
+import { LocationTypes } from '@_types'
 interface State {
   trackingDenied: boolean
   setTrackingDenied: (trackingDenied: boolean) => void
