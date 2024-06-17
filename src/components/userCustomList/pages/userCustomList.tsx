@@ -12,8 +12,7 @@ import { NavigationProp, useFocusEffect } from '@react-navigation/native'
 import { Button } from 'react-native-paper'
 import { MyTheme } from 'theme'
 import RandomItemModal from '@_3Rpages/RestaurantView/randomItemModal'
-import { LocationTypes } from '@_types/restaurant'
-import { RootStackParamList } from '@_types/listParamList'
+import { LocationTypes, RootStackParamList } from '@_types'
 import { useListNames } from '@_userList/hook/useListNames'
 import { DefaultFlatList } from '@_userListPages/defaultFlatList'
 import { ListManageIcon } from '@_userListPages/listManage/listManageIcon'
@@ -136,10 +135,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingVertical: MyTheme.width * 5,
     width: '100%',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
     },
+    backgroundColor: MyTheme.colors.primary,
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
   },

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { SearchBar } from '@rneui/themed'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { fetchLocationData } from '@_services/api'
 import { LocationTypes } from '@_types'
 

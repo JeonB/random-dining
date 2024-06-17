@@ -18,7 +18,6 @@ const MapSearch = () => {
   const navigation = useNavigation<NavigationProp<RestaurantParamList>>()
   const route = useRoute<RouteProp<RestaurantParamList, 'FilterSetting'>>()
   const [addressData, setAddressData] = useState<LocationTypes[]>([])
-  useEffect(() => {}, [addressData])
   const [markerLocation, setMarkerLocation] = useState<{
     lat: number
     lng: number
@@ -36,6 +35,7 @@ const MapSearch = () => {
     })
   }
 
+  useEffect(() => {}, [addressData])
   useEffect(() => {
     const location = route.params?.location
     if (location) {
@@ -45,6 +45,7 @@ const MapSearch = () => {
       })
     }
   }, [route.params?.location])
+
   return (
     <View style={styles.container} testID="map-search">
       <View style={styles.searchBarContainer}>

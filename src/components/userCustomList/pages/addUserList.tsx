@@ -5,8 +5,7 @@ import { NavigationProp } from '@react-navigation/native'
 import { Button } from 'react-native-paper'
 import { MyTheme } from 'theme'
 import { useHideTabBar } from '@_components/useHideTabBar'
-import { RootStackParamList } from '@_types/listParamList'
-import { LocationTypes } from '@_types/restaurant'
+import { RootStackParamList, LocationTypes } from '@_types'
 import { useListNames } from '@_userList/hook/useListNames'
 import { DefaultFlatList } from '@_userListPages/defaultFlatList'
 import SearchRestaurantModal from '@_userListPages/searchRestaurantModal/searchRestaurantModal'
@@ -149,10 +148,12 @@ const styles = StyleSheet.create({
   },
   button: {
     marginVertical: MyTheme.width * 10,
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
     },
+    backgroundColor: MyTheme.colors.primary,
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
   },
