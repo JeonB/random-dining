@@ -11,6 +11,15 @@ const restAPIkey = KAKAO_RESTAPI_KEY
 
 export const getPositionByGeolocation = async () => {
   const { status } = await Location.requestForegroundPermissionsAsync()
+  const servicesEnabled = await Location.hasServicesEnabledAsync()
+
+  if (!servicesEnabled) {
+    Alert.alert(
+      '위치 서비스가 비활성화되었습니다.',
+      '위치 서비스를 활성화해 주세요.',
+      [{ text: '확인' }],
+    )
+  }
   if (status !== 'granted') {
     Alert.alert(
       '위치 권한이 필요합니다.',
