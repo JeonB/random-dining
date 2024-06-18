@@ -19,6 +19,7 @@ export const getPositionByGeolocation = async () => {
       '위치 서비스를 활성화해 주세요.',
       [{ text: '확인' }],
     )
+    return { latitude: 0, longitude: 0 }
   }
   if (status !== 'granted') {
     Alert.alert(
