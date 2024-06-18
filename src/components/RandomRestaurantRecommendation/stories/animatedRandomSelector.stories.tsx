@@ -23,7 +23,7 @@ export const Basic: StoryFn<Props> = args => (
   <AnimatedRandomSelector {...args} />
 )
 Basic.args = {
-  restaurantItems: [
+  items: [
     {
       place_name: 'Restaurant 1',
       id: 0,

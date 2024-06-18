@@ -30,9 +30,9 @@ const getImageByCategory = (category: string) => {
 }
 
 export const CategorySwitch = ({
-  onCategoryChange = () => {},
+  onCategoryChange,
 }: {
-  onCategoryChange?: (categories: string[]) => void
+  onCategoryChange: (categories: string[]) => void
 }) => {
   const [activatedCategory, setActivatedCategory] = useState<string[]>(['전체'])
 

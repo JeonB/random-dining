@@ -13,7 +13,7 @@ describe('AnimatedRandomSelector', () => {
 
     const { getAllByText } = render(
       <AnimatedRandomSelector
-        restaurantItems={items as LocationTypes[]}
+        items={items as LocationTypes[]}
         onIndexChange={() => {}}
         itemHeight={50}
         closeModal={() => {}}

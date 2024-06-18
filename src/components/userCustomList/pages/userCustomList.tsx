@@ -11,7 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationProp, useFocusEffect } from '@react-navigation/native'
 import { Button } from 'react-native-paper'
 import { MyTheme } from 'theme'
-import RandomItemModal from '@_3Rpages/RestaurantView/randomItemModal'
+import RandomItemModal from '@_common/ui/randomItemModal'
 import { LocationTypes, RootStackParamList } from '@_types'
 import { useListNames } from '@_userList/hook/useListNames'
 import { DefaultFlatList } from '@_userListPages/defaultFlatList'
@@ -102,8 +102,8 @@ export const UserCustomList = ({
       <RandomItemModal
         visible={modalVisible}
         onClose={() => setModalVisible(false)}
-        restaurantItems={restaurantItems}
-        onRestaurantIndexChange={handleRestaurantChange}
+        items={restaurantItems.map(item => item.place_name)}
+        onIndexChange={handleRestaurantChange}
       />
     </View>
   )

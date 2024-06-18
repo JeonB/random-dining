@@ -10,4 +10,5 @@ export interface LocationTypes {
   x?: string
   y?: string
   address_name?: string
+  [key: string]: string | number | undefined
 }

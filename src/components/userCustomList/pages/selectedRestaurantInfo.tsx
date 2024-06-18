@@ -14,7 +14,7 @@ import { MyTheme } from 'theme'
 import { RootStackParamList, LocationTypes } from '@_types'
 import Map from '@_common/ui/map'
 import RestaurantDetail from '@_3Rpages/RestaurantView/restaurantDetail'
-import RandomItemModal from '@_3Rpages/RestaurantView/randomItemModal'
+import RandomItemModal from '@_common/ui/randomItemModal'
 import { useRestaurantContext } from '@_common/context/restaurantContext'
 import RestaurantActionButtons from '@_userListPages/restaurantActionButtons'
 
@@ -113,8 +113,8 @@ export const SelectedRestaurantInfo = ({
       <RandomItemModal
         visible={modalVisible}
         onClose={() => setModalVisible(false)}
-        restaurantItems={restaurantItems}
-        onRestaurantIndexChange={handleRestaurantChange}
+        items={restaurantItems.map(item => item.place_name)}
+        onIndexChange={handleRestaurantChange}
       />
     </View>
   )

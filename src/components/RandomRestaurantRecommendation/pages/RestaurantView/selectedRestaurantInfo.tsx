@@ -13,7 +13,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { LocationTypes, RestaurantParamList } from '@_types'
 import Map from '@_common/ui/map'
 import { useStore } from '@_common/utils/zustandStore'
-import RandomItemModal from './randomItemModal'
+import RandomItemModal from '@_common/ui/randomItemModal'
 import mainImage from '@_assetImages/main.png'
 import { MyTheme } from 'theme'
 import Content from './content'
@@ -98,8 +98,8 @@ const SelectedRestaurantInfo = ({
       <RandomItemModal
         visible={modalVisible}
         onClose={() => setModalVisible(false)}
-        restaurantItems={restaurantItems}
-        onRestaurantIndexChange={handleRestaurantChange}
+        items={restaurantItems.map(item => item.place_name)}
+        onIndexChange={handleRestaurantChange}
       />
     </View>
   )

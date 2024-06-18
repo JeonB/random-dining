@@ -24,8 +24,9 @@ import { useStore } from '@_common/utils/zustandStore'
 import { fetchRestaurantData } from '@_services/api'
 import { RestaurantParamList, LocationTypes } from '@_types'
 
-const FilterSetting = () => {
+const FilterSettingCopy = () => {
   const route = useRoute<RouteProp<RestaurantParamList, 'FilterSetting'>>()
+  const [modalVisible, setModalVisible] = useState(false)
   const {
     selectedCategories,
     setSelectedCategories,
@@ -35,14 +36,6 @@ const FilterSetting = () => {
     setRestaurantItems,
     setRestaurant,
   } = useStore()
-
-  const isMounted = useRef(true)
-  const [distance, setDistance] = useState(100)
-  const [isLoading, setIsLoading] = useState(false)
-  const [isChanging, setIsChanging] = useState(false)
-  const [modalVisible, setModalVisible] = useState(false)
-  const navigation = useNavigation<NavigationProp<RestaurantParamList>>()
-  const items = restaurantItems.map(item => item.place_name)
   useEffect(() => {
     const location = route.params?.location
     if (location) {
@@ -52,7 +45,11 @@ const FilterSetting = () => {
       })
     }
   }, [route.params?.location])
-
+  const isMounted = useRef(true)
+  const [distance, setDistance] = useState(100)
+  const [isLoading, setIsLoading] = useState(false)
+  const [isChanging, setIsChanging] = useState(false)
+  const navigation = useNavigation<NavigationProp<RestaurantParamList>>()
   // distance, selectedCategories 중 하나가 변경될 때만 새로 생성
   const handleRestaurantData = useCallback(async () => {
     try {
@@ -103,11 +100,9 @@ const FilterSetting = () => {
     },
     [isChanging, restaurantItems],
   )
-
   const handleClose = useCallback(() => {
     setModalVisible(false)
   }, [])
-
   return (
     <View style={styles.container} testID="test">
       <ScrollView>
@@ -144,7 +139,7 @@ const FilterSetting = () => {
       <RandomItemModal
         visible={modalVisible}
         onClose={handleClose}
-        items={items}
+        items={restaurantItems.map(item => item.place_name)}
         onIndexChange={handleRestaurantChange}
       />
     </View>
@@ -197,4 +192,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default FilterSetting
+export default FilterSettingCopy
