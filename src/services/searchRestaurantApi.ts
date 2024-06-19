@@ -2,6 +2,7 @@ import { Alert, Linking } from 'react-native'
 import * as Location from 'expo-location'
 import Constants from 'expo-constants'
 import { AppConfig } from 'app.config'
+import { checkInternetConnection } from '@_common/utils/checkInternetConnection'
 import { LocationTypes } from '@_types/restaurant'
 import { RestaurantSearchQueryParamsType } from '@_types/queryParams'
 
@@ -49,7 +50,8 @@ const getLocation = async () => {
 export const handleData = async (keyword: string, sort: string) => {
   const allData: LocationTypes[] = []
   let page = 1
-
+  const isConnected = await checkInternetConnection()
+  if (!isConnected) return
   const { latitude, longitude } = await getLocation()
   if (latitude && longitude) {
     const fetchDataAndUpdatePage = async () => {

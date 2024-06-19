@@ -4,6 +4,7 @@ import { QueryParamsType } from '@_types/queryParams'
 import Constants from 'expo-constants'
 import { AppConfig } from 'app.config'
 import { LocationTypes } from '@_types/restaurant'
+import { checkInternetConnection } from '@_common/utils/checkInternetConnection'
 
 const { KAKAO_RESTAPI_KEY } = Constants.expoConfig?.extra as AppConfig
 const baseUrl = 'https://dapi.kakao.com/v2/local/search/keyword'
@@ -12,7 +13,8 @@ const restAPIkey = KAKAO_RESTAPI_KEY
 export const getPositionByGeolocation = async () => {
   const { status } = await Location.requestForegroundPermissionsAsync()
   const servicesEnabled = await Location.hasServicesEnabledAsync()
-
+  const isConnected = await checkInternetConnection()
+  if (!isConnected) return { latitude: 0, longitude: 0 }
   if (!servicesEnabled) {
     Alert.alert(
       '위치 서비스가 비활성화되었습니다.',
