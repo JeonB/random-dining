@@ -87,8 +87,8 @@ const CategorySwitch = ({
                 />
               )}
             </View>
+            <Text style={styles.text}>{category}</Text>
           </TouchableOpacity>
-          <Text style={styles.text}>{category}</Text>
         </View>
       ))}
     </View>
@@ -99,13 +99,15 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    justifyContent: 'center',
     alignItems: 'center',
-    padding: MyTheme.width * 10,
+    padding: MyTheme.width * 15,
   },
   categoryContainer: {
     width: '25%',
-    padding: 2,
+    justifyContent: 'center',
     alignItems: 'center',
+    alignContent: 'center',
   },
   imageContainer: {
     alignItems: 'center',
@@ -123,6 +125,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 20,
     fontSize: MyTheme.width * 16,
+    textAlign: 'center',
   },
 })
 
