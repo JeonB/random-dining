@@ -31,7 +31,7 @@ export default function RestaurantView() {
       return Math.abs(gestureState.dy) > Math.abs(gestureState.dx)
     },
     onPanResponderGrant: () => {
-      initialHeightRef.current = animatedHeight._value
+      initialHeightRef.current = (animatedHeight as any)._value
     },
     onPanResponderMove: (event, gestureState) => {
       let newHeight = initialHeightRef.current - gestureState.dy

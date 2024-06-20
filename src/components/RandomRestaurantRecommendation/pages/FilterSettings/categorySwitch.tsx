@@ -3,6 +3,7 @@ import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
 import ToggleSwitch from '@_common/ui/toggleSwitch'
 import { Text } from '@rneui/themed'
 import { MyTheme } from 'theme'
+import { useStore } from '@_common/utils/zustandStore'
 
 const CATEGORY = [
   '전체',
@@ -29,13 +30,9 @@ const getImageByCategory = (category: string) => {
   return images[category]
 }
 
-export const CategorySwitch = ({
-  onCategoryChange,
-}: {
-  onCategoryChange: (categories: string[]) => void
-}) => {
+export const CategorySwitch = () => {
   const [activatedCategory, setActivatedCategory] = useState<string[]>(['전체'])
-
+  const setSelectedCategories = useStore(state => state.setSelectedCategories)
   const handleToggle = (category: string) => {
     if (category === '전체') {
       setActivatedCategory(['전체'])
@@ -60,12 +57,12 @@ export const CategorySwitch = ({
   }
 
   useEffect(() => {
-    onCategoryChange(
+    setSelectedCategories(
       activatedCategory.includes('전체')
         ? CATEGORY.slice(1)
         : activatedCategory,
     )
-  }, [activatedCategory, onCategoryChange])
+  }, [activatedCategory, setSelectedCategories])
 
   return (
     <View style={styles.container}>

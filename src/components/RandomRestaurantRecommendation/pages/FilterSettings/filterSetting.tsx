@@ -31,7 +31,6 @@ const FilterSetting = () => {
   const route = useRoute<RouteProp<RestaurantParamList, 'FilterSetting'>>()
   const navigation = useNavigation<NavigationProp<RestaurantParamList>>()
   const selectedCategories = useStore(state => state.selectedCategories)
-  const setSelectedCategories = useStore(state => state.setSelectedCategories)
   const setSelectedLocation = useStore(state => state.setSelectedLocation)
 
   const isMounted = useRef(true)
@@ -48,8 +47,7 @@ const FilterSetting = () => {
       })
     }
   }, [route.params?.location])
-  console.log('렌더링테스트')
-  // 데이타 호출 테스트
+
   const data: DataType = require('./data.json')
   const getSelectedData = (selectedCategories: string[]) => {
     return selectedCategories.map(category => data[category]).flat()
@@ -95,7 +93,7 @@ const FilterSetting = () => {
           <Text h3 h3Style={styles.text}>
             카테고리
           </Text>
-          <CategorySwitch onCategoryChange={setSelectedCategories} />
+          <CategorySwitch />
         </View>
       </ScrollView>
       <View style={styles.buttonContainer}>
