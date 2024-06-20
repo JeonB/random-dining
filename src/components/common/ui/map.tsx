@@ -7,11 +7,13 @@ import { AppConfig } from 'app.config'
 
 const Map = ({
   info,
+  restaurantItems,
   currentLocation,
   setMarkerLocation,
   setMarkerVisible,
 }: {
   info?: LocationTypes
+  restaurantItems?: LocationTypes[]
   currentLocation: { currentLatitude: number; currentLongitude: number }
   setMarkerLocation?: (location: { lat: number; lng: number }) => void
   setMarkerVisible?: (visible: boolean) => void
@@ -135,7 +137,7 @@ const Map = ({
                     document.getElementById('currentPositionButton').onclick = function() {
                         map.setCenter(currentPosition);
                     };
-                    // 지도 찾기면 버튼이 안 보임
+                    // 지도 찾기면 현재 위치 이동 버튼이 안 보임
                     if (${isMapSearch}) {
                       document.getElementById('currentPositionButton').style.display = 'block';
                       const clickedMarker = new kakao.maps.Marker({

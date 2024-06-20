@@ -1,10 +1,9 @@
 import React from 'react'
 import { Meta, StoryFn } from '@storybook/react'
 import FilterSetting from '../pages/FilterSettings/filterSetting'
-import { LocationTypes } from '@_types/restaurant'
+import { LocationTypes, RootStackParamList } from '@_types'
 import { action } from '@storybook/addon-actions'
 import { NavigationProp } from '@react-navigation/native'
-import { RootStackParamList } from '@_types/listParamList'
 
 export default {
   title: 'Components/3R/FilterSettings/FilterSetting',

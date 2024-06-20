@@ -27,7 +27,7 @@ const SelectedRestaurantInfo = ({
   const [modalVisible, setModalVisible] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const isMounted = useRef(true)
-
+  const items = restaurantItems.map(item => item.place_name)
   useEffect(() => {
     setShowAd(false)
     return () => {
@@ -43,19 +43,16 @@ const SelectedRestaurantInfo = ({
     } else {
       Alert.alert('식당을 다시 선택할 수 없습니다.')
     }
-  }, [restaurantItems])
+  }, [items])
 
-  const handleRestaurantChange = useCallback(
-    (index: number) => {
-      const selectedRestaurant = restaurantItems[index]
-      if (selectedRestaurant) {
-        navigation.navigate('SelectedRestaurantInfo', {
-          restaurant: selectedRestaurant,
-        })
-      }
-    },
-    [restaurantItems, navigation],
-  )
+  const handleRestaurantChange = useCallback(() => {
+    const selectedRestaurant = restaurantItems[1]
+    if (selectedRestaurant) {
+      navigation.navigate('SelectedRestaurantInfo', {
+        restaurant: selectedRestaurant,
+      })
+    }
+  }, [restaurantItems, navigation])
   const [contentHeight, setContentHeight] = useState(0)
   const screenHeight = Dimensions.get('window').height / 300
 
@@ -98,8 +95,8 @@ const SelectedRestaurantInfo = ({
       <RandomItemModal
         visible={modalVisible}
         onClose={() => setModalVisible(false)}
-        items={restaurantItems.map(item => item.place_name)}
-        onIndexChange={handleRestaurantChange}
+        items={items}
+        onItemChange={handleRestaurantChange}
       />
     </View>
   )

@@ -11,7 +11,7 @@ interface State {
   setRestaurantItems: (items: LocationTypes[]) => void
   modalVisible: boolean
   setModalVisible: (visible: boolean) => void
-  restaurant: LocationTypes | undefined
+  restaurant: LocationTypes
   setRestaurant: (restaurant: LocationTypes | undefined) => void
   isLoading: boolean
   setIsLoading: (loading: boolean) => void
@@ -27,6 +27,10 @@ interface State {
     currentLongitude: number
     currentLatitude: number
   }) => void
+  menu: string
+  setMenu: (menu: string) => void
+  distance: number
+  setDistance: (distance: number) => void
 }
 
 export const useStore = create<State>()(set => ({
@@ -40,7 +44,7 @@ export const useStore = create<State>()(set => ({
   setRestaurantItems: items => set({ restaurantItems: items }),
   modalVisible: false,
   setModalVisible: visible => set({ modalVisible: visible }),
-  restaurant: undefined,
+  restaurant: { place_name: '', address_name: '', phone: '' },
   setRestaurant: restaurant => set({ restaurant }),
   isLoading: false,
   setIsLoading: loading => set({ isLoading: loading }),
@@ -50,4 +54,8 @@ export const useStore = create<State>()(set => ({
   setSelectedLocation: location => set({ selectedLocation: location }),
   currentLocation: { currentLongitude: 0, currentLatitude: 0 },
   setCurrentLocation: location => set({ currentLocation: location }),
+  menu: '',
+  setMenu: menu => set({ menu }),
+  distance: 100,
+  setDistance: distance => set({ distance }),
 }))

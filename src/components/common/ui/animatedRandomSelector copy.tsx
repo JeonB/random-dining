@@ -2,11 +2,10 @@ import { Text } from '@rneui/themed'
 import React, { useCallback, useEffect, useMemo, useRef } from 'react'
 import { Animated, View, StyleSheet } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
-import { useStore } from '@_common/utils/zustandStore'
 
 export interface Props {
   items: string[]
-  onItemChange?: () => void
+  onIndexChange: (index: number) => void
   itemHeight: number
   closeModal: () => void
   setTimeoutFunc?: (handler: any, timeout?: number) => void
@@ -15,14 +14,15 @@ export interface Props {
 export const AnimatedRandomSelector = (props: Props) => {
   const {
     items,
-    onItemChange = () => {},
+    onIndexChange,
     itemHeight,
     closeModal,
     setTimeoutFunc = setTimeout,
   } = props
+
   const scrollY = useRef(new Animated.Value(0)).current
   const requiredItemsCount = 30
-  const { menu, setMenu } = useStore()
+
   const shuffleItems = useCallback((items: string[]) => {
     for (let i = items.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1))
@@ -54,20 +54,20 @@ export const AnimatedRandomSelector = (props: Props) => {
     ]).start(() => {
       const finalIndex =
         Math.round(-(scrollY as any)._value / itemHeight) % items.length
-      setMenu(items[finalIndex])
-      onItemChange()
+      onIndexChange(finalIndex)
       closeModal()
     })
-  }, [items])
+  }, [requiredItemsCount, itemHeight, items, onIndexChange, closeModal])
 
   useEffect(() => {
+    scrollY.addListener(() => {})
     if (items.length > 0) {
-      startAnimation()
+      setTimeoutFunc(startAnimation, 100)
     }
     return () => {
       scrollY.removeAllListeners()
     }
-  }, [])
+  }, [items, itemHeight])
 
   return (
     <View

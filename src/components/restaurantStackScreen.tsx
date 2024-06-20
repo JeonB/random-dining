@@ -1,14 +1,16 @@
 import React from 'react'
-import FilterSetting from '@_3Rpages/FilterSettings/filterSetting'
 import DetailView from '@_3Rpages/RestaurantView/detailView'
 import SelectedRestaurantInfo from '@_3Rpages/RestaurantView/selectedRestaurantInfo'
 import PositionSelector from '@_3Rpages/positionSelector'
 import MapSearch from '@_3Rpages/MapSearch/mapSearch'
+import FilterSetting from '@_3Rpages/FilterSettings/filterSetting'
+import SelectedMenu from '@_3Rpages/FilterSettings/selectedMenu'
 import { createStackNavigator } from '@react-navigation/stack'
 import { RestaurantParamList } from '@_types'
 import { AntDesign } from '@expo/vector-icons'
 import InlineAd from '@_common/ui/inlinedAd'
 import { useStore } from '@_common/utils/zustandStore'
+import RestaurantView from '@_3Rpages/RestaurantView/restaurantView'
 
 const RestaurantStackScreen = () => {
   const Stack = createStackNavigator<RestaurantParamList>()
@@ -77,6 +79,38 @@ const RestaurantStackScreen = () => {
           component={DetailView}
           options={{
             title: '상세 화면',
+            headerBackTitleVisible: false,
+            headerBackImage: () => (
+              <AntDesign
+                name="back"
+                size={30}
+                color="midnightblue"
+                style={{ marginLeft: 10 }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="SelectedMenu"
+          component={SelectedMenu}
+          options={{
+            title: '',
+            headerBackTitleVisible: false,
+            headerBackImage: () => (
+              <AntDesign
+                name="back"
+                size={30}
+                color="midnightblue"
+                style={{ marginLeft: 10 }}
+              />
+            ),
+          }}
+        />
+        <Stack.Screen
+          name="RestaurantView"
+          component={RestaurantView}
+          options={{
+            title: '',
             headerBackTitleVisible: false,
             headerBackImage: () => (
               <AntDesign

@@ -21,7 +21,7 @@ import {
 import RandomItemModal from '@_common/ui/randomItemModal'
 import { MyTheme } from 'theme'
 import { useStore } from '@_common/utils/zustandStore'
-import { fetchRestaurantData } from '@_services/api'
+import { getRestaurantData } from '@_services/api'
 import { RestaurantParamList, LocationTypes } from '@_types'
 
 const FilterSettingCopy = () => {
@@ -53,7 +53,7 @@ const FilterSettingCopy = () => {
   // distance, selectedCategories 중 하나가 변경될 때만 새로 생성
   const handleRestaurantData = useCallback(async () => {
     try {
-      const data = await fetchRestaurantData(
+      const data = await getRestaurantData(
         selectedCategories,
         distance,
         String(selectedLocation.longitude),

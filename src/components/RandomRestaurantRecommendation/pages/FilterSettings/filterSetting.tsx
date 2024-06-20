@@ -21,28 +21,24 @@ import {
 import RandomItemModal from '@_common/ui/randomItemModal'
 import { MyTheme } from 'theme'
 import { useStore } from '@_common/utils/zustandStore'
-import { fetchRestaurantData } from '@_services/api'
-import { RestaurantParamList, LocationTypes } from '@_types'
+import { RestaurantParamList } from '@_types'
+
+interface DataType {
+  [key: string]: string[]
+}
 
 const FilterSetting = () => {
   const route = useRoute<RouteProp<RestaurantParamList, 'FilterSetting'>>()
-  const {
-    selectedCategories,
-    setSelectedCategories,
-    selectedLocation,
-    setSelectedLocation,
-    restaurantItems,
-    setRestaurantItems,
-    setRestaurant,
-  } = useStore()
+  const navigation = useNavigation<NavigationProp<RestaurantParamList>>()
+  const selectedCategories = useStore(state => state.selectedCategories)
+  const setSelectedCategories = useStore(state => state.setSelectedCategories)
+  const setSelectedLocation = useStore(state => state.setSelectedLocation)
 
   const isMounted = useRef(true)
-  const [distance, setDistance] = useState(100)
   const [isLoading, setIsLoading] = useState(false)
-  const [isChanging, setIsChanging] = useState(false)
   const [modalVisible, setModalVisible] = useState(false)
-  const navigation = useNavigation<NavigationProp<RestaurantParamList>>()
-  const items = restaurantItems.map(item => item.place_name)
+  const [isChanging, setIsChanging] = useState(false)
+
   useEffect(() => {
     const location = route.params?.location
     if (location) {
@@ -52,57 +48,31 @@ const FilterSetting = () => {
       })
     }
   }, [route.params?.location])
+  console.log('렌더링테스트')
+  // 데이타 호출 테스트
+  const data: DataType = require('./data.json')
+  const getSelectedData = (selectedCategories: string[]) => {
+    return selectedCategories.map(category => data[category]).flat()
+  }
 
-  // distance, selectedCategories 중 하나가 변경될 때만 새로 생성
-  const handleRestaurantData = useCallback(async () => {
-    try {
-      const data = await fetchRestaurantData(
-        selectedCategories,
-        distance,
-        String(selectedLocation.longitude),
-        String(selectedLocation.latitude),
-      )
+  const selectedData = getSelectedData(selectedCategories)
 
-      if (isMounted.current && data) {
-        const filteredData = data.filter(
-          (item): item is LocationTypes => item !== undefined,
-        )
-        setRestaurantItems(filteredData)
-        setModalVisible(true)
-      }
-    } catch (error) {
-      console.error('Error occurred:', error)
-    }
-  }, [distance, selectedCategories])
+  const handleMenuChange = useCallback(() => {
+    if (isChanging) return // 이미 변경 중이면 무시
+    setIsChanging(true) // 변경 시작
+    navigation.navigate('SelectedMenu', { items: selectedData })
+
+    setIsChanging(false) // 변경 완료
+  }, [isChanging, selectedData])
 
   // 레스토랑 데이터를 가져오는 과정을 시작하고, 해당 과정이 완료되면 로딩 상태를 업데이트
   const handleRandomPickClick = useCallback(() => {
     setIsLoading(true)
-    handleRestaurantData().finally(() => {
-      if (isMounted.current) {
-        setIsLoading(false)
-      }
-    })
-  }, [handleRestaurantData])
-
-  // 주어진 인덱스에 해당하는 레스토랑을 선택하고, 해당 식당의 정보를 보여주는 페이지로 이동
-  const handleRestaurantChange = useCallback(
-    (index: number) => {
-      if (isChanging) return // 이미 변경 중이면 무시
-      setIsChanging(true) // 변경 시작
-
-      const selectedRestaurant = restaurantItems[index]
-      if (selectedRestaurant) {
-        setRestaurant(selectedRestaurant)
-        navigation.navigate('SelectedRestaurantInfo', {
-          restaurant: selectedRestaurant,
-        })
-      }
-
-      setIsChanging(false) // 변경 완료
-    },
-    [isChanging, restaurantItems],
-  )
+    setModalVisible(true)
+    if (isMounted.current) {
+      setIsLoading(false)
+    }
+  }, [])
 
   const handleClose = useCallback(() => {
     setModalVisible(false)
@@ -115,10 +85,7 @@ const FilterSetting = () => {
           <Text h3 h3Style={styles.text}>
             거리
           </Text>
-          <DistanceSlider
-            distanceRange={distance}
-            onDistanceChange={setDistance}
-          />
+          <DistanceSlider />
         </View>
         <View
           style={
@@ -144,8 +111,8 @@ const FilterSetting = () => {
       <RandomItemModal
         visible={modalVisible}
         onClose={handleClose}
-        items={items}
-        onIndexChange={handleRestaurantChange}
+        onItemChange={handleMenuChange}
+        items={selectedData}
       />
     </View>
   )
@@ -174,8 +141,8 @@ const styles = StyleSheet.create({
   button: {
     width: MyTheme.width * 180,
     height: Platform.select({
-      ios: MyTheme.width * 45,
-      android: MyTheme.width * 40,
+      ios: MyTheme.width * 40,
+      android: MyTheme.width * 35,
     }),
     justifyContent: 'center',
     shadowColor: '#000',

@@ -1,6 +1,6 @@
 import { Button } from 'react-native-paper'
 import React, { useCallback, useEffect, useState } from 'react'
-import { Image, StyleSheet, View, Platform } from 'react-native'
+import { Image, StyleSheet, View, Platform, Linking, Alert } from 'react-native'
 import {
   NavigationProp,
   useFocusEffect,
@@ -10,25 +10,47 @@ import { getPositionByGeolocation } from '@_services/api'
 import { RestaurantParamList } from '@_types'
 import mainImage from '@_assetImages/main.png'
 import { MyTheme } from 'theme'
+import { useStore } from '@_common/utils/zustandStore'
 
 const PositionSelector = () => {
   const navigation = useNavigation<NavigationProp<RestaurantParamList>>()
   const [isMapSearcButtonDisabled, setMapSearchButtonDisabled] = useState(false)
+  const { currentLocation, setCurrentLocation } = useStore()
   const [isCurrentSearchButtonDisabled, setCurrentSearchButtonDisabled] =
     useState(false)
   const handleGetCurrentLocation = async () => {
-    const { latitude, longitude } = await getPositionByGeolocation()
-    if (!latitude || !longitude) {
-      console.error('위도 또는 경도 값이 없습니다.')
-      setCurrentSearchButtonDisabled(false)
-      return
+    try {
+      const { longitude: currentLongitude, latitude: currentLatitude } =
+        await getPositionByGeolocation()
+      setCurrentLocation({
+        currentLongitude,
+        currentLatitude,
+      })
+      navigation.navigate('FilterSetting', {
+        location: {
+          latitude: currentLatitude,
+          longitude: currentLongitude,
+        },
+      })
+    } catch (error) {
+      console.error('위치 권한이 거부되었습니다.')
+      // 사용자에게 알림을 표시하고 위치 권한 설정으로 이동
+      Alert.alert(
+        '위치 권한 필요',
+        '이 기능을 사용하려면 위치 권한이 필요합니다. 설정으로 이동하시겠습니까?',
+        [
+          {
+            text: '취소',
+            onPress: () =>
+              console.log(
+                '위치 권한 설정은 핵심 기능이므로 추후에 꼭 허용해주세요',
+              ),
+            style: 'cancel',
+          },
+          { text: '확인', onPress: () => Linking.openSettings() },
+        ],
+      )
     }
-    navigation.navigate('FilterSetting', {
-      location: {
-        latitude: latitude,
-        longitude: longitude,
-      },
-    })
   }
   const handleGetCurrentLocationForMap = async () => {
     const { latitude, longitude } = await getPositionByGeolocation()

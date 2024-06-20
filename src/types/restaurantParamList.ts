@@ -11,10 +11,13 @@ export interface RestaurantParamList {
         story?: StoryFn<any>
       }
     | undefined
-
+  SelectedMenu: { items: string[] } | undefined
+  RestaurantView: { restaurantItems: LocationTypes[] } | undefined
   [key: string]:
     | undefined
     | { url: string }
     | { restaurant: LocationTypes }
+    | { restaurantItems: LocationTypes[] }
     | { location: { [key: string]: number } }
+    | { items: string[] }
 }

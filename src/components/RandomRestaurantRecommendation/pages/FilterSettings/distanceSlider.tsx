@@ -1,20 +1,12 @@
+import React, { memo, useCallback, useMemo } from 'react'
 import { Icon, Slider } from '@rneui/themed'
-import React from 'react'
 import { Platform, StyleSheet, Text, View } from 'react-native'
+import { useStore } from '@_common/utils/zustandStore'
 import { MyTheme } from 'theme'
 
-interface DistanceSliderProps {
-  distanceRange: number
-  onDistanceChange: (value: number) => void
-}
-
-export const DistanceSlider = ({
-  onDistanceChange,
-  distanceRange,
-}: DistanceSliderProps) => {
-  const handleValueChange = (value: number) => {
-    onDistanceChange(value)
-  }
+export const DistanceSlider = memo(() => {
+  const distanceRange = useStore(state => state.distance)
+  const onDistancheChange = useStore(state => state.setDistance)
 
   return (
     <View style={[styles.contentView]}>
@@ -26,7 +18,7 @@ export const DistanceSlider = ({
           }),
         }}
         value={distanceRange}
-        onValueChange={handleValueChange}
+        onValueChange={onDistancheChange}
         maximumValue={1000}
         minimumValue={100}
         step={100}
@@ -48,7 +40,7 @@ export const DistanceSlider = ({
       <Text>{distanceRange}m 이내</Text>
     </View>
   )
-}
+})
 const styles = StyleSheet.create({
   contentView: {
     padding: MyTheme.width * 10,
@@ -58,5 +50,5 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 })
-
+DistanceSlider.displayName = 'DistanceSlider'
 export default DistanceSlider

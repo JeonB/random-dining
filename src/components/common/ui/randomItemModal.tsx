@@ -7,13 +7,13 @@ interface RandomPickerModalProps {
   visible: boolean
   items: string[]
   onClose: () => void
-  onIndexChange: (index: number) => void
+  onItemChange?: () => void
 }
 
 const RandomItemModal = ({
   visible,
   onClose,
-  onIndexChange,
+  onItemChange,
   items,
 }: RandomPickerModalProps) => {
   return (
@@ -22,7 +22,7 @@ const RandomItemModal = ({
         <AnimatedRandomSelector
           itemHeight={36}
           items={items}
-          onIndexChange={onIndexChange}
+          onItemChange={onItemChange}
           closeModal={onClose}
         />
         <Button onPress={onClose}>Close</Button>
