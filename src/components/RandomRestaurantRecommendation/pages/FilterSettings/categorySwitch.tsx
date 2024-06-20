@@ -1,64 +1,94 @@
 import React, { useEffect, useState } from 'react'
-import ToggleSwitch from '@_components/common/ui/toggleSwitch'
-import { StyleSheet, View } from 'react-native'
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { Text } from '@rneui/themed'
+import { MyTheme } from 'theme'
 
-const CATEGORY = ['ALL', '한식', '일식', '중식', '양식', '분식', '아시아음식']
+const CATEGORY = [
+  '전체',
+  '한식',
+  '일식',
+  '중식',
+  '양식',
+  '분식',
+  '아시아음식',
+  '야식',
+]
+
+const getImageByCategory = (category: string) => {
+  const images: { [key: string]: any } = {
+    전체: require('@_assetImages/category/all.png'),
+    한식: require('@_assetImages/category/korean.png'),
+    일식: require('@_assetImages/category/japanese.png'),
+    중식: require('@_assetImages/category/chinese.png'),
+    양식: require('@_assetImages/category/western.png'),
+    분식: require('@_assetImages/category/street.png'),
+    아시아음식: require('@_assetImages/category/asian.png'),
+    야식: require('@_assetImages/category/lns.png'),
+  }
+  return images[category]
+}
 
 const CategorySwitch = ({
   onCategoryChange = () => {},
 }: {
   onCategoryChange?: (categories: string[]) => void
 }) => {
-  const [isAll, setIsAll] = useState(true)
-  const [activatedCategory, setActivatedCategory] = useState<string[]>(
-    CATEGORY.slice(1),
-  )
+  const [activatedCategory, setActivatedCategory] = useState<string[]>(['전체'])
 
-  const categoriesToShow = isAll ? [CATEGORY[0]] : CATEGORY
-
-  const updateCategories = (category: string, isActive: boolean) => {
-    if (isActive) {
-      setActivatedCategory(prev => [...prev, category])
+  const handleToggle = (category: string) => {
+    if (category === '전체') {
+      setActivatedCategory(['전체'])
     } else {
-      setActivatedCategory(prev => prev.filter(c => c !== category))
-    }
-  }
+      setActivatedCategory(prev => {
+        let updated
+        if (prev.includes('전체')) {
+          updated = [category]
+        } else if (prev.includes(category)) {
+          updated = prev.filter(c => c !== category)
+        } else {
+          updated = [...prev, category]
+        }
 
-  const handleToggle = (category: string, isActive: boolean) => {
-    if (category === 'ALL') {
-      setIsAll(isActive)
-      setActivatedCategory(isActive ? CATEGORY.slice(1) : [])
-    } else {
-      updateCategories(category, isActive)
+        if (updated.length === CATEGORY.length - 1) {
+          return ['전체']
+        }
+
+        return updated.length === 0 ? ['전체'] : updated
+      })
     }
   }
 
   useEffect(() => {
-    onCategoryChange(activatedCategory)
+    onCategoryChange(
+      activatedCategory.includes('전체')
+        ? CATEGORY.slice(1)
+        : activatedCategory,
+    )
   }, [activatedCategory, onCategoryChange])
 
   return (
-    <View>
-      {categoriesToShow.map(category => (
-        <View
-          key={category}
-          style={{ flexDirection: 'column', marginBottom: 3 }}>
-          <View style={styles.container}>
-            <Text
-              h4
-              h4Style={{
-                alignSelf: 'center',
-                paddingLeft: 10,
-                fontWeight: 'normal',
-              }}>
-              {category}
-            </Text>
-            <ToggleSwitch
-              initialState={category === 'ALL'}
-              onToggle={(isActive: boolean) => handleToggle(category, isActive)}
-            />
-          </View>
+    <View style={styles.container}>
+      {CATEGORY.map(category => (
+        <View key={category} style={styles.categoryContainer}>
+          <TouchableOpacity onPress={() => handleToggle(category)}>
+            <View style={styles.imageContainer}>
+              <Image
+                source={getImageByCategory(category)}
+                style={
+                  activatedCategory.includes(category)
+                    ? styles.inactiveImage
+                    : {}
+                }
+              />
+              {activatedCategory.includes(category) && (
+                <Image
+                  source={require('@_assetImages/category/selected.png')}
+                  style={styles.selectedOverlay}
+                />
+              )}
+            </View>
+          </TouchableOpacity>
+          <Text style={styles.text}>{category}</Text>
         </View>
       ))}
     </View>
@@ -68,12 +98,31 @@ const CategorySwitch = ({
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '85%',
-    backgroundColor: 'gainsboro',
-    borderRadius: 10,
-    padding: 10,
-    alignSelf: 'center',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    padding: MyTheme.width * 10,
+  },
+  categoryContainer: {
+    width: '25%',
+    padding: 2,
+    alignItems: 'center',
+  },
+  imageContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inactiveImage: {
+    opacity: 0.3,
+  },
+  selectedOverlay: {
+    position: 'absolute',
+    width: 40,
+    height: 40,
+  },
+  text: {
+    marginTop: 10,
+    marginBottom: 20,
+    fontSize: MyTheme.width * 16,
   },
 })
 
