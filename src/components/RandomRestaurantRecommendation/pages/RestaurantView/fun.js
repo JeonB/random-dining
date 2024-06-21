@@ -36,6 +36,7 @@ function addMarker(position, idx, title) {
     marker = new kakao.maps.Marker({
       position: position, // 마커의 위치
       image: markerImage,
+      clickable: true,
     })
 
   marker.setMap(map) // 지도 위에 마커를 표출합니다

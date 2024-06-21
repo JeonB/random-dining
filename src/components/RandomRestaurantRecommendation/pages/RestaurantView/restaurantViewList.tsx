@@ -1,10 +1,17 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import { RestaurantParamList } from '@_types'
-import { Alert, Dimensions, StyleSheet, View } from 'react-native'
+import {
+  Alert,
+  Dimensions,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 import RenderItem from '@_userListPages/searchRestaurantModal/resultList'
 import React from 'react'
 import { DefaultFlatList } from '@_userListPages/defaultFlatList'
 import { MyTheme } from 'theme'
+import { useStore } from '@_common/utils/zustandStore'
 
 export const RestaurantViewList = ({
   route,
@@ -15,6 +22,9 @@ export const RestaurantViewList = ({
     // selectedData가 undefined일 때 처리하는 로직
     throw new Error('데이터가 없습니다!')
   }
+  const { setRestaurant } = useStore(state => ({
+    setRestaurant: state.setRestaurant,
+  }))
   const handlePressAddButton = () => {
     Alert.alert('더보기!')
   }
@@ -25,10 +35,15 @@ export const RestaurantViewList = ({
           data={restaurantList}
           keyExtractor={(item, index) => index.toString()}
           renderItem={item => (
-            <RenderItem
-              item={item}
-              handlePressAddButton={handlePressAddButton}
-            />
+            <TouchableOpacity
+              onPress={() => {
+                setRestaurant(item)
+              }}>
+              <RenderItem
+                item={item}
+                handlePressAddButton={handlePressAddButton}
+              />
+            </TouchableOpacity>
           )}
         />
       </View>

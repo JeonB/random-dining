@@ -24,7 +24,12 @@ export default function RestaurantView() {
   const route = useRoute<RouteProp<RestaurantParamList, 'RestaurantView'>>()
   const animatedHeight = useRef(new Animated.Value(windowHeight / 2)).current
   const initialHeightRef = useRef(windowHeight / 2)
-  const { currentLocation } = useStore()
+  const { currentLocation } = useStore(state => ({
+    currentLocation: state.currentLocation,
+  }))
+  const { restaurantItems } = useStore(state => ({
+    restaurantItems: state.restaurantItems,
+  }))
   const panResponder = PanResponder.create({
     onMoveShouldSetPanResponder: (event, gestureState) => {
       // Set pan responder only for vertical movements
@@ -58,7 +63,10 @@ export default function RestaurantView() {
 
   return (
     <View style={styles.container}>
-      <Map currentLocation={currentLocation} />
+      <Map
+        currentLocation={currentLocation}
+        restaurantItems={restaurantItems}
+      />
       <Animated.View style={[styles.box, { height: animatedHeight }]}>
         <View {...panResponder.panHandlers} style={styles.draggableContainer}>
           <MaterialIcons name="drag-handle" size={35} color="white" />
