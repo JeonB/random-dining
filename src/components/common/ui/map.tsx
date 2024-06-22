@@ -1,50 +1,68 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Dimensions, StyleSheet, SafeAreaView } from 'react-native'
 import { WebView, WebViewMessageEvent } from 'react-native-webview'
 import { LocationTypes } from '@_types'
 import Constants from 'expo-constants'
 import { AppConfig } from 'app.config'
 import { useStore } from '@_common/utils/zustandStore'
+import { useIsFocused } from '@react-navigation/native'
 
-const Map = ({
-  info,
-  restaurantItems,
-  currentLocation,
-  setMarkerLocation,
-  setMarkerVisible,
-}: {
-  info?: LocationTypes
-  restaurantItems?: LocationTypes[]
-  currentLocation: { currentLatitude: number; currentLongitude: number }
-  setMarkerLocation?: (location: { lat: number; lng: number }) => void
-  setMarkerVisible?: (visible: boolean) => void
-}) => {
-  const { KAKAO_JAVASCRIPT_KEY } = Constants.expoConfig?.extra as AppConfig
-  const appKey = KAKAO_JAVASCRIPT_KEY
-  const { restaurant } = useStore(state => ({ restaurant: state.restaurant }))
-  const { currentLatitude, currentLongitude } = currentLocation
-  const [html, setHtml] = useState('')
-  const [isMapSearch, setIsMapSearch] = useState(false)
-  const [getRestaurantInfo, setGetRestaurantInfo] = useState(false)
+const Map = React.memo(
+  ({
+    restaurantItems,
+    currentLocation,
+    setMarkerLocation,
+    setMarkerVisible,
+  }: {
+    restaurantItems?: LocationTypes[]
+    currentLocation: { currentLatitude: number; currentLongitude: number }
+    setMarkerLocation?: (location: { lat: number; lng: number }) => void
+    setMarkerVisible?: (visible: boolean) => void
+  }) => {
+    const { KAKAO_JAVASCRIPT_KEY } = Constants.expoConfig?.extra as AppConfig
+    const appKey = KAKAO_JAVASCRIPT_KEY
+    const isFocused = useIsFocused()
+    const { restaurant, setRestaurant } = useStore(state => ({
+      restaurant: state.restaurant,
+      setRestaurant: state.setRestaurant,
+    }))
+    const { currentLatitude, currentLongitude } = currentLocation
+    const webViewRef = useRef<WebView>(null)
 
-  const onMessage = (event: WebViewMessageEvent) => {
-    const data = JSON.parse(event.nativeEvent.data)
-    if (data.lat && data.lng && setMarkerLocation) {
-      setMarkerLocation({ lat: data.lat, lng: data.lng })
-    }
-    if (data.markerVisible !== undefined && setMarkerVisible) {
-      setMarkerVisible(data.markerVisible)
-    }
-  }
+    const [isMapSearch, setIsMapSearch] = useState(true)
+    const [isRestaurantInfoView, setRestaurantInfoView] = useState(false)
 
-  useEffect(() => {
-    if (!info) {
-      setIsMapSearch(true)
-      if (restaurantItems) {
-        setGetRestaurantInfo(true)
+    useEffect(() => {
+      if (!isFocused) {
+        setRestaurant({
+          place_name: '',
+          address_name: '',
+          phone: '',
+          x: '',
+          y: '',
+        })
+      }
+    }, [isFocused, setRestaurant])
+
+    const onMessage = (event: WebViewMessageEvent) => {
+      const data = JSON.parse(event.nativeEvent.data)
+      if (data.lat && data.lng && setMarkerLocation) {
+        setMarkerLocation({ lat: data.lat, lng: data.lng })
+      }
+      if (data.markerVisible !== undefined && setMarkerVisible) {
+        setMarkerVisible(data.markerVisible)
       }
     }
-    const newHtml = `
+
+    useEffect(() => {
+      if (restaurantItems) {
+        setIsMapSearch(false)
+        setRestaurantInfoView(true)
+      }
+    }, [restaurantItems])
+
+    const html = useMemo(() => {
+      return `
     <html>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -95,24 +113,12 @@ const Map = ({
           (function () {
             const container = document.getElementById('map');
             const options = {
-              center: new kakao.maps.LatLng(${info ? info.y : currentLatitude}, ${info ? info.x : currentLongitude}),
+              center: new kakao.maps.LatLng(${currentLatitude}, ${currentLongitude}),
               level: 3
             };
 
             const map = new kakao.maps.Map(container, options);
             const infowindow = new kakao.maps.InfoWindow({zIndex:1});
-
-            // const markerPosition = new kakao.maps.LatLng(${info ? info.y : currentLatitude}, ${info ? info.x : currentLongitude});
-            // const imageSrc = '${isMapSearch ? '' : 'https://i.postimg.cc/pTp9xBHZ/free-icon-restaurant.png'}';
-            // const imageSize = new kakao.maps.Size(40, 40);
-            // const imageOption = { offset: new kakao.maps.Point(24, 40) };
-            // const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
-
-            // const marker = new kakao.maps.Marker({
-            //   map: map,
-            //   position: markerPosition,
-            //   image: markerImage
-            // });
 
             const currentPosition = new kakao.maps.LatLng(${currentLatitude}, ${currentLongitude});
             const currentImageSrc = 'https://i.postimg.cc/bv4k38Cq/red-circle.png';
@@ -125,11 +131,24 @@ const Map = ({
               image: currentMarkerImage
             });
 
+            const imageSrc = 'https://i.postimg.cc/pTp9xBHZ/free-icon-restaurant.png';
+            const imageSize = new kakao.maps.Size(22, 22);
+            const imgOptions = {
+                  offset: new kakao.maps.Point(13, 37)
+                };
+            const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions);
+
+
             document.getElementById('currentPositionButton').onclick = function() {
               map.setCenter(currentPosition);
             };
 
-            if (${isMapSearch} && !${getRestaurantInfo}) {
+            window.removeMarker = function(marker) {
+              marker.setMap(null);
+            }
+
+            if (${isMapSearch}) {
+
               const clickedMarker = new kakao.maps.Marker({
                 position: map.getCenter()
               });
@@ -149,100 +168,61 @@ const Map = ({
                 }
                 window.ReactNativeWebView.postMessage(JSON.stringify({ markerVisible: markerVisible }));
               });
-            } else if (${getRestaurantInfo}) {
-              var markers = [];
-              function displayPlaces(places) {
-                removeMarker();
 
-                for (var i = 0; i < places.length; i++) {
-                  var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x);
-                  var marker = addMarker(placePosition, i);
-                  (function (marker, title) {
-                    kakao.maps.event.addListener(marker, 'click', function () {
-                      displayInfowindow(marker, title)
-                    })
+            } else if (${isRestaurantInfoView}) {
 
+              kakao.maps.event.addListener(map, 'click', function () {
+                infowindow.close()
+              })
 
-                  })(marker, places[i].place_name)
-                }
+              function displayInfowindow(marker, title) {
+                  var content = '<div style="padding:15px; z-index:1; text-align:center; display:flex; justify-content:center; align-items:center; max-width: 200px;"><span style="text-align:center;">' + title + '</span></div>';
+
+                  infowindow.setContent(content);
+                  infowindow.open(map, marker);
               }
 
-              function addMarker(position) {
-                var imageSrc = 'https://i.postimg.cc/pTp9xBHZ/free-icon-restaurant.png';
-                var imageSize = new kakao.maps.Size(22, 22);
-                var imgOptions = {
-                  offset: new kakao.maps.Point(13, 37)
-                };
-                var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions);
-                var marker = new kakao.maps.Marker({
-                  position: position,
+              if('${restaurant.place_name}' !== ''){
+                const iwPosition = new kakao.maps.LatLng('${restaurant.y}', '${restaurant.x}');
+                const restaurantMarker = new kakao.maps.Marker({
+                  position: iwPosition,
                   image: markerImage,
                   clickable: true
                 });
+                map.setCenter(iwPosition);
+                restaurantMarker.setMap(map);
+                displayInfowindow(restaurantMarker, '${restaurant.place_name}');
 
-                marker.setMap(map);
-                markers.push(marker);
-                return marker;
               }
-
-              function removeMarker() {
-                for (var i = 0; i < markers.length; i++) {
-                  markers[i].setMap(null);
-                }
-                markers = [];
-              }
-
-              function displayInfowindow(marker, title) {
-                var content = '<div style="padding:15px;z-index:1;">' + title + '</div>'
-
-                infowindow.setContent(content)
-                infowindow.open(map, marker)
-              }
-
-              kakao.maps.event.addListener(map, 'click', function () {
-                      infowindow.close()
-              })
-              const arr = ${JSON.stringify(restaurantItems)};
-              displayPlaces(arr);
             }
           })();
         </script>
       </body>
     </html>
     `
-    setHtml(newHtml)
-  }, [info, isMapSearch, restaurantItems])
+    }, [
+      isMapSearch,
+      restaurantItems,
+      restaurant,
+      currentLatitude,
+      currentLongitude,
+    ])
 
-  const webviewRef = useRef<WebView>(null)
-  useEffect(() => {
-    if (html) {
-      const webviewScript = `
-        if (markers) {
-          for (var i = 0; i < markers.length; i++) {
-            if (markers[i].getPosition().getLat() === '${restaurant.y}' && markers[i].getPosition().getLng() === '${restaurant.x}') {
-              triggerMarkerClick(markers[i]);
-            }
-          }
-        }
-        true;
-      `
-      webviewRef.current?.injectJavaScript(webviewScript)
-    }
-  }, [restaurant])
-
-  return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <WebView
-        style={styles.container}
-        source={{ html: html, baseUrl: '' }}
-        javaScriptEnabled={true}
-        testID="map"
-        originWhitelist={['*']}
-        onMessage={onMessage}
-      />
-    </SafeAreaView>
-  )
-}
+    return (
+      <SafeAreaView style={{ flex: 1 }}>
+        <WebView
+          ref={webViewRef}
+          style={styles.container}
+          source={{ html: html, baseUrl: '' }}
+          javaScriptEnabled={true}
+          testID="map"
+          originWhitelist={['*']}
+          onMessage={onMessage}
+        />
+      </SafeAreaView>
+    )
+  },
+)
 
 const styles = StyleSheet.create({
   container: {
@@ -256,4 +236,5 @@ const styles = StyleSheet.create({
   },
 })
 
+Map.displayName = 'Map'
 export default Map
