@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
 import { View } from 'react-native'
 import { Meta, StoryFn } from '@storybook/react'
-import SelectedRestaurantInfo from '../pages/RestaurantView/selectedRestaurantInfo'
+import SelectedRestaurantInfo from '../../common/unused/selectedRestaurantInfo'
 import { LocationTypes } from '@_types/restaurant'
 import { RootStackParamList } from '@_types/listParamList'
 import { NavigationContainer, RouteProp } from '@react-navigation/native'

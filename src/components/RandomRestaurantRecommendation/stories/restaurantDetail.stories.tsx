@@ -1,6 +1,6 @@
 import React from 'react'
 import { Meta, StoryFn } from '@storybook/react'
-import RestaurantDetail from '../pages/RestaurantView/restaurantDetail'
+import RestaurantDetail from '../../common/unused/restaurantDetail'
 import { LocationTypes } from 'src/types/restaurant'
 
 export default {
