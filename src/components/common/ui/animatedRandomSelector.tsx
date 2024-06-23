@@ -32,7 +32,10 @@ export const AnimatedRandomSelector = (props: Props) => {
   }, [])
 
   const randomizedItems = useMemo(() => {
-    let tempItems = Array.from({ length: 1 }, () => shuffleItems(items)).flat()
+    const uniqueItems = Array.from(new Set(items))
+    let tempItems = Array.from({ length: 1 }, () =>
+      shuffleItems(uniqueItems),
+    ).flat()
     while (tempItems.length < requiredItemsCount) {
       tempItems = [...tempItems, ...tempItems]
     }
