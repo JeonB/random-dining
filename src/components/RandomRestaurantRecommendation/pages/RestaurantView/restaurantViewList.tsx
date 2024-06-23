@@ -1,14 +1,9 @@
+import React, { useState } from 'react'
 import { StackScreenProps } from '@react-navigation/stack'
+import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { RestaurantParamList } from '@_types'
-import {
-  Alert,
-  Dimensions,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native'
 import RenderItem from '@_userListPages/searchRestaurantModal/resultList'
-import React from 'react'
+import { AddUserListModal } from '@_userListPages/addUserListModal'
 import { DefaultFlatList } from '@_userListPages/defaultFlatList'
 import { MyTheme } from 'theme'
 import { useStore } from '@_common/utils/zustandStore'
@@ -17,6 +12,7 @@ export const RestaurantViewList = ({
   route,
 }: StackScreenProps<RestaurantParamList, 'RestaurantView'>) => {
   const restaurantList = route.params?.restaurantItems
+  const [modalVisible, setModalVisible] = useState(false)
   if (!restaurantList) {
     // selectedData가 undefined일 때 처리하는 로직
     throw new Error('데이터가 없습니다!')
@@ -24,9 +20,6 @@ export const RestaurantViewList = ({
   const { setRestaurant } = useStore(state => ({
     setRestaurant: state.setRestaurant,
   }))
-  const handlePressAddButton = () => {
-    Alert.alert('더보기!')
-  }
   return (
     <View style={styles.centeredView}>
       <View style={styles.modalView}>
@@ -40,7 +33,12 @@ export const RestaurantViewList = ({
               }}>
               <RenderItem
                 item={item}
-                handlePressAddButton={handlePressAddButton}
+                handlePressAddButton={() => setModalVisible(true)}
+              />
+              <AddUserListModal
+                selectedInfo={item}
+                visible={modalVisible}
+                onClose={() => setModalVisible(false)}
               />
             </TouchableOpacity>
           )}
