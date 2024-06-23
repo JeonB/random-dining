@@ -102,6 +102,7 @@ export async function fetchLocationData(
       radius,
       size: 15,
       page,
+      sort: 'distance',
     }
     const queryString = createQueryString(queryParams)
     url = `${baseUrl}?${queryString}`
@@ -121,6 +122,7 @@ export async function fetchLocationData(
     }
     page++
   }
+
   locationDataCache[url] = allData
   return allData
 }

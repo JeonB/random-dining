@@ -6,6 +6,7 @@ export interface QueryParamsType {
   radius?: number
   size?: number
   page?: number
+  sort?: string
   [key: string]: string | number | undefined
 }
 
