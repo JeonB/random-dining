@@ -56,6 +56,6 @@ export const useStore = create<State>()(set => ({
   setCurrentLocation: location => set({ currentLocation: location }),
   menu: '',
   setMenu: menu => set({ menu }),
-  distance: 100,
+  distance: 500,
   setDistance: distance => set({ distance }),
 }))
