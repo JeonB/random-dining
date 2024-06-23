@@ -27,18 +27,18 @@ export const SelectedMenu = ({
   const [modalVisible, setModalVisible] = useState(false)
   const isMounted = useRef(true)
   const { menu, setRestaurantItems, selectedLocation, distance } = useStore()
-  const selectedData = route.params?.items
+  const selectedData = Array.from(new Set(route.params?.items))
   if (!selectedData) {
     // selectedData가 undefined일 때 처리하는 로직
     throw new Error('No data')
   }
-  const handleMenuChange = useCallback(() => {
-    if (isChanging) return // 이미 변경 중이면 무시
-    setIsChanging(true) // 변경 시작
-    navigation.navigate('SelectedMenu', { items: selectedData })
+  // const handleMenuChange = useCallback(() => {
+  //   if (isChanging) return // 이미 변경 중이면 무시
+  //   setIsChanging(true) // 변경 시작
+  //   navigation.navigate('SelectedMenu', { items: selectedData })
 
-    setIsChanging(false) // 변경 완료
-  }, [isChanging, selectedData])
+  //   setIsChanging(false) // 변경 완료
+  // }, [isChanging, selectedData])
 
   // 레스토랑 데이터를 가져오는 과정을 시작하고, 해당 과정이 완료되면 로딩 상태를 업데이트
   const handleRandomPickClick = useCallback(() => {
@@ -113,7 +113,7 @@ export const SelectedMenu = ({
       <RandomItemModal
         visible={modalVisible}
         onClose={handleClose}
-        onItemChange={handleMenuChange}
+        // onItemChange={handleMenuChange}
         items={selectedData}
       />
     </View>

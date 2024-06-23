@@ -9,35 +9,29 @@ export interface Props {
   onItemChange?: () => void
   itemHeight: number
   closeModal: () => void
-  setTimeoutFunc?: (handler: any, timeout?: number) => void
 }
 
 export const AnimatedRandomSelector = (props: Props) => {
-  const {
-    items,
-    onItemChange = () => {},
-    itemHeight,
-    closeModal,
-    setTimeoutFunc = setTimeout,
-  } = props
+  const { items, onItemChange = () => {}, itemHeight, closeModal } = props
   const scrollY = useRef(new Animated.Value(0)).current
   const requiredItemsCount = 30
-  const { menu, setMenu } = useStore()
-  const shuffleItems = useCallback((items: string[]) => {
-    for (let i = items.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1))
-      ;[items[i], items[j]] = [items[j], items[i]]
-    }
-    return items
-  }, [])
+  const { setMenu } = useStore()
+  const shuffleItems = useCallback(
+    (items: string[]) => {
+      for (let i = items.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1))
+        ;[items[i], items[j]] = [items[j], items[i]]
+      }
+      return items
+    },
+    [items],
+  )
 
   const randomizedItems = useMemo(() => {
-    const uniqueItems = Array.from(new Set(items))
-    let tempItems = Array.from({ length: 1 }, () =>
-      shuffleItems(uniqueItems),
-    ).flat()
+    const shuffledItems = shuffleItems(items)
+    let tempItems: string[] = []
     while (tempItems.length < requiredItemsCount) {
-      tempItems = [...tempItems, ...tempItems]
+      tempItems = [...tempItems, ...shuffledItems]
     }
     return tempItems
   }, [items, shuffleItems])
