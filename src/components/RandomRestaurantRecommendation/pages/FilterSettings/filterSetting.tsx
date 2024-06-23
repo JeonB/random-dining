@@ -30,8 +30,10 @@ interface DataType {
 const FilterSetting = () => {
   const route = useRoute<RouteProp<RestaurantParamList, 'FilterSetting'>>()
   const navigation = useNavigation<NavigationProp<RestaurantParamList>>()
-  const selectedCategories = useStore(state => state.selectedCategories)
-  const setSelectedLocation = useStore(state => state.setSelectedLocation)
+  const { selectedCategories, setSelectedLocation } = useStore(state => ({
+    selectedCategories: state.selectedCategories,
+    setSelectedLocation: state.setSelectedLocation,
+  }))
 
   const isMounted = useRef(true)
   const [isLoading, setIsLoading] = useState(false)

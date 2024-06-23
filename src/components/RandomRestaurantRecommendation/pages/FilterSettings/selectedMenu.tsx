@@ -1,5 +1,12 @@
-import React, { useReducer } from 'react'
-import { View, Image, Dimensions, Platform, StyleSheet } from 'react-native'
+import React, { useCallback, useReducer, useRef, useState } from 'react'
+import {
+  View,
+  Image,
+  Dimensions,
+  Platform,
+  StyleSheet,
+  Alert,
+} from 'react-native'
 import RandomItemModal from '@_common/ui/randomItemModal'
 import { MyTheme } from 'theme'
 import { RestaurantParamList } from '@_types'
@@ -10,33 +17,6 @@ import { useStore } from '@_common/utils/zustandStore'
 import { Text } from '@rneui/themed'
 import { fetchLocationData } from '@_services/api'
 
-interface State {
-  modalVisible: boolean
-  isChanging: boolean
-  isLoading: boolean
-}
-
-interface Action {
-  type: string
-  payload: any
-}
-const initialState = {
-  modalVisible: false,
-  isChanging: false,
-  isLoading: false,
-}
-function reducer(state: State, action: Action) {
-  switch (action.type) {
-    case 'SET_MODAL_VISIBLE':
-      return { ...state, modalVisible: action.payload }
-    case 'SET_IS_CHANGING':
-      return { ...state, isChanging: action.payload }
-    case 'SET_IS_LOADING':
-      return { ...state, isLoading: action.payload }
-    default:
-      throw new Error()
-  }
-}
 interface DataType {
   [key: string]: any
 }
@@ -60,24 +40,32 @@ export const SelectedMenu = ({
   route,
   navigation,
 }: StackScreenProps<RestaurantParamList, 'SelectedMenu'>) => {
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [isChanging, setIsChanging] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [modalVisible, setModalVisible] = useState(false)
+  const isMounted = useRef(true)
   const { menu, setRestaurantItems, selectedLocation, distance } = useStore()
   const selectedData = route.params?.items
   if (!selectedData) {
     // selectedData가 undefined일 때 처리하는 로직
     throw new Error('No data')
   }
-  const handleMenuChange = () => {
-    if (state.isChanging) return
-    dispatch({ type: 'SET_IS_CHANGING', payload: true })
-    dispatch({ type: 'SET_IS_CHANGING', payload: false })
-  }
+  const handleMenuChange = useCallback(() => {
+    if (isChanging) return // 이미 변경 중이면 무시
+    setIsChanging(true) // 변경 시작
+    navigation.navigate('SelectedMenu', { items: selectedData })
 
-  const handleRandomPickClick = () => {
-    dispatch({ type: 'SET_IS_LOADING', payload: true })
-    dispatch({ type: 'SET_MODAL_VISIBLE', payload: true })
-    dispatch({ type: 'SET_IS_LOADING', payload: false })
-  }
+    setIsChanging(false) // 변경 완료
+  }, [isChanging, selectedData])
+
+  // 레스토랑 데이터를 가져오는 과정을 시작하고, 해당 과정이 완료되면 로딩 상태를 업데이트
+  const handleRandomPickClick = useCallback(() => {
+    setIsLoading(true)
+    setModalVisible(true)
+    if (isMounted.current) {
+      setIsLoading(false)
+    }
+  }, [])
   const handleRestaurantViewClick = async () => {
     const restaurantItems = await fetchLocationData(
       menu,
@@ -86,14 +74,33 @@ export const SelectedMenu = ({
       'FD6',
       distance,
     )
-    if (restaurantItems !== null) {
-      setRestaurantItems(restaurantItems)
-
-      navigation.navigate('RestaurantView', {
-        restaurantItems: restaurantItems,
-      })
+    try {
+      if (restaurantItems !== null && restaurantItems.length > 0) {
+        setRestaurantItems(restaurantItems)
+        navigation.navigate('RestaurantView', {
+          restaurantItems: restaurantItems,
+        })
+      } else {
+        Alert.alert(
+          '주변에 식당이 없습니다. 거리 범위를 조정해주세요.',
+          '',
+          [
+            {
+              text: '확인',
+              onPress: () => navigation.goBack(), // Use navigation.goBack() to navigate back
+            },
+          ],
+          { cancelable: false },
+        )
+      }
+    } catch (error) {
+      console.error(error)
+      Alert.alert('예기치 못 한 에러가 발생했습니다. 다시 시도하여 주세요.')
     }
   }
+  const handleClose = useCallback(() => {
+    setModalVisible(false)
+  }, [])
 
   return (
     <View style={styles.container}>
@@ -114,7 +121,7 @@ export const SelectedMenu = ({
         </Button>
         <RandomPickButton
           handleRandomPickClick={handleRandomPickClick}
-          isLoading={state.isLoading}
+          isLoading={isLoading}
           icon="chat-question-outline"
           text="다시 선택"
           style={styles.button}
@@ -122,8 +129,8 @@ export const SelectedMenu = ({
         />
       </View>
       <RandomItemModal
-        visible={state.modalVisible}
-        onClose={() => dispatch({ type: 'SET_MODAL_VISIBLE', payload: false })}
+        visible={modalVisible}
+        onClose={handleClose}
         onItemChange={handleMenuChange}
         items={selectedData}
       />
