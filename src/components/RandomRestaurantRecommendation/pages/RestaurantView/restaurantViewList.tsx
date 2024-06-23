@@ -15,7 +15,6 @@ import { useStore } from '@_common/utils/zustandStore'
 
 export const RestaurantViewList = ({
   route,
-  navigation,
 }: StackScreenProps<RestaurantParamList, 'RestaurantView'>) => {
   const restaurantList = route.params?.restaurantItems
   if (!restaurantList) {
@@ -60,12 +59,11 @@ const styles = StyleSheet.create({
   modalView: {
     flex: 1,
     width: MyTheme.width * 330,
-    height: Dimensions.get('window').height * 0.7,
+    height: Dimensions.get('window').height * 10,
     padding: MyTheme.width * 20,
     backgroundColor: 'white',
-    borderRadius: 20,
-    position: 'absolute',
-    top: Dimensions.get('window').height * 0.05,
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
   },
 })
 
