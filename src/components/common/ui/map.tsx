@@ -9,14 +9,16 @@ import {
   useIsFocused,
   useNavigation,
 } from '@react-navigation/native'
-import { RestaurantParamList } from '@_types'
+import { LocationTypes, RestaurantParamList } from '@_types'
 
 const Map = React.memo(
   ({
+    info,
     currentLocation,
     setMarkerLocation,
     setMarkerVisible,
   }: {
+    info?: LocationTypes
     currentLocation: { currentLatitude: number; currentLongitude: number }
     setMarkerLocation?: (location: { lat: number; lng: number }) => void
     setMarkerVisible?: (visible: boolean) => void
@@ -160,7 +162,7 @@ const Map = React.memo(
           (function () {
             const container = document.getElementById('map');
             const options = {
-              center: new kakao.maps.LatLng(${currentLatitude}, ${currentLongitude}),
+               center: new kakao.maps.LatLng(${info ? info.y : currentLatitude}, ${info ? info.x : currentLongitude}),
               level: 3
             };
 
@@ -178,6 +180,7 @@ const Map = React.memo(
               image: currentMarkerImage
             });
 
+            const markerPosition = new kakao.maps.LatLng(${info ? info.y : currentLatitude}, ${info ? info.x : currentLongitude});
             const imageSrc = 'https://i.postimg.cc/pTp9xBHZ/free-icon-restaurant.png';
             const imageSize = new kakao.maps.Size(30, 30);
             const imgOptions = {
@@ -185,6 +188,11 @@ const Map = React.memo(
                 };
             const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions);
 
+            const marker = new kakao.maps.Marker({
+              map: map,
+              position: markerPosition,
+              image: markerImage
+            });
 
             document.getElementById('currentPositionButton').onclick = function() {
               map.setCenter(currentPosition);
