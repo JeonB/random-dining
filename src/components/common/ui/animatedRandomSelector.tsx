@@ -3,13 +3,15 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react'
 import { Animated, View, StyleSheet } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useStore } from '@_common/utils/zustandStore'
+import { LocationTypes } from '@_types'
 
 export interface Props {
-  items: string[]
+  items: string[] | LocationTypes[]
   onItemChange?: () => void
   itemHeight: number
   closeModal: () => void
   setTimeoutFunc?: (handler: any, timeout?: number) => void
+  isRestaurantSelection?: boolean
 }
 
 export const AnimatedRandomSelector = (props: Props) => {
@@ -19,11 +21,12 @@ export const AnimatedRandomSelector = (props: Props) => {
     itemHeight,
     closeModal,
     setTimeoutFunc = setTimeout,
+    isRestaurantSelection,
   } = props
   const scrollY = useRef(new Animated.Value(0)).current
   const requiredItemsCount = 30
-  const { menu, setMenu } = useStore()
-  const shuffleItems = useCallback((items: string[]) => {
+  const { menu, setMenu, setRestaurant } = useStore()
+  const shuffleItems = useCallback((items: string[] | LocationTypes[]) => {
     for (let i = items.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1))
       ;[items[i], items[j]] = [items[j], items[i]]
@@ -54,7 +57,10 @@ export const AnimatedRandomSelector = (props: Props) => {
     ]).start(() => {
       const finalIndex =
         Math.round(-(scrollY as any)._value / itemHeight) % items.length
-      setMenu(items[finalIndex])
+      isRestaurantSelection
+        ? setRestaurant((items as LocationTypes[])[finalIndex])
+        : setMenu((items as string[])[finalIndex])
+      // setMenu(items[finalIndex])
       onItemChange()
       closeModal()
     })
@@ -91,7 +97,11 @@ export const AnimatedRandomSelector = (props: Props) => {
               justifyContent: 'center',
               alignItems: 'center',
             }}>
-            <Text style={styles.itemText}>{item}</Text>
+            <Text style={styles.itemText}>
+              {isRestaurantSelection
+                ? (item as LocationTypes).place_name
+                : (item as string)}
+            </Text>
           </View>
         ))}
       </Animated.View>

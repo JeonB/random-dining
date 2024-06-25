@@ -4,12 +4,12 @@ import { Button } from 'react-native-paper'
 import { Text } from '@rneui/themed'
 import { NavigationProp } from '@react-navigation/native'
 import { MyTheme } from 'theme'
-import { LocationTypes, RootStackParamList } from '@_types'
+import { RootStackParamList } from '@_types'
+import { useStore } from '@_common/utils/zustandStore'
 import RandomPickButton from '@_3Rpages/FilterSettings/randomPickButton'
 import { AddUserListModal } from '@_userListPages/addUserListModal'
 
 interface Props {
-  selectedRestaurant: LocationTypes
   handleRandomPickClick: () => void
   isLoading: boolean
   navigation: NavigationProp<RootStackParamList>
@@ -17,12 +17,13 @@ interface Props {
 }
 
 const RestaurantActionButtons = ({
-  selectedRestaurant: restaurant,
   handleRandomPickClick,
   isLoading,
   navigation,
   listName,
 }: Props) => {
+  const { restaurant } = useStore()
+
   const handleDetailViewClick = () => {
     if (restaurant && restaurant.place_url) {
       navigation.navigate('Detail', { url: restaurant.place_url })
@@ -37,7 +38,7 @@ const RestaurantActionButtons = ({
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
-        {restaurant.place_url ? (
+        {restaurant?.place_url ? (
           <Button
             mode={Platform.OS === 'ios' ? 'contained' : 'elevated'}
             onPress={handleDetailViewClick}

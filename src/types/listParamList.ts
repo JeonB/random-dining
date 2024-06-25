@@ -3,7 +3,6 @@ import { LocationTypes } from './restaurant'
 export interface RootStackParamList {
   Detail: { url: string } | undefined
   UserSelectedRestaurantInfo: {
-    restaurant: LocationTypes
     listname: string
     restaurantList: LocationTypes[]
   }
@@ -15,4 +14,8 @@ export interface RootStackParamList {
     | { url: string }
     | { listName: string }
     | { restaurant: LocationTypes }
+    | {
+        listname: string
+        restaurantList: LocationTypes[]
+      }
 }

@@ -1,16 +1,10 @@
-import React, { useState } from 'react'
-import {
-  StyleSheet,
-  View,
-  Text,
-  Alert,
-  Dimensions,
-  Platform,
-} from 'react-native'
+import React, { useCallback, useState } from 'react'
+import { StyleSheet, View, Text, Alert, Platform } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationProp, useFocusEffect } from '@react-navigation/native'
 import { Button } from 'react-native-paper'
 import { MyTheme } from 'theme'
+import { useStore } from '@_common/utils/zustandStore'
 import RandomItemModal from '@_common/ui/randomItemModal'
 import { LocationTypes, RootStackParamList } from '@_types'
 import { useListNames } from '@_userList/hook/useListNames'
@@ -26,17 +20,14 @@ export const UserCustomList = ({
   const [selectedListName, setSelectedListName] = useState<string>('')
   const [modalVisible, setModalVisible] = useState(false)
   const [restaurantItems, setRestaurantItems] = useState<LocationTypes[]>([])
+  const { restaurant } = useStore()
 
-  const handleRestaurantChange = (index: number) => {
-    const selectedRestaurant = restaurantItems[index]
-    if (selectedRestaurant) {
-      navigation.navigate('UserSelectedRestaurantInfo', {
-        restaurant: selectedRestaurant,
-        listname: selectedListName,
-        restaurantList: restaurantItems,
-      })
-    }
-  }
+  const handleRestaurantChange = useCallback(() => {
+    navigation.navigate('UserSelectedRestaurantInfo', {
+      listname: selectedListName,
+      restaurantList: restaurantItems,
+    })
+  }, [restaurantItems])
 
   useFocusEffect(
     React.useCallback(() => {
@@ -48,7 +39,6 @@ export const UserCustomList = ({
     try {
       const savedListData = await AsyncStorage.getItem(item)
       setSelectedListName(item)
-      // 리스트에 저장된 데이터가 있을 경우 random picker modal 호출
       if (savedListData !== null && JSON.parse(savedListData).length > 0) {
         setRestaurantItems(JSON.parse(savedListData))
         setModalVisible(true)
@@ -102,8 +92,9 @@ export const UserCustomList = ({
       <RandomItemModal
         visible={modalVisible}
         onClose={() => setModalVisible(false)}
-        items={restaurantItems.map(item => item.place_name)}
-        onIndexChange={handleRestaurantChange}
+        items={restaurantItems}
+        onItemChange={handleRestaurantChange}
+        isRestaurantSelection={true}
       />
     </View>
   )

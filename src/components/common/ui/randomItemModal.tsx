@@ -2,12 +2,14 @@ import { Modal, View, StyleSheet } from 'react-native'
 import { Button } from 'react-native-paper'
 import { AnimatedRandomSelector } from '@_common/ui/animatedRandomSelector'
 import React from 'react'
+import { LocationTypes } from 'src/types'
 
 interface RandomPickerModalProps {
   visible: boolean
-  items: string[]
+  items: string[] | LocationTypes[]
   onClose: () => void
   onItemChange?: () => void
+  isRestaurantSelection?: boolean
 }
 
 const RandomItemModal = ({
@@ -15,6 +17,7 @@ const RandomItemModal = ({
   onClose,
   onItemChange,
   items,
+  isRestaurantSelection = false,
 }: RandomPickerModalProps) => {
   return (
     <Modal style={styles.modal} visible={visible} onRequestClose={onClose}>
@@ -24,6 +27,7 @@ const RandomItemModal = ({
           items={items}
           onItemChange={onItemChange}
           closeModal={onClose}
+          isRestaurantSelection={isRestaurantSelection}
         />
         <Button onPress={onClose}>Close</Button>
       </View>

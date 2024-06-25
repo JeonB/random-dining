@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import {
   Dimensions,
   Image,
@@ -12,10 +12,11 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { Text } from '@rneui/themed'
 import { MyTheme } from 'theme'
 import { RootStackParamList, LocationTypes } from '@_types'
-import Map from '@_common/ui/map'
-import RestaurantDetail from '@_3Rpages/RestaurantView/restaurantDetail'
-import RandomItemModal from '@_common/ui/randomItemModal'
 import { useRestaurantContext } from '@_common/context/restaurantContext'
+import { useStore } from '@_common/utils/zustandStore'
+import Map from '@_common/ui/map'
+import RandomItemModal from '@_common/ui/randomItemModal'
+import RestaurantDetail from '@_3Rpages/RestaurantView/restaurantDetail'
 import RestaurantActionButtons from '@_userListPages/restaurantActionButtons'
 
 export const SelectedRestaurantInfo = ({
@@ -23,25 +24,18 @@ export const SelectedRestaurantInfo = ({
   navigation,
 }: StackScreenProps<RootStackParamList, 'UserSelectedRestaurantInfo'>) => {
   const { currentLocation } = useRestaurantContext()
-
-  const restaurant: LocationTypes | undefined = route.params?.restaurant
-  const listName: string | undefined = route.params?.listname
-
+  const listName = route.params?.listname
   const [modalVisible, setModalVisible] = useState(false)
   const [restaurantItems, setRestaurantItems] = useState<LocationTypes[]>([])
   const [isLoading, setIsLoading] = useState(false)
+  const { restaurant } = useStore()
 
-  const handleRestaurantChange = (index: number) => {
-    const selectedRestaurant = restaurantItems[index]
-
-    if (selectedRestaurant) {
-      navigation.navigate('UserSelectedRestaurantInfo', {
-        restaurant: selectedRestaurant,
-        listname: listName,
-        restaurantList: restaurantItems,
-      })
-    }
-  }
+  const handleRestaurantChange = useCallback(() => {
+    navigation.navigate('UserSelectedRestaurantInfo', {
+      listname: listName,
+      restaurantList: restaurantItems,
+    })
+  }, [restaurantItems])
 
   const handleRandomPickClick = async () => {
     try {
@@ -61,7 +55,7 @@ export const SelectedRestaurantInfo = ({
 
   const Content = (
     <View onLayout={onLayout} style={{ width: Dimensions.get('window').width }}>
-      {restaurant.category_name ? (
+      {restaurant.place_url ? (
         <RestaurantDetail info={restaurant} />
       ) : (
         <View style={styles.infoView}>
@@ -77,12 +71,11 @@ export const SelectedRestaurantInfo = ({
             }}
             numberOfLines={1}
             ellipsizeMode="tail">
-            {restaurant?.place_name || ''}
+            {restaurant.place_name}
           </Text>
         </View>
       )}
       <RestaurantActionButtons
-        selectedRestaurant={restaurant}
         handleRandomPickClick={handleRandomPickClick}
         isLoading={isLoading}
         navigation={navigation}
@@ -113,8 +106,9 @@ export const SelectedRestaurantInfo = ({
       <RandomItemModal
         visible={modalVisible}
         onClose={() => setModalVisible(false)}
-        items={restaurantItems.map(item => item.place_name)}
-        onIndexChange={handleRestaurantChange}
+        items={restaurantItems}
+        onItemChange={handleRestaurantChange}
+        isRestaurantSelection={true}
       />
     </View>
   )
