@@ -45,7 +45,7 @@ export const AnimatedRandomSelector = (props: Props) => {
   const startAnimation = useCallback(() => {
     Animated.sequence([
       Animated.timing(scrollY, {
-        toValue: -(requiredItemsCount * itemHeight + itemHeight / 2),
+        toValue: -((requiredItemsCount - 3) * itemHeight + itemHeight / 2),
         duration: 1000,
         useNativeDriver: true,
       }),

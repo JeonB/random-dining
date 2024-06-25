@@ -4,7 +4,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationProp, useFocusEffect } from '@react-navigation/native'
 import { Button } from 'react-native-paper'
 import { MyTheme } from 'theme'
-import { useStore } from '@_common/utils/zustandStore'
 import RandomItemModal from '@_common/ui/randomItemModal'
 import { LocationTypes, RootStackParamList } from '@_types'
 import { useListNames } from '@_userList/hook/useListNames'
@@ -20,7 +19,6 @@ export const UserCustomList = ({
   const [selectedListName, setSelectedListName] = useState<string>('')
   const [modalVisible, setModalVisible] = useState(false)
   const [restaurantItems, setRestaurantItems] = useState<LocationTypes[]>([])
-  const { restaurant } = useStore()
 
   const handleRestaurantChange = useCallback(() => {
     navigation.navigate('UserSelectedRestaurantInfo', {
