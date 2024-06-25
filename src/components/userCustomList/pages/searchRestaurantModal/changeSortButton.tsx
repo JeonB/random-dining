@@ -17,10 +17,10 @@ export const ChangeSortButton: React.FC<ChangeSortButtonProps> = ({
         onPress={handlePress}
         style={styles.buttonContainer}
         testID="sortButton">
-        <Text style={{ fontSize: 14 }}>
+        <Text style={{ fontSize: 16 }}>
           {sort === 'distance' ? '거리순' : '정확도순'}
         </Text>
-        <MaterialIcons name="swap-vert" size={15} color="black" />
+        <MaterialIcons name="swap-vert" size={16} color="black" />
       </TouchableOpacity>
     </View>
   )

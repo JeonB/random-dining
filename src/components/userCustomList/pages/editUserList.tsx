@@ -154,6 +154,7 @@ export const EditUserList = ({
       <View style={styles.deleteListButton}>
         <Button
           onPress={() => handlePressDeleteListButton(listName)}
+          labelStyle={{ fontSize: 17 }}
           testID="deleteListButton"
           textColor="#FF3A54">
           리스트 삭제

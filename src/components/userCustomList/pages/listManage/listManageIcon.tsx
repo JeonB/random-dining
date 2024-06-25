@@ -88,7 +88,7 @@ export const ListManageIcon = ({
         ref={iconRef}
         testID="listManageIcon">
         <Animated.View style={{ transform: [{ rotate: rotateInterpolate }] }}>
-          <Icon name="settings" size={35} color="black" />
+          <Icon name="settings" size={40} color="black" />
         </Animated.View>
       </TouchableOpacity>
       <ListManageModal

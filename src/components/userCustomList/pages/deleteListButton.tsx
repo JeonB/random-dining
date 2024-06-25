@@ -57,7 +57,7 @@ export const DeleteListButton = ({
     <View style={{ marginRight: 15 }}>
       <Button
         onPress={() => handlePressDeleteListButton()}
-        labelStyle={{ fontSize: 16 }}
+        labelStyle={{ fontSize: 17 }}
         textColor="#FF3A54">
         전체 삭제
       </Button>

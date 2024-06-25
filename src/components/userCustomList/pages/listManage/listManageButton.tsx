@@ -1,5 +1,5 @@
 import React from 'react'
-import { Animated } from 'react-native'
+import { Animated, Platform } from 'react-native'
 import { Button } from 'react-native-paper'
 import { MyTheme } from 'theme'
 
@@ -17,6 +17,7 @@ export const ListManageButton = React.memo(
       <Animated.View style={{ opacity }}>
         <Button
           style={styles.button}
+          labelStyle={styles.buttonLabel}
           buttonColor={MyTheme.colors.primary}
           mode="contained"
           onPress={onPress}>
@@ -39,5 +40,11 @@ const styles = {
     },
     shadowOpacity: 0.3,
     elevation: 3,
+  },
+  buttonLabel: {
+    fontSize: Platform.select({
+      ios: MyTheme.width * 16,
+      android: MyTheme.width * 15,
+    }),
   },
 }
