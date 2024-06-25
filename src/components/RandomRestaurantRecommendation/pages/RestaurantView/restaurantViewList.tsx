@@ -1,23 +1,29 @@
-import { StackScreenProps } from '@react-navigation/stack'
+import React, { useState } from 'react'
+import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { RestaurantParamList } from '@_types'
-import { Alert, Dimensions, StyleSheet, View } from 'react-native'
 import RenderItem from '@_userListPages/searchRestaurantModal/resultList'
-import React from 'react'
+import { AddUserListModal } from '@_userListPages/addUserListModal'
 import { DefaultFlatList } from '@_userListPages/defaultFlatList'
 import { MyTheme } from 'theme'
+import { useStore } from '@_common/utils/zustandStore'
+import { RouteProp } from '@react-navigation/native'
 
 export const RestaurantViewList = ({
   route,
-  navigation,
-}: StackScreenProps<RestaurantParamList, 'RestaurantView'>) => {
+  onItemClick,
+}: {
+  route: RouteProp<RestaurantParamList, 'RestaurantView'>
+  onItemClick: () => void
+}) => {
   const restaurantList = route.params?.restaurantItems
+  const [modalVisible, setModalVisible] = useState(false)
   if (!restaurantList) {
     // selectedData가 undefined일 때 처리하는 로직
     throw new Error('데이터가 없습니다!')
   }
-  const handlePressAddButton = () => {
-    Alert.alert('더보기!')
-  }
+  const { setRestaurant } = useStore(state => ({
+    setRestaurant: state.setRestaurant,
+  }))
   return (
     <View style={styles.centeredView}>
       <View style={styles.modalView}>
@@ -25,10 +31,21 @@ export const RestaurantViewList = ({
           data={restaurantList}
           keyExtractor={(item, index) => index.toString()}
           renderItem={item => (
-            <RenderItem
-              item={item}
-              handlePressAddButton={handlePressAddButton}
-            />
+            <TouchableOpacity
+              onPress={() => {
+                onItemClick()
+                setRestaurant(item)
+              }}>
+              <RenderItem
+                item={item}
+                handlePressAddButton={() => setModalVisible(true)}
+              />
+              <AddUserListModal
+                selectedInfo={item}
+                visible={modalVisible}
+                onClose={() => setModalVisible(false)}
+              />
+            </TouchableOpacity>
           )}
         />
       </View>
@@ -45,12 +62,11 @@ const styles = StyleSheet.create({
   modalView: {
     flex: 1,
     width: MyTheme.width * 330,
-    height: Dimensions.get('window').height * 0.7,
+    height: Dimensions.get('window').height * 10,
     padding: MyTheme.width * 20,
     backgroundColor: 'white',
-    borderRadius: 20,
-    position: 'absolute',
-    top: Dimensions.get('window').height * 0.05,
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
   },
 })
 

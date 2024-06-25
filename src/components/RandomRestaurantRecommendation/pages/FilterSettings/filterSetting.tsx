@@ -30,8 +30,8 @@ interface DataType {
 const FilterSetting = () => {
   const route = useRoute<RouteProp<RestaurantParamList, 'FilterSetting'>>()
   const navigation = useNavigation<NavigationProp<RestaurantParamList>>()
+
   const selectedCategories = useStore(state => state.selectedCategories)
-  const setSelectedCategories = useStore(state => state.setSelectedCategories)
   const setSelectedLocation = useStore(state => state.setSelectedLocation)
 
   const isMounted = useRef(true)
@@ -47,14 +47,12 @@ const FilterSetting = () => {
         latitude: location.latitude,
       })
     }
-  }, [route.params?.location])
-  console.log('렌더링테스트')
-  // 데이타 호출 테스트
+  }, [route.params?.location, setSelectedLocation])
+
   const data: DataType = require('./data.json')
   const getSelectedData = (selectedCategories: string[]) => {
     return selectedCategories.map(category => data[category]).flat()
   }
-
   const selectedData = getSelectedData(selectedCategories)
 
   const handleMenuChange = useCallback(() => {
@@ -88,14 +86,14 @@ const FilterSetting = () => {
           <DistanceSlider />
         </View>
         <View
-          style={
-            (styles.filterOptions,
-            { marginBottom: Dimensions.get('window').height * 0.2 })
-          }>
+          style={[
+            styles.filterOptions,
+            { marginBottom: Dimensions.get('window').height * 0.2 },
+          ]}>
           <Text h3 h3Style={styles.text}>
             카테고리
           </Text>
-          <CategorySwitch onCategoryChange={setSelectedCategories} />
+          <CategorySwitch />
         </View>
       </ScrollView>
       <View style={styles.buttonContainer}>
@@ -117,6 +115,7 @@ const FilterSetting = () => {
     </View>
   )
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -142,7 +141,7 @@ const styles = StyleSheet.create({
     width: MyTheme.width * 180,
     height: Platform.select({
       ios: MyTheme.width * 40,
-      android: MyTheme.width * 35,
+      android: MyTheme.width * 38,
     }),
     justifyContent: 'center',
     shadowColor: '#000',
@@ -156,12 +155,13 @@ const styles = StyleSheet.create({
     elevation: 1,
   },
   buttonLabel: {
+    color: '#e6e6fA',
     fontSize: Platform.select({
       ios: MyTheme.width * 22,
       android: MyTheme.width * 20,
     }),
-    lineHeight: MyTheme.width * 23,
+    lineHeight: MyTheme.width * 22,
   },
 })
 
-export default FilterSetting
+export default React.memo(FilterSetting)

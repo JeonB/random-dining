@@ -95,6 +95,9 @@ const App: React.FC = () => {
                   color={color}
                 />
               ),
+              tabBarLabelStyle: {
+                marginBottom: 5,
+              },
             }}
           />
           <Tab.Screen
@@ -110,6 +113,9 @@ const App: React.FC = () => {
                   color={color}
                 />
               ),
+              tabBarLabelStyle: {
+                marginBottom: 5,
+              },
             }}
           />
           <Tab.Screen
@@ -128,6 +134,9 @@ const App: React.FC = () => {
                   color={color}
                 />
               ),
+              tabBarLabelStyle: {
+                marginBottom: 5,
+              },
             }}
           />
         </Tab.Navigator>

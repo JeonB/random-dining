@@ -10,7 +10,6 @@ export interface Props {
   onItemChange?: () => void
   itemHeight: number
   closeModal: () => void
-  setTimeoutFunc?: (handler: any, timeout?: number) => void
   isRestaurantSelection?: boolean
 }
 
@@ -20,12 +19,11 @@ export const AnimatedRandomSelector = (props: Props) => {
     onItemChange = () => {},
     itemHeight,
     closeModal,
-    setTimeoutFunc = setTimeout,
     isRestaurantSelection,
   } = props
   const scrollY = useRef(new Animated.Value(0)).current
   const requiredItemsCount = 30
-  const { menu, setMenu, setRestaurant } = useStore()
+  const { setMenu, setRestaurant } = useStore()
   const shuffleItems = useCallback((items: string[] | LocationTypes[]) => {
     for (let i = items.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1))
@@ -35,9 +33,10 @@ export const AnimatedRandomSelector = (props: Props) => {
   }, [])
 
   const randomizedItems = useMemo(() => {
-    let tempItems = Array.from({ length: 1 }, () => shuffleItems(items)).flat()
+    const shuffledItems = shuffleItems(items)
+    let tempItems: (string | LocationTypes)[] = []
     while (tempItems.length < requiredItemsCount) {
-      tempItems = [...tempItems, ...tempItems]
+      tempItems = [...tempItems, ...shuffledItems]
     }
     return tempItems
   }, [items, shuffleItems])

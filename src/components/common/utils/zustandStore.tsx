@@ -44,7 +44,7 @@ export const useStore = create<State>()(set => ({
   setRestaurantItems: items => set({ restaurantItems: items }),
   modalVisible: false,
   setModalVisible: visible => set({ modalVisible: visible }),
-  restaurant: { place_name: '', address_name: '', phone: '' },
+  restaurant: { place_name: '', address_name: '', phone: '', x: '', y: '' },
   setRestaurant: restaurant => set({ restaurant }),
   isLoading: false,
   setIsLoading: loading => set({ isLoading: loading }),
@@ -56,6 +56,6 @@ export const useStore = create<State>()(set => ({
   setCurrentLocation: location => set({ currentLocation: location }),
   menu: '',
   setMenu: menu => set({ menu }),
-  distance: 100,
+  distance: 500,
   setDistance: distance => set({ distance }),
 }))

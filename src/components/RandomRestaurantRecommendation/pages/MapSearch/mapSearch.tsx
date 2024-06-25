@@ -84,10 +84,6 @@ const MapSearch = () => {
             type="solid"
             color={MyTheme.colors.secondary}
             onPress={() => {
-              // setCurrentLocation({
-              //   currentLongitude: Number(currentLocation?.currentLongitude),
-              //   currentLatitude: Number(currentLocation?.currentLatitude),
-              // })
               navigation.navigate('FilterSetting', {
                 location: {
                   longitude: Number(markerLocation?.lng),

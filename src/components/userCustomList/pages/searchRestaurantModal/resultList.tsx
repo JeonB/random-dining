@@ -15,9 +15,14 @@ const RenderItem = ({ item, handlePressAddButton }: RenderItemProps) => (
       <Text style={styles.listText} numberOfLines={1} ellipsizeMode="tail">
         {item.place_name}
       </Text>
-      <Text style={{ fontSize: 13 }} numberOfLines={1} ellipsizeMode="tail">
-        ({item.address_name})
-      </Text>
+      <View style={{ flexDirection: 'row' }}>
+        <Text style={{ fontSize: 13 }} numberOfLines={1} ellipsizeMode="tail">
+          {`${item.address_name} `}
+        </Text>
+        <Text style={{ fontSize: 13 }} numberOfLines={1} ellipsizeMode="tail">
+          ({item.distance}m)
+        </Text>
+      </View>
     </View>
     <View style={{ width: 50 }}>
       <Button

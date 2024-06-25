@@ -89,6 +89,7 @@ export async function fetchLocationData(
   y?: string,
   category_group_code?: string,
   radius?: number,
+  sort?: string,
 ) {
   const allData: LocationTypes[] = []
   let page = 1
@@ -102,6 +103,7 @@ export async function fetchLocationData(
       radius,
       size: 15,
       page,
+      sort,
     }
     const queryString = createQueryString(queryParams)
     url = `${baseUrl}?${queryString}`
@@ -121,6 +123,7 @@ export async function fetchLocationData(
     }
     page++
   }
+
   locationDataCache[url] = allData
   return allData
 }
