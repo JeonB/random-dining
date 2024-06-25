@@ -249,7 +249,7 @@ const Map = React.memo(
                   yAnchor: 0.15
                 });
 
-                // 커스텀 오버레이를 지도에 표시합니다
+                // 커스텀 오버레이를 지도에 표시
                 customOverlay.setMap(map);
 
               }
@@ -264,6 +264,7 @@ const Map = React.memo(
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <WebView
+          // key={restaurant.place_name}
           ref={webViewRef}
           style={styles.container}
           source={{ html: html, baseUrl: '' }}

@@ -1,15 +1,25 @@
-import React, { memo, useCallback, useMemo } from 'react'
+import React, { memo, useCallback, useState } from 'react'
 import { Icon, Slider } from '@rneui/themed'
 import { Platform, StyleSheet, Text, View } from 'react-native'
 import { useStore } from '@_common/utils/zustandStore'
 import { MyTheme } from 'theme'
 
-export const DistanceSlider = memo(() => {
-  const distanceRange = useStore(state => state.distance)
-  const onDistancheChange = useStore(state => state.setDistance)
+export const DistanceSlider = () => {
+  const [localDistance, setLocalDistance] = useState(
+    useStore(state => state.distance),
+  )
+  const setDistance = useStore(state => state.setDistance)
 
+  const handleChange = (value: number) => {
+    setLocalDistance(value)
+  }
+
+  //사용자가 슬라이더를 놓을 때만 전역 상태를 업데이트
+  const handleComplete = (value: number) => {
+    setDistance(value)
+  }
   return (
-    <View style={[styles.contentView]}>
+    <View style={styles.contentView}>
       <Slider
         style={{
           width: Platform.select({
@@ -17,8 +27,9 @@ export const DistanceSlider = memo(() => {
             ios: MyTheme.width * 320,
           }),
         }}
-        value={distanceRange}
-        onValueChange={onDistancheChange}
+        value={localDistance}
+        onValueChange={handleChange}
+        onSlidingComplete={handleComplete}
         maximumValue={1000}
         minimumValue={100}
         step={100}
@@ -37,18 +48,18 @@ export const DistanceSlider = memo(() => {
           ),
         }}
       />
-      <Text>{distanceRange}m 이내</Text>
+      <Text>{localDistance}m 이내</Text>
     </View>
   )
-})
+}
+
 const styles = StyleSheet.create({
   contentView: {
     padding: MyTheme.width * 10,
     width: MyTheme.width * 330,
     justifyContent: 'center',
-    // alignItems: 'stretch',
     alignSelf: 'center',
   },
 })
-DistanceSlider.displayName = 'DistanceSlider'
-export default DistanceSlider
+
+export default memo(DistanceSlider)

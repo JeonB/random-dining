@@ -22,24 +22,16 @@ export const SelectedMenu = ({
   route,
   navigation,
 }: StackScreenProps<RestaurantParamList, 'SelectedMenu'>) => {
-  const [isChanging, setIsChanging] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [modalVisible, setModalVisible] = useState(false)
   const isMounted = useRef(true)
   const { menu, setRestaurantItems, selectedLocation, distance } = useStore()
-  const selectedData = Array.from(new Set(route.params?.items))
+  // const selectedData = Array.from(new Set(route.params?.items)) 현재 중복되는 아이템 제거하는 로직이 정상 작동하지 않음 (2024.06.24)
+  const selectedData = route.params?.items
   if (!selectedData) {
     // selectedData가 undefined일 때 처리하는 로직
     throw new Error('No data')
   }
-  // const handleMenuChange = useCallback(() => {
-  //   if (isChanging) return // 이미 변경 중이면 무시
-  //   setIsChanging(true) // 변경 시작
-  //   navigation.navigate('SelectedMenu', { items: selectedData })
-
-  //   setIsChanging(false) // 변경 완료
-  // }, [isChanging, selectedData])
-
   // 레스토랑 데이터를 가져오는 과정을 시작하고, 해당 과정이 완료되면 로딩 상태를 업데이트
   const handleRandomPickClick = useCallback(() => {
     setIsLoading(true)
@@ -55,6 +47,7 @@ export const SelectedMenu = ({
       String(selectedLocation.latitude),
       'FD6',
       distance,
+      'distance',
     )
     try {
       if (restaurantItems !== null && restaurantItems.length > 0) {
@@ -64,12 +57,11 @@ export const SelectedMenu = ({
         })
       } else {
         Alert.alert(
-          '주변에 식당이 없습니다. 거리 범위를 조정해주세요.',
+          `${distance}m 이내에 ${menu}를(을) 판매하는 식당이 없습니다.`,
           '',
           [
             {
               text: '확인',
-              onPress: () => navigation.goBack(), // Use navigation.goBack() to navigate back
             },
           ],
           { cancelable: false },
@@ -77,7 +69,7 @@ export const SelectedMenu = ({
       }
     } catch (error) {
       console.error(error)
-      Alert.alert('예기치 못 한 에러가 발생했습니다. 다시 시도하여 주세요.')
+      Alert.alert('예기치 못한 에러가 발생했습니다. 다시 시도하여 주세요.')
     }
   }
   const handleClose = useCallback(() => {
@@ -92,14 +84,14 @@ export const SelectedMenu = ({
           style={styles.image}
           onError={({ nativeEvent: { error } }) => console.warn(error)}
         />
-        <Text style={{ fontSize: 30 }}>{menu}</Text>
+        <Text style={{ fontSize: MyTheme.width * 30 }}>{menu}</Text>
       </View>
       <View style={styles.buttonContainer}>
         <Button
           mode={Platform.OS === 'ios' ? 'contained' : 'elevated'}
           onPress={handleRestaurantViewClick}
           style={styles.detailButton}>
-          <Text style={styles.buttonLabel}>주변 가게 보기</Text>
+          <Text style={styles.detailButtonLabel}>주변 가게 보기</Text>
         </Button>
         <RandomPickButton
           handleRandomPickClick={handleRandomPickClick}
@@ -113,7 +105,6 @@ export const SelectedMenu = ({
       <RandomItemModal
         visible={modalVisible}
         onClose={handleClose}
-        // onItemChange={handleMenuChange}
         items={selectedData}
       />
     </View>
@@ -142,10 +133,8 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   buttonContainer: {
-    position: 'absolute',
-    bottom: Dimensions.get('window').height * 0.15,
+    marginTop: MyTheme.width * 10,
     width: MyTheme.width * 300,
-    height: MyTheme.width * 50,
     alignItems: 'center',
     alignSelf: 'center',
   },
@@ -153,7 +142,7 @@ const styles = StyleSheet.create({
     width: MyTheme.width * 220,
     height: Platform.select({
       ios: MyTheme.width * 40,
-      android: MyTheme.width * 35,
+      android: MyTheme.width * 38,
     }),
     justifyContent: 'center',
     shadowColor: '#000',
@@ -170,20 +159,29 @@ const styles = StyleSheet.create({
     color: '#e6e6fA',
     fontSize: Platform.select({
       ios: MyTheme.width * 22,
-      android: MyTheme.width * 20,
+      android: MyTheme.width * 21,
     }),
-    lineHeight: MyTheme.width * 23,
+    lineHeight: Platform.select({
+      ios: MyTheme.width * 25,
+      android:
+        Dimensions.get('window').width > 440
+          ? MyTheme.width * 25
+          : MyTheme.width * 21,
+    }),
   },
   detailButton: {
     backgroundColor: MyTheme.colors.secondary,
     marginBottom: MyTheme.width * 10,
     borderRadius: 30,
     width: MyTheme.width * 220,
-    justifyContent: 'center',
-    height: Platform.select({
-      ios: MyTheme.width * 40,
-      android: MyTheme.width * 35,
+    paddingTop: Platform.select({
+      android:
+        Dimensions.get('window').width > 440
+          ? MyTheme.width * 3
+          : MyTheme.width * 1,
     }),
+    justifyContent: 'center',
+    height: MyTheme.width * 40,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -192,6 +190,20 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+  },
+  detailButtonLabel: {
+    color: '#e6e6fA',
+    fontSize: Platform.select({
+      ios: MyTheme.width * 22,
+      android: MyTheme.width * 21,
+    }),
+    lineHeight: Platform.select({
+      ios: MyTheme.width * 25,
+      android:
+        Dimensions.get('window').width > 440
+          ? MyTheme.width * 30
+          : MyTheme.width * 25,
+    }),
   },
 })
 

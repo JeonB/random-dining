@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { StackScreenProps } from '@react-navigation/stack'
 import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { RestaurantParamList } from '@_types'
 import RenderItem from '@_userListPages/searchRestaurantModal/resultList'
@@ -7,10 +6,15 @@ import { AddUserListModal } from '@_userListPages/addUserListModal'
 import { DefaultFlatList } from '@_userListPages/defaultFlatList'
 import { MyTheme } from 'theme'
 import { useStore } from '@_common/utils/zustandStore'
+import { RouteProp } from '@react-navigation/native'
 
 export const RestaurantViewList = ({
   route,
-}: StackScreenProps<RestaurantParamList, 'RestaurantView'>) => {
+  onItemClick,
+}: {
+  route: RouteProp<RestaurantParamList, 'RestaurantView'>
+  onItemClick: () => void
+}) => {
   const restaurantList = route.params?.restaurantItems
   const [modalVisible, setModalVisible] = useState(false)
   if (!restaurantList) {
@@ -29,6 +33,7 @@ export const RestaurantViewList = ({
           renderItem={item => (
             <TouchableOpacity
               onPress={() => {
+                onItemClick()
                 setRestaurant(item)
               }}>
               <RenderItem
