@@ -24,8 +24,8 @@ export const getPositionByGeolocation = async () => {
   }
   if (status !== 'granted') {
     Alert.alert(
-      '위치 권한이 필요합니다.',
-      '설정 화면으로 이동하시겠습니까?',
+      '위치 권한 필요',
+      '이 기능을 사용하려면 위치 권한이 필요합니다. 설정으로 이동하시겠습니까?',
       [
         {
           text: '아니오',
@@ -37,7 +37,13 @@ export const getPositionByGeolocation = async () => {
     )
     return { latitude: 0, longitude: 0 }
   }
-  const location = await Location.getLastKnownPositionAsync({})
+
+  let location = await Location.getLastKnownPositionAsync({})
+
+  if (!location) {
+    console.log('마지막으로 알려진 위치가 없습니다. 새로운 위치를 찾습니다.')
+    location = await Location.getCurrentPositionAsync({})
+  }
 
   return {
     latitude: location ? location.coords.latitude : 0,
