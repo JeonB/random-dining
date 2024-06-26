@@ -10,7 +10,7 @@ import {
 import { NavigationContainer, NavigationProp } from '@react-navigation/native'
 
 import { UserCustomList } from '@_userListPages/userCustomList'
-import { RootStackParamList } from '@_types/listParamList'
+import { RootStackParamList } from '@_types'
 
 jest.mock('@_userListPages/listManage/listManageIcon', () => {
   return {
@@ -56,9 +56,6 @@ jest.mock('expo-linear-gradient', () => {
 const mockNavigation = {
   navigate: jest.fn(),
 } as unknown as NavigationProp<RootStackParamList>
-const navigation = {
-  navigate: jest.fn(),
-} as unknown as NavigationProp<RestaurantParamList>
 describe('<UserCustomList />', () => {
   let alertSpy: jest.SpyInstance
   let utils: RenderAPI

@@ -6,7 +6,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { NavigationProp } from '@react-navigation/native'
 import { action } from '@storybook/addon-actions'
 
-import { RootStackParamList } from '@_types/listParamList'
+import { RootStackParamList } from '@_types'
 import { ListManageIcon } from '@_userListPages/listManage/listManageIcon'
 
 export default {

@@ -10,8 +10,8 @@ import {
 import { NavigationProp, RouteProp } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import { EditUserList } from '@_userListPages/editUserList'
-import { RootStackParamList } from '@_types/listParamList'
+import { EditUserList } from '@_userListPages/listManage/editUserList'
+import { RootStackParamList } from '@_types'
 
 const navigation = {
   navigate: jest.fn(),

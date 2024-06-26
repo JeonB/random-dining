@@ -3,8 +3,8 @@ import React from 'react'
 import { render, fireEvent, RenderAPI } from '@testing-library/react-native'
 import { NavigationContainer, NavigationProp } from '@react-navigation/native'
 
-import { SelectEditList } from '@_userListPages/selectEditList'
-import { RootStackParamList } from '@_types/listParamList'
+import { SelectEditList } from '@_userListPages/listManage/selectEditList'
+import { RootStackParamList } from '@_types'
 
 const navigation = {
   navigate: jest.fn(),

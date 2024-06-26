@@ -5,12 +5,12 @@ import { AntDesign } from '@expo/vector-icons'
 import { RootStackParamList } from '@_types'
 import InlineAd from '@_common/ui/inlinedAd'
 import DetailView from '@_3Rpages/RestaurantView/detailView'
-import { AddUserList } from '@_userListPages/addUserList'
-import { EditUserList } from '@_userListPages/editUserList'
-import { SelectEditList } from '@_userListPages/selectEditList'
+import { AddUserList } from '@_userListPages/listManage/addUserList'
+import { EditUserList } from '@_userListPages/listManage/editUserList'
+import { SelectEditList } from '@_userListPages/listManage/selectEditList'
 import { UserCustomList } from '@_userListPages/userCustomList'
-import { SelectedRestaurantInfo } from '@_userListPages/selectedRestaurantInfo'
-import { DeleteListButton } from '@_userListPages/deleteListButton'
+import { SelectedRestaurantInfo } from '@_userListPages/restaurantInfo/selectedRestaurantInfo'
+import { DeleteListButton } from '@_userListPages/listManage/deleteListButton'
 
 export const UserCustomListStack = () => {
   const Stack = createStackNavigator<RootStackParamList>()
