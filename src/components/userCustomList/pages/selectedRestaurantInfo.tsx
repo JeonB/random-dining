@@ -28,7 +28,7 @@ export const SelectedRestaurantInfo = ({
   const [modalVisible, setModalVisible] = useState(false)
   const [restaurantItems, setRestaurantItems] = useState<LocationTypes[]>([])
   const [isLoading, setIsLoading] = useState(false)
-  const { listRestaurant } = useStore()
+  const listRestaurant = useStore(set => set.listRestaurant)
 
   const handleRestaurantChange = useCallback(() => {
     navigation.navigate('UserSelectedRestaurantInfo', {
@@ -88,7 +88,7 @@ export const SelectedRestaurantInfo = ({
     <View style={styles.container}>
       {listRestaurant.x ? (
         <View style={styles.mapContainer}>
-          <Map info={listRestaurant} currentLocation={currentLocation} />
+          <Map currentLocation={currentLocation} />
         </View>
       ) : (
         <View style={styles.mediaContainer}>
