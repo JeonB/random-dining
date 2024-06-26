@@ -11,6 +11,7 @@ import { useListNames } from '@_userList/hook/useListNames'
 import { DefaultFlatList } from '@_userListPages/defaultFlatList'
 import { KebapMenuModal } from '@_userListPages/kebapMenuModal'
 import { ListItem } from '@_userListPages/listItem'
+
 export const UserCustomList = ({
   navigation,
 }: {
