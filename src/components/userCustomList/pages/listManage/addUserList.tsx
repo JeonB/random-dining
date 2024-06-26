@@ -9,8 +9,8 @@ import { RootStackParamList, LocationTypes } from '@_types'
 import { useListNames } from '@_userList/hook/useListNames'
 import { DefaultFlatList } from '@_userListPages/defaultFlatList'
 import SearchRestaurantModal from '@_userListPages/searchRestaurantModal/searchRestaurantModal'
-import { RestaurantNameInput } from '@_userListPages/restaurantNameInput'
-import { RestaurantListItem } from '@_userListPages/restaurantListItem'
+import { RestaurantNameInput } from '@_userListPages/listManage/restaurantNameInput'
+import { RestaurantListItem } from '@_userListPages/listManage/restaurantListItem'
 
 export const AddUserList = ({
   navigation,

@@ -1,24 +1,85 @@
 import React, { useCallback, useState } from 'react'
-import { StyleSheet, View, Text, Alert, Platform } from 'react-native'
+import { StyleSheet, View, Alert, Platform } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationProp, useFocusEffect } from '@react-navigation/native'
 import { Button } from 'react-native-paper'
+import { Icon } from '@rneui/themed'
 import { MyTheme } from 'theme'
-import RandomItemModal from '@_common/ui/randomItemModal'
 import { LocationTypes, RootStackParamList } from '@_types'
+import RandomItemModal from '@_common/ui/randomItemModal'
 import { useListNames } from '@_userList/hook/useListNames'
 import { DefaultFlatList } from '@_userListPages/defaultFlatList'
-import { ListManageIcon } from '@_userListPages/listManage/listManageIcon'
+import { KebapMenuModal } from '@_userListPages/kebapMenuModal'
+import { ListItem } from '@_userListPages/listItem'
 
 export const UserCustomList = ({
   navigation,
 }: {
   navigation: NavigationProp<RootStackParamList>
 }) => {
-  const { listNames, fetchListNames } = useListNames()
+  const { listNames, fetchListNames, saveListNames } = useListNames()
   const [selectedListName, setSelectedListName] = useState<string>('')
   const [modalVisible, setModalVisible] = useState(false)
   const [restaurantItems, setRestaurantItems] = useState<LocationTypes[]>([])
+  const [menuModalVisible, setMenuModalVisible] = useState(false)
+  const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 })
+  const [selectedItem, setSelectedItem] = useState<string>('')
+
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchListNames()
+    }, []),
+  )
+
+  const handleKebapButtonClick = (
+    width: number,
+    height: number,
+    x: number,
+    y: number,
+  ) => {
+    setModalPosition({
+      x: x - 1.5 * width,
+      y: Platform.OS === 'android' ? y - 15 : y + 5,
+    })
+    setMenuModalVisible(true)
+  }
+
+  const handleEditButtonClick = (listName: string) => {
+    navigation.navigate('EditUserList', { listName: listName })
+    setMenuModalVisible(false)
+  }
+
+  const handleDeleteButtonClick = (listName: string) => {
+    Alert.alert(
+      `${listName} 삭제`,
+      '리스트를 삭제하시겠습니까?',
+      [
+        {
+          text: '아니오',
+          style: 'cancel',
+        },
+        {
+          text: '예',
+          onPress: async () => {
+            try {
+              if (listNames !== null) {
+                const newListNames = listNames.filter(
+                  (name: string) => name !== listName,
+                )
+                await saveListNames(newListNames)
+              }
+              await AsyncStorage.removeItem(listName)
+              Alert.alert('삭제되었습니다.')
+            } catch (error) {
+              console.error('Error deleting list:', error)
+            }
+          },
+        },
+      ],
+      { cancelable: false },
+    )
+    setMenuModalVisible(false)
+  }
 
   const handleRestaurantChange = useCallback(() => {
     navigation.navigate('UserSelectedRestaurantInfo', {
@@ -27,13 +88,7 @@ export const UserCustomList = ({
     })
   }, [restaurantItems])
 
-  useFocusEffect(
-    React.useCallback(() => {
-      fetchListNames()
-    }, []),
-  )
-
-  const handlePressItem = async (item: string) => {
+  const handleItemClick = async (item: string) => {
     try {
       const savedListData = await AsyncStorage.getItem(item)
       setSelectedListName(item)
@@ -73,18 +128,26 @@ export const UserCustomList = ({
             data={listNames}
             keyExtractor={(item, index) => index.toString()}
             renderItem={item => (
-              <Text
-                style={styles.listText}
-                numberOfLines={1}
-                ellipsizeMode="tail">
-                {item}
-              </Text>
+              <ListItem
+                item={item}
+                onKebabPress={(width, height, x, y) => {
+                  handleKebapButtonClick(width, height, x, y)
+                  setSelectedItem(item)
+                }}
+                onItemPress={() => handleItemClick(item)}
+              />
             )}
-            onPressItem={handlePressItem}
+            onPressItem={handleItemClick}
           />
         )}
         <View style={styles.iconWrapper}>
-          <ListManageIcon navigation={navigation} />
+          <Icon
+            type="material-community"
+            size={45}
+            name={'playlist-plus'}
+            color={MyTheme.colors.primary}
+            onPress={handleAddButtonClick}
+          />
         </View>
       </View>
       <RandomItemModal
@@ -93,6 +156,14 @@ export const UserCustomList = ({
         items={restaurantItems}
         onItemChange={handleRestaurantChange}
         isRestaurantSelection={true}
+      />
+      <KebapMenuModal
+        modalVisible={menuModalVisible}
+        modalPosition={modalPosition}
+        selectedItem={selectedItem}
+        onEdit={handleEditButtonClick}
+        onDelete={handleDeleteButtonClick}
+        onClose={() => setMenuModalVisible(false)}
       />
     </View>
   )
@@ -110,11 +181,6 @@ const styles = StyleSheet.create({
   iconWrapper: {
     marginTop: MyTheme.width * 10,
     alignItems: 'flex-end',
-  },
-  listText: {
-    fontSize: MyTheme.width * 20,
-    textAlign: 'center',
-    lineHeight: MyTheme.width * 24,
   },
   infoArea: {
     flex: 1,
@@ -135,7 +201,7 @@ const styles = StyleSheet.create({
   },
   infoText: {
     fontSize: Platform.select({
-      ios: MyTheme.width * 18,
+      ios: MyTheme.width * 17,
       android: MyTheme.width * 16,
     }),
     paddingTop: MyTheme.width * 2,

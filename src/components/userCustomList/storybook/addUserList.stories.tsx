@@ -3,8 +3,8 @@ import type { Meta, StoryFn } from '@storybook/react'
 import { NavigationContainer, NavigationProp } from '@react-navigation/native'
 import { action } from '@storybook/addon-actions'
 
-import { AddUserList } from '@_userListPages/addUserList'
-import { RootStackParamList } from '@_types/listParamList'
+import { AddUserList } from '@_userListPages/listManage/addUserList'
+import { RootStackParamList } from '@_types'
 
 export default {
   title: 'Components/UserCustomList/AddUserList',

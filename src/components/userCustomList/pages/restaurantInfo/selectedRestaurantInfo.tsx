@@ -16,8 +16,8 @@ import { useRestaurantContext } from '@_common/context/restaurantContext'
 import { useStore } from '@_common/utils/zustandStore'
 import Map from '@_common/ui/map'
 import RandomItemModal from '@_common/ui/randomItemModal'
-import RestaurantDetail from '@_userListPages/restaurantDetail'
-import RestaurantActionButtons from '@_userListPages/restaurantActionButtons'
+import RestaurantDetail from '@_userListPages/restaurantInfo/restaurantDetail'
+import RestaurantActionButtons from '@_userListPages/restaurantInfo/restaurantActionButtons'
 
 export const SelectedRestaurantInfo = ({
   route,
@@ -93,7 +93,7 @@ export const SelectedRestaurantInfo = ({
       ) : (
         <View style={styles.mediaContainer}>
           <Image
-            source={require('../../../../assets/icon.png')}
+            source={require('@_assetImages/character.png')}
             style={{ width: '100%', height: '100%' }}
           />
         </View>

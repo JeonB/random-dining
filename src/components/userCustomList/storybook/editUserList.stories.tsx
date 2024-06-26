@@ -8,8 +8,8 @@ import {
 } from '@react-navigation/native'
 import { action } from '@storybook/addon-actions'
 
-import { RootStackParamList } from '@_types/listParamList'
-import { EditUserList } from '@_userListPages/editUserList'
+import { RootStackParamList } from '@_types'
+import { EditUserList } from '@_userListPages/listManage/editUserList'
 
 export default {
   title: 'Components/UserCustomList/EditUserList',

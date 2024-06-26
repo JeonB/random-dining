@@ -22,6 +22,14 @@ const PositionSelector = () => {
     try {
       const { longitude: currentLongitude, latitude: currentLatitude } =
         await getPositionByGeolocation()
+
+      if (!currentLongitude || !currentLatitude) {
+        console.error(
+          '기기가 좌표를 불러오지 못 하고 있습니다. 위치 설정 옵션을 확인해주세요.',
+        )
+        setCurrentSearchButtonDisabled(false)
+        return
+      }
       setCurrentLocation({
         currentLongitude,
         currentLatitude,
@@ -35,21 +43,21 @@ const PositionSelector = () => {
     } catch (error) {
       console.error('위치 권한이 거부되었습니다.')
       // 사용자에게 알림을 표시하고 위치 권한 설정으로 이동
-      Alert.alert(
-        '위치 권한 필요',
-        '이 기능을 사용하려면 위치 권한이 필요합니다. 설정으로 이동하시겠습니까?',
-        [
-          {
-            text: '취소',
-            onPress: () =>
-              console.log(
-                '위치 권한 설정은 핵심 기능이므로 추후에 꼭 허용해주세요',
-              ),
-            style: 'cancel',
-          },
-          { text: '확인', onPress: () => Linking.openSettings() },
-        ],
-      )
+      // Alert.alert(
+      //   '위치 권한 필요',
+      //   '이 기능을 사용하려면 위치 권한이 필요합니다. 설정으로 이동하시겠습니까?',
+      //   [
+      //     {
+      //       text: '취소',
+      //       onPress: () =>
+      //         console.log(
+      //           '위치 권한 설정은 핵심 기능이므로 추후에 꼭 허용해주세요',
+      //         ),
+      //       style: 'cancel',
+      //     },
+      //     { text: '확인', onPress: () => Linking.openSettings() },
+      //   ],
+      // )
     }
   }
   const handleGetCurrentLocationForMap = async () => {
