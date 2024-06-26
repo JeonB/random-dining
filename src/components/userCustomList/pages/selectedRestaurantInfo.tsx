@@ -28,7 +28,7 @@ export const SelectedRestaurantInfo = ({
   const [modalVisible, setModalVisible] = useState(false)
   const [restaurantItems, setRestaurantItems] = useState<LocationTypes[]>([])
   const [isLoading, setIsLoading] = useState(false)
-  const { restaurant } = useStore()
+  const { listRestaurant } = useStore()
 
   const handleRestaurantChange = useCallback(() => {
     navigation.navigate('UserSelectedRestaurantInfo', {
@@ -55,8 +55,8 @@ export const SelectedRestaurantInfo = ({
 
   const Content = (
     <View onLayout={onLayout} style={{ width: Dimensions.get('window').width }}>
-      {restaurant.place_url ? (
-        <RestaurantDetail info={restaurant} />
+      {listRestaurant.place_url ? (
+        <RestaurantDetail info={listRestaurant} />
       ) : (
         <View style={styles.infoView}>
           <Text
@@ -71,7 +71,7 @@ export const SelectedRestaurantInfo = ({
             }}
             numberOfLines={1}
             ellipsizeMode="tail">
-            {restaurant.place_name}
+            {listRestaurant.place_name}
           </Text>
         </View>
       )}
@@ -86,9 +86,9 @@ export const SelectedRestaurantInfo = ({
 
   return (
     <View style={styles.container}>
-      {restaurant.x ? (
+      {listRestaurant.x ? (
         <View style={styles.mapContainer}>
-          <Map info={restaurant} currentLocation={currentLocation} />
+          <Map info={listRestaurant} currentLocation={currentLocation} />
         </View>
       ) : (
         <View style={styles.mediaContainer}>

@@ -32,7 +32,7 @@ ListManageButton.displayName = 'AnimatedButton'
 
 const styles = {
   button: {
-    // margin: 3,
+    margin: 3,
     borderRadius: 10,
     shadowOffset: {
       width: 0,

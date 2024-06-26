@@ -22,11 +22,11 @@ const RestaurantActionButtons = ({
   navigation,
   listName,
 }: Props) => {
-  const { restaurant } = useStore()
+  const { listRestaurant } = useStore()
 
   const handleDetailViewClick = () => {
-    if (restaurant && restaurant.place_url) {
-      navigation.navigate('Detail', { url: restaurant.place_url })
+    if (listRestaurant && listRestaurant.place_url) {
+      navigation.navigate('Detail', { url: listRestaurant.place_url })
     }
   }
   const [modalVisible, setModalVisible] = useState(false)
@@ -38,7 +38,7 @@ const RestaurantActionButtons = ({
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
-        {restaurant?.place_url ? (
+        {listRestaurant.place_url ? (
           <Button
             mode={Platform.OS === 'ios' ? 'contained' : 'elevated'}
             onPress={handleDetailViewClick}
@@ -60,7 +60,7 @@ const RestaurantActionButtons = ({
         </Button>
       </View>
       <AddUserListModal
-        selectedInfo={restaurant}
+        selectedInfo={listRestaurant}
         visible={modalVisible}
         onClose={() => setModalVisible(false)}
       />
