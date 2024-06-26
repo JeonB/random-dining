@@ -17,6 +17,8 @@ const useRestaurantStore = () => {
     setRestaurant: state.setRestaurant,
     listRestaurant: state.listRestaurant,
     setListRestaurant: state.setListRestaurant,
+    selectedLocation: state.selectedLocation,
+    setSelectedLocation: state.setSelectedLocation,
   }))
 }
 
@@ -34,8 +36,14 @@ const Map = React.memo(
     const appKey = KAKAO_JAVASCRIPT_KEY
     const isFocused = useIsFocused()
     const navigation = useNavigation<NavigationProp<RestaurantParamList>>()
-    const { restaurant, setRestaurant, listRestaurant, setListRestaurant } =
-      useRestaurantStore()
+    const {
+      restaurant,
+      setRestaurant,
+      listRestaurant,
+      setListRestaurant,
+      selectedLocation,
+      setSelectedLocation,
+    } = useRestaurantStore()
     const { currentLatitude, currentLongitude } = currentLocation
     const webViewRef = useRef<WebView>(null)
     const [isMapSearch, setIsMapSearch] = useState(true)
@@ -76,7 +84,7 @@ const Map = React.memo(
       if (!setMarkerVisible) {
         setIsMapSearch(false)
       }
-    }, [setMarkerVisible])
+    }, [setMarkerVisible, selectedLocation])
 
     const generateHTML = () => {
       return `
@@ -163,6 +171,7 @@ const Map = React.memo(
               };
               const map = new kakao.maps.Map(container, options);
               const infowindow = new kakao.maps.InfoWindow({zIndex:1});
+
               const currentPosition = new kakao.maps.LatLng(${currentLatitude}, ${currentLongitude});
               const currentImageSrc = 'https://i.postimg.cc/bv4k38Cq/red-circle.png';
               const currentImageSize = new kakao.maps.Size(20, 20);
@@ -173,6 +182,19 @@ const Map = React.memo(
                 position: currentPosition,
                 image: currentMarkerImage
               });
+              if('${selectedLocation.latitude}' > 0 && '${currentLatitude}' !== '${selectedLocation.latitude}'){
+                const selectedPosition = new kakao.maps.LatLng('${selectedLocation.latitude}', '${selectedLocation.longitude}');
+                const selectedImageSrc = 'https://i.postimg.cc/tJFZQDMF/free-icon-location-marker-8211093.png';
+                const selectedImageSize = new kakao.maps.Size(50, 50);
+                const selectedImageOption = { offset: new kakao.maps.Point(24, 40) };
+                const selectedMarkerImage = new kakao.maps.MarkerImage(selectedImageSrc, selectedImageSize, selectedImageOption);
+                const selectedMarker = new kakao.maps.Marker({
+                  map: map,
+                  position: selectedPosition,
+                  image: selectedMarkerImage
+                });
+                map.setCenter(selectedPosition);
+              }
               const imageSrc = 'https://i.postimg.cc/pTp9xBHZ/free-icon-restaurant.png';
               const imageSize = new kakao.maps.Size(30, 30);
               const imgOptions = { offset: new kakao.maps.Point(13, 37) };
