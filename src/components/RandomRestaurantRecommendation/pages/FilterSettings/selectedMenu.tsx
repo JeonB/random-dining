@@ -1,12 +1,5 @@
-import React, { useCallback, useRef, useState } from 'react'
-import {
-  View,
-  Image,
-  Dimensions,
-  Platform,
-  StyleSheet,
-  Alert,
-} from 'react-native'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { View, Dimensions, Platform, StyleSheet, Alert } from 'react-native'
 import RandomItemModal from '@_common/ui/randomItemModal'
 import { MyTheme } from 'theme'
 import { RestaurantParamList } from '@_types'
@@ -17,6 +10,7 @@ import { useStore } from '@_common/utils/zustandStore'
 import { Text } from '@rneui/themed'
 import { fetchLocationData } from '@_services/api'
 import { images } from './images'
+import { Image } from 'expo-image'
 
 export const SelectedMenu = ({
   route,
@@ -40,6 +34,19 @@ export const SelectedMenu = ({
       setIsLoading(false)
     }
   }, [])
+
+  useEffect(() => {
+    // Prefetch images
+    const imageUrls = Object.values(images)
+    Image.prefetch(imageUrls)
+      .then(results => {
+        console.log('Images preloaded:', results)
+      })
+      .catch(error => {
+        console.error('Error preloading images:', error)
+      })
+  }, [])
+
   const handleRestaurantViewClick = async () => {
     const restaurantItems = await fetchLocationData(
       menu,
@@ -82,7 +89,7 @@ export const SelectedMenu = ({
         <Image
           source={{ uri: images[menu] }}
           style={styles.image}
-          onError={({ nativeEvent: { error } }) => console.warn(error)}
+          transition={{ timing: 'ease-in-out' }}
         />
         <Text style={{ fontSize: MyTheme.width * 30 }}>{menu}</Text>
       </View>

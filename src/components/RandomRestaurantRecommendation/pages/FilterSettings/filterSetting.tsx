@@ -94,18 +94,19 @@ const FilterSetting = () => {
             카테고리
           </Text>
           <CategorySwitch />
+          <View style={styles.buttonContainer}>
+            <RandomPickButton
+              handleRandomPickClick={handleRandomPickClick}
+              isLoading={isLoading}
+              icon="chat-question-outline"
+              text="뭐 먹지?"
+              style={styles.button}
+              labelStyle={styles.buttonLabel}
+            />
+          </View>
         </View>
       </ScrollView>
-      <View style={styles.buttonContainer}>
-        <RandomPickButton
-          handleRandomPickClick={handleRandomPickClick}
-          isLoading={isLoading}
-          icon="chat-question-outline"
-          text="뭐 먹지?"
-          style={styles.button}
-          labelStyle={styles.buttonLabel}
-        />
-      </View>
+
       <RandomItemModal
         visible={modalVisible}
         onClose={handleClose}
@@ -119,9 +120,14 @@ const FilterSetting = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: MyTheme.width * 800,
+    position: 'relative',
+    alignItems: 'center',
+    alignSelf: 'center',
   },
   filterOptions: {
     marginTop: MyTheme.width * 18,
+    marginBottom: 0,
   },
   text: {
     textAlign: 'left',
@@ -130,8 +136,7 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
   },
   buttonContainer: {
-    position: 'absolute',
-    bottom: Dimensions.get('window').height * 0.01,
+    marginTop: MyTheme.width * 20,
     width: MyTheme.width * 300,
     height: MyTheme.width * 50,
     alignItems: 'center',
