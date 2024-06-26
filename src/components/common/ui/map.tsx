@@ -11,6 +11,7 @@ import {
 } from '@react-navigation/native'
 import { LocationTypes, RestaurantParamList } from '@_types'
 
+console.log('Map.tsx')
 const Map = React.memo(
   ({
     info,
