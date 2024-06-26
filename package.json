@@ -33,6 +33,7 @@
     "expo": "^51.0.9",
     "expo-dev-client": "^4.0.15",
     "expo-device": "^6.0.2",
+    "expo-image": "^1.12.12",
     "expo-linear-gradient": "~13.0.2",
     "expo-location": "~17.0.1",
     "expo-status-bar": "^1.12.1",
