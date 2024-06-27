@@ -2,8 +2,10 @@ import { Text } from '@rneui/themed'
 import React, { useCallback, useEffect, useMemo, useRef } from 'react'
 import { Animated, View, StyleSheet } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
+import { Icon } from '@rneui/themed'
 import { useStore } from '@_common/utils/zustandStore'
 import { LocationTypes } from '@_types'
+import { MyTheme } from 'theme'
 
 export interface Props {
   items: string[] | LocationTypes[]
@@ -74,6 +76,38 @@ export const AnimatedRandomSelector = (props: Props) => {
     }
   }, [])
 
+  // 아이콘
+  const shakeAnimation = useRef(new Animated.Value(0)).current
+  useEffect(() => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(shakeAnimation, {
+          toValue: 1,
+          duration: 20,
+          useNativeDriver: true,
+        }),
+        Animated.timing(shakeAnimation, {
+          toValue: -1,
+          duration: 20,
+          useNativeDriver: true,
+        }),
+        Animated.timing(shakeAnimation, {
+          toValue: 0,
+          duration: 50,
+          useNativeDriver: true,
+        }),
+      ]),
+    ).start()
+  }, [])
+  const shakeTransform = shakeAnimation.interpolate({
+    inputRange: [-1, 1],
+    outputRange: ['-5deg', '5deg'],
+  })
+  const shakeTransformRight = shakeAnimation.interpolate({
+    inputRange: [-1, 1],
+    outputRange: ['5deg', '-5deg'],
+  })
+
   return (
     <View
       style={{
@@ -95,8 +129,12 @@ export const AnimatedRandomSelector = (props: Props) => {
               height: itemHeight,
               justifyContent: 'center',
               alignItems: 'center',
+              paddingHorizontal: 15,
             }}>
-            <Text style={styles.itemText}>
+            <Text
+              style={styles.itemText}
+              numberOfLines={1}
+              ellipsizeMode="tail">
               {isRestaurantSelection
                 ? (item as LocationTypes).place_name
                 : (item as string)}
@@ -105,19 +143,37 @@ export const AnimatedRandomSelector = (props: Props) => {
         ))}
       </Animated.View>
       <View
-        style={{
-          position: 'absolute',
-          top: itemHeight,
-          left: 0,
-          right: 0,
-          height: itemHeight + 5,
-          borderColor: 'black',
-          borderWidth: 2,
-          borderRadius: 5,
-          marginHorizontal: 5,
-        }}
-      />
-
+        style={[
+          styles.icon,
+          {
+            top: itemHeight - 2,
+            height: itemHeight + 4,
+          },
+        ]}>
+        <Animated.View
+          style={{ marginLeft: -15, transform: [{ rotate: shakeTransform }] }}>
+          <Icon
+            type="material-community"
+            name="navigation"
+            size={40}
+            color={MyTheme.colors.primary}
+            style={styles.arrowLeft}
+          />
+        </Animated.View>
+        <Animated.View
+          style={{
+            marginRight: -15,
+            transform: [{ rotate: shakeTransformRight }],
+          }}>
+          <Icon
+            type="material-community"
+            name="navigation"
+            size={40}
+            color={MyTheme.colors.primary}
+            style={styles.arrowRight}
+          />
+        </Animated.View>
+      </View>
       <LinearGradient
         colors={[
           'rgba(255, 255, 255, 0.8)',
@@ -142,5 +198,24 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
+  },
+  icon: {
+    position: 'absolute',
+    left: 15,
+    right: 15,
+    borderColor: 'grey',
+    borderWidth: 2,
+    borderRadius: 5,
+    marginHorizontal: 5,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+    overflow: 'visible',
+  },
+  arrowLeft: {
+    transform: [{ rotate: '90deg' }],
+  },
+  arrowRight: {
+    transform: [{ rotate: '-90deg' }],
   },
 })
