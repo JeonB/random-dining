@@ -20,7 +20,6 @@ export const SelectedMenu = ({
   const [modalVisible, setModalVisible] = useState(false)
   const isMounted = useRef(true)
   const { menu, setRestaurantItems, selectedLocation, distance } = useStore()
-  // const selectedData = Array.from(new Set(route.params?.items)) 현재 중복되는 아이템 제거하는 로직이 정상 작동하지 않음 (2024.06.24)
   const selectedData = route.params?.items
   if (!selectedData) {
     // selectedData가 undefined일 때 처리하는 로직
@@ -36,15 +35,10 @@ export const SelectedMenu = ({
   }, [])
 
   useEffect(() => {
-    // Prefetch images
     const imageUrls = Object.values(images)
-    Image.prefetch(imageUrls)
-      .then(results => {
-        console.log('Images preloaded:', results)
-      })
-      .catch(error => {
-        console.error('Error preloading images:', error)
-      })
+    Image.prefetch(imageUrls).catch(error => {
+      console.error('Error preloading images:', error)
+    })
   }, [])
 
   const handleRestaurantViewClick = async () => {
@@ -89,7 +83,7 @@ export const SelectedMenu = ({
         <Image
           source={{ uri: images[menu] }}
           style={styles.image}
-          transition={{ timing: 'ease-in-out' }}
+          // transition={{ timing: 'ease-in-out' }}
         />
         <Text style={{ fontSize: MyTheme.width * 30 }}>{menu}</Text>
       </View>
