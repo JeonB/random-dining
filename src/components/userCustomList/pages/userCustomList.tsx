@@ -143,9 +143,9 @@ export const UserCustomList = ({
         <View style={styles.iconWrapper}>
           <Icon
             type="material-community"
-            size={45}
+            size={50}
             name={'playlist-plus'}
-            color={MyTheme.colors.primary}
+            color={MyTheme.colors.secondary}
             onPress={handleAddButtonClick}
           />
         </View>

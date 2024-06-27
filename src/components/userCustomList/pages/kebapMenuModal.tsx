@@ -62,7 +62,7 @@ export const KebapMenuModal: React.FC<KebapMenuModalProps> = ({
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => onDelete(selectedItem)}>
-              <View style={styles.button}>
+              <View style={[styles.button, { paddingLeft: 7 }]}>
                 <Icon
                   type="material-community"
                   size={25}
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   modalText: {
     textAlign: 'center',
     fontSize: Platform.select({
-      ios: MyTheme.width * 18,
+      ios: MyTheme.width * 17,
       android: MyTheme.width * 16,
     }),
     marginVertical: Platform.select({
