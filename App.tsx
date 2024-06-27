@@ -85,6 +85,14 @@ const App: React.FC = () => {
           <Tab.Screen
             name="Main"
             component={RestaurantStackScreen}
+            listeners={({ navigation }) => ({
+              tabPress: e => {
+                // Prevent default action
+                e.preventDefault()
+                // Navigate to the PositionSelector screen
+                navigation.navigate('Home', { screen: 'PositionSelector' })
+              },
+            })}
             options={{
               headerShown: false,
               title: '홈',
