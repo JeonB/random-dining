@@ -83,7 +83,7 @@ export const SelectedMenu = ({
         <Image
           source={{ uri: images[menu] }}
           style={styles.image}
-          // transition={{ timing: 'ease-in-out' }}
+          transition={{ timing: 'ease-in-out' }}
         />
         <Text style={{ fontSize: MyTheme.width * 30 }}>{menu}</Text>
       </View>

@@ -181,6 +181,7 @@ const Map = React.memo(
                 position: currentPosition,
                 image: currentMarkerImage
               });
+
               if('${selectedLocation.latitude}' > 0 && '${currentLatitude}' !== '${selectedLocation.latitude}'){
                 const selectedPosition = new kakao.maps.LatLng('${selectedLocation.latitude}', '${selectedLocation.longitude}');
                 const selectedImageSrc = 'https://i.postimg.cc/tJFZQDMF/free-icon-location-marker-8211093.png';
@@ -219,7 +220,7 @@ const Map = React.memo(
                   window.ReactNativeWebView.postMessage(JSON.stringify({ markerVisible: markerVisible }));
                 });
 
-              } else if ('${restaurant.place_name}' !== '' && '${listRestaurant.place_name}' === ''){
+              } else if ('${restaurant.place_name}' !== '' ){
                   kakao.maps.event.addListener(map, 'click', function () {
                     infowindow.close()
                   });
@@ -249,7 +250,8 @@ const Map = React.memo(
                   });
                   customOverlay.setMap(map);
 
-              } else if('${listRestaurant.place_name}' !== '' && '${restaurant.place_name}' === ''){
+              }
+              else if('${listRestaurant.y}' > 0  && '${restaurant.place_name}' === ''){
                 const markerPosition = new kakao.maps.LatLng('${listRestaurant.y}', '${listRestaurant.x}');
                 const marker = new kakao.maps.Marker({
                   map: map,
