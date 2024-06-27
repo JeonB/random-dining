@@ -18,6 +18,7 @@ const PositionSelector = () => {
   const { currentLocation, setCurrentLocation } = useStore()
   const [isCurrentSearchButtonDisabled, setCurrentSearchButtonDisabled] =
     useState(false)
+
   const handleGetCurrentLocation = async () => {
     try {
       const { longitude: currentLongitude, latitude: currentLatitude } =
@@ -60,34 +61,40 @@ const PositionSelector = () => {
       // )
     }
   }
+
   const handleGetCurrentLocationForMap = async () => {
-    const { latitude, longitude } = await getPositionByGeolocation()
-    if (!latitude || !longitude) {
-      console.error(
-        '기기가 좌표를 불러오지 못 하고 있습니다. 위치 설정 옵션을 확인해주세요.',
-      )
+    try {
+      const { latitude, longitude } = await getPositionByGeolocation()
+      if (!latitude || !longitude) {
+        console.error(
+          '기기가 좌표를 불러오지 못 하고 있습니다. 위치 설정 옵션을 확인해주세요.',
+        )
+        setMapSearchButtonDisabled(false)
+        return
+      }
+      navigation.navigate('MapSearch', {
+        location: { latitude, longitude },
+      })
+    } catch (error) {
+      console.error('위치 정보를 가져오는 중 오류가 발생했습니다:', error)
       setMapSearchButtonDisabled(false)
-      return
     }
-    navigation.navigate('MapSearch', {
-      location: {
-        latitude: latitude,
-        longitude: longitude,
-      },
-    })
   }
+
   useEffect(() => {
     const fetchPosition = async () => {
       await getPositionByGeolocation()
     }
     fetchPosition()
   }, [])
+
   useFocusEffect(
     useCallback(() => {
       setMapSearchButtonDisabled(false)
       setCurrentSearchButtonDisabled(false)
     }, []),
   )
+
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.mediaContainer} testID="mediaContainer">

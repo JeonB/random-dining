@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Dimensions, StyleSheet, SafeAreaView } from 'react-native'
 import { WebView, WebViewMessageEvent } from 'react-native-webview'
 import Constants from 'expo-constants'
@@ -18,7 +18,6 @@ const useRestaurantStore = () => {
     listRestaurant: state.listRestaurant,
     setListRestaurant: state.setListRestaurant,
     selectedLocation: state.selectedLocation,
-    setSelectedLocation: state.setSelectedLocation,
   }))
 }
 
@@ -42,12 +41,11 @@ const Map = React.memo(
       listRestaurant,
       setListRestaurant,
       selectedLocation,
-      setSelectedLocation,
     } = useRestaurantStore()
     const { currentLatitude, currentLongitude } = currentLocation
     const webViewRef = useRef<WebView>(null)
     const [isMapSearch, setIsMapSearch] = useState(true)
-
+    const [html, setHtml] = useState('')
     useEffect(() => {
       if (!isFocused) {
         setRestaurant({
@@ -86,8 +84,9 @@ const Map = React.memo(
       }
     }, [setMarkerVisible, selectedLocation])
 
-    const generateHTML = () => {
-      return `
+    useEffect(() => {
+      const generateHTML = () => {
+        return `
       <html>
         <head>
           <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -266,13 +265,14 @@ const Map = React.memo(
         </body>
       </html>
     `
-    }
-
-    const html = useMemo(generateHTML, [
+      }
+      setHtml(generateHTML())
+    }, [
       isMapSearch,
       restaurant,
       currentLatitude,
       currentLongitude,
+      selectedLocation,
     ])
 
     return (
