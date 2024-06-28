@@ -19,5 +19,6 @@
     },
     "allowSyntheticDefaultImports": true,
     "jsx": "react"
-  }
+  },
+  "include": ["src", "env.d.ts"]
 }

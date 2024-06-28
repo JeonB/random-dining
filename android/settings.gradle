@@ -1,4 +1,4 @@
-rootProject.name = '랜덤다이닝'
+rootProject.name = '랜덤다이닝(DEV)'
 
 dependencyResolutionManagement {
   versionCatalogs {

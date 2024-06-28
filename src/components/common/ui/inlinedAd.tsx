@@ -21,7 +21,11 @@ const InlineAd = () => {
     <View style={{ height: isAdLoaded ? 'auto' : 0 }}>
       <BannerAd
         // 반드시 개발 환경에서는 테스트 광고 ID를 사용하고 프로덕션 환경에서는 실제 광고 ID를 사용해야 합니다.
-        unitId={__DEV__ ? TestIds.BANNER : productionID}
+        unitId={
+          Constants.expoConfig?.name !== '랜덤다이닝'
+            ? TestIds.BANNER
+            : productionID
+        }
         size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
         requestOptions={{
           // App.tsx에서 업데이트한 trackingDenied 값에 따라 사용자화된 광고 제공여부 정함

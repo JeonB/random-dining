@@ -12,13 +12,18 @@
       }
     },
     "preview": {
-      "distribution": "internal",
-      "channel": "preview"
-    },
-    "preview2": {
-      "channel": "preview"
+      "env": {
+        "APP_ENV": "preview"
+      },
+      "channel": "preview",
+      "ios": {
+        "cocoapods": "1.15.2"
+      }
     },
     "production": {
+      "env": {
+        "APP_ENV": "production"
+      },
       "channel": "production",
       "ios": {
         "cocoapods": "1.15.2"

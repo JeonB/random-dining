@@ -8,9 +8,9 @@ export interface AppConfig {
 }
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
-  name: '랜덤다이닝',
+  name: process.env.APP_ENV === 'production' ? '랜덤다이닝' : '랜덤다이닝(DEV)',
   slug: 'random-dining',
-  version: '1.0.2',
+  version: '2.0.0',
   extra: {
     storybookEnabled: process.env.STORYBOOK_ENABLED,
     KAKAO_RESTAPI_KEY: process.env.KAKAO_RESTAPI_KEY,
@@ -32,8 +32,11 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   assetBundlePatterns: ['**/*'],
   ios: {
     supportsTablet: false,
-    buildNumber: '1.0.7',
-    bundleIdentifier: 'com.ifinfo.randomdining',
+    buildNumber: '1',
+    bundleIdentifier:
+      process.env.APP_ENV === 'production'
+        ? 'com.ifinfo.randomdining'
+        : 'com.ifinfo.randomdining-dev',
     infoPlist: {
       ITSAppUsesNonExemptEncryption: false,
       NSUserTrackingUsageDescription:
@@ -104,7 +107,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       backgroundColor: '#ffffff',
     },
     package: 'com.ifinfo.randomdining',
-    versionCode: 19,
+    versionCode: 20,
     permissions: ['com.google.android.gms.permission.AD_ID'],
   },
   web: {
@@ -113,7 +116,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   updates: {
     url: 'https://u.expo.dev/a6d7b0a6-43fb-42f0-b832-33ba126e59d8',
   },
-  runtimeVersion: '1.0.0',
+  runtimeVersion: '2.0.0',
   plugins: [
     [
       'expo-tracking-transparency',
