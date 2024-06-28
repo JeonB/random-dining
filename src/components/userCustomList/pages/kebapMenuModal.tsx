@@ -101,8 +101,8 @@ const styles = StyleSheet.create({
   modalText: {
     textAlign: 'center',
     fontSize: Platform.select({
-      ios: MyTheme.width * 17,
-      android: MyTheme.width * 16,
+      ios: MyTheme.width * 19,
+      android: MyTheme.width * 17,
     }),
     marginVertical: Platform.select({
       ios: MyTheme.width * 10,

@@ -3,9 +3,9 @@ import { StyleSheet, View, Alert, Platform } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationProp, useFocusEffect } from '@react-navigation/native'
 import { Button } from 'react-native-paper'
-import { Icon } from '@rneui/themed'
 import { MyTheme } from 'theme'
 import { LocationTypes, RootStackParamList } from '@_types'
+import InlineAd from '@_common/ui/inlinedAd'
 import RandomItemModal from '@_common/ui/randomItemModal'
 import { useListNames } from '@_userList/hook/useListNames'
 import { DefaultFlatList } from '@_userListPages/defaultFlatList'
@@ -124,31 +124,40 @@ export const UserCustomList = ({
             </Button>
           </View>
         ) : (
-          <DefaultFlatList
-            data={listNames}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={item => (
-              <ListItem
-                item={item}
-                onKebabPress={(width, height, x, y) => {
-                  handleKebapButtonClick(width, height, x, y)
-                  setSelectedItem(item)
-                }}
-                onItemPress={() => handleItemClick(item)}
-              />
-            )}
-            onPressItem={handleItemClick}
-          />
+          <View
+            style={{
+              flex: 1,
+              marginBottom: MyTheme.width * 20,
+            }}>
+            <Button
+              mode={Platform.OS === 'ios' ? 'contained' : 'elevated'}
+              style={styles.infoButton}
+              buttonColor={MyTheme.colors.primary}
+              textColor="white"
+              labelStyle={styles.infoText}
+              onPress={handleAddButtonClick}>
+              + 리스트 추가
+            </Button>
+            <DefaultFlatList
+              data={listNames}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={item => (
+                <ListItem
+                  item={item}
+                  onKebabPress={(width, height, x, y) => {
+                    handleKebapButtonClick(width, height, x, y)
+                    setSelectedItem(item)
+                  }}
+                  onItemPress={() => handleItemClick(item)}
+                />
+              )}
+              onPressItem={handleItemClick}
+            />
+          </View>
         )}
-        <View style={styles.iconWrapper}>
-          <Icon
-            type="material-community"
-            size={50}
-            name={'playlist-plus'}
-            color={MyTheme.colors.secondary}
-            onPress={handleAddButtonClick}
-          />
-        </View>
+      </View>
+      <View style={{ alignItems: 'center' }}>
+        <InlineAd />
       </View>
       <RandomItemModal
         visible={modalVisible}
@@ -172,15 +181,13 @@ export const UserCustomList = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: MyTheme.width * 30,
+    paddingHorizontal: MyTheme.width * 30,
+    paddingTop: MyTheme.width * 10,
   },
   listContainer: {
     flex: 1,
     flexDirection: 'column',
-  },
-  iconWrapper: {
-    marginTop: MyTheme.width * 10,
-    alignItems: 'flex-end',
+    marginBottom: MyTheme.width * 20,
   },
   infoArea: {
     flex: 1,
@@ -198,12 +205,13 @@ const styles = StyleSheet.create({
     backgroundColor: MyTheme.colors.primary,
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
+    marginBottom: MyTheme.width * 10,
   },
   infoText: {
     fontSize: Platform.select({
-      ios: MyTheme.width * 17,
-      android: MyTheme.width * 16,
+      ios: MyTheme.width * 19,
+      android: MyTheme.width * 17,
     }),
-    paddingTop: MyTheme.width * 2,
+    paddingTop: MyTheme.width * 5,
   },
 })
