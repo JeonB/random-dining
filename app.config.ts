@@ -38,7 +38,17 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         ? 'com.ifinfo.randomdining'
         : 'com.ifinfo.randomdining-dev',
     infoPlist: {
+      CFBundleDevelopmentRegion: 'ko',
+      NSAppTransportSecurity: {
+        NSAllowsArbitraryLoadsInWebContent: true,
+      },
       ITSAppUsesNonExemptEncryption: false,
+      NSLocationAlwaysAndWhenInUseUsageDescription:
+        '이 앱이 위치 기반 식당 추천을 위해 위치 정보를 사용하도록 허용합니다.',
+      NSLocationAlwaysUsageDescription:
+        '이 앱이 위치 기반 식당 추천을 위해 위치 정보를 사용하도록 허용합니다.',
+      NSLocationWhenInUseUsageDescription:
+        '이 앱이 위치 기반 식당 추천을 위해 위치 정보를 사용하도록 허용합니다.',
       NSUserTrackingUsageDescription:
         '개인에게 최적화된 광고를 제공하기 위해 사용자의 광고활동 정보를 수집합니다.',
       SKAdNetworkItems: [
@@ -100,6 +110,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         },
       ],
     },
+    entitlements: { 'aps-environment': 'production' },
   },
   android: {
     adaptiveIcon: {
