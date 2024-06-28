@@ -32,7 +32,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   assetBundlePatterns: ['**/*'],
   ios: {
     supportsTablet: false,
-    buildNumber: '1',
+    buildNumber: '2',
     bundleIdentifier:
       process.env.APP_ENV === 'production'
         ? 'com.ifinfo.randomdining'
