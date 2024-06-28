@@ -106,8 +106,11 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       foregroundImage: './assets/adaptive-icon.png',
       backgroundColor: '#ffffff',
     },
-    package: 'com.ifinfo.randomdining',
-    versionCode: 20,
+    package:
+      process.env.APP_ENV === 'production'
+        ? 'com.ifinfo.randomdining'
+        : 'com.ifinfo.randomdining.dev',
+    versionCode: 1,
     permissions: ['com.google.android.gms.permission.AD_ID'],
   },
   web: {
