@@ -10,6 +10,8 @@
     "ios": "expo run:ios",
     "preview:build:ios": "eas build --profile preview --platform ios",
     "preview:build:android": "eas build --profile preview --platform android",
+    "production:build:ios": "eas build --profile production --platform ios",
+    "production:build:android": "eas build --profile production --platform android",
     "production:update:all": "dotenv -e .env -- eas update --profile production --platform all",
     "production:update:android": "dotenv -e .env -- eas update --profile production --platform android",
     "production:update:ios": "dotenv -e .env -- eas update --profile production --platform ios",
