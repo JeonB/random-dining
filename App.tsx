@@ -24,6 +24,8 @@ import {
 } from '@react-navigation/bottom-tabs'
 import { requestTrackingPermissionsAsync } from 'expo-tracking-transparency'
 import mobileAds from 'react-native-google-mobile-ads'
+import { images } from '@_3Rpages/FilterSettings/images'
+import { Image } from 'expo-image'
 ;(Text as any).defaultProps = (Text as any).defaultProps || {}
 ;(Text as any).defaultProps.allowFontScaling = false
 ;(TextInput as any).defaultProps = (TextInput as any).defaultProps || {}
@@ -56,6 +58,14 @@ const App: React.FC = () => {
       setIsLoading(false)
     }, 500)
   }, [trackingDenied])
+
+  useEffect(() => {
+    const imageUrls = Object.values(images)
+    Image.prefetch(imageUrls).catch(error => {
+      console.error('Error preloading images:', error)
+    })
+  }, [])
+
   // isLoading 상태에 따라 앱의 렌더링 제어
   if (isLoading) {
     // 로딩 인디케이터 표시

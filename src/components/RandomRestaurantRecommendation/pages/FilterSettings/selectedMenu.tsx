@@ -34,13 +34,6 @@ export const SelectedMenu = ({
     }
   }, [])
 
-  useEffect(() => {
-    const imageUrls = Object.values(images)
-    Image.prefetch(imageUrls).catch(error => {
-      console.error('Error preloading images:', error)
-    })
-  }, [])
-
   const handleRestaurantViewClick = async () => {
     const restaurantItems = await fetchLocationData(
       menu,
@@ -83,7 +76,7 @@ export const SelectedMenu = ({
         <Image
           source={{ uri: images[menu] }}
           style={styles.image}
-          transition={{ timing: 'ease-in-out' }}
+          transition={{ timing: 'linear' }}
         />
         <Text style={{ fontSize: MyTheme.width * 30 }}>{menu}</Text>
       </View>
