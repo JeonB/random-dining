@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import {
   Dimensions,
   Image,
@@ -13,9 +13,8 @@ import { Text } from '@rneui/themed'
 import { MyTheme } from 'theme'
 import { RootStackParamList, LocationTypes } from '@_types'
 import { useRestaurantContext } from '@_common/context/restaurantContext'
-import { useIsFocused } from '@react-navigation/native'
 import { useStore } from '@_common/utils/zustandStore'
-import Map from '@_common/ui/map'
+import ListMap from '@_userListPages/restaurantInfo/listMap'
 import RandomItemModal from '@_common/ui/randomItemModal'
 import RestaurantDetail from '@_userListPages/restaurantInfo/restaurantDetail'
 import RestaurantActionButtons from '@_userListPages/restaurantInfo/restaurantActionButtons'
@@ -30,21 +29,6 @@ export const SelectedRestaurantInfo = ({
   const [restaurantItems, setRestaurantItems] = useState<LocationTypes[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const listRestaurant = useStore(set => set.listRestaurant)
-  const isFocused = useIsFocused()
-
-  useEffect(() => {
-    if (!isFocused) {
-      navigation.reset({
-        index: 0,
-        routes: [
-          {
-            name: 'UserCustomList',
-            params: { screen: 'UserCustomList' },
-          },
-        ],
-      })
-    }
-  }, [isFocused])
 
   const handleRestaurantChange = useCallback(() => {
     navigation.navigate('UserSelectedRestaurantInfo', {
@@ -104,7 +88,7 @@ export const SelectedRestaurantInfo = ({
     <View style={styles.container}>
       {listRestaurant.x ? (
         <View style={styles.mapContainer}>
-          <Map currentLocation={currentLocation} />
+          <ListMap currentLocation={currentLocation} />
         </View>
       ) : (
         <View style={styles.mediaContainer}>

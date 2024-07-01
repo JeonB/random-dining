@@ -15,8 +15,6 @@ const useRestaurantStore = () => {
   return useStore(state => ({
     restaurant: state.restaurant,
     setRestaurant: state.setRestaurant,
-    listRestaurant: state.listRestaurant,
-    setListRestaurant: state.setListRestaurant,
     selectedLocation: state.selectedLocation,
   }))
 }
@@ -35,13 +33,7 @@ const Map = React.memo(
     const appKey = KAKAO_JAVASCRIPT_KEY
     const isFocused = useIsFocused()
     const navigation = useNavigation<NavigationProp<RestaurantParamList>>()
-    const {
-      restaurant,
-      setRestaurant,
-      listRestaurant,
-      setListRestaurant,
-      selectedLocation,
-    } = useRestaurantStore()
+    const { restaurant, setRestaurant, selectedLocation } = useRestaurantStore()
     const { currentLatitude, currentLongitude } = currentLocation
     const webViewRef = useRef<WebView>(null)
     const [isMapSearch, setIsMapSearch] = useState(true)
@@ -55,15 +47,8 @@ const Map = React.memo(
           x: '',
           y: '',
         })
-        setListRestaurant({
-          place_name: '',
-          address_name: '',
-          phone: '',
-          x: '',
-          y: '',
-        })
       }
-    }, [isFocused, setRestaurant, setListRestaurant])
+    }, [isFocused, setRestaurant])
 
     const onMessage = (event: WebViewMessageEvent) => {
       const data = JSON.parse(event.nativeEvent.data)
@@ -251,17 +236,6 @@ const Map = React.memo(
                   customOverlay.setMap(map);
 
               }
-              else if('${listRestaurant.y}' > 0  && '${restaurant.place_name}' === ''){
-                const markerPosition = new kakao.maps.LatLng('${listRestaurant.y}', '${listRestaurant.x}');
-                const marker = new kakao.maps.Marker({
-                  map: map,
-                  position: markerPosition,
-                  image: markerImage
-                });
-                map.setCenter(markerPosition);
-                document.getElementById('currentPositionButton').style.display = 'none';
-              }
-
             })();
           </script>
         </body>
