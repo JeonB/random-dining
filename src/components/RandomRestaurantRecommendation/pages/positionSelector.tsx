@@ -15,7 +15,7 @@ import { useStore } from '@_common/utils/zustandStore'
 const PositionSelector = () => {
   const navigation = useNavigation<NavigationProp<RestaurantParamList>>()
   const [isMapSearcButtonDisabled, setMapSearchButtonDisabled] = useState(false)
-  const { currentLocation, setCurrentLocation } = useStore()
+  const { setCurrentLocation } = useStore()
   const [isCurrentSearchButtonDisabled, setCurrentSearchButtonDisabled] =
     useState(false)
 

@@ -39,7 +39,9 @@ export const getPositionByGeolocation = async () => {
   }
 
   let location = await Location.getLastKnownPositionAsync({})
-
+  // let location = await Location.getCurrentPositionAsync({
+  //   accuracy: Location.Accuracy.Highest,
+  // })
   if (!location) {
     console.log('마지막으로 알려진 위치가 없습니다. 새로운 위치를 찾습니다.')
     location = await Location.getCurrentPositionAsync({})
