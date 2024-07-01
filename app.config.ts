@@ -10,7 +10,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: process.env.APP_ENV === 'production' ? '랜덤다이닝' : '랜덤다이닝(DEV)',
   slug: 'random-dining',
-  version: '2.0.0',
+  version: '2.0.1',
   extra: {
     storybookEnabled: process.env.STORYBOOK_ENABLED,
     KAKAO_RESTAPI_KEY: process.env.KAKAO_RESTAPI_KEY,
@@ -32,7 +32,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   assetBundlePatterns: ['**/*'],
   ios: {
     supportsTablet: false,
-    buildNumber: '2',
+    buildNumber: '3',
     bundleIdentifier:
       process.env.APP_ENV === 'production'
         ? 'com.ifinfo.randomdining'
@@ -121,7 +121,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       process.env.APP_ENV === 'production'
         ? 'com.ifinfo.randomdining'
         : 'com.ifinfo.randomdining.dev',
-    versionCode: 23,
+    versionCode: 24,
     permissions: [
       'android.permission.ACCESS_FINE_LOCATION',
       'android.permission.ACCESS_COARSE_LOCATION',
@@ -135,7 +135,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   updates: {
     url: 'https://u.expo.dev/a6d7b0a6-43fb-42f0-b832-33ba126e59d8',
   },
-  runtimeVersion: '2.0.0',
+  runtimeVersion: '2.0.1',
   plugins: [
     [
       'expo-tracking-transparency',
