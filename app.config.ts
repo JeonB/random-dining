@@ -121,8 +121,13 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       process.env.APP_ENV === 'production'
         ? 'com.ifinfo.randomdining'
         : 'com.ifinfo.randomdining.dev',
-    versionCode: 1,
-    permissions: ['com.google.android.gms.permission.AD_ID'],
+    versionCode: 23,
+    permissions: [
+      'android.permission.ACCESS_FINE_LOCATION',
+      'android.permission.ACCESS_COARSE_LOCATION',
+      'android.permission.ACCESS_NETWORK_STATE',
+      'com.google.android.gms.permission.AD_ID',
+    ],
   },
   web: {
     favicon: './assets/favicon.png',
@@ -137,6 +142,14 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       {
         userTrackingPermission:
           '개인에게 최적화된 광고를 제공하기 위해 사용자의 광고활동 정보를 수집합니다.',
+      },
+    ],
+    [
+      'expo-build-properties',
+      {
+        android: {
+          usesCleartextTraffic: true,
+        },
       },
     ],
   ],
