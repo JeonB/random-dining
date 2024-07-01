@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Dimensions, StyleSheet, TouchableOpacity, View } from 'react-native'
-import { RestaurantParamList } from '@_types'
+import { LocationTypes, RestaurantParamList } from '@_types'
 import RenderItem from '@_userListPages/searchRestaurantModal/resultList'
 import { AddUserListModal } from '@_userListPages/addUserListModal'
 import { DefaultFlatList } from '@_userListPages/defaultFlatList'
@@ -17,6 +17,7 @@ export const RestaurantViewList = ({
 }) => {
   const restaurantList = route.params?.restaurantItems
   const [modalVisible, setModalVisible] = useState(false)
+  const [selectedItem, setSelectedItem] = useState<LocationTypes>()
   if (!restaurantList) {
     // selectedData가 undefined일 때 처리하는 로직
     throw new Error('데이터가 없습니다!')
@@ -38,16 +39,21 @@ export const RestaurantViewList = ({
               }}>
               <RenderItem
                 item={item}
-                handlePressAddButton={() => setModalVisible(true)}
-              />
-              <AddUserListModal
-                selectedInfo={item}
-                visible={modalVisible}
-                onClose={() => setModalVisible(false)}
+                handlePressAddButton={() => {
+                  setModalVisible(true)
+                  setSelectedItem(item)
+                }} // 선택된 아이템 설정
               />
             </TouchableOpacity>
           )}
         />
+        {selectedItem && (
+          <AddUserListModal
+            selectedInfo={selectedItem}
+            visible={modalVisible}
+            onClose={() => setModalVisible(false)}
+          />
+        )}
       </View>
     </View>
   )
