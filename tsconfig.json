@@ -20,6 +20,5 @@
     "allowSyntheticDefaultImports": true,
     "jsx": "react"
   },
-  "include": ["*", "env.d.ts", "src/types/images.d.ts"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["*", "env.d.ts", "src/types/images.d.ts"]
 }
