@@ -22,7 +22,7 @@ import RandomItemModal from '@_common/ui/randomItemModal'
 import { MyTheme } from 'theme'
 import { useStore } from '@_common/utils/zustandStore'
 import { RestaurantParamList } from '@_types'
-import { fetchRestaurantData } from '@_services/api'
+import { fetchLocationData, fetchRestaurantData } from '@_services/api'
 import { LocationTypes } from '@_types'
 
 interface DataType {
@@ -76,18 +76,68 @@ const FilterSetting = () => {
 
   const handleRestaurantData = useCallback(async () => {
     try {
-      const data = await fetchRestaurantData(
-        selectedCategories,
-        distance,
-        String(selectedLocation.longitude),
-        String(selectedLocation.latitude),
-      )
-      if (isMounted.current && data) {
-        const filteredData = data.filter(
-          (item): item is LocationTypes => item !== undefined,
+      if (selectedCategories.includes('야식')) {
+        let notIncludeMidnightSnackData: LocationTypes[] = []
+        // '야식' 카테고리를 제외한 데이터 가져오기
+        const filteredCategories = selectedCategories.filter(
+          category => category !== '야식',
         )
-        setRestaurantItems(filteredData)
-        setModalVisible(true)
+        if (filteredCategories.length > 0) {
+          const notIncludeMidnightSnackResponse = await fetchRestaurantData(
+            filteredCategories,
+            distance,
+            String(selectedLocation.longitude),
+            String(selectedLocation.latitude),
+          )
+          notIncludeMidnightSnackData =
+            notIncludeMidnightSnackResponse?.filter(
+              (item): item is LocationTypes => item !== undefined,
+            ) || []
+        }
+
+        // '야식' 카테고리 데이터 가져오기
+        const midnightSnack = getSelectedData(['야식'])
+        const snackFetchPromises = midnightSnack.map(snack =>
+          fetchLocationData(
+            snack,
+            String(selectedLocation.longitude),
+            String(selectedLocation.latitude),
+            'FD6',
+            distance,
+            'distance',
+          ),
+        )
+
+        // 모든 '야식' 데이터 요청 완료
+        const snackResults = await Promise.all(snackFetchPromises)
+        const midnightSnackData = snackResults
+          .flat()
+          .filter((item): item is LocationTypes => item !== undefined)
+
+        // 두 데이터 병합
+        const combinedData = [
+          ...notIncludeMidnightSnackData,
+          ...midnightSnackData,
+        ]
+        if (isMounted.current && combinedData) {
+          // 병합된 데이터를 상태로 설정
+          setRestaurantItems(combinedData)
+          setModalVisible(true)
+        }
+      } else {
+        const data = await fetchRestaurantData(
+          selectedCategories,
+          distance,
+          String(selectedLocation.longitude),
+          String(selectedLocation.latitude),
+        )
+        if (isMounted.current && data) {
+          const filteredData = data.filter(
+            (item): item is LocationTypes => item !== undefined,
+          )
+          setRestaurantItems(filteredData)
+          setModalVisible(true)
+        }
       }
     } catch (error) {
       console.error('Error occurred:', error)
