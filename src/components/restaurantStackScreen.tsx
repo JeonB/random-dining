@@ -4,6 +4,7 @@ import PositionSelector from '@_3Rpages/positionSelector'
 import MapSearch from '@_3Rpages/MapSearch/mapSearch'
 import FilterSetting from '@_3Rpages/FilterSettings/filterSetting'
 import SelectedMenu from '@_3Rpages/FilterSettings/selectedMenu'
+import SelectedRestaurantInfo from '@_3Rpages/RestaurantView/selectedRestaurantInfo'
 import { createStackNavigator } from '@react-navigation/stack'
 import { RestaurantParamList } from '@_types'
 import { AntDesign } from '@expo/vector-icons'
@@ -57,6 +58,23 @@ const RestaurantStackScreen = () => {
             ),
           }}
         />
+        <Stack.Screen
+          name="SelectedRestaurantInfo"
+          component={SelectedRestaurantInfo}
+          options={{
+            title: '',
+            headerBackTitleVisible: false,
+            headerBackImage: () => (
+              <AntDesign
+                name="back"
+                size={30}
+                color="midnightblue"
+                style={{ marginLeft: 10 }}
+              />
+            ),
+          }}
+        />
+
         <Stack.Screen
           name="Detail"
           component={DetailView}

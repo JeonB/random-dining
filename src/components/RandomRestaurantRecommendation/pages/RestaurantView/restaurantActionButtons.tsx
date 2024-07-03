@@ -4,23 +4,21 @@ import { Button } from 'react-native-paper'
 import { Text } from '@rneui/themed'
 import { NavigationProp } from '@react-navigation/native'
 import { MyTheme } from 'theme'
-import { RootStackParamList } from '@_types'
-import { useStore } from '@_common/utils/zustandStore'
+import { RestaurantParamList } from '@_types'
 import RandomPickButton from '@_3Rpages/FilterSettings/randomPickButton'
 import { AddUserListModal } from '@_userListPages/addUserListModal'
+import { useStore } from '@_common/utils/zustandStore'
 
 interface Props {
   handleRandomPickClick: () => void
   isLoading: boolean
-  navigation: NavigationProp<RootStackParamList>
-  listName: string
+  navigation: NavigationProp<RestaurantParamList>
 }
 
 const RestaurantActionButtons = ({
   handleRandomPickClick,
   isLoading,
   navigation,
-  listName,
 }: Props) => {
   const randomRestaurant = useStore(state => state.randomRestaurant)
 
@@ -30,30 +28,17 @@ const RestaurantActionButtons = ({
     }
   }
   const [modalVisible, setModalVisible] = useState(false)
-
-  const handleEditButtonClick = () => {
-    navigation.navigate('EditUserList', { listName: listName })
-  }
-
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
-        {randomRestaurant.place_url ? (
-          <Button
-            mode={Platform.OS === 'ios' ? 'contained' : 'elevated'}
-            onPress={handleDetailViewClick}
-            style={[styles.detailButton]}>
-            <Text style={styles.detailButtonText}>식당 상세 정보</Text>
-          </Button>
-        ) : (
-          <Button
-            mode={Platform.OS === 'ios' ? 'contained' : 'elevated'}
-            onPress={handleEditButtonClick}
-            style={[styles.detailButton]}>
-            <Text style={styles.detailButtonText}>리스트 수정</Text>
-          </Button>
-        )}
         <Button
+          mode={Platform.OS === 'ios' ? 'contained' : 'elevated'}
+          onPress={handleDetailViewClick}
+          style={styles.detailButton}>
+          <Text style={styles.detailButtonText}>식당 상세 정보</Text>
+        </Button>
+        <Button
+          mode={Platform.OS === 'ios' ? 'contained' : 'elevated'}
           onPress={() => setModalVisible(true)}
           style={styles.detailButton}>
           <Text style={styles.detailButtonText}>리스트 추가</Text>

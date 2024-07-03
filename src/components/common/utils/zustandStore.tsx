@@ -31,8 +31,8 @@ interface State {
   setMenu: (menu: string) => void
   distance: number
   setDistance: (distance: number) => void
-  listRestaurant: LocationTypes
-  setListRestaurant: (listRestaurant: LocationTypes | undefined) => void
+  randomRestaurant: LocationTypes
+  setRandomRestaurant: (randomRestaurant: LocationTypes | undefined) => void
 }
 
 export const useStore = create<State>()(set => ({
@@ -60,6 +60,12 @@ export const useStore = create<State>()(set => ({
   setMenu: menu => set({ menu }),
   distance: 500,
   setDistance: distance => set({ distance }),
-  listRestaurant: { place_name: '', address_name: '', phone: '', x: '', y: '' },
-  setListRestaurant: listRestaurant => set({ listRestaurant }),
+  randomRestaurant: {
+    place_name: '',
+    address_name: '',
+    phone: '',
+    x: '',
+    y: '',
+  },
+  setRandomRestaurant: randomRestaurant => set({ randomRestaurant }),
 }))

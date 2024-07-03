@@ -14,7 +14,7 @@ import { MyTheme } from 'theme'
 import { RootStackParamList, LocationTypes } from '@_types'
 import { useRestaurantContext } from '@_common/context/restaurantContext'
 import { useStore } from '@_common/utils/zustandStore'
-import ListMap from '@_userListPages/restaurantInfo/listMap'
+import RandomRestaurantMap from '@_common/ui/randomRestaurantMap'
 import RandomItemModal from '@_common/ui/randomItemModal'
 import RestaurantDetail from '@_userListPages/restaurantInfo/restaurantDetail'
 import RestaurantActionButtons from '@_userListPages/restaurantInfo/restaurantActionButtons'
@@ -28,7 +28,7 @@ export const SelectedRestaurantInfo = ({
   const [modalVisible, setModalVisible] = useState(false)
   const [restaurantItems, setRestaurantItems] = useState<LocationTypes[]>([])
   const [isLoading, setIsLoading] = useState(false)
-  const listRestaurant = useStore(set => set.listRestaurant)
+  const randomRestaurant = useStore(set => set.randomRestaurant)
 
   const handleRestaurantChange = useCallback(() => {
     navigation.navigate('UserSelectedRestaurantInfo', {
@@ -55,8 +55,8 @@ export const SelectedRestaurantInfo = ({
 
   const Content = (
     <View onLayout={onLayout} style={{ width: Dimensions.get('window').width }}>
-      {listRestaurant.place_url ? (
-        <RestaurantDetail info={listRestaurant} />
+      {randomRestaurant.place_url ? (
+        <RestaurantDetail />
       ) : (
         <View style={styles.infoView}>
           <Text
@@ -71,7 +71,7 @@ export const SelectedRestaurantInfo = ({
             }}
             numberOfLines={1}
             ellipsizeMode="tail">
-            {listRestaurant.place_name}
+            {randomRestaurant.place_name}
           </Text>
         </View>
       )}
@@ -86,9 +86,9 @@ export const SelectedRestaurantInfo = ({
 
   return (
     <View style={styles.container}>
-      {listRestaurant.x ? (
+      {randomRestaurant.x ? (
         <View style={styles.mapContainer}>
-          <ListMap currentLocation={currentLocation} />
+          <RandomRestaurantMap currentLocation={currentLocation} />
         </View>
       ) : (
         <View style={styles.mediaContainer}>

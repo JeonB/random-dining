@@ -17,7 +17,7 @@ const RandomItemModal = ({
   onClose,
   onItemChange,
   items,
-  isRestaurantSelection = false,
+  isRestaurantSelection,
 }: RandomPickerModalProps) => {
   return (
     <Modal style={styles.modal} visible={visible} onRequestClose={onClose}>

@@ -25,7 +25,7 @@ export const AnimatedRandomSelector = (props: Props) => {
   } = props
   const scrollY = useRef(new Animated.Value(0)).current
   const requiredItemsCount = 30
-  const { setMenu, setListRestaurant } = useStore()
+  const { setMenu, setRandomRestaurant } = useStore()
   const shuffleItems = useCallback((items: string[] | LocationTypes[]) => {
     for (let i = items.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1))
@@ -59,9 +59,9 @@ export const AnimatedRandomSelector = (props: Props) => {
       const finalIndex =
         Math.round(-(scrollY as any)._value / itemHeight) % items.length
       isRestaurantSelection
-        ? setListRestaurant((items as LocationTypes[])[finalIndex])
+        ? setRandomRestaurant((items as LocationTypes[])[finalIndex])
         : setMenu((items as string[])[finalIndex])
-      // setMenu(items[finalIndex])
+
       onItemChange()
       closeModal()
     })

@@ -5,13 +5,7 @@ import Constants from 'expo-constants'
 import { AppConfig } from 'app.config'
 import { useStore } from '@_common/utils/zustandStore'
 
-const useRestaurantStore = () => {
-  return useStore(state => ({
-    listRestaurant: state.listRestaurant,
-  }))
-}
-
-const ListMap = React.memo(
+const RandomRestaurantMap = React.memo(
   ({
     currentLocation,
   }: {
@@ -19,7 +13,8 @@ const ListMap = React.memo(
   }) => {
     const { KAKAO_JAVASCRIPT_KEY } = Constants.expoConfig?.extra as AppConfig
     const appKey = KAKAO_JAVASCRIPT_KEY
-    const { listRestaurant } = useRestaurantStore()
+    const randomRestaurant = useStore(state => state.randomRestaurant)
+
     const { currentLatitude, currentLongitude } = currentLocation
     const webViewRef = useRef<WebView>(null)
     const [html, setHtml] = useState('')
@@ -62,7 +57,8 @@ const ListMap = React.memo(
               const imageSize = new kakao.maps.Size(30, 30);
               const imgOptions = { offset: new kakao.maps.Point(13, 37) };
               const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions);
-              const markerPosition = new kakao.maps.LatLng('${listRestaurant.y}', '${listRestaurant.x}');
+              markerPosition = new kakao.maps.LatLng(${randomRestaurant.y}, ${randomRestaurant.x});
+           
               const marker = new kakao.maps.Marker({
                 map: map,
                 position: markerPosition,
@@ -77,7 +73,7 @@ const ListMap = React.memo(
     `
       }
       setHtml(generateHTML())
-    }, [listRestaurant, currentLatitude, currentLongitude])
+    }, [randomRestaurant, currentLatitude, currentLongitude])
 
     return (
       <SafeAreaView style={styles.container}>
@@ -103,5 +99,5 @@ const styles = StyleSheet.create({
   },
 })
 
-ListMap.displayName = 'ListMap'
-export default ListMap
+RandomRestaurantMap.displayName = 'RandomRestaurantMap'
+export default RandomRestaurantMap

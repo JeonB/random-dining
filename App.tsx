@@ -120,6 +120,14 @@ const App: React.FC = () => {
           <Tab.Screen
             name="UserCustomListTab"
             component={UserCustomListStack}
+            listeners={({ navigation }) => ({
+              tabPress: e => {
+                e.preventDefault()
+                navigation.navigate('UserCustomListTab', {
+                  screen: 'UserCustomList',
+                })
+              },
+            })}
             options={{
               headerShown: false,
               title: '사용자 리스트',
