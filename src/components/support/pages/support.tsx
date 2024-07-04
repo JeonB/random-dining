@@ -31,7 +31,7 @@ export const Support = () => {
             />
             <View style={{ marginLeft: 20 }}>
               <Text style={styles.text}>Email</Text>
-              <Text style={styles.textContent}>ifinfo2@ifinfo.co.kr</Text>
+              <Text style={styles.textContent}>sojeon@ifinfo.co.kr</Text>
             </View>
           </View>
         </View>
