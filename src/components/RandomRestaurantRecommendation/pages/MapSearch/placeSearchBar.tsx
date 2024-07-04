@@ -3,6 +3,7 @@ import { SearchBar } from '@rneui/themed'
 import { View, StyleSheet } from 'react-native'
 import { fetchLocationData } from '@_services/api'
 import { LocationTypes } from '@_types'
+import { MyTheme } from 'theme'
 
 const PlaceSearchBar = ({
   setAddressData,
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 3,
     },
     shadowOpacity: 0.25,
     shadowRadius: 10.84,
@@ -76,7 +77,8 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     backgroundColor: 'white',
-    height: '80%',
+    height: '70%',
+    marginBottom: MyTheme.width * 3,
   },
   input: {
     color: 'black',

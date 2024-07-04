@@ -99,41 +99,45 @@ export async function fetchLocationData(
   radius?: number,
   sort?: string,
 ) {
-  const allData: LocationTypes[] = []
-  let page = 1
-  let url = ''
-  while (page < 4) {
-    const queryParams: QueryParamsType = {
-      query,
-      x,
-      y,
-      category_group_code,
-      radius,
-      size: 15,
-      page,
-      sort,
-    }
-    const queryString = createQueryString(queryParams)
-    url = `${baseUrl}?${queryString}`
+  try {
+    const allData: LocationTypes[] = []
+    let page = 1
+    let url = ''
+    while (page < 4) {
+      const queryParams: QueryParamsType = {
+        query,
+        x,
+        y,
+        category_group_code,
+        radius,
+        size: 15,
+        page,
+        sort,
+      }
+      const queryString = createQueryString(queryParams)
+      url = `${baseUrl}?${queryString}`
 
-    // 캐시 확인
-    if (locationDataCache[url]) {
-      return locationDataCache[url]
-    }
+      // 캐시 확인
+      if (locationDataCache[url]) {
+        return locationDataCache[url]
+      }
 
-    const data = await fetchData(url)
-    if (data === null) {
-      return null
+      const data = await fetchData(url)
+      if (data === null) {
+        return null
+      }
+      allData.push(...data.documents)
+      if (data.meta.is_end) {
+        break
+      }
+      page++
     }
-    allData.push(...data.documents)
-    if (data.meta.is_end) {
-      break
-    }
-    page++
+    locationDataCache[url] = allData
+    return allData
+  } catch (error) {
+    console.error('에러 발생:', error)
+    return null
   }
-
-  locationDataCache[url] = allData
-  return allData
 }
 
 export const fetchRestaurantData = async (

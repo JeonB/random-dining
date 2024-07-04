@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import {
+  Alert,
   Dimensions,
   Platform,
   ScrollView,
@@ -89,6 +90,12 @@ const FilterSetting = () => {
             String(selectedLocation.longitude),
             String(selectedLocation.latitude),
           )
+          if (
+            !notIncludeMidnightSnackResponse ||
+            notIncludeMidnightSnackResponse.length === 0
+          ) {
+            return
+          }
           notIncludeMidnightSnackData =
             notIncludeMidnightSnackResponse?.filter(
               (item): item is LocationTypes => item !== undefined,
@@ -113,6 +120,13 @@ const FilterSetting = () => {
         const midnightSnackData = snackResults
           .flat()
           .filter((item): item is LocationTypes => item !== undefined)
+
+        if (midnightSnackData.length === 0) {
+          Alert.alert(
+            '주변에 식당이 없습니다. 거리 범위 또는 카테고리를 조정해주세요.',
+          )
+          return
+        }
 
         // 두 데이터 병합
         const combinedData = [
