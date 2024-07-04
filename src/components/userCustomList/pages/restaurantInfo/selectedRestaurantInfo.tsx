@@ -16,7 +16,7 @@ import { useRestaurantContext } from '@_common/context/restaurantContext'
 import { useStore } from '@_common/utils/zustandStore'
 import RandomRestaurantMap from '@_common/ui/randomRestaurantMap'
 import RandomItemModal from '@_common/ui/randomItemModal'
-import RestaurantDetail from '@_userListPages/restaurantInfo/restaurantDetail'
+import RestaurantDetail from '@_common/ui/restaurantDetail'
 import RestaurantActionButtons from '@_userListPages/restaurantInfo/restaurantActionButtons'
 
 export const SelectedRestaurantInfo = ({

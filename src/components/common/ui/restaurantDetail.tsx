@@ -1,24 +1,23 @@
 import React from 'react'
-import { LocationTypes } from '@_types'
 import { DataTable, Icon } from 'react-native-paper'
 import { Image, Linking, StyleSheet, View } from 'react-native'
 import { Text } from '@rneui/themed'
-import mainImage from '@_assetImages/main.png'
 import koreanFood from '@_assetImages/korean.png'
 import japaneseFood from '@_assetImages/japanese.jpeg'
 import chineseFood from '@_assetImages/chinese.png'
 import westernFood from '@_assetImages/western.jpeg'
 import dduck from '@_assetImages/dduck.png'
 import asianFood from '@_assetImages/asian.png'
+import midnightSnack from '@_assetImages/midnightSnack.png'
 import { MyTheme } from 'theme'
 import { useStore } from '@_common/utils/zustandStore'
 
 const RestaurantDetail = () => {
-  const randomRestaurant = useStore(set => set.randomRestaurant)
+  const randomRestaurant = useStore(state => state.randomRestaurant)
 
   function extractMainCategory(categoryName: string) {
     const splitCategory = categoryName.split(' > ')
-    return splitCategory[1] // 1번 인덱스 요소는 주요 카테고리 이름
+    return splitCategory[1]
   }
 
   function getCategoryImage(categoryName: string) {
@@ -37,7 +36,7 @@ const RestaurantDetail = () => {
       case '아시아음식':
         return asianFood
       default:
-        return mainImage
+        return midnightSnack
     }
   }
 
@@ -59,7 +58,7 @@ const RestaurantDetail = () => {
       />
       {/* fetch한 데이터에서 '음식점 > ' 부분 제거 */}
       <Text style={styles.categoryNameLabel}>
-        {(randomRestaurant.category_name || '') !== ''
+        {(randomRestaurant?.category_name || '') !== ''
           ? randomRestaurant.category_name?.slice(5)
           : ''}
       </Text>

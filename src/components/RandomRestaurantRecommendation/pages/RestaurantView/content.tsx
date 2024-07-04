@@ -3,7 +3,7 @@ import { Dimensions, LayoutChangeEvent, View } from 'react-native'
 import { RestaurantParamList } from '@_types'
 import { StackNavigationProp } from '@react-navigation/stack'
 import RestaurantActionButtons from '@_3Rpages/RestaurantView/restaurantActionButtons'
-import RestaurantDetail from '@_3Rpages/RestaurantView/restaurantDetail'
+import RestaurantDetail from '@_common/ui/restaurantDetail'
 
 interface Props {
   onLayout: (event: LayoutChangeEvent) => void
