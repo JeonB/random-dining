@@ -1,10 +1,10 @@
 FROM node:alpine AS mobile-app
 
 # 작업 디렉토리 설정
-WORKDIR /app
+WORKDIR /
 
 # package.json 복사하여 종속성 설치
-COPY ./apps/mobile-app/package.json ./
+COPY ./package.json ./
 
 # 종속성 설치
 RUN npm install
@@ -16,4 +16,4 @@ COPY . .
 EXPOSE 8081
 
 # 애플리케이션 시작 명령어
-CMD cd apps/mobile-app && npm start
+CMD npm start

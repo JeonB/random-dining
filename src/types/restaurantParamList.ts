@@ -1,5 +1,5 @@
 import { StoryFn } from '@storybook/react'
-import { LocationTypes } from './restaurant'
+import { LocationTypes } from './location'
 
 export interface RestaurantParamList {
   Detail: { url: string } | undefined

@@ -1,5 +1,5 @@
 import { DefaultTheme } from '@react-navigation/native'
-import { Dimensions, PixelRatio } from 'react-native'
+import { Dimensions } from 'react-native'
 // 메인 테마 설정
 const REFERENCE_WIDTH = 365
 export const MyTheme = {

@@ -1,6 +1,6 @@
 import { Button } from 'react-native-paper'
-import React, { useCallback, useEffect, useState } from 'react'
-import { Image, StyleSheet, View, Platform, Linking, Alert } from 'react-native'
+import React, { useCallback, useState } from 'react'
+import { Image, StyleSheet, View, Platform } from 'react-native'
 import {
   NavigationProp,
   useFocusEffect,
@@ -64,13 +64,6 @@ const PositionSelector = () => {
       setMapSearchButtonDisabled(false)
     }
   }
-
-  useEffect(() => {
-    const fetchPosition = async () => {
-      await getPositionByGeolocation()
-    }
-    fetchPosition()
-  }, [])
 
   useFocusEffect(
     useCallback(() => {

@@ -1,4 +1,4 @@
-import { LocationTypes } from './restaurant'
+import { LocationTypes } from './location'
 
 export interface RootStackParamList {
   Detail: { url: string } | undefined

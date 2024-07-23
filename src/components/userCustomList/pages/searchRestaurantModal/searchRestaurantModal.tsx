@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 import { Button } from 'react-native-paper'
 import { MyTheme } from 'theme'
-import { handleData } from '@_services/searchRestaurantApi'
+import { fetchLocationData, getPositionByGeolocation } from '@_services/api'
 import { LocationTypes } from '@_types'
 import { DefaultFlatList } from '@_userListPages/defaultFlatList'
 import { ChangeSortButton } from '@_userListPages/searchRestaurantModal/changeSortButton'
@@ -41,8 +41,16 @@ const SearchRestaurantModal = ({
     const fetchData = async () => {
       try {
         setLoading(true)
-        const data = await handleData(searchTerm, sort)
-        data && setDataList(data)
+        const { longitude, latitude } = await getPositionByGeolocation()
+        const data = await fetchLocationData(
+          searchTerm,
+          String(longitude),
+          String(latitude),
+          'FD6',
+          undefined,
+          sort,
+        )
+        if (data) setDataList(data)
       } catch (error) {
         console.error('Error occurred:', error)
       } finally {

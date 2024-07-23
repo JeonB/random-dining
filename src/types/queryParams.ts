@@ -9,11 +9,3 @@ export interface QueryParamsType {
   sort?: string
   [key: string]: string | number | undefined
 }
-
-export interface RestaurantSearchQueryParamsType {
-  query: string
-  category_group_code: string
-  size: number
-  page: number
-  [key: string]: string | number
-}
